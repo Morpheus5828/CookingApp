@@ -1,5 +1,7 @@
 package app.foodapp.controller.apiHttpRequest;
 
+import app.foodapp.model.DataManipulation.DataExtraction;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -7,7 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ApiDataRequest {
-    private final String apiKeyValue = "dfe74a73708e4afe81611ce3c399fc31";
+    private final String apiKeyValue = "d1ae0a965e2b4588b474f670ef3ca9ab";
     private final String ingredient;
     private final int REQUEST_SUCCESSFUL = 200;
     private int statusCode;
@@ -36,7 +38,8 @@ public class ApiDataRequest {
             statusCode = response.statusCode();
 
             if(response.statusCode() == REQUEST_SUCCESSFUL)
-                System.out.println(response.body());
+                //We can begin data extraction
+                new DataExtraction(response.body());
 
             else
                 System.out.println("problem");
@@ -47,19 +50,6 @@ public class ApiDataRequest {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-// https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar&number=2&apiKey=dfe74a73708e4afe81611ce3c399fc31
-
-
 }
 
 
