@@ -1,4 +1,4 @@
-package app.foodapp;
+package app.foodapp.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
