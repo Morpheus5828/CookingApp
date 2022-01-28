@@ -14,6 +14,7 @@ public class ApiDataRequestTest {
         String ingredientExample = "apples,+sugar&number=2";
         ApiDataRequest request = new ApiDataRequest(ingredientExample);
         int statusCode = request.getStatusCode();
+        // ths test can fail if user does more 100 request during 24h
         assertEquals(statusCode, 200);
 
     }
