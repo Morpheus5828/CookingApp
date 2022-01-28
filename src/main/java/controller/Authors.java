@@ -1,4 +1,4 @@
-package app.foodapp.model;
+package controller;
 
 import java.util.ArrayList;
 import java.util.List;

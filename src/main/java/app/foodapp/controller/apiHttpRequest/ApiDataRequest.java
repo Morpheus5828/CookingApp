@@ -1,6 +1,6 @@
 package app.foodapp.controller.apiHttpRequest;
 
-import app.foodapp.model.DataManipulation.DataExtraction;
+import controller.DataManipulation.DataExtraction;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,6 +13,7 @@ public class ApiDataRequest {
     private final String ingredient;
     private final int REQUEST_SUCCESSFUL = 200;
     private int statusCode;
+    private String response;
 
 
     public ApiDataRequest(String ingredient) {
@@ -27,11 +28,11 @@ public class ApiDataRequest {
             + this.apiKeyValue
         )).build();
 
-        testForDataExtraction(client, request);
+        checkForDataExtraction(client, request);
 
     }
 
-    private void testForDataExtraction(HttpClient client, HttpRequest request) {
+    private void checkForDataExtraction(HttpClient client, HttpRequest request) {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -49,6 +50,10 @@ public class ApiDataRequest {
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getStatusCode() {
+        return this.statusCode;
     }
 }
 
