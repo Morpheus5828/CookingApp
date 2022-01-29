@@ -2,6 +2,7 @@ package app.foodapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 public class Favorite {
@@ -20,4 +21,10 @@ public class Favorite {
         return favorites.contains(recipe);
     }
 
+    public void removeFromFavorite(RecipeTmp recipe) throws NoSuchElementException {
+        if(!isFavorite(recipe))
+            throw new NoSuchElementException("Not in favorites list");
+        else
+            favorites.remove(recipe);
+    }
 }
