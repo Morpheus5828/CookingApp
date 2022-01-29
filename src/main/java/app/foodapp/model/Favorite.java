@@ -27,4 +27,9 @@ public class Favorite {
         else
             favorites.remove(recipe);
     }
+
+    public List<RecipeTmp> getFavorites(){
+        return favorites;
+    }
+
 }
