@@ -32,4 +32,12 @@ public class Favorite {
         return favorites;
     }
 
+    public RecipeTmp getFavorite(int index) throws ArrayIndexOutOfBoundsException{
+        if(index < 0)
+            throw new ArrayIndexOutOfBoundsException("Index can't be under 0");
+        else if(index > favorites.size()-1)
+            throw new ArrayIndexOutOfBoundsException("Index not in list size");
+        else
+            return favorites.get(index);
+    }
 }
