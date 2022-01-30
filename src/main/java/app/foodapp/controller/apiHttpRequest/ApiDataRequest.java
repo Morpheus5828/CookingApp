@@ -1,6 +1,6 @@
 package app.foodapp.controller.apiHttpRequest;
 
-import controller.DataManipulation.DataExtraction;
+import app.foodapp.model.DataManipulation.DataExtraction;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,26 +9,28 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ApiDataRequest {
-    private final String apiKeyValue = "d1ae0a965e2b4588b474f670ef3ca9ab";
-    private final String ingredient;
+    private final String API_KEY = "dfe74a73708e4afe81611ce3c399fc31";
+    private final String recipeId;
     private final int REQUEST_SUCCESSFUL = 200;
     private int statusCode;
-    private String response;
 
-
-    public ApiDataRequest(String ingredient) {
-        this.ingredient = ingredient;
+    public ApiDataRequest(String recipeId) {
+        this.recipeId = recipeId;
 
         HttpClient client = HttpClient.newHttpClient();
 
-        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder().uri(URI.create(
-             "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
-            + this.ingredient
-            + "&apiKey="
-            + this.apiKeyValue
+        // We launch data request to receive recipe information
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(
+             "https://api.spoonacular.com/recipes/"
+             + this.recipeId
+             + "/information?includeNutrition=false"
+             + "&apiKey="
+            + this.API_KEY
         )).build();
 
+
         checkForDataExtraction(client, request);
+
 
     }
 
@@ -50,10 +52,6 @@ public class ApiDataRequest {
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public int getStatusCode() {
-        return this.statusCode;
     }
 }
 
