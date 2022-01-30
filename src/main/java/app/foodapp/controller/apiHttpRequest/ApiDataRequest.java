@@ -1,6 +1,6 @@
 package app.foodapp.controller.apiHttpRequest;
 
-import app.foodapp.model.DataManipulation.DataExtraction;
+import app.foodapp.model.DataManipulation.DataExtraction.RecipeInformation;
 
 import java.io.IOException;
 import java.net.URI;
@@ -42,7 +42,7 @@ public class ApiDataRequest {
 
             if(response.statusCode() == REQUEST_SUCCESSFUL)
                 //We can begin data extraction
-                new DataExtraction(response.body());
+                new RecipeInformation(response.body());
 
             else
                 System.out.println("problem");
