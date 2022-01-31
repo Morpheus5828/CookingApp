@@ -1,11 +1,11 @@
 package app.foodapp.model;
 
 public class Recipe {
-    private int id;
-    private String image;
-    private String title;
-    private int servings;
-    private int cookingTime;
+    private final int id;
+    private final String image;
+    private final String title;
+    private final int servings;
+    private final int cookingTime;
 
     public Recipe (final int id, final String image, final String title, final int servings, final int cookingTime) {
         this.id = id;
@@ -13,5 +13,25 @@ public class Recipe {
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public int getServings() {
+        return this.servings;
+    }
+
+    public int getCookingTime() {
+        return this.cookingTime;
     }
 }
