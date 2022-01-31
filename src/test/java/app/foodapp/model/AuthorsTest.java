@@ -1,4 +1,4 @@
-package app.appmeteo.model;
+package app.foodapp.model;
 
 import org.junit.jupiter.api.Test;
 
