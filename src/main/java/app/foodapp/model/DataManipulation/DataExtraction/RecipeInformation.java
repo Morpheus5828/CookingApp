@@ -37,8 +37,8 @@ public class RecipeInformation {
         JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
         for(int index = 0; index < jsonArray.length(); index++) {
-            JSONObject jj = jsonArray.getJSONObject(index);
-            Map mapDeTest = gsonInstance.fromJson(String.valueOf(jj), Map.class);
+            JSONObject jsonObject = jsonArray.getJSONObject(index);
+            Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
             this.ingredientName = mapDeTest.get("name").toString();
             this.originalName = mapDeTest.get("originalName").toString();
             this.unitValue = (double) mapDeTest.get("unit");
