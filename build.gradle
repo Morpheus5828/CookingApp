@@ -36,7 +36,6 @@ repositories {
 }
 
 dependencies {
-    
 
     implementation 'org.kordamp.ikonli:ikonli-javafx:11.1.0'
     implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:11.1.0'
@@ -46,7 +45,10 @@ dependencies {
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.0"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.4.0"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    implementation group: 'org.json', name: 'json', version: '20180813'
 
+    implementation 'com.google.code.gson:gson:2.8.8'
     testImplementation "org.testfx:testfx-junit5:4.0.15-alpha"
     testRuntimeOnly "org.testfx:openjfx-monocle:jdk-11+26"
 }
@@ -71,3 +73,4 @@ javadoc {
         links 'https://docs.oracle.com/en/java/javase/11/docs/api/'
     }
 }
+
