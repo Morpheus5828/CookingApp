@@ -9,4 +9,8 @@ public enum MeasureSystem {
     private MeasureSystem (int index) {
         this.index = index;
     }
+
+    public void setMeasureSystem (MeasureSystem system) {
+
+    }
 }
