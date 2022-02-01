@@ -9,7 +9,7 @@ public class Recipe {
     private final int servings;
     private final int cookingTime;
 
-    public Recipe(final int id, final String image, final String title, final int servings, final int cookingTime) {
+    public Recipe (final int id, final String image, final String title, final int servings, final int cookingTime) {
         this.id = id;
         this.image = image;
         this.title = title;
