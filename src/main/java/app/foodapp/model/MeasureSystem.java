@@ -12,7 +12,7 @@ public enum MeasureSystem {
     /*
     This function returns the current measure system.
      */
-    public static MeasureSystem getMeasureSystem() throws FileNotFoundException, IOException {
+    public static MeasureSystem getMeasureSystem() throws IOException {
         FileReader fileReader = new FileReader("preferences/MeasureSystem.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String content = bufferedReader.readLine();

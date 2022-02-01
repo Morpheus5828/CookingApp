@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MeasureSystemTest {
 
     @Test
-    public void testSetMeasureSystem() throws IOException, FileNotFoundException {
+    public void testSetMeasureSystem() throws IOException {
         MeasureSystem currentMeasureSystem = MeasureSystem.getMeasureSystem();
 
         MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
