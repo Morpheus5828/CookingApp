@@ -1,6 +1,7 @@
 package app.foodapp.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Recipe {
     private final int id;
@@ -9,7 +10,7 @@ public class Recipe {
     private final int servings;
     private final int cookingTime;
 
-    public Recipe (final int id, final String image, final String title, final int servings, final int cookingTime) {
+    public Recipe(final int id, final String image, final String title, final int servings, final int cookingTime) {
         this.id = id;
         this.image = image;
         this.title = title;
@@ -47,5 +48,16 @@ public class Recipe {
 
     public float getScore() {
         return 0;
+    }
+
+    public Recipe convertStringIntoRecipe(String recipeString){
+        if(recipeString == this.toString())
+                return this;
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return this + "";
     }
 }
