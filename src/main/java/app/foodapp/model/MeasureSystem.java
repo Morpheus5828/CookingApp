@@ -13,7 +13,7 @@ public enum MeasureSystem {
     This function returns the current measure system.
      */
     public static MeasureSystem getMeasureSystem() throws IOException {
-        FileReader fileReader = new FileReader("preferences/MeasureSystem.txt");
+        FileReader fileReader = new FileReader("save/MeasureSystem.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String content = bufferedReader.readLine();
         bufferedReader.close();
@@ -28,7 +28,7 @@ public enum MeasureSystem {
     This function set the measure system of the ingredient. The system is saved in a file.
      */
     public static void setMeasureSystem (MeasureSystem measureSystem) throws IOException {
-        FileWriter fileWriter = new FileWriter("preferences/MeasureSystem.txt");
+        FileWriter fileWriter = new FileWriter("save/MeasureSystem.txt");
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         switch (measureSystem) {
             case US:
