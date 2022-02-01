@@ -1,4 +1,4 @@
 package app.foodapp.model;
 
-public class RecipeTmp {
+public class Recipe {
 }

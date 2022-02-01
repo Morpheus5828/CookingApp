@@ -6,33 +6,33 @@ import java.util.NoSuchElementException;
 
 
 public class Favorite {
-    private List<RecipeTmp> favorites;
+    private List<Recipe> favorites;
 
     public Favorite(){
         favorites = new ArrayList();
     }
 
-    public void addToFavorite(RecipeTmp recipe){
+    public void addToFavorite(Recipe recipe){
         if(!isFavorite(recipe))
             favorites.add(recipe);
     }
 
-    private boolean isFavorite(RecipeTmp recipe){
+    private boolean isFavorite(Recipe recipe){
         return favorites.contains(recipe);
     }
 
-    public void removeFromFavorite(RecipeTmp recipe) throws NoSuchElementException {
+    public void removeFromFavorite(Recipe recipe) throws NoSuchElementException {
         if(!isFavorite(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             favorites.remove(recipe);
     }
 
-    public List<RecipeTmp> getFavorites(){
+    public List<Recipe> getFavorites(){
         return favorites;
     }
 
-    public RecipeTmp getFavorite(int index) throws ArrayIndexOutOfBoundsException{
+    public Recipe getFavorite(int index) throws ArrayIndexOutOfBoundsException{
         if(index < 0)
             throw new ArrayIndexOutOfBoundsException("Index can't be under 0");
         else if(index > favorites.size()-1)
