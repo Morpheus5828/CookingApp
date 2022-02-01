@@ -1,11 +1,9 @@
 package app.foodapp.model;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 
 public class Favorite {
@@ -13,6 +11,9 @@ public class Favorite {
 
     public Favorite(){
         favorites = new ArrayList();
+    }
+
+    public Favorite(File saveFile){
     }
 
     public void addToFavorite(Recipe recipe) throws IOException {
@@ -54,4 +55,11 @@ public class Favorite {
         fileWriter.close();
     }
 
+    private List<Recipe> readSavedFavorites(File file) throws IOException {
+        List<Recipe> extractedSavedFavorites = new ArrayList<>();
+        String savedFavoritesString = String.valueOf(Files.readString(Paths.get("save/user_favorite_save.txt")));
+        //List<Recipe> list = new ArrayList<Recipe>(String.as);
+
+        return extractedSavedFavorites;
+    }
 }
