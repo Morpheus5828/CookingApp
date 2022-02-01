@@ -1,5 +1,8 @@
 package app.foodapp.model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,20 +15,22 @@ public class Favorite {
         favorites = new ArrayList();
     }
 
-    public void addToFavorite(Recipe recipe){
+    public void addToFavorite(Recipe recipe) throws IOException {
         if(!isFavorite(recipe))
             favorites.add(recipe);
+            saveFavorites();
     }
 
     private boolean isFavorite(Recipe recipe){
         return favorites.contains(recipe);
     }
 
-    public void removeFromFavorite(Recipe recipe) throws NoSuchElementException {
+    public void removeFromFavorite(Recipe recipe) throws NoSuchElementException, IOException {
         if(!isFavorite(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             favorites.remove(recipe);
+            saveFavorites();
     }
 
     public List<Recipe> getFavorites(){
@@ -40,4 +45,13 @@ public class Favorite {
         else
             return favorites.get(index);
     }
+
+    public void saveFavorites() throws IOException {
+        File userFavoritesSave = new File("save/user_favorite_save.txt");
+        FileWriter fileWriter = new FileWriter(userFavoritesSave);
+        fileWriter.write(favorites.toString());
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
 }
