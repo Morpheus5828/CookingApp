@@ -50,14 +50,4 @@ public class Recipe {
         return 0;
     }
 
-    public Recipe convertStringIntoRecipe(String recipeString){
-        if(recipeString == this.toString())
-                return this;
-        return null;
-    }
-
-    @Override
-    public String toString() {
-        return this + "";
-    }
 }
