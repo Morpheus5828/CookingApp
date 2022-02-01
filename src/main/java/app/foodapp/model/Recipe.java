@@ -14,4 +14,24 @@ public class Recipe {
         this.servings = servings;
         this.cookingTime = cookingTime;
     }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public int getServings() {
+        return this.servings;
+    }
+
+    public int getCookingTime() {
+        return this.cookingTime;
+    }
 }
