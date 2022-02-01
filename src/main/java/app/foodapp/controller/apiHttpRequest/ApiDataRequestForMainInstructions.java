@@ -44,6 +44,10 @@ public class ApiDataRequestForMainInstructions extends ApiDataRequest{
             e.printStackTrace();
         }
     }
+
+    public int getStatusCode() {
+        return this.statusCode;
+    }
 }
 
 
