@@ -1,5 +1,7 @@
 package app.foodapp.model;
 
+import java.util.ArrayList;
+
 public class Recipe {
     private final int id;
     private final String image;
@@ -33,5 +35,17 @@ public class Recipe {
 
     public int getCookingTime() {
         return this.cookingTime;
+    }
+
+    public ArrayList<String> getSteps() {
+        return new ArrayList<>();
+    }
+
+    public ArrayList<String> getIngredientsList() {
+        return new ArrayList<>();
+    }
+
+    public float getScore() {
+        return 0;
     }
 }
