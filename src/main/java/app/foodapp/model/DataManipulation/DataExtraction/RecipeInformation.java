@@ -1,5 +1,6 @@
 package app.foodapp.model.DataManipulation.DataExtraction;
 
+import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,11 +23,12 @@ public class RecipeInformation {
     private Map jsonFile;
 
 
-    public RecipeInformation(String dataIngredientText) {
+    public RecipeInformation(String id) {
+        MainInstructionsRequest request = new MainInstructionsRequest(id);
         try {
             // Conversion: JSONObject to Map
             gsonInstance = new Gson();
-            this.jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
+            this.jsonFile = gsonInstance.fromJson(request.getResponseFromApi(), Map.class);
 
             this.title = jsonFile.get("title").toString();
             //Image image = new Image(jsonFile.get("image").toString());

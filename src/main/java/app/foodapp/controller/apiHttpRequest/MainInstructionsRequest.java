@@ -1,16 +1,15 @@
 package app.foodapp.controller.apiHttpRequest;
 
-import app.foodapp.model.DataManipulation.DataExtraction.RecipeInformation;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ApiDataRequestForMainInstructions extends ApiDataRequest{
+public class MainInstructionsRequest extends ApiDataRequest {
+    private String responseFromApi;
 
-    public ApiDataRequestForMainInstructions(String recipeId) {
+    public MainInstructionsRequest(String recipeId) {
         this.client = HttpClient.newHttpClient();
 
         // We launch data request to receive recipe information
@@ -31,12 +30,9 @@ public class ApiDataRequestForMainInstructions extends ApiDataRequest{
 
             statusCode = response.statusCode();
 
-            if(response.statusCode() == REQUEST_SUCCESSFUL) {
+            if(response.statusCode() == REQUEST_SUCCESSFUL)
                 //We can begin data extraction
-                RecipeInformation test = new RecipeInformation(response.body());
-                test.getStepRecipeInformation();
-            }
-
+                this.responseFromApi = response.body();
             else
                 // Request failed
                 System.out.println("problem");
@@ -50,6 +46,10 @@ public class ApiDataRequestForMainInstructions extends ApiDataRequest{
 
     public int getStatusCode() {
         return this.statusCode;
+    }
+
+    public String getResponseFromApi() {
+        return this.responseFromApi;
     }
 }
 
