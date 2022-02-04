@@ -65,18 +65,16 @@ public class RecipeInformation {
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
 
-        //List listOfSteps = (List) this.jsonFile.get("steps");
-        //JSONArray jsonArray1 = new JSONArray(listOfSteps);
-        // many index possibles
-        //JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
-        //Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
-
         List listOfSteps = (List) mapDeTest.get("steps");
         JSONArray jsonArray1 = new JSONArray(listOfSteps);
-        JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
-        Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
-        System.out.println(mapDeTest1.keySet());
-        System.out.println(mapDeTest1.get("step"));
+        Map mapDeTest1 = null;
+        for(int index = 0; index < jsonArray1.length(); index++) {
+            JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
+            mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
+            result.put(index, (String) mapDeTest1.get("step"));
+        }
+
+        System.out.println(result);
 
         return result;
 
