@@ -31,11 +31,14 @@ public class ApiDataRequestForMainInstructions extends ApiDataRequest{
 
             statusCode = response.statusCode();
 
-            if(response.statusCode() == REQUEST_SUCCESSFUL)
+            if(response.statusCode() == REQUEST_SUCCESSFUL) {
                 //We can begin data extraction
-                new RecipeInformation(response.body());
-                //System.out.println(response.body());
+                RecipeInformation test = new RecipeInformation(response.body());
+                test.getStepRecipeInformation();
+            }
+
             else
+                // Request failed
                 System.out.println("problem");
 
         }

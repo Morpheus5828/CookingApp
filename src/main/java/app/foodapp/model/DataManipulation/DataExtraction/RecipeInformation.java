@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,49 +17,87 @@ public class RecipeInformation {
     private double serving;
     private String ingredientName;
     private String originalName;
-    private double unitValue;
+    private String unitValue;
     private double amountValue;
     private Gson gsonInstance;
+    private Map jsonFile;
 
 
     public RecipeInformation(String dataIngredientText) {
         try {
             // Conversion: JSONObject to Map
             gsonInstance = new Gson();
-            Map jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
+            this.jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
 
             this.title = jsonFile.get("title").toString();
-            this.image = jsonFile.get("image").toString();
+            //this.image = jsonFile.get("image").toString();
+            this.cookingTime = (double) jsonFile.get("readyInMinutes");
+            this.serving = (double) jsonFile.get("servings");
 
+            // Conversion: List to JSONArray
+            List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
+            JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
+            // Extraction value's extendedIngredients
+            for(int index = 0; index < jsonArray.length(); index++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(index);
+                Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
+                this.ingredientName = mapDeTest.get("name").toString();
+                this.originalName = mapDeTest.get("originalName").toString();
+                this.unitValue = mapDeTest.get("unit").toString();
+                this.amountValue = (double) mapDeTest.get("amount");
+            }
 
-
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             // Sometimes value's properties are null
             e.printStackTrace();
         }
+    }
 
-        System.out.println(this.image);
+    // create a method who send a request to receive value's extendedIngredients
 
-        /*this.cookingTime = (double) jsonFile.get("readyInMinutes");
-        this.serving = (double) jsonFile.get("servings");
-
+    public Map<Integer, String> getStepRecipeInformation() {
         // Conversion: List to JSONArray
-        List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
+        List listOfIngredientsElements = (List) this.jsonFile.get("analyzedInstructions");
         JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
+        Map<Integer, String> result = new HashMap<>();
 
-        for(int index = 0; index < jsonArray.length(); index++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(index);
-            Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
-            this.ingredientName = mapDeTest.get("name").toString();
-            this.originalName = mapDeTest.get("originalName").toString();
-            this.unitValue = (double) mapDeTest.get("unit");
-            this.amountValue = (double) mapDeTest.get("mount");
+        JSONObject jsonObject = jsonArray.getJSONObject(0);
+        Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
 
-            // Waiting Chloe to other value
-        }*/
+        //List listOfSteps = (List) this.jsonFile.get("steps");
+        //JSONArray jsonArray1 = new JSONArray(listOfSteps);
+        // many index possibles
+        //JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
+        //Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
+
+        List listOfSteps = (List) mapDeTest.get("steps");
+        JSONArray jsonArray1 = new JSONArray(listOfSteps);
+        JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
+        Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
+        System.out.println(mapDeTest1.keySet());
+        System.out.println(mapDeTest1.get("step"));
+
+        return result;
 
 
 
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
