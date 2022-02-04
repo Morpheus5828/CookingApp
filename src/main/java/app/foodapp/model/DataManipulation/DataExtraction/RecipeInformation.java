@@ -2,9 +2,11 @@ package app.foodapp.model.DataManipulation.DataExtraction;
 
 import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
 import com.google.gson.Gson;
+import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ public class RecipeInformation {
 
     // We lit attributes, we need to display
     private String title;
+    private String image;
     private double cookingTime;
     private double serving;
     private String ingredientName;
@@ -31,7 +34,7 @@ public class RecipeInformation {
             this.jsonFile = gsonInstance.fromJson(request.getResponseFromApi(), Map.class);
 
             this.title = jsonFile.get("title").toString();
-            //Image image = new Image(jsonFile.get("image").toString());
+            this.image = jsonFile.get("image").toString();
             this.cookingTime = (double) jsonFile.get("readyInMinutes");
             this.serving = (double) jsonFile.get("servings");
 
