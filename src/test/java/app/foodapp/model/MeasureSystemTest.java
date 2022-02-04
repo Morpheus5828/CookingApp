@@ -1,9 +1,9 @@
 package app.foodapp.model;
 
+import app.foodapp.model.dataManipulation.MeasureSystem;
 import org.junit.jupiter.api.Test;
 
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;

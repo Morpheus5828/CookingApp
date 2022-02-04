@@ -1,4 +1,4 @@
-# app.foodapp.FoodApp
+# app.foodapp.view.FoodApp
 
 Ceci est le projet de base pour l'UE Projet: initiation génie logiciel.
 

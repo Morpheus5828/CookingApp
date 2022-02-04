@@ -3,7 +3,7 @@ package app.foodapp.model.DataExtraction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import app.foodapp.model.DataManipulation.DataExtraction.RecipeInformation;
+import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import org.junit.jupiter.api.Test;
 
 

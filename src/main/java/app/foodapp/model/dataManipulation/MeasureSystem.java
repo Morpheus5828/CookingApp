@@ -1,4 +1,4 @@
-package app.foodapp.model;
+package app.foodapp.model.dataManipulation;
 
 import java.io.*;
 

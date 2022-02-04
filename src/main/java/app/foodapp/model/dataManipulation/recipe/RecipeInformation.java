@@ -1,19 +1,17 @@
-package app.foodapp.model.DataManipulation.DataExtraction;
+package app.foodapp.model.dataManipulation.recipe;
 
 import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
 import com.google.gson.Gson;
-import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RecipeInformation {
 
-    // We lit attributes, we need to display
+    // We lit attributes that we need to display
     private String title;
     private String image;
     private double cookingTime;

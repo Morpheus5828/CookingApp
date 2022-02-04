@@ -1,4 +1,6 @@
-package app.foodapp.model;
+package app.foodapp.model.dataManipulation.recipe;
+
+import app.foodapp.model.dataManipulation.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

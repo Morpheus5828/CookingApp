@@ -1,7 +1,6 @@
-package app.foodapp;
+package app.foodapp.view;
 
-import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
-import app.foodapp.model.DataManipulation.DataExtraction.RecipeInformation;
+import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
 public class FoodAppCLI {
     public static void main(String[] args) {
