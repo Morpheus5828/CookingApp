@@ -22,14 +22,25 @@ public class RecipeInformation {
 
 
     public RecipeInformation(String dataIngredientText) {
+        try {
+            // Conversion: JSONObject to Map
+            gsonInstance = new Gson();
+            Map jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
 
-        // Conversion: JSONObject to Map
-        gsonInstance = new Gson();
-        Map jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
+            this.title = jsonFile.get("title").toString();
+            this.image = jsonFile.get("image").toString();
 
-        this.title = jsonFile.get("title").toString();
-        /*this.image = jsonFile.get("image").toString();
-        this.cookingTime = (double) jsonFile.get("readyInMinutes");
+
+
+
+        } catch (NullPointerException e) {
+            // Sometimes value's properties are null
+            e.printStackTrace();
+        }
+
+        System.out.println(this.image);
+
+        /*this.cookingTime = (double) jsonFile.get("readyInMinutes");
         this.serving = (double) jsonFile.get("servings");
 
         // Conversion: List to JSONArray
