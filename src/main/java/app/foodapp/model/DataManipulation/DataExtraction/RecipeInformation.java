@@ -12,7 +12,6 @@ public class RecipeInformation {
 
     // We lit attributes, we need to display
     private String title;
-    private String image;
     private double cookingTime;
     private double serving;
     private String ingredientName;
@@ -30,7 +29,7 @@ public class RecipeInformation {
             this.jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
 
             this.title = jsonFile.get("title").toString();
-            //this.image = jsonFile.get("image").toString();
+            //Image image = new Image(jsonFile.get("image").toString());
             this.cookingTime = (double) jsonFile.get("readyInMinutes");
             this.serving = (double) jsonFile.get("servings");
 
@@ -42,46 +41,60 @@ public class RecipeInformation {
     }
 
     public void getIngredients() {
-        // Conversion: List to JSONArray
-        List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
-        JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
+        try {
+            // Conversion: List to JSONArray
+            List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
+            JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
-        // Extraction value's extendedIngredients
-        for(int index = 0; index < jsonArray.length(); index++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(index);
-            Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
-            this.ingredientName = mapDeTest.get("name").toString();
-            this.originalName = mapDeTest.get("originalName").toString();
-            this.unitValue = mapDeTest.get("unit").toString();
-            this.amountValue = (double) mapDeTest.get("amount");
+            // Extraction value's extendedIngredients
+            for(int index = 0; index < jsonArray.length(); index++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(index);
+                Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
+                this.ingredientName = mapDeTest.get("name").toString();
+                this.originalName = mapDeTest.get("originalName").toString();
+                this.unitValue = mapDeTest.get("unit").toString();
+                this.amountValue = (double) mapDeTest.get("amount");
+            }
+
+            // to be continued
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // to be continued
     }
 
     public Map<Integer, String> getStepRecipeInformation() {
-        // Conversion: List to JSONArray
-        List listOfIngredientsElements = (List) this.jsonFile.get("analyzedInstructions");
-        JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
-        Map<Integer, String> result = new HashMap<>();
+        Map<Integer, String> stepInstruction = new HashMap<>();
 
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
-        Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
+        try {
+           // Conversion to use key-value system
+           List listOfInstructions = (List) this.jsonFile.get("analyzedInstructions");
+           Map instructions = convertListToMap(listOfInstructions);
 
-        List listOfSteps = (List) mapDeTest.get("steps");
-        JSONArray jsonArray1 = new JSONArray(listOfSteps);
-        Map mapDeTest1 = null;
-        for(int index = 0; index < jsonArray1.length(); index++) {
-            JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
-            mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
-            result.put(index, (String) mapDeTest1.get("step"));
-        }
+           List listOfSteps = (List) instructions.get("steps");
+           JSONArray jsonArray1 = new JSONArray(listOfSteps);
 
-        return result;
+           // Add step with number associated
+           for(int index = 0; index < jsonArray1.length(); index++) {
+              JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
+               Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
 
-
-
+               stepInstruction.put(index, (String) mapDeTest1.get("step"));
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+        return stepInstruction;
     }
+
+    private Map convertListToMap(List list) {
+        // Conversion JSONArray object to --> JSONObjet
+        JSONArray jsonArray = new JSONArray(list);
+        // First index is 0
+        JSONObject jsonObject = jsonArray.getJSONObject(0);
+        return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
+    }
+
 
 }
 
