@@ -71,6 +71,8 @@ public class RecipeInformation {
         try {
            // Conversion to use key-value system
            List listOfInstructions = (List) this.jsonFile.get("analyzedInstructions");
+           if(convertListToMap(listOfInstructions) == null)
+               return null;
            Map instructions = convertListToMap(listOfInstructions);
 
            List listOfSteps = (List) instructions.get("steps");
@@ -93,6 +95,9 @@ public class RecipeInformation {
         // Conversion JSONArray object to --> JSONObjet
         JSONArray jsonArray = new JSONArray(list);
         // First index is 0
+
+        if(jsonArray.isEmpty())
+            return null;
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
