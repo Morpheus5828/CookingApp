@@ -17,7 +17,7 @@ public class ApiDataRequestForMainInstructions extends ApiDataRequest{
         this.request = HttpRequest.newBuilder().uri(URI.create(
              "https://api.spoonacular.com/recipes/"
              + recipeId
-             + "/information?includeNutrition=false"
+             + "/information?analyzedInstructions"
              + "&apiKey="
             + this.API_KEY
         )).build();
@@ -34,7 +34,7 @@ public class ApiDataRequestForMainInstructions extends ApiDataRequest{
             if(response.statusCode() == REQUEST_SUCCESSFUL)
                 //We can begin data extraction
                 new RecipeInformation(response.body());
-
+                //System.out.println(response.body());
             else
                 System.out.println("problem");
 

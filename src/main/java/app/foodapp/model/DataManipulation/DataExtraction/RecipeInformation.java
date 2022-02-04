@@ -28,7 +28,7 @@ public class RecipeInformation {
         Map jsonFile = gsonInstance.fromJson(dataIngredientText, Map.class);
 
         this.title = jsonFile.get("title").toString();
-        this.image = jsonFile.get("image").toString();
+        /*this.image = jsonFile.get("image").toString();
         this.cookingTime = (double) jsonFile.get("readyInMinutes");
         this.serving = (double) jsonFile.get("servings");
 
@@ -44,10 +44,10 @@ public class RecipeInformation {
             this.unitValue = (double) mapDeTest.get("unit");
             this.amountValue = (double) mapDeTest.get("mount");
 
-
             // Waiting Chloe to other value
+        }*/
 
 
-        }
+
     }
 }
