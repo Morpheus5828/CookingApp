@@ -18,6 +18,14 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
+    public Recipe(){
+        cookingTime = 0;
+        servings = 0;
+        title = null;
+        image = null;
+        id = 0;
+    }
+
     public int getId() {
         return this.id;
     }
