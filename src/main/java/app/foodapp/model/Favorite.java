@@ -14,12 +14,13 @@ public class Favorite {
          favorites = new ArrayList<>();
     }
 
-    public void addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
+    public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
         if(isFavorite(recipe))
             throw new InstanceAlreadyExistsException("Recipe already in Favorites");
         else{
             favorites.add(recipe);
             saveFavorites();
+            return true;
         }
     }
 
