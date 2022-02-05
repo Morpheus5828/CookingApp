@@ -24,16 +24,17 @@ public class Favorite {
         }
     }
 
-    private boolean isFavorite(Recipe recipe){
+    protected boolean isFavorite(Recipe recipe){
         return favorites.contains(recipe);
     }
 
-    public void removeFromFavorite(Recipe recipe) throws NoSuchElementException, IOException {
+    public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
         if(!isFavorite(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             favorites.remove(recipe);
             saveFavorites();
+            return true;
     }
 
     public List<Recipe> getFavorites(){
