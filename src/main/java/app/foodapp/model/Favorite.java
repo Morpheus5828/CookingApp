@@ -1,6 +1,7 @@
 package app.foodapp.model;
 
 
+import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,16 @@ public class Favorite {
     private List<Recipe> favorites;
 
     public Favorite(){
-        favorites = new ArrayList();
+         favorites = new ArrayList<>();
     }
 
-    public void addToFavorite(Recipe recipe){
-        if(!isFavorite(recipe))
+    public void addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
+        if(isFavorite(recipe))
+            throw new InstanceAlreadyExistsException("Recipe already in Favorites");
+        else{
             favorites.add(recipe);
             saveFavorites();
+        }
     }
 
     private boolean isFavorite(Recipe recipe){
@@ -59,7 +63,7 @@ public class Favorite {
         }
     }
 
-    private void readSavedFavorites(){
+    /*public void readSavedFavorites(){
         try {
             FileInputStream favoritesSaved = new FileInputStream("save/favoritesSaved");
             ObjectInputStream objectInput = new ObjectInputStream(favoritesSaved);
@@ -73,5 +77,6 @@ public class Favorite {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
+        System.out.println(favorites.toString());
+    }*/
 }

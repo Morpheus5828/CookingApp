@@ -1,9 +1,10 @@
 package app.foodapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Recipe {
+public class Recipe implements Serializable {
     private final int id;
     private final String image;
     private final String title;
