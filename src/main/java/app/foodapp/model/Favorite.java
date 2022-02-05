@@ -63,7 +63,7 @@ public class Favorite {
         }
     }
 
-    /*public void readSavedFavorites(){
+    public void readSavedFavorites(){
         try {
             FileInputStream favoritesSaved = new FileInputStream("save/favoritesSaved");
             ObjectInputStream objectInput = new ObjectInputStream(favoritesSaved);
@@ -77,6 +77,5 @@ public class Favorite {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println(favorites.toString());
-    }*/
+    }
 }
