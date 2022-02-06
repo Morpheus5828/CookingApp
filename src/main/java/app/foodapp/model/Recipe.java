@@ -51,4 +51,12 @@ public class Recipe implements Serializable {
         return 0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return id == recipe.id && servings == recipe.servings && cookingTime == recipe.cookingTime && Objects.equals(image, recipe.image) && Objects.equals(title, recipe.title);
+    }
+
 }
