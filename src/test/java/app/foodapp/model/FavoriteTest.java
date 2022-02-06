@@ -78,4 +78,8 @@ public class FavoriteTest {
         assertEquals(testRecipe1.equals(testFavorite2.getFavorite(0)), true);
     }
 
+    @Test
+    void testIsFavoritesSavedExists(){
+        assertEquals(testFavorite.isSavedFavoritesExists(), true);
+    }
 }
