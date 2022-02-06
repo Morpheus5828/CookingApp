@@ -63,5 +63,10 @@ public class FavoriteTest {
         });
     }
 
+    @Test
+    void testSaveFavorites() throws InstanceAlreadyExistsException {
+        assertEquals(testFavorite.addToFavorite(testRecipe1), true);
+    }
+
 
 }
