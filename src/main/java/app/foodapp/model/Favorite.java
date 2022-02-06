@@ -50,19 +50,20 @@ public class Favorite {
             return favorites.get(index);
     }
 
-    private void saveFavorites(){
+    protected boolean saveFavorites(){
         try {
             FileOutputStream favoritesSaved = new FileOutputStream("save/favoritesSaved");
             ObjectOutputStream objectOut = new ObjectOutputStream(favoritesSaved);
             objectOut.writeObject(favorites);
             objectOut.close();
             favoritesSaved.close();
-
+            return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public void readSavedFavorites(){
