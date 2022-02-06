@@ -47,10 +47,21 @@ public class FavoriteTest {
         assertThrows(NoSuchElementException.class, () -> {
             testFavorite.removeFromFavorite(testRecipe1);
         });
-
     }
 
-
+    @Test
+    void testGetFavorite() throws InstanceAlreadyExistsException {
+        testFavorite.addToFavorite(testRecipe1);
+        testFavorite.addToFavorite(testRecipe2);
+        assertEquals(testFavorite.getFavorite(0), testRecipe1);
+        assertEquals(testFavorite.getFavorite(1), testRecipe2);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+           testFavorite.getFavorite(-1);
+        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            testFavorite.getFavorite(3);
+        });
+    }
 
 
 }
