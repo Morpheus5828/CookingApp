@@ -12,6 +12,8 @@ public class Favorite {
 
     public Favorite(){
          favorites = new ArrayList<>();
+         if(!isSavedFavoritesExists())
+            saveFavorites();
     }
 
     public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
@@ -80,5 +82,12 @@ public class Favorite {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    protected boolean isSavedFavoritesExists(){
+        File favoritesSaved = new File("save/favoritesSaved");
+        if(favoritesSaved.exists())
+            return true;
+        return false;
     }
 }
