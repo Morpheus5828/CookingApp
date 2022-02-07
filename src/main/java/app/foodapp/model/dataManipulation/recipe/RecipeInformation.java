@@ -1,10 +1,12 @@
 package app.foodapp.model.dataManipulation.recipe;
 
 import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
+import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import java.util.Map;
 public class RecipeInformation {
 
     // We lit attributes that we need to display
+    private String id;
     private String title;
     private String image;
     private double cookingTime;
@@ -43,6 +46,26 @@ public class RecipeInformation {
         }
     }
 
+    public RecipeInformation(ArrayList<String> listOfIngredient) {
+        SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
+        try {
+            JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
+            // Faut prendre tous les index de 0 à size - 1
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+            this.id = jsonObject.get("id").toString();
+            this.title = jsonObject.get("title").toString();
+            this.image = jsonObject.get("image").toString();
+            getCookingTime(this.id);
+            getServingValue(this.id);
+
+
+        } catch (Exception e) {
+            // Sometimes value's properties are null
+            e.printStackTrace();
+        }
+    }
+
     public void getIngredients() {
         try {
             // Conversion: List to JSONArray
@@ -64,6 +87,17 @@ public class RecipeInformation {
             e.printStackTrace();
         }
 
+    }
+
+    private void getCookingTime(String idString) {
+        RecipeInformation instance = new RecipeInformation(idString);
+        this.cookingTime = instance.cookingTime;
+
+    }
+
+    private void getServingValue(String idString) {
+        RecipeInformation instance = new RecipeInformation(idString);
+        this.serving = instance.serving;
     }
 
     public Map<Integer, String> getStepRecipeInformation() {
@@ -101,6 +135,14 @@ public class RecipeInformation {
             return null;
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
+    }
+
+    public void display() {
+        System.out.println(
+                "Recipe: " + this.title + "\n" +
+                "Cooking Time: " + this.cookingTime + "\n" +
+                "Serving: " + this.serving
+        );
     }
 
 
