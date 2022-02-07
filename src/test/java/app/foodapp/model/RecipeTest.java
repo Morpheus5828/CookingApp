@@ -1,23 +1,46 @@
 package app.foodapp.model;
 
+import app.foodapp.model.dataManipulation.MeasureSystem;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
+    private Recipe recipe = new Recipe(640355, "image", "title", 2, 40);
 
     @Test
     public void testGetSteps() {
-        String steps = "{0=Preheat the oven to 350 degrees and grease or butter a 913 glass baking dish., 1=In a large bowl, toss together the chopped apples, cranberries and sugar., 2=Let stand for a few minutes then pour into the baking dish., 3=Dot the mixture with the 1/2 stick of cubed butter., 4=In a medium bowl, combine the oats, brown sugar and flour., 5=Sprinkle evenly over the cranberries and apples in the baking dish.  Gently pour the melted butter over the top., 6=Cover with aluminum foil and bake for 35 minutes., 7=Remove the foil and bake for an additional 15 minutes, or until the oat topping is nicely browned., 8=Serve warm as a side or for dessert with a scoop of vanilla ice cream.}";
-        Recipe recipe = new Recipe(640352, "image", "title", 2, 40);
+        String steps = "{0=Add the cereal, cranberries and white chocolate chips into a large bowl., "
+                + "1=In a large micro-wave bowl, add the marshmallows and butter. Microwave on high for 3 minutes. Stir the mixture after two minutes. Stir in the vanilla at the end of the cooking time., "
+                + "2=Pour the melted marshmallows into the large bowl containing the cereal mixture., "
+                + "3=Stir with a wooden spoon to combine., "
+                + "4=Transfer to a 9\"x13\" buttered rectangular pan and pat down evenly with your hands or a wooden spoon., "
+                + "5=Cut into squares and serve.}";
         assertEquals(steps, recipe.getSteps().toString());
     }
 
     @Test
-    public void testGetIngredientsList() {
-        String ingredientsList = "[6.0 cups Rice Krispies cereal, 2.0 cups dried cranberries, 1.0 cup white chocolate chips, 0.25 cups butter, 5.0 cups marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
-        Recipe recipe = new Recipe(640355, "image", "title", 2, 40);
-        assertEquals(ingredientsList, recipe.getIngredientsList().toString());
+    public void testGetIngredientsList_UsMeasureSystem() throws IOException {
+        MeasureSystem currentMeasureSystem = MeasureSystem.getMeasureSystem();
+
+        MeasureSystem.setMeasureSystem(MeasureSystem.US);
+        String ingredientsListUs = "[6.0 cups Rice Krispies cereal, 2.0 cups dried cranberries, 1.0 cup white chocolate chips, 0.25 cups butter, 5.0 cups marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
+        assertEquals(ingredientsListUs, recipe.getIngredientsList().toString());
+
+        MeasureSystem.setMeasureSystem(currentMeasureSystem);
+    }
+
+    @Test
+    public void testGetIngredientsList_MetricMeasureSystem() throws IOException {
+        MeasureSystem currentMeasureSystem = MeasureSystem.getMeasureSystem();
+
+        MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
+        String ingredientsListMetric = "[1.42 l Rice Krispies cereal, 473.176 ml dried cranberries, 236.588 ml white chocolate chips, 59.147 ml butter, 1.183 l marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
+        assertEquals(ingredientsListMetric, recipe.getIngredientsList().toString());
+
+        MeasureSystem.setMeasureSystem(currentMeasureSystem);
     }
 }
