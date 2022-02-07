@@ -15,7 +15,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
     public SearchRecipesByIngredients(ArrayList<String> listOfIngredient) {
         this.listOfIngredient = listOfIngredient;
         this.client = HttpClient.newHttpClient();
-
+        conversion();
         // We launch data request to receive recipe information
         this.request = HttpRequest.newBuilder().uri(URI.create(
                 "https://api.spoonacular.com/recipes/findByIngredients?ingredients="

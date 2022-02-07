@@ -1,6 +1,7 @@
 package app.foodapp.model.dataManipulation.recipe;
 
 import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
+import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,7 +46,22 @@ public class RecipeInformation {
     }
 
     public RecipeInformation(ArrayList<String> listOfIngredient) {
-        // send data request by get element by id
+        SearchRecipesByIngredients request = new SearchRecipesByIngredients(listOfIngredient);
+        try {
+            // Conversion: JSONObject to Map
+            gsonInstance = new Gson();
+            this.jsonFile = gsonInstance.fromJson(request.getResponseFromApi(), Map.class);
+
+            this.title = jsonFile.get("title").toString();
+            this.image = jsonFile.get("image").toString();
+            this.cookingTime = (double) jsonFile.get("readyInMinutes");
+            this.serving = (double) jsonFile.get("servings");
+
+
+        } catch (Exception e) {
+            // Sometimes value's properties are null
+            e.printStackTrace();
+        }
     }
 
     public void getIngredients() {
