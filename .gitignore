@@ -1,0 +1,8 @@
+.graddle/*
+.idea/*
+build/*
+gradlew/*
+gradlew.bat
+lib/*
+libs/*
+jar_files/*
