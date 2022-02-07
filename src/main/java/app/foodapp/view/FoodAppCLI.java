@@ -8,10 +8,11 @@ import java.util.ArrayList;
 public class FoodAppCLI {
 
     public static void main(String[] args) {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("ananas");
-        //RecipeInformation test = new RecipeInformation(list);
         new InteractionCLI();
+        /*ArrayList<String> list = new ArrayList<>();
+        list.add("banana");
+        list.add("ananas");
+        RecipeInformation test = new RecipeInformation(list);*/
 
 
     }

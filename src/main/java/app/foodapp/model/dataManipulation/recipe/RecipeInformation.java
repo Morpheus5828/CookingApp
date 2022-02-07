@@ -14,6 +14,7 @@ import java.util.Map;
 public class RecipeInformation {
 
     // We lit attributes that we need to display
+    private ArrayList<Recipe> listOfRecipe;
     private String id;
     private String title;
     private String image;
@@ -48,16 +49,19 @@ public class RecipeInformation {
 
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
+        this.listOfRecipe = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
-            // Faut prendre tous les index de 0 à size - 1
-            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                this.id = jsonObject.get("id").toString();
+                this.title = jsonObject.get("title").toString();
+                this.image = jsonObject.get("image").toString();
+                getCookingTime(this.id);
+                getServingValue(this.id);
+                this.listOfRecipe.add(new Recipe(this.title, this.serving, this.cookingTime));
+            }
 
-            this.id = jsonObject.get("id").toString();
-            this.title = jsonObject.get("title").toString();
-            this.image = jsonObject.get("image").toString();
-            getCookingTime(this.id);
-            getServingValue(this.id);
 
 
         } catch (Exception e) {
@@ -82,7 +86,8 @@ public class RecipeInformation {
                 this.amountValue = (double) mapDeTest.get("amount");
             }
 
-            // to be continued
+            //TODO To be continued
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,11 +143,15 @@ public class RecipeInformation {
     }
 
     public void display() {
-        System.out.println(
-                "Recipe: " + this.title + "\n" +
-                "Cooking Time: " + this.cookingTime + "\n" +
-                "Serving: " + this.serving
-        );
+        for(int i = 0; i < this.listOfRecipe.size(); i++) {
+            System.out.println(
+                    "Recipe: " + this.listOfRecipe.get(i).getTitle() + "\n" +
+                    "Cooking Time: " + this.listOfRecipe.get(i).getCookingTime() + "\n" +
+                    "Serving: " + this.listOfRecipe.get(i).getServings() + "\n" +
+                    "-----------------------------------------------" + "\n"
+            );
+        }
+
     }
 
 

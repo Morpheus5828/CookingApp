@@ -28,7 +28,7 @@ public class Favorite {
         }
     }
 
-    protected boolean isFavorite(Recipe recipe){
+    public boolean isFavorite(Recipe recipe){
         return favorites.contains(recipe);
     }
 
@@ -86,7 +86,7 @@ public class Favorite {
         }
     }
 
-    protected boolean isSavedFavoritesExists(){
+    public boolean isSavedFavoritesExists(){
         File favoritesSaved = new File("save/favoritesSaved");
         if(favoritesSaved.exists())
             return true;

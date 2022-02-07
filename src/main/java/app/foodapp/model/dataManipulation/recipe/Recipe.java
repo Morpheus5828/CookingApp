@@ -6,12 +6,20 @@ public class Recipe {
     private final int id;
     private final String image;
     private final String title;
-    private final int servings;
-    private final int cookingTime;
+    private final double servings;
+    private final double cookingTime;
 
-    public Recipe (final int id, final String image, final String title, final int servings, final int cookingTime) {
+    public Recipe (final int id, final String image, final String title, final double servings, final double cookingTime) {
         this.id = id;
         this.image = image;
+        this.title = title;
+        this.servings = servings;
+        this.cookingTime = cookingTime;
+    }
+
+    public Recipe (final String title, final double servings, final double cookingTime) {
+        this.id = 0; // no value
+        this.image = "";   // no value
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
@@ -29,11 +37,11 @@ public class Recipe {
         return this.title;
     }
 
-    public int getServings() {
+    public double getServings() {
         return this.servings;
     }
 
-    public int getCookingTime() {
+    public double getCookingTime() {
         return this.cookingTime;
     }
 

@@ -1,5 +1,7 @@
 package app.foodapp.model;
 
+import app.foodapp.model.dataManipulation.recipe.Favorite;
+import app.foodapp.model.dataManipulation.recipe.Recipe;
 import org.junit.jupiter.api.Test;
 
 import javax.management.InstanceAlreadyExistsException;
