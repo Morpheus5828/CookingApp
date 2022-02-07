@@ -139,7 +139,7 @@ public class RecipeInformation {
 
     public void display() {
         System.out.println(
-                 "Recipe: " + this.title + "\n" +
+                "Recipe: " + this.title + "\n" +
                 "Cooking Time: " + this.cookingTime + "\n" +
                 "Serving: " + this.serving
         );
