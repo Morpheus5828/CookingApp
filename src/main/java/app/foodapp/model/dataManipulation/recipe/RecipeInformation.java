@@ -154,7 +154,6 @@ public class RecipeInformation {
 
                 ingredientsListInformation.add(ingredientsInformation);
             }
-            System.out.println(ingredientsListInformation);
         } catch (Exception e) {
             e.printStackTrace();
         }

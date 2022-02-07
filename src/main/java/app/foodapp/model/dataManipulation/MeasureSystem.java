@@ -44,4 +44,13 @@ public enum MeasureSystem {
                 throw  new IOException("Measure system provided is not accepted.");
         }
     }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case US: return "us";
+            case METRIC: return "metric";
+        }
+        return "";
+    }
 }
