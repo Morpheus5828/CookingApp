@@ -54,32 +54,29 @@ public class Recipe {
         return this.cookingTime;
     }
 
-    public ArrayList<String> getIngredientsList() throws IOException {
+    public ArrayList<String> getIngredientsList() {
         ArrayList<String> ingredientsList = new ArrayList<>();
         RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
-
         ArrayList<Map<String, String>> ingredientsInformation = recipeInformation.getIngredientsInformation();
-        MeasureSystem measureSystem = MeasureSystem.getMeasureSystem();
 
         for (int index = 0; index < ingredientsInformation.size(); index++) {
             Map<String, String> information = ingredientsInformation.get(index);
             String unit = information.get("unit");
 
-            if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("serving") || unit == null) {
+            if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("servings") || unit.equals("")) {
                 ingredientsList.add(information.get("fullDescription"));
             } else {
-                String ingredient = "";
-                switch (measureSystem) {
-                    case US:
-                        ingredient = ingredient + information.get("usAmount") + " " + information.get("usUnit") + " " + information.get("description");
-                        break;
-                    case METRIC:
-                        ingredient = ingredient + information.get("metricAmount") + " " + information.get("metricUnit") + " " + information.get("description");
-                        break;
-                    default:
-                        ingredient = information.get("fullDescription");
+                try {
+                    String measureSystem = MeasureSystem.getMeasureSystem().toString();
+                    String ingredient = information.get(measureSystem + "Amount")
+                            + " "
+                            + information.get(measureSystem + "Unit")
+                            + " "
+                            + information.get("description");
+                    ingredientsList.add(ingredient);
+                } catch (IOException exception) {
+                    ingredientsList.add(information.get("fullDescription"));
                 }
-                ingredientsList.add(ingredient);
             }
         }
         return ingredientsList;
