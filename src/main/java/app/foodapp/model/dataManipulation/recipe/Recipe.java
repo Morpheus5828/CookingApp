@@ -41,11 +41,18 @@ public class Recipe {
         return this.cookingTime;
     }
 
+    /*
+    Returns a map of the recipe's steps. Keys are the step's number, and values are the step's description.
+     */
     public Map<Integer, String> getSteps() {
         RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
         return recipeInformation.getStepRecipeInformation();
     }
 
+    /*
+    Returns a list of the recipe's ingredients.
+    The amount of each ingredient is calculated according to the measure system saved.
+     */
     public ArrayList<String> getIngredientsList() {
         ArrayList<String> ingredientsList = new ArrayList<>();
         RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
@@ -55,11 +62,14 @@ public class Recipe {
             Map<String, String> information = ingredientsInformation.get(index);
             String unit = information.get("unit");
 
+            //For special units like pinches or servings, it's better to use the basic ingredient's description.
             if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("servings") || unit.equals("")) {
                 ingredientsList.add(information.get("fullDescription"));
+
             } else {
                 try {
                     String measureSystem = MeasureSystem.getMeasureSystem().toString();
+                    //Building the ingredient's description according to the measure system.
                     String ingredient = information.get(measureSystem + "Amount")
                             + " "
                             + information.get(measureSystem + "Unit")
@@ -67,6 +77,7 @@ public class Recipe {
                             + information.get("description");
                     ingredientsList.add(ingredient);
                 } catch (IOException exception) {
+                    //If measure system isn't found, it adds the basic ingredient's description without any conversion.
                     ingredientsList.add(information.get("fullDescription"));
                 }
             }
