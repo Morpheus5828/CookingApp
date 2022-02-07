@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="app.foodapp.model.DataExtraction.RecipeInformationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-04T20:46:33" hostname="Nebuchadnezzar" time="3.007">
-  <properties/>
-  <testcase name="getStepRecipeInformation()" classname="app.foodapp.model.DataExtraction.RecipeInformationTest" time="3.007"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
