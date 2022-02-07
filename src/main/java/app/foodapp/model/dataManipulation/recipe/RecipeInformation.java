@@ -49,18 +49,16 @@ public class RecipeInformation {
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
         try {
-            System.out.println(ingredientRequest.getResponseFromApi());
-            /*JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
+            JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
             // Faut prendre tous les index de 0 à size - 1
             JSONObject jsonObject = jsonArray.getJSONObject(0);
 
-            System.out.println(jsonObject);
             this.id = jsonObject.get("id").toString();
             this.title = jsonObject.get("title").toString();
             this.image = jsonObject.get("image").toString();
             getCookingTime(this.id);
             getServingValue(this.id);
-*/
+
 
         } catch (Exception e) {
             // Sometimes value's properties are null
@@ -139,10 +137,12 @@ public class RecipeInformation {
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
-    public String display() {
-        return "Recipe:" + this.title + "\n" +
-                "Cooking Time" + this.cookingTime + "\n" +
-                "Serving" + this.serving;
+    public void display() {
+        System.out.println(
+                 "Recipe: " + this.title + "\n" +
+                "Cooking Time: " + this.cookingTime + "\n" +
+                "Serving: " + this.serving
+        );
     }
 
     public String getId() {

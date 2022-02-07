@@ -23,8 +23,6 @@ public class InteractionCLI {
         switch (this.askMainChoiceReturnValue) {
             case 1: askIngredient();
         }
-
-        System.out.println(this.listOfIngredient);
     }
 
     public int askMainChoice() {
