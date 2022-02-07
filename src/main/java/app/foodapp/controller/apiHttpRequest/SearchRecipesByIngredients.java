@@ -23,6 +23,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
                 + "&apiKey="
                 + this.API_KEY
         )).build();
+        System.out.println(this.request);
 
         checkForDataExtraction(client, request);
     }

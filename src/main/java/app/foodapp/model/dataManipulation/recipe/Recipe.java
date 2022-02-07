@@ -17,6 +17,7 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
+
     public int getId() {
         return this.id;
     }

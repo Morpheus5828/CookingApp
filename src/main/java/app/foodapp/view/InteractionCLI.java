@@ -51,8 +51,8 @@ public class InteractionCLI {
     }
 
     public void sendRequest() {
-        SearchRecipesByIngredients instance = new SearchRecipesByIngredients(this.listOfIngredient);
-        System.out.println(instance.getResponseFromApi());
+        RecipeInformation test = new RecipeInformation(this.listOfIngredient);
+        test.display();
     }
 
 
