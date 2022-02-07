@@ -21,7 +21,13 @@ public class RecipeInformationTest {
     @Test
     public void getIngredientsInformation() {
         RecipeInformation recipeInformation = new RecipeInformation("640355");
-        String ingredientsInformation = "[{usUnit=cups, unit=cups, usAmount=6.0, description=Rice Krispies cereal, metricAmount=1.42, fullDescription=6 cups Rice Krispies cereal, metricUnit=l}, {usUnit=cups, unit=cups, usAmount=2.0, description=dried cranberries, metricAmount=473.176, fullDescription=2 cups dried cranberries, metricUnit=ml}, {usUnit=cup, unit=cup, usAmount=1.0, description=white chocolate chips, metricAmount=236.588, fullDescription=1 cup white chocolate chips, metricUnit=ml}, {usUnit=cups, unit=cup, usAmount=0.25, description=butter, metricAmount=59.147, fullDescription=1/4 cup butter, metricUnit=ml}, {usUnit=cups, unit=cups, usAmount=5.0, description=marshmallows or 40 regular marshmallows, metricAmount=1.183, fullDescription=5 cups small marshmallows or 40 regular marshmallows, metricUnit=l}, {usUnit=tsp, unit=teaspoon, usAmount=1.0, description=vanilla, metricAmount=1.0, fullDescription=1 teaspoon vanilla, metricUnit=tsp}]";
+        String ingredientsInformation = "[{usUnit=cups, unit=cups, usAmount=6.0, description=Rice Krispies cereal, metricAmount=1.4, fullDescription=6 cups Rice Krispies cereal, metricUnit=l}, "
+                + "{usUnit=cups, unit=cups, usAmount=2.0, description=dried cranberries, metricAmount=473.2, fullDescription=2 cups dried cranberries, metricUnit=ml}, "
+                + "{usUnit=cup, unit=cup, usAmount=1.0, description=white chocolate chips, metricAmount=236.6, fullDescription=1 cup white chocolate chips, metricUnit=ml}, "
+                + "{usUnit=cups, unit=cup, usAmount=0.3, description=butter, metricAmount=59.1, fullDescription=1/4 cup butter, metricUnit=ml}, "
+                + "{usUnit=cups, unit=cups, usAmount=5.0, description=marshmallows or 40 regular marshmallows, metricAmount=1.2, fullDescription=5 cups small marshmallows or 40 regular marshmallows, metricUnit=l}, "
+                + "{usUnit=tsp, unit=teaspoon, usAmount=1.0, description=vanilla, metricAmount=1.0, fullDescription=1 teaspoon vanilla, metricUnit=tsp}]";
+
         assertEquals(ingredientsInformation, recipeInformation.getIngredientsInformation().toString());
     }
 }
