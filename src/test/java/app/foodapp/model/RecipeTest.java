@@ -43,4 +43,9 @@ public class RecipeTest {
 
         MeasureSystem.setMeasureSystem(currentMeasureSystem);
     }
+
+    @Test
+    public void testGetScore() {
+        assertEquals(38.0, recipe.getScore());
+    }
 }

@@ -83,8 +83,12 @@ public class Recipe {
         return ingredientsList;
     }
 
+    /*
+    This function returns the Spoonacular score of the recipe.
+     */
     public double getScore() {
-        return 0;
+        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
+        return recipeInformation.getScore();
     }
 
     /*public void bigDisplay() {
