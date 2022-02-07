@@ -145,25 +145,7 @@ public class RecipeInformation {
         );
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public double getCookingTime() {
-        return cookingTime;
-    }
-
-    public double getServing() {
-        return serving;
-    }
 }
 
 

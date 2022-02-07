@@ -22,6 +22,7 @@ public class InteractionCLI {
         this.askMainChoiceReturnValue = askMainChoice();
         switch (this.askMainChoiceReturnValue) {
             case 1: askIngredient();
+
         }
     }
 
