@@ -2,32 +2,43 @@ package app.foodapp.model.dataManipulation.recipe;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 
+
+import javax.management.InstanceAlreadyExistsException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 
 public class Favorite {
     private List<Recipe> favorites;
 
     public Favorite(){
-        favorites = new ArrayList();
+         favorites = new ArrayList<>();
+         if(!isSavedFavoritesExists())
+            saveFavorites();
     }
 
-    public void addToFavorite(Recipe recipe){
-        if(!isFavorite(recipe))
+    public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
+        if(isFavorite(recipe))
+            throw new InstanceAlreadyExistsException("Recipe already in Favorites");
+        else{
             favorites.add(recipe);
+            saveFavorites();
+            return true;
+        }
     }
 
-    private boolean isFavorite(Recipe recipe){
+    protected boolean isFavorite(Recipe recipe){
         return favorites.contains(recipe);
     }
 
-    public void removeFromFavorite(Recipe recipe) throws NoSuchElementException {
+    public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
         if(!isFavorite(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             favorites.remove(recipe);
+            saveFavorites();
+            return true;
     }
 
     public List<Recipe> getFavorites(){
@@ -41,5 +52,44 @@ public class Favorite {
             throw new ArrayIndexOutOfBoundsException("Index not in list size");
         else
             return favorites.get(index);
+    }
+
+    protected boolean saveFavorites(){
+        try {
+            FileOutputStream favoritesSaved = new FileOutputStream("save/favoritesSaved");
+            ObjectOutputStream objectOut = new ObjectOutputStream(favoritesSaved);
+            objectOut.writeObject(favorites);
+            objectOut.close();
+            favoritesSaved.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void readSavedFavorites(){
+        try {
+            FileInputStream favoritesSaved = new FileInputStream("save/favoritesSaved");
+            ObjectInputStream objectInput = new ObjectInputStream(favoritesSaved);
+            favorites = (ArrayList<Recipe>) objectInput.readObject();
+            objectInput.close();
+            favoritesSaved.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected boolean isSavedFavoritesExists(){
+        File favoritesSaved = new File("save/favoritesSaved");
+        if(favoritesSaved.exists())
+            return true;
+        return false;
     }
 }
