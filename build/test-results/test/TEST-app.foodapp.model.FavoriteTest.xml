@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app.foodapp.model.FavoriteTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-02-07T12:54:37" hostname="DESKTOP-AQCU596" time="0.043">
+  <properties/>
+  <testcase name="testSaveFavorites()" classname="app.foodapp.model.FavoriteTest" time="0.013"/>
+  <testcase name="testGetFavorite()" classname="app.foodapp.model.FavoriteTest" time="0.004"/>
+  <testcase name="testAddToFavorite()" classname="app.foodapp.model.FavoriteTest" time="0.004"/>
+  <testcase name="testGetFavorites()" classname="app.foodapp.model.FavoriteTest" time="0.003"/>
+  <testcase name="testRemoveFromFavorite()" classname="app.foodapp.model.FavoriteTest" time="0.004"/>
+  <testcase name="testIsFavorite()" classname="app.foodapp.model.FavoriteTest" time="0.001"/>
+  <testcase name="testReadSavedFavorites()" classname="app.foodapp.model.FavoriteTest" time="0.008"/>
+  <testcase name="testIsFavoritesSavedExists()" classname="app.foodapp.model.FavoriteTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
