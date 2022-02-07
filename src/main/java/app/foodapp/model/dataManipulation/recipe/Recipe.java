@@ -74,6 +74,7 @@ public class Recipe {
                             + " "
                             + information.get("description");
                     ingredientsList.add(ingredient);
+
                 } catch (IOException exception) {
                     ingredientsList.add(information.get("fullDescription"));
                 }
@@ -82,7 +83,7 @@ public class Recipe {
         return ingredientsList;
     }
 
-    public float getScore() {
+    public double getScore() {
         return 0;
     }
 
