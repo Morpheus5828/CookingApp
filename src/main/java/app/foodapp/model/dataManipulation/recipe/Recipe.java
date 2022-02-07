@@ -1,5 +1,8 @@
 package app.foodapp.model.dataManipulation.recipe;
 
+import app.foodapp.model.dataManipulation.MeasureSystem;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +54,33 @@ public class Recipe {
         return this.cookingTime;
     }
 
-    public ArrayList<String> getIngredientsList() {
+    public ArrayList<String> getIngredientsList() throws IOException {
+        ArrayList<String> ingredientsList = new ArrayList<>();
+        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
+
+        ArrayList<Map<String, String>> ingredientsInformation = recipeInformation.getIngredientsInformation();
+        MeasureSystem measureSystem = MeasureSystem.getMeasureSystem();
+
+        for (int index = 0; index < ingredientsInformation.size(); index++) {
+            Map<String, String> information = ingredientsInformation.get(index);
+            String unit = information.get("unit");
+
+            if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("serving") || unit == null) {
+                ingredientsList.add(information.get("fullDescription"));
+            } else {
+                String ingredient = "";
+                switch (measureSystem) {
+                    case US:
+                        ingredient = ingredient + information.get("usAmount") + " " + information.get("usUnit") + " " + information.get("description");
+                        break;
+                    case METRIC:
+                        ingredient = ingredient + information.get("metricAmount") + " " + information.get("metricUnit") + " " + information.get("description");
+                        break;
+                }
+                ingredientsList.add(ingredient);
+            }
+        }
+
         return new ArrayList<>();
     }
 
