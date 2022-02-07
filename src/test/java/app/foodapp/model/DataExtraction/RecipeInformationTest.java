@@ -19,7 +19,7 @@ public class RecipeInformationTest {
     }
 
     @Test
-    public void getIngredientsInformation() {
+    public void testGetIngredientsInformation() {
         RecipeInformation recipeInformation = new RecipeInformation("640355");
         String ingredientsInformation = "[{usUnit=cups, unit=cups, usAmount=6.0, description=Rice Krispies cereal, metricAmount=1.4, fullDescription=6 cups Rice Krispies cereal, metricUnit=l}, "
                 + "{usUnit=cups, unit=cups, usAmount=2.0, description=dried cranberries, metricAmount=473.2, fullDescription=2 cups dried cranberries, metricUnit=ml}, "
@@ -29,5 +29,11 @@ public class RecipeInformationTest {
                 + "{usUnit=tsp, unit=teaspoon, usAmount=1.0, description=vanilla, metricAmount=1.0, fullDescription=1 teaspoon vanilla, metricUnit=tsp}]";
 
         assertEquals(ingredientsInformation, recipeInformation.getIngredientsInformation().toString());
+    }
+
+    @Test
+    public void testGetScore() {
+        RecipeInformation recipeInformation = new RecipeInformation("640355");
+        assertEquals(38.0, recipeInformation.getScore());
     }
 }
