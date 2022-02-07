@@ -21,4 +21,10 @@ public class MeasureSystemTest {
 
         MeasureSystem.setMeasureSystem(currentMeasureSystem);
     }
+
+    @Test
+    public void testToString() {
+        assertEquals("us", MeasureSystem.US.toString());
+        assertEquals("metric", MeasureSystem.METRIC.toString());
+    }
 }
