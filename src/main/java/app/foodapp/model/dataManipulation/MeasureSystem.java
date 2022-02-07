@@ -6,7 +6,7 @@ public enum MeasureSystem {
     US(0),
     METRIC(1);
 
-    MeasureSystem(int index) {
+    MeasureSystem(final int index) {
     }
 
     /*
@@ -27,7 +27,7 @@ public enum MeasureSystem {
     /*
     This function set the measure system of the ingredient. The system is saved in a file.
      */
-    public static void setMeasureSystem (MeasureSystem measureSystem) throws IOException {
+    public static void setMeasureSystem (final MeasureSystem measureSystem) throws IOException {
         FileWriter fileWriter = new FileWriter("save/MeasureSystem.txt");
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         switch (measureSystem) {

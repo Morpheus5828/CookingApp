@@ -106,6 +106,9 @@ public class RecipeInformation {
         return ingredientsListInformation;
     }
 
+    /*
+    This function returns the Spoonacular score of the recipe.
+     */
     public double getScore() {
         return (double) this.jsonFile.get("spoonacularScore");
     }
