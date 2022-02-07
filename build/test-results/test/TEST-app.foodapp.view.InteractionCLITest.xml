@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="app.foodapp.view.InteractionCLITest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-07T09:27:37" hostname="Nebuchadnezzar" time="0.437">
+<testsuite name="app.foodapp.view.InteractionCLITest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-07T09:36:57" hostname="Nebuchadnezzar" time="0.464">
   <properties/>
-  <testcase name="askMainChoiceTest()" classname="app.foodapp.view.InteractionCLITest" time="0.437"/>
+  <testcase name="askMainChoiceTest()" classname="app.foodapp.view.InteractionCLITest" time="0.464"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

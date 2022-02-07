@@ -1,5 +1,7 @@
 package app.foodapp.view;
 
+import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -8,15 +10,18 @@ import java.util.Scanner;
 
 public class InteractionCLI {
 
-    private ArrayList<String> listOfIngredient;
+    private final ArrayList<String> listOfIngredient;
+    private final int askMainChoiceReturnValue;
     private Scanner terminalScanner;
 
     public InteractionCLI() {
-        this.listOfIngredient = new ArrayList<>();
+        this.listOfIngredient = new ArrayList<String>();
         System.out.println("Hello World !\n");
 
-        askMainChoice();
-        //askIngredient();
+        this.askMainChoiceReturnValue = askMainChoice();
+        switch (this.askMainChoiceReturnValue) {
+            case 1: askIngredient();
+        }
 
         System.out.println(this.listOfIngredient);
     }
@@ -42,6 +47,12 @@ public class InteractionCLI {
                 this.listOfIngredient.add(ingredient);
         }
     }
+
+    public void sendRequest() {
+        // send request to RecipeInformation with ingredient
+    }
+
+
 
 
 
