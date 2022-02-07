@@ -68,12 +68,13 @@ public class Recipe {
                     case METRIC:
                         ingredient = ingredient + information.get("metricAmount") + " " + information.get("metricUnit") + " " + information.get("description");
                         break;
+                    default:
+                        ingredient = information.get("fullDescription");
                 }
                 ingredientsList.add(ingredient);
             }
         }
-
-        return new ArrayList<>();
+        return ingredientsList;
     }
 
     public float getScore() {
