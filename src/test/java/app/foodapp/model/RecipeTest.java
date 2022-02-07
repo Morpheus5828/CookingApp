@@ -3,10 +3,6 @@ package app.foodapp.model;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import org.junit.jupiter.api.Test;
 
-import javax.imageio.IIOException;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
@@ -19,8 +15,8 @@ public class RecipeTest {
     }
 
     @Test
-    public void testGetIngredientsList() throws IOException {
-        String ingredientsList = "";
+    public void testGetIngredientsList() {
+        String ingredientsList = "[6.0 cups Rice Krispies cereal, 2.0 cups dried cranberries, 1.0 cup white chocolate chips, 0.25 cups butter, 5.0 cups marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
         Recipe recipe = new Recipe(640355, "image", "title", 2, 40);
         assertEquals(ingredientsList, recipe.getIngredientsList().toString());
     }
