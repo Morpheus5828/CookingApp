@@ -13,12 +13,16 @@ public class Recipe {
     private final int servings;
     private final int cookingTime;
 
+    private final RecipeInformation recipeInformation;
+
     public Recipe (final int id, final String image, final String title, final int servings, final int cookingTime) {
         this.id = id;
         this.image = image;
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
+
+        recipeInformation = new RecipeInformation(String.valueOf(id));
     }
 
     public int getId() {
@@ -45,8 +49,7 @@ public class Recipe {
     Returns a map of the recipe's steps. Keys are the step's number, and values are the step's description.
      */
     public Map<Integer, String> getSteps() {
-        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
-        return recipeInformation.getStepRecipeInformation();
+        return this.recipeInformation.getStepRecipeInformation();
     }
 
     /*
@@ -55,8 +58,7 @@ public class Recipe {
      */
     public ArrayList<String> getIngredientsList() {
         ArrayList<String> ingredientsList = new ArrayList<>();
-        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
-        ArrayList<Map<String, String>> ingredientsInformation = recipeInformation.getIngredientsInformation();
+        ArrayList<Map<String, String>> ingredientsInformation = this.recipeInformation.getIngredientsInformation();
 
         for (int index = 0; index < ingredientsInformation.size(); index++) {
             Map<String, String> information = ingredientsInformation.get(index);
@@ -69,6 +71,7 @@ public class Recipe {
             } else {
                 try {
                     String measureSystem = MeasureSystem.getMeasureSystem().toString();
+
                     //Building the ingredient's description according to the measure system.
                     String ingredient = information.get(measureSystem + "Amount")
                             + " "
@@ -78,6 +81,7 @@ public class Recipe {
                     ingredientsList.add(ingredient);
 
                 } catch (IOException exception) {
+
                     //If measure system isn't found, it adds the basic ingredient's description without any conversion.
                     ingredientsList.add(information.get("fullDescription"));
                 }
@@ -90,7 +94,6 @@ public class Recipe {
     This function returns the Spoonacular score of the recipe.
      */
     public double getScore() {
-        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
-        return recipeInformation.getScore();
+        return this.recipeInformation.getScore();
     }
 }
