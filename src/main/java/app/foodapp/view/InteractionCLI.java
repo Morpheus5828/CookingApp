@@ -3,41 +3,36 @@ package app.foodapp.view;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class InteractionCLI implements KeyListener {
+public class InteractionCLI {
 
     private ArrayList<String> listOfIngredient;
 
     public InteractionCLI() {
         this.listOfIngredient = new ArrayList<>();
-    }
-
-
-    @Override
-    public void keyPressed(KeyEvent e) {
         System.out.println("Hello World");
         System.out.println("Enter ingredient(s):");
 
-        while(e.getKeyCode() != KeyEvent.VK_ENTER) {
+        askIngredient();
+
+        System.out.println(this.listOfIngredient);
+    }
+
+    public void askIngredient() {
+        boolean addIngredient = true;
+        while(addIngredient) {
             Scanner sc = new Scanner(System.in);
-            listOfIngredient.add(sc.nextLine());
+            String ingredient = sc.nextLine();
+            if(Objects.equals(ingredient, "fin"))
+                addIngredient = false;
+            else
+                this.listOfIngredient.add(ingredient);
         }
-
     }
 
 
-    public ArrayList<String> getListOfIngredient() {
-        return this.listOfIngredient;
-    }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
 
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 }
