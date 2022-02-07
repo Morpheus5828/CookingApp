@@ -1,6 +1,7 @@
 package app.foodapp.model.dataManipulation.recipe;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Recipe {
     private final int id;
@@ -37,8 +38,9 @@ public class Recipe {
         return this.cookingTime;
     }
 
-    public ArrayList<String> getSteps() {
-        return new ArrayList<>();
+    public Map<Integer, String> getSteps() {
+        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
+        return recipeInformation.getStepRecipeInformation();
     }
 
     public ArrayList<String> getIngredientsList() {
