@@ -143,9 +143,14 @@ public class RecipeInformation {
                 Map usMeasure = (Map) measure.get("us");
                 Map metricMeasure = (Map) measure.get("metric");
 
-                ingredientsInformation.put("usAmount", String.valueOf(usMeasure.get("amount")));
+                //For a better comprehension, amounts are rounded.
+                double usAmount = (Math.round((double) usMeasure.get("amount") *  10.0)) / 10.0;
+                double metricAmount = (Math.round((double) metricMeasure.get("amount") *  10.0)) / 10.0;
+
+                ingredientsInformation.put("usAmount", String.valueOf(usAmount));
+                ingredientsInformation.put("metricAmount", String.valueOf(metricAmount));
+
                 ingredientsInformation.put("usUnit", (String) usMeasure.get("unitShort"));
-                ingredientsInformation.put("metricAmount", String.valueOf(metricMeasure.get("amount")));
                 ingredientsInformation.put("metricUnit", (String) metricMeasure.get("unitShort"));
 
                 ingredientsListInformation.add(ingredientsInformation);
