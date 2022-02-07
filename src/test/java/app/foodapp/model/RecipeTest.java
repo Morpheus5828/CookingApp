@@ -27,7 +27,7 @@ public class RecipeTest {
         MeasureSystem currentMeasureSystem = MeasureSystem.getMeasureSystem();
 
         MeasureSystem.setMeasureSystem(MeasureSystem.US);
-        String ingredientsListUs = "[6.0 cups Rice Krispies cereal, 2.0 cups dried cranberries, 1.0 cup white chocolate chips, 0.25 cups butter, 5.0 cups marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
+        String ingredientsListUs = "[6.0 cups Rice Krispies cereal, 2.0 cups dried cranberries, 1.0 cup white chocolate chips, 0.3 cups butter, 5.0 cups marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
         assertEquals(ingredientsListUs, recipe.getIngredientsList().toString());
 
         MeasureSystem.setMeasureSystem(currentMeasureSystem);
@@ -38,7 +38,7 @@ public class RecipeTest {
         MeasureSystem currentMeasureSystem = MeasureSystem.getMeasureSystem();
 
         MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
-        String ingredientsListMetric = "[1.42 l Rice Krispies cereal, 473.176 ml dried cranberries, 236.588 ml white chocolate chips, 59.147 ml butter, 1.183 l marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
+        String ingredientsListMetric = "[1.4 l Rice Krispies cereal, 473.2 ml dried cranberries, 236.6 ml white chocolate chips, 59.1 ml butter, 1.2 l marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
         assertEquals(ingredientsListMetric, recipe.getIngredientsList().toString());
 
         MeasureSystem.setMeasureSystem(currentMeasureSystem);
