@@ -49,6 +49,7 @@ dependencies {
     implementation group: 'org.json', name: 'json', version: '20180813'
 
     implementation 'com.google.code.gson:gson:2.8.8'
+    testImplementation "org.mockito:mockito-core:3.+"
     testImplementation "org.testfx:testfx-junit5:4.0.15-alpha"
     testRuntimeOnly "org.testfx:openjfx-monocle:jdk-11+26"
 }

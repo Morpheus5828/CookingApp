@@ -21,14 +21,13 @@ public class InteractionCLI {
         System.out.println(this.listOfIngredient);
     }
 
-    public void askMainChoice() {
+    public int askMainChoice() {
         System.out.println("What do you want to see ?\n");
         terminalScanner = new Scanner(System.in);
         System.out.println("1\tRecipe research");
         System.out.println("2\tFavorite list");
         System.out.println("3\tSystem measures");
-        int answer = terminalScanner.nextInt();
-        System.out.println(answer);
+        return terminalScanner.nextInt();
     }
 
     public void askIngredient() {
