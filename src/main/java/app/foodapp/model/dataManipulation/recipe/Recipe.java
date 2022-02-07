@@ -76,6 +76,7 @@ public class Recipe {
                             + " "
                             + information.get("description");
                     ingredientsList.add(ingredient);
+
                 } catch (IOException exception) {
                     //If measure system isn't found, it adds the basic ingredient's description without any conversion.
                     ingredientsList.add(information.get("fullDescription"));
@@ -85,7 +86,7 @@ public class Recipe {
         return ingredientsList;
     }
 
-    public float getScore() {
+    public double getScore() {
         return 0;
     }
 }
