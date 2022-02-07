@@ -27,11 +27,10 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         checkForDataExtraction(client, request);
     }
 
-    public void conversion() {
+    private void conversion() {
         for(String element : this.listOfIngredient) {
             this.ingredient += element + ",+";
         }
-        System.out.println(this.ingredient);
     }
 
     private void checkForDataExtraction(HttpClient client, HttpRequest request) {

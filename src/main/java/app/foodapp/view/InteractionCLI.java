@@ -1,5 +1,6 @@
 package app.foodapp.view;
 
+import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
 import java.awt.event.KeyEvent;
@@ -46,10 +47,12 @@ public class InteractionCLI {
             else
                 this.listOfIngredient.add(ingredient);
         }
+        sendRequest();
     }
 
     public void sendRequest() {
-        // send request to RecipeInformation with ingredient
+        SearchRecipesByIngredients instance = new SearchRecipesByIngredients(this.listOfIngredient);
+        System.out.println(instance.getResponseFromApi());
     }
 
 
