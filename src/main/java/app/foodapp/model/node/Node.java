@@ -18,7 +18,7 @@ public abstract class Node {
     }
 
     //Getter
-    protected List<NodeName> getNeighborsList() {
+    public List<NodeName> getNeighborsList() {
         return this.neighborsList;
     }
 }
