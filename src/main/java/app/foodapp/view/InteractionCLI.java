@@ -1,7 +1,9 @@
 package app.foodapp.view;
 
+import app.foodapp.model.dataManipulation.MeasureSystem;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class InteractionCLI {
         this.askMainChoiceReturnValue = askMainChoice();
         switch (this.askMainChoiceReturnValue) {
             case 1: askIngredient();
-
+            case 3: changeMeasureSystem();
         }
         askQuestionToGetDetails();
 
@@ -69,6 +71,40 @@ public class InteractionCLI {
     public void sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         recipeInformation.simpleDisplay();
+    }
+
+    private void changeMeasureSystem() {
+        try {
+            MeasureSystem measureSystem = MeasureSystem.getMeasureSystem();
+            System.out.println("Your current measure system is : " + measureSystem.toString());
+        } catch (IOException exception) {
+            System.out.println("We can't find your current measure system.");
+        }
+        System.out.println("Do you want to change it ?\n(Yes or No)");
+        while (true) {
+            terminalScanner = new Scanner(System.in);
+            String answer = terminalScanner.nextLine();
+            switch (answer) {
+                case "yes": setMeasureSystem();
+                case "no": askMainChoice();
+                default:
+                    System.out.println("Please, enter a valid answer.");
+            }
+        }
+    }
+
+    private void setMeasureSystem() {
+        System.out.println("Which measure system do you want ?");
+        System.out.println("1\tus");
+        System.out.println("2\tmetric");
+        while (true) {
+            terminalScanner = new Scanner(System.in);
+            int answer = terminalScanner.nextInt();
+            switch (answer) {
+                case 1:
+
+            }
+        }
     }
 
 

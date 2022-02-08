@@ -1,6 +1,7 @@
 package app.foodapp.model.dataManipulation;
 
 import java.io.*;
+import java.nio.file.NoSuchFileException;
 
 public enum MeasureSystem {
     US(0),
@@ -27,21 +28,22 @@ public enum MeasureSystem {
     /*
     This function set the measure system of the ingredient. The system is saved in a file.
      */
-    public static void setMeasureSystem (final MeasureSystem measureSystem) throws IOException {
-        FileWriter fileWriter = new FileWriter("save/MeasureSystem.txt");
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        switch (measureSystem) {
-            case US:
-                bufferedWriter.write("0");
-                bufferedWriter.close();
-                break;
-            case METRIC:
-                bufferedWriter.write("1");
-                bufferedWriter.close();
-                break;
-            default:
-                bufferedWriter.close();
-                throw  new IOException("Measure system provided is not accepted.");
+    public static void setMeasureSystem (final MeasureSystem measureSystem) {
+        try {
+            FileWriter fileWriter = new FileWriter("save/MeasureSystem.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            switch (measureSystem) {
+                case US:
+                    bufferedWriter.write("0");
+                    bufferedWriter.close();
+                    break;
+                case METRIC:
+                    bufferedWriter.write("1");
+                    bufferedWriter.close();
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
