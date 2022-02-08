@@ -1,10 +1,7 @@
 package app.foodapp.view;
 
-import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -12,6 +9,7 @@ import java.util.Scanner;
 public class InteractionCLI {
 
     private final ArrayList<String> listOfIngredient;
+    private RecipeInformation recipeInformation;
     private final int askMainChoiceReturnValue;
     private Scanner terminalScanner;
 
@@ -24,6 +22,9 @@ public class InteractionCLI {
             case 1: askIngredient();
 
         }
+        askQuestionToGetDetails();
+
+
     }
 
     public int askMainChoice() {
@@ -49,9 +50,25 @@ public class InteractionCLI {
         sendRequest();
     }
 
+    public void askDetailsOfRecipe() {
+        System.out.println("Type recipe's number");
+        terminalScanner = new Scanner(System.in);
+        int number = terminalScanner.nextInt();
+        //recipeInformation.getListOfRecipe().get(number).bigDisplay();
+    }
+
+    public void askQuestionToGetDetails() {
+        System.out.println("More details about a recipe ? \n (Yes or No)");
+        terminalScanner = new Scanner(System.in);
+        String answer = terminalScanner.nextLine();
+        if(answer.equals("Yes"))
+            askDetailsOfRecipe();
+
+    }
+
     public void sendRequest() {
-        RecipeInformation test = new RecipeInformation(this.listOfIngredient);
-        test.display();
+        recipeInformation = new RecipeInformation(this.listOfIngredient);
+        recipeInformation.simpleDisplay();
     }
 
 

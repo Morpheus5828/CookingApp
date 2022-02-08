@@ -62,14 +62,13 @@ public class RecipeInformation {
                 this.listOfRecipe.add(new Recipe(this.title, this.serving, this.cookingTime));
             }
 
-
-
         } catch (Exception e) {
             // Sometimes value's properties are null
             e.printStackTrace();
         }
     }
 
+    // Almost finished
     public void getIngredients() {
         try {
             // Conversion: List to JSONArray
@@ -142,16 +141,21 @@ public class RecipeInformation {
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
-    public void display() {
+    public void simpleDisplay() {
         for(int i = 0; i < this.listOfRecipe.size(); i++) {
             System.out.println(
-                    "Recipe: " + this.listOfRecipe.get(i).getTitle() + "\n" +
-                    "Cooking Time: " + this.listOfRecipe.get(i).getCookingTime() + "\n" +
-                    "Serving: " + this.listOfRecipe.get(i).getServings() + "\n" +
-                    "-----------------------------------------------" + "\n"
+                    i + "." + "\n" +
+                    "\t" + "Recipe: " + this.listOfRecipe.get(i).getTitle() + "\n" +
+                    "\t" + "Cooking Time: " + this.listOfRecipe.get(i).getCookingTime() + "\n" +
+                    "\t" + "Serving: " + this.listOfRecipe.get(i).getServings() + "\n" +
+                    "\t" + "-----------------------------------------------------------" + "\n"
             );
         }
+    }
 
+
+    public ArrayList<Recipe> getListOfRecipe() {
+        return this.listOfRecipe;
     }
 
 
