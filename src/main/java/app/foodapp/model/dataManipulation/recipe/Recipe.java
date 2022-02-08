@@ -14,6 +14,7 @@ public class Recipe {
     private final String title;
     private final double servings;
     private final double cookingTime;
+    private final RecipeInformation recipeInformation;
 
     public Recipe (final int id, final String image, final String title, final double servings, final double cookingTime) {
         this.id = id;
@@ -21,6 +22,7 @@ public class Recipe {
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
+        recipeInformation = new RecipeInformation(String.valueOf(id));
         //this.step = new HashMap<>();
     }
 
@@ -31,6 +33,7 @@ public class Recipe {
         this.servings = servings;
         this.cookingTime = cookingTime;
         //this.step = step;
+        recipeInformation = new RecipeInformation(String.valueOf(id));
     }
 
     public int getId() {
@@ -49,15 +52,24 @@ public class Recipe {
         return this.servings;
     }
 
-
     public double getCookingTime() {
         return this.cookingTime;
     }
 
+    /*
+    Returns a map of the recipe's steps. Keys are the step's number, and values are the step's description.
+     */
+    public Map<Integer, String> getSteps() {
+        return this.recipeInformation.getStepRecipeInformation();
+    }
+
+    /*
+    Returns a list of the recipe's ingredients.
+    The amount of each ingredient is calculated according to the measure system saved.
+     */
     public ArrayList<String> getIngredientsList() {
         ArrayList<String> ingredientsList = new ArrayList<>();
-        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
-        ArrayList<Map<String, String>> ingredientsInformation = recipeInformation.getIngredientsInformation();
+        ArrayList<Map<String, String>> ingredientsInformation = this.recipeInformation.getIngredientsInformation();
 
         for (int index = 0; index < ingredientsInformation.size(); index++) {
             Map<String, String> information = ingredientsInformation.get(index);
@@ -65,9 +77,11 @@ public class Recipe {
 
             if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("servings") || unit.equals("")) {
                 ingredientsList.add(information.get("fullDescription"));
+
             } else {
                 try {
                     String measureSystem = MeasureSystem.getMeasureSystem().toString();
+
                     String ingredient = information.get(measureSystem + "Amount")
                             + " "
                             + information.get(measureSystem + "Unit")
@@ -87,11 +101,10 @@ public class Recipe {
     This function returns the Spoonacular score of the recipe.
      */
     public double getScore() {
-        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
-        return recipeInformation.getScore();
+        return this.recipeInformation.getScore();
     }
 
-    /*public void bigDisplay() {
+    /* public void bigDisplay() {
         System.out.println(
             "\t" + "Recipe: " + this.title + "\n" +
             "\t" + "Cooking Time: " + this.cookingTime + "\n" +

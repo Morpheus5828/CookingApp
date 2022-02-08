@@ -20,10 +20,6 @@ public class RecipeInformation {
     private String image;
     private double cookingTime;
     private double serving;
-    private String ingredientName;
-    private String originalName;
-    private String unitValue;
-    private double amountValue;
     private Gson gsonInstance;
     private Map jsonFile;
 
@@ -68,31 +64,6 @@ public class RecipeInformation {
         }
     }
 
-    // Almost finished
-    public void getIngredients() {
-        try {
-            // Conversion: List to JSONArray
-            List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
-            JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
-
-            // Extraction value's extendedIngredients
-            for(int index = 0; index < jsonArray.length(); index++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(index);
-                Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
-                this.ingredientName = mapDeTest.get("name").toString();
-                this.originalName = mapDeTest.get("originalName").toString();
-                this.unitValue = mapDeTest.get("unit").toString();
-                this.amountValue = (double) mapDeTest.get("amount");
-            }
-
-            //TODO To be continued
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
     private void getCookingTime(String idString) {
         RecipeInformation instance = new RecipeInformation(idString);
         this.cookingTime = instance.cookingTime;
@@ -130,6 +101,10 @@ public class RecipeInformation {
         return stepInstruction;
     }
 
+    /*
+    This function return a list of map.
+    Each map contains information about one ingredient needed in the recipe.
+     */
     public ArrayList<Map<String, String>> getIngredientsInformation() {
         ArrayList<Map<String, String>> ingredientsListInformation = new ArrayList<>();
         try {
@@ -139,6 +114,7 @@ public class RecipeInformation {
             for (int index = 0; index < ingredients.length(); index++) {
                 Map<String, String> ingredientsInformation = new HashMap<>();
                 Map information = gsonInstance.fromJson(String.valueOf(ingredients.getJSONObject(index)), Map.class);
+
                 ingredientsInformation.put("fullDescription", (String) information.get("original"));
                 ingredientsInformation.put("description", (String) information.get("originalName"));
                 ingredientsInformation.put("unit", (String) information.get("unit"));
@@ -147,7 +123,6 @@ public class RecipeInformation {
                 Map usMeasure = (Map) measure.get("us");
                 Map metricMeasure = (Map) measure.get("metric");
 
-                //For a better comprehension, amounts are rounded.
                 double usAmount = (Math.round((double) usMeasure.get("amount") *  10.0)) / 10.0;
                 double metricAmount = (Math.round((double) metricMeasure.get("amount") *  10.0)) / 10.0;
 
@@ -163,6 +138,13 @@ public class RecipeInformation {
             e.printStackTrace();
         }
         return ingredientsListInformation;
+    }
+
+    /*
+    This function returns the Spoonacular score of the recipe.
+     */
+    public double getScore() {
+        return (double) this.jsonFile.get("spoonacularScore");
     }
 
     private Map convertListToMap(List list) {
