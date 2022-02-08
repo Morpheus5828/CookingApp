@@ -1,7 +1,6 @@
 package app.foodapp.model.dataManipulation;
 
 import java.io.*;
-import java.nio.file.NoSuchFileException;
 
 public enum MeasureSystem {
     US(0),

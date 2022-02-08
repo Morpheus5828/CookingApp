@@ -87,8 +87,7 @@ public class InteractionCLI {
             switch (answer) {
                 case "yes": setMeasureSystem();
                 case "no": askMainChoice();
-                default:
-                    System.out.println("Please, enter a valid answer.");
+                default: System.out.println("Please, enter a valid answer.");
             }
         }
     }
@@ -102,7 +101,17 @@ public class InteractionCLI {
             int answer = terminalScanner.nextInt();
             switch (answer) {
                 case 1:
-
+                    MeasureSystem.setMeasureSystem(MeasureSystem.US);
+                    System.out.println("The measure system has been set to : us.");
+                    System.out.println("You are redirecting to the selection menu.\n");
+                    System.out.println("-----------------------------------------\n");
+                    askMainChoice();
+                case 2:
+                    MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
+                    System.out.println("The measure system has been set to : metric.");
+                    askMainChoice();
+                default:
+                    System.out.println("Please, enter a valid answer.");
             }
         }
     }
