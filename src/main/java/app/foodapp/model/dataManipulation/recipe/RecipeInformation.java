@@ -19,10 +19,6 @@ public class RecipeInformation {
     private String image;
     private double cookingTime;
     private double serving;
-    private String ingredientName;
-    private String originalName;
-    private String unitValue;
-    private double amountValue;
     private Gson gsonInstance;
     private Map jsonFile;
 
@@ -46,6 +42,7 @@ public class RecipeInformation {
         }
     }
 
+<<<<<<< HEAD
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
         try {
@@ -100,6 +97,8 @@ public class RecipeInformation {
         this.serving = instance.serving;
     }
 
+=======
+>>>>>>> 9a5f52e7138a5de50bb2eba0e1938617ac91b7fd
     public Map<Integer, String> getStepRecipeInformation() {
         Map<Integer, String> stepInstruction = new HashMap<>();
 
@@ -126,6 +125,13 @@ public class RecipeInformation {
         return stepInstruction;
     }
 
+<<<<<<< HEAD
+=======
+    /*
+    This function return a list of map.
+    Each map contains information about one ingredient needed in the recipe.
+     */
+>>>>>>> 9a5f52e7138a5de50bb2eba0e1938617ac91b7fd
     public ArrayList<Map<String, String>> getIngredientsInformation() {
         ArrayList<Map<String, String>> ingredientsListInformation = new ArrayList<>();
         try {
@@ -135,6 +141,10 @@ public class RecipeInformation {
             for (int index = 0; index < ingredients.length(); index++) {
                 Map<String, String> ingredientsInformation = new HashMap<>();
                 Map information = gsonInstance.fromJson(String.valueOf(ingredients.getJSONObject(index)), Map.class);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9a5f52e7138a5de50bb2eba0e1938617ac91b7fd
                 ingredientsInformation.put("fullDescription", (String) information.get("original"));
                 ingredientsInformation.put("description", (String) information.get("originalName"));
                 ingredientsInformation.put("unit", (String) information.get("unit"));
@@ -159,6 +169,13 @@ public class RecipeInformation {
             e.printStackTrace();
         }
         return ingredientsListInformation;
+    }
+
+    /*
+    This function returns the Spoonacular score of the recipe.
+     */
+    public double getScore() {
+        return (double) this.jsonFile.get("spoonacularScore");
     }
 
     private Map convertListToMap(List list) {
