@@ -1,12 +1,10 @@
 package app.foodapp.model.node;
 
 public class Welcome extends Node{
-    private final int NUMBER_OF_NODE = 3;
 
     public Welcome() {
         super();
         addNodes();
-
 
     }
 
@@ -16,4 +14,5 @@ public class Welcome extends Node{
         this.neighborsList.add(NodeName.MEASURE_SYSTEM);
         this.neighborsList.add(NodeName.GET_RECIPE_BY_INGREDIENT);
     }
+
 }
