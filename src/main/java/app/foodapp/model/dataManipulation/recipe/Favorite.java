@@ -11,7 +11,7 @@ public class Favorite {
     private List<Recipe> favorites;
 
     public Favorite(){
-        favorites = new ArrayList();
+        this.favorites = new ArrayList();
     }
 
     public void addToFavorite(Recipe recipe){
@@ -42,4 +42,5 @@ public class Favorite {
         else
             return favorites.get(index);
     }
+
 }

@@ -1,6 +1,7 @@
 package app.foodapp.view;
 
 import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
+import app.foodapp.model.dataManipulation.recipe.Favorite;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
 import java.awt.event.KeyEvent;
@@ -13,16 +14,18 @@ public class InteractionCLI {
 
     private final ArrayList<String> listOfIngredient;
     private final int askMainChoiceReturnValue;
+    private final Favorite favorite;
     private Scanner terminalScanner;
 
     public InteractionCLI() {
         this.listOfIngredient = new ArrayList<String>();
+        this.favorite = new Favorite();
         System.out.println("Hello World !\n");
 
         this.askMainChoiceReturnValue = askMainChoice();
         switch (this.askMainChoiceReturnValue) {
             case 1: askIngredient();
-
+            case 2: askToFavorite();
         }
     }
 
@@ -54,7 +57,12 @@ public class InteractionCLI {
         test.display();
     }
 
-
+    public void askToFavorite() {
+        if(this.favorite.getFavorites().isEmpty())
+            System.out.println("Favorite list is empty ...");
+        else
+            System.out.println(this.favorite.getFavorites());
+    }
 
 
 
