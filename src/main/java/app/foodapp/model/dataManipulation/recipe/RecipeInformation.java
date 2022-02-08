@@ -42,7 +42,6 @@ public class RecipeInformation {
         }
     }
 
-<<<<<<< HEAD
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
         try {
@@ -63,29 +62,6 @@ public class RecipeInformation {
         }
     }
 
-    public void getIngredients() {
-        try {
-            // Conversion: List to JSONArray
-            List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
-            JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
-
-            // Extraction value's extendedIngredients
-            for(int index = 0; index < jsonArray.length(); index++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(index);
-                Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
-                this.ingredientName = mapDeTest.get("name").toString();
-                this.originalName = mapDeTest.get("originalName").toString();
-                this.unitValue = mapDeTest.get("unit").toString();
-                this.amountValue = (double) mapDeTest.get("amount");
-            }
-
-            // to be continued
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
     private void getCookingTime(String idString) {
         RecipeInformation instance = new RecipeInformation(idString);
         this.cookingTime = instance.cookingTime;
@@ -97,8 +73,6 @@ public class RecipeInformation {
         this.serving = instance.serving;
     }
 
-=======
->>>>>>> 9a5f52e7138a5de50bb2eba0e1938617ac91b7fd
     public Map<Integer, String> getStepRecipeInformation() {
         Map<Integer, String> stepInstruction = new HashMap<>();
 
@@ -125,13 +99,10 @@ public class RecipeInformation {
         return stepInstruction;
     }
 
-<<<<<<< HEAD
-=======
     /*
     This function return a list of map.
     Each map contains information about one ingredient needed in the recipe.
      */
->>>>>>> 9a5f52e7138a5de50bb2eba0e1938617ac91b7fd
     public ArrayList<Map<String, String>> getIngredientsInformation() {
         ArrayList<Map<String, String>> ingredientsListInformation = new ArrayList<>();
         try {
@@ -141,10 +112,7 @@ public class RecipeInformation {
             for (int index = 0; index < ingredients.length(); index++) {
                 Map<String, String> ingredientsInformation = new HashMap<>();
                 Map information = gsonInstance.fromJson(String.valueOf(ingredients.getJSONObject(index)), Map.class);
-<<<<<<< HEAD
-=======
 
->>>>>>> 9a5f52e7138a5de50bb2eba0e1938617ac91b7fd
                 ingredientsInformation.put("fullDescription", (String) information.get("original"));
                 ingredientsInformation.put("description", (String) information.get("originalName"));
                 ingredientsInformation.put("unit", (String) information.get("unit"));
@@ -153,7 +121,6 @@ public class RecipeInformation {
                 Map usMeasure = (Map) measure.get("us");
                 Map metricMeasure = (Map) measure.get("metric");
 
-                //For a better comprehension, amounts are rounded.
                 double usAmount = (Math.round((double) usMeasure.get("amount") *  10.0)) / 10.0;
                 double metricAmount = (Math.round((double) metricMeasure.get("amount") *  10.0)) / 10.0;
 
