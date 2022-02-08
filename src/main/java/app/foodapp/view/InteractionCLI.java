@@ -103,9 +103,6 @@ public class InteractionCLI {
                 case 1:
                     MeasureSystem.setMeasureSystem(MeasureSystem.US);
                     System.out.println("The measure system has been set to : us.");
-                    System.out.println("You are redirecting to the selection menu.\n");
-                    System.out.println("-----------------------------------------\n");
-                    askMainChoice();
                 case 2:
                     MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
                     System.out.println("The measure system has been set to : metric.");
@@ -114,6 +111,12 @@ public class InteractionCLI {
                     System.out.println("Please, enter a valid answer.");
             }
         }
+    }
+
+    private void redirection() {
+        System.out.println("You are redirecting to the selection menu.\n");
+        System.out.println("-----------------------------------------\n");
+        askMainChoice();
     }
 
 
