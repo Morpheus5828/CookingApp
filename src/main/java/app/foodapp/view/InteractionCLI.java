@@ -26,7 +26,17 @@ public class InteractionCLI {
         switch (this.askMainChoiceReturnValue) {
             case 1: askIngredient();
             case 2: askToFavorite();
+            case 3: askToMeasureSystem();
+            default: {
+                System.out.println("You don't type good number, please try again");
+                new InteractionCLI();
+            }
+
         }
+    }
+
+    public void back() {
+        //TODO comming soon !
     }
 
     public int askMainChoice() {
@@ -64,6 +74,9 @@ public class InteractionCLI {
             System.out.println(this.favorite.getFavorites());
     }
 
+    public void askToMeasureSystem() {
+        //TODO comming soon !
+    }
 
 
 
