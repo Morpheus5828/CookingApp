@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class InteractionCLI {
     public InteractionCLI() {
         System.out.println("\nWelcome to CookingApp\n");
-        new Welcome();
+        Welcome test = new Welcome();
 
 
     }
