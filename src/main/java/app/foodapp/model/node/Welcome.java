@@ -15,6 +15,7 @@ public class Welcome extends Node{
 
     }
 
+
     private void addNodes() {
         // Creation of link with Welcome class
         this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
@@ -48,11 +49,10 @@ public class Welcome extends Node{
     public void changeCurrentStateNode() {
         try {
             if(this.neighborsList.get(choice) == NodeName.getNodeName(choice))
-                // Choice accepted
-                System.out.println("good");
+                Pane.setNextNodeNumber(this.neighborsList.get(choice).name());
             else
                 // Choice node not accepted
-                System.out.println("not yet");
+                System.out.println("Node doesn't exist");
         } catch (Exception e) {
             e.printStackTrace();
         }

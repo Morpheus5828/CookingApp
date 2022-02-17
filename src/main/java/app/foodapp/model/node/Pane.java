@@ -5,16 +5,27 @@ import java.util.ArrayList;
 public class Pane {
     private ArrayList<Node> nodeList;
     private Welcome welcome;
-    private GetRecipeByIngredient instance;
+    private GetRecipeByIngredient getRecipeByIngredient;
     private Favorite favorite;
     private MeasureSystem measureSystem;
     private RecipeDetails recipeDetails;
-    // 0 currentStateNumber equals to firstNode : Welcome
+    private static boolean checkStatusCode = true;
     private static String currentNode = NodeName.WELCOME.name();
     private static String backNode = null;
 
     public Pane() {
+        display();
         this.welcome = new Welcome();
+        while (checkStatusCode) {
+            switch (currentNode) {
+                case "GET_RECIPE_BY_INGREDIENT" -> new GetRecipeByIngredient();
+                case "WELCOME" -> new Welcome();
+                case "FAVORITE" -> new Favorite();
+                case "MEASURE_SYSTEM" -> new MeasureSystem();
+                case "RECIPE_DETAILS" -> new RecipeDetails();
+            }
+        }
+
         /*this.instance = new GetRecipeByIngredient();
         this.favorite = new Favorite();
         this.measureSystem = new MeasureSystem();
