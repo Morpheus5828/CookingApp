@@ -20,7 +20,7 @@ public abstract class Node {
     }
 
     //Getter
-    public List<NodeName> getNeighborsList(int key) {
+    public NodeName getNeighborsList(int key) {
         return this.neighborsList.get(key);
     }
 }

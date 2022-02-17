@@ -17,9 +17,9 @@ public class Welcome extends Node{
 
     private void addNodes() {
         // Creation of link with Welcome class
-        this.neighborsList.add(NodeName.GET_RECIPE_BY_INGREDIENT);
-        this.neighborsList.add(NodeName.FAVORITE);
-        this.neighborsList.add(NodeName.MEASURE_SYSTEM);
+        this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
+        this.neighborsList.put(2, NodeName.FAVORITE);
+        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
 
     }
 
@@ -46,12 +46,12 @@ public class Welcome extends Node{
     }
 
     public void changeCurrentStateNode() {
-        System.out.println(this.neighborsList.get(choice));
-        System.out.println(NodeName.getNodeName(choice));
         try {
             if(this.neighborsList.get(choice) == NodeName.getNodeName(choice))
+                // Choice accepted
                 System.out.println("good");
             else
+                // Choice node not accepted
                 System.out.println("not yet");
         } catch (Exception e) {
             e.printStackTrace();
