@@ -1,5 +1,6 @@
 package app.foodapp.model.node;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Welcome extends Node{
@@ -31,6 +32,7 @@ public class Welcome extends Node{
         System.out.print( "\t\t--> Tap number: ");
         Scanner sc = new Scanner(System.in);
         this.choice = sc.nextInt();
+        this.changeCurrentStateNode();
     }
 
     public void getNextInstance(int index) {
@@ -40,6 +42,17 @@ public class Welcome extends Node{
             case 2: new Favorite();
             case 3: new MeasureSystem();
             case 4: new RecipeDetails();
+        }
+    }
+
+    public void changeCurrentStateNode() {
+        try {
+            if(this.neighborsList.get(choice) == NodeName.values()[choice])
+                System.out.println("good");
+            else
+                System.out.println("not yet");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

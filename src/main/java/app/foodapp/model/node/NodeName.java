@@ -1,7 +1,5 @@
 package app.foodapp.model.node;
 
-import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
-
 public enum NodeName {
     WELCOME(0),
     GET_RECIPE_BY_INGREDIENT(1),
@@ -12,5 +10,8 @@ public enum NodeName {
 
      NodeName(final int index) {}
 
+    public static String getNode(int index) {
+         return NodeName.values()[index].name();
+    }
 
 }
