@@ -1,5 +1,8 @@
 package app.foodapp.controller.apiHttpRequest;
 
+import app.foodapp.controller.checkInternetConnexion.InternetConnexion;
+import app.foodapp.view.errorDisplay.ErrorDisplay;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -35,7 +38,7 @@ public class MainInstructionsRequest extends ApiDataRequest {
                 this.responseFromApi = response.body();
             else
                 // Request failed
-                System.out.println("problem");
+                ErrorDisplay.connexionFailed();
 
         }
 
