@@ -1,24 +1,26 @@
 package app.foodapp.model.node;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Node {
-    protected final List<NodeName> neighborsList;
+    protected final Map<Integer, NodeName> neighborsList;
 
     public Node() {
-        this.neighborsList = new ArrayList<>();
+        this.neighborsList = new HashMap<>();
     }
 
 
 
     //Setter
-    protected void setNeighbors(NodeName neighbors) {
-        this.neighborsList.add(neighbors);
+    protected void setNeighbors(NodeName neighbors, int key) {
+        this.neighborsList.put(key, neighbors);
     }
 
     //Getter
-    public List<NodeName> getNeighborsList() {
-        return this.neighborsList;
+    public List<NodeName> getNeighborsList(int key) {
+        return this.neighborsList.get(key);
     }
 }

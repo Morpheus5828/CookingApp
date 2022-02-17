@@ -4,7 +4,6 @@ public class GetRecipeByIngredient extends Node{
     public GetRecipeByIngredient() {
         super();
         addNodes();
-        System.out.println("BINGO I AM THE MACHINNNNNNEEEEEEE");
     }
 
     private void addNodes() {

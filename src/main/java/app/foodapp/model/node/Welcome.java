@@ -46,8 +46,10 @@ public class Welcome extends Node{
     }
 
     public void changeCurrentStateNode() {
+        System.out.println(this.neighborsList.get(choice));
+        System.out.println(NodeName.getNodeName(choice));
         try {
-            if(this.neighborsList.get(choice) == NodeName.values()[choice])
+            if(this.neighborsList.get(choice) == NodeName.getNodeName(choice))
                 System.out.println("good");
             else
                 System.out.println("not yet");

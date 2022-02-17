@@ -14,4 +14,8 @@ public enum NodeName {
          return NodeName.values()[index].name();
     }
 
+    public static NodeName getNodeName(int index) {
+        return NodeName.values()[index];
+    }
+
 }
