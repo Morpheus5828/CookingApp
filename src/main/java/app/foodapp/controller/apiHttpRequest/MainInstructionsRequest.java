@@ -4,6 +4,7 @@ import app.foodapp.controller.checkInternetConnexion.InternetConnexion;
 import app.foodapp.view.errorDisplay.ErrorDisplay;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -40,6 +41,9 @@ public class MainInstructionsRequest extends ApiDataRequest {
                 // Request failed
                 ErrorDisplay.connexionFailed();
 
+        }
+        catch (MalformedURLException e) {
+            ErrorDisplay.connexionFailed();
         }
 
         catch (IOException | InterruptedException e) {
