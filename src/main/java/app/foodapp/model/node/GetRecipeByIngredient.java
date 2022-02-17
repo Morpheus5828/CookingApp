@@ -1,9 +1,20 @@
 package app.foodapp.model.node;
 
+import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
+
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+
 public class GetRecipeByIngredient extends Node{
+    private final ArrayList<String> listOfIngredient;
+    private boolean addIngredient = true;
+    private RecipeInformation recipeInformation;
+
     public GetRecipeByIngredient() {
         super();
         addNodes();
+        this.listOfIngredient = new ArrayList<>();
     }
 
     private void addNodes() {
@@ -15,6 +26,32 @@ public class GetRecipeByIngredient extends Node{
 
     }
 
+    public void launch()  {
+        display();
+        System.out.println("Please hold on ..." + "\n");
+        sendRequest();
+    }
 
+    public void display() {
+        System.out.println("\n" + "Please ingredient(s) and type 'end' when you're finished" + "\n");
+        System.out.println("\t Enter ingredient(s) : ");
+        while(addIngredient) {
+            System.out.print("-> ");
+            Scanner sc = new Scanner(System.in);
+            String ingredient = sc.nextLine();
+
+            if(Objects.equals(ingredient, "end"))
+                addIngredient = false;
+            else
+                this.listOfIngredient.add(ingredient);
+        }
+
+    }
+
+
+    public void sendRequest() {
+        recipeInformation = new RecipeInformation(this.listOfIngredient);
+        recipeInformation.display();
+    }
 
 }

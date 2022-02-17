@@ -3,7 +3,6 @@ package app.foodapp.model.node;
 import java.util.ArrayList;
 
 public class Pane {
-    private ArrayList<Node> nodeList;
     private Welcome welcome;
     private GetRecipeByIngredient getRecipeByIngredient;
     private Favorite favorite;
@@ -16,13 +15,18 @@ public class Pane {
     public Pane() {
         display();
         this.welcome = new Welcome();
+        this.getRecipeByIngredient = new GetRecipeByIngredient();
+        this.favorite = new Favorite();
+        this.measureSystem = new MeasureSystem();
+        this.recipeDetails = new RecipeDetails();
+
         while (checkStatusCode) {
             switch (currentNode) {
-                case "GET_RECIPE_BY_INGREDIENT" -> new GetRecipeByIngredient();
-                case "WELCOME" -> new Welcome();
-                case "FAVORITE" -> new Favorite();
-                case "MEASURE_SYSTEM" -> new MeasureSystem();
-                case "RECIPE_DETAILS" -> new RecipeDetails();
+                case "WELCOME" -> welcome.launch();
+                case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
+                /*case "FAVORITE" ->
+                case "MEASURE_SYSTEM" ->
+                case "RECIPE_DETAILS" ->*/
             }
         }
 
@@ -30,16 +34,6 @@ public class Pane {
         this.favorite = new Favorite();
         this.measureSystem = new MeasureSystem();
         this.recipeDetails = new RecipeDetails();*/
-
-
-
-        /*this.nodeList = new ArrayList<>();
-        this.nodeList.add(welcome);
-        this.nodeList.add(instance);
-        this.nodeList.add(favorite);
-        this.nodeList.add(measureSystem);
-        this.nodeList.add(recipeDetails);*/
-
 
 
     }

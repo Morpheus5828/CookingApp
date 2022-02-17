@@ -10,11 +10,12 @@ public class Welcome extends Node{
     public Welcome() {
         super();
         addNodes();
-        display();
-        this.getNextInstance(this.choice);
-
     }
 
+    public void launch() {
+        display();
+        this.getNextInstance(this.choice);
+    }
 
     private void addNodes() {
         // Creation of link with Welcome class
