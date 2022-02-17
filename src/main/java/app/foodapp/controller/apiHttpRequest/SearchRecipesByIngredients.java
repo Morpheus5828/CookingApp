@@ -1,5 +1,7 @@
 package app.foodapp.controller.apiHttpRequest;
 
+import app.foodapp.view.errorDisplay.ErrorDisplay;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -44,7 +46,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
                 this.responseFromApi = response.body();
             else
                 // Request failed
-                System.out.println("Ingredients problem, please try again");
+                ErrorDisplay.connexionFailed();
 
         }
 
