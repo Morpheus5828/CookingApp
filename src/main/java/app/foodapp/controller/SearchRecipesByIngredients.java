@@ -1,4 +1,4 @@
-package app.foodapp.controller.apiHttpRequest;
+package app.foodapp.controller;
 
 import app.foodapp.view.errorDisplay.ErrorDisplay;
 
@@ -8,7 +8,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 
 public class SearchRecipesByIngredients extends ApiDataRequest {

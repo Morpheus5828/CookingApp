@@ -1,7 +1,7 @@
 package app.foodapp.model.dataManipulation.recipe;
 
-import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
-import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
+import app.foodapp.controller.MainInstructionsRequest;
+import app.foodapp.controller.SearchRecipesByIngredients;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;

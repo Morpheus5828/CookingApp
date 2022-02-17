@@ -1,6 +1,5 @@
-package app.foodapp.controller.apiHttpRequest;
+package app.foodapp.controller;
 
-import app.foodapp.controller.checkInternetConnexion.InternetConnexion;
 import app.foodapp.view.errorDisplay.ErrorDisplay;
 
 import java.io.IOException;
