@@ -2,7 +2,6 @@ package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
-import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -31,6 +30,7 @@ public class GetRecipeByIngredient extends Node{
         askToEnterIngredients();
         System.out.println("Please hold on ..." + "\n");
         sendRequest();
+        askToAddRecipeFavorite();
         Pane.checkStatusCode = false;
     }
 
@@ -49,13 +49,14 @@ public class GetRecipeByIngredient extends Node{
         }
     }
 
-    public void askToAddRecipeFavorite() throws InstanceAlreadyExistsException {
+    public void askToAddRecipeFavorite() {
         System.out.print("Do you wish to add a recipe to your favorite ? (yes or no)" + "\t");
         Scanner sc = new Scanner(System.in);
         String addFavoriteQuestion = sc.nextLine();
         if (addFavoriteQuestion.equals("yes")) {
             System.out.print("Enter menu number : ");
             int recipeNumber = sc.nextInt();
+            //RecipeInformation.listOfRecipe.get(recipeNumber);
             Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(recipeNumber));
         }
 

@@ -1,11 +1,8 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
-import app.foodapp.model.node.Node;
-import app.foodapp.model.node.NodeName;
 
 
-import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +28,10 @@ public class Favorite extends Node {
     }
 
     public void launch() {
+        System.out.println(this.favorites);
     }
 
-    public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
+    /*public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
         if(isFavorite(recipe))
             throw new InstanceAlreadyExistsException("Recipe already in Favorites");
         else{
@@ -41,6 +39,18 @@ public class Favorite extends Node {
             saveFavorites();
             return true;
         }
+    }*/
+
+    public boolean addToFavorite(Recipe recipe) {
+        if(isFavorite(recipe)) {
+            System.out.println("Recipe already in Favorites");
+            return false;
+        }
+        favorites.add(recipe);
+        System.out.println("Recipe has been correctly added to Favorite" + "\n");
+        saveFavorites();
+        return true;
+
     }
 
     public boolean isFavorite(Recipe recipe){
@@ -56,8 +66,8 @@ public class Favorite extends Node {
             return true;
     }
 
-    public List<Recipe> getFavorites(){
-        return favorites;
+    public List<Recipe> getFavoriteList(){
+        return this.favorites;
     }
 
     public Recipe getFavorite(int index) throws ArrayIndexOutOfBoundsException{

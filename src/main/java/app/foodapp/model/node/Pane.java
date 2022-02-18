@@ -14,7 +14,7 @@ public class Pane {
     public static String currentNode = NodeName.WELCOME.name();
     private static String backNode = null;
 
-    public Pane() {
+    public Pane(){
         this.welcome = new Welcome();
         this.getRecipeByIngredient = new GetRecipeByIngredient();
         this.measureSystem = new MeasureSystem();
@@ -36,7 +36,7 @@ public class Pane {
     }
 
 
-    public static void addRecipeToFavoriteList(Recipe recipe) throws InstanceAlreadyExistsException {
+    public static void addRecipeToFavoriteList(Recipe recipe) {
         favorite.addToFavorite(recipe);
     }
 
@@ -47,7 +47,7 @@ public class Pane {
     }
 
     public void display() {
-        System.out.println("Current node is : " + currentNode + " and the back node is : " + backNode);
+    //    System.out.println("Current node is : " + currentNode + " and the back node is : " + backNode);
     }
 
 }

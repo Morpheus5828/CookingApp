@@ -38,7 +38,7 @@ public class FavoriteTest {
     void testGetFavorites() throws InstanceAlreadyExistsException {
         testFavorite.addToFavorite(testRecipe1);
         testFavorite.addToFavorite(testRecipe2);
-        assertEquals(testFavorite.getFavorites(), List.of(testRecipe1, testRecipe2));
+        assertEquals(testFavorite.getFavoriteList(), List.of(testRecipe1, testRecipe2));
     }
 
     @Test
