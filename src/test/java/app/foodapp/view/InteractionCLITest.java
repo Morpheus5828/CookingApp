@@ -14,10 +14,7 @@ public class InteractionCLITest {
 
     @Test
     public void askMainChoiceTest() {
-        instance = mock(InteractionCLI.class);
-        when(instance.askMainChoice()).thenReturn(1);
-        int result = instance.askMainChoice();
-        assertEquals(result, 1);
+
     }
 
     // Test for askIngredient, warning it has scanner instance
