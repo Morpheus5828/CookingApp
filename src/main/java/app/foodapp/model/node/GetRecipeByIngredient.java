@@ -30,12 +30,13 @@ public class GetRecipeByIngredient extends Node{
         display();
         System.out.println("Please hold on ..." + "\n");
         sendRequest();
+        Pane.checkStatusCode = false;
     }
 
     public void display() {
         System.out.println("\n" + "Please enter ingredient(s) and type 'end' when you're finished" + "\n");
         System.out.println("\t Type ingredient(s) : ");
-        /*while(addIngredient) {
+        while(addIngredient) {
             System.out.print("-> ");
             Scanner sc = new Scanner(System.in);
             String ingredient = sc.nextLine();
@@ -44,12 +45,7 @@ public class GetRecipeByIngredient extends Node{
                 addIngredient = false;
             else
                 this.listOfIngredient.add(ingredient);
-        }*/
-        System.out.print("-> ");
-        Scanner sc = new Scanner(System.in);
-        String ingredient = sc.nextLine();
-        this.listOfIngredient.add(ingredient);
-
+        }
     }
 
 

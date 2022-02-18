@@ -1,11 +1,9 @@
 package app.foodapp.model.node;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Welcome extends Node{
     private int choice;
-    private NodeName nodeName;
 
     public Welcome() {
         super();
@@ -13,8 +11,7 @@ public class Welcome extends Node{
     }
 
     public void launch() {
-        display();
-        this.getNextInstance(this.choice);
+        askFirstUserChoices();
     }
 
     private void addNodes() {
@@ -25,7 +22,7 @@ public class Welcome extends Node{
 
     }
 
-    public void display() {
+    public void askFirstUserChoices() {
         System.out.println(
                 "\t 1. Get recipe by ingredients" + "\n" +
                 "\t 2. Favorite list" + "\n" +
@@ -37,28 +34,21 @@ public class Welcome extends Node{
         this.changeCurrentStateNode();
     }
 
-    public void getNextInstance(int index) {
-        switch (index) {
-            case 0: new Welcome();
-            case 1: new GetRecipeByIngredient();
-            case 2: new Favorite();
-            case 3: new MeasureSystem();
-            case 4: new RecipeDetails();
-        }
-    }
-
     public void changeCurrentStateNode() {
+        // Check if choicefields is accepted or not
         try {
-            if(this.neighborsList.get(choice) == NodeName.getNodeName(choice))
+            if(this.neighborsList.get(choice) == NodeName.getNodeName(choice)) {
+                // We change current node
                 Pane.setNextNodeNumber(this.neighborsList.get(choice).name());
+            }
+
             else
-                // Choice node not accepted
+                // Node choice's not accepted
                 System.out.println("Node doesn't exist");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 }
