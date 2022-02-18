@@ -23,12 +23,13 @@ public class Favorite extends Node {
         super();
         addNodes();
          favorites = new ArrayList<>();
-         if(!isSavedFavoritesExists())
-            saveFavorites();
+         //if(!isSavedFavoritesExists())
+           // saveFavorites();
     }
 
     public void launch() {
-        System.out.println(this.favorites);
+        this.displayFavoriteList();
+        Pane.checkStatusCode = false;
     }
 
     /*public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
@@ -48,7 +49,7 @@ public class Favorite extends Node {
         }
         favorites.add(recipe);
         System.out.println("Recipe has been correctly added to Favorite" + "\n");
-        saveFavorites();
+        //saveFavorites();
         return true;
 
     }
@@ -57,14 +58,14 @@ public class Favorite extends Node {
         return favorites.contains(recipe);
     }
 
-    public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
+    /*public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
         if(!isFavorite(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             favorites.remove(recipe);
             saveFavorites();
             return true;
-    }
+    }*/
 
     public List<Recipe> getFavoriteList(){
         return this.favorites;
@@ -79,7 +80,7 @@ public class Favorite extends Node {
             return favorites.get(index);
     }
 
-    protected boolean saveFavorites(){
+    /*protected boolean saveFavorites(){
         try {
             FileOutputStream favoritesSaved = new FileOutputStream("save/favoritesSaved");
             ObjectOutputStream objectOut = new ObjectOutputStream(favoritesSaved);
@@ -92,6 +93,12 @@ public class Favorite extends Node {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
+    }*/
+
+    private boolean isEmpty() {
+        if (this.favorites.isEmpty())
+            return true;
         return false;
     }
 
@@ -116,5 +123,13 @@ public class Favorite extends Node {
         if(favoritesSaved.exists())
             return true;
         return false;
+    }
+
+    public void displayFavoriteList() {
+        if (this.isEmpty())
+            System.out.println("Sorry: Favorite list is empty");
+        for(Recipe recipe : this.favorites) {
+            System.out.println(recipe);
+        }
     }
 }

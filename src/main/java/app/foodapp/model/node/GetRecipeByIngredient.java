@@ -31,7 +31,6 @@ public class GetRecipeByIngredient extends Node{
         System.out.println("Please hold on ..." + "\n");
         sendRequest();
         askToAddRecipeFavorite();
-        Pane.checkStatusCode = false;
     }
 
     public void askToEnterIngredients() {
@@ -58,6 +57,7 @@ public class GetRecipeByIngredient extends Node{
             int recipeNumber = sc.nextInt();
             //RecipeInformation.listOfRecipe.get(recipeNumber);
             Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(recipeNumber));
+            Pane.setNextNodeNumber("FAVORITE");
         }
 
 
