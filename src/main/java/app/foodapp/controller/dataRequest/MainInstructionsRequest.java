@@ -1,5 +1,6 @@
-package app.foodapp.controller;
+package app.foodapp.controller.dataRequest;
 
+import app.foodapp.controller.dataRequest.ApiDataRequest;
 import app.foodapp.view.errorDisplay.ErrorDisplay;
 
 import java.io.IOException;
@@ -8,32 +9,23 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 
-public class SearchRecipesByIngredients extends ApiDataRequest {
-    private ArrayList<String> listOfIngredient;
-    private String ingredient = "";
+public class MainInstructionsRequest extends ApiDataRequest {
     private String responseFromApi;
 
-    public SearchRecipesByIngredients(ArrayList<String> listOfIngredient) {
-        this.listOfIngredient = listOfIngredient;
+    public MainInstructionsRequest(String recipeId) {
         this.client = HttpClient.newHttpClient();
-        conversion();
+
         // We launch data request to receive recipe information
         this.request = HttpRequest.newBuilder().uri(URI.create(
-                "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
-                + this.ingredient
-                + "&apiKey="
-                + this.API_KEY
+             "https://api.spoonacular.com/recipes/"
+             + recipeId
+             + "/information?analyzedInstructions"
+             + "&apiKey="
+            + this.API_KEY
         )).build();
 
         checkForDataExtraction(client, request);
-    }
-
-    private void conversion() {
-        for(String element : this.listOfIngredient) {
-            this.ingredient += element + ",+";
-        }
     }
 
     private void checkForDataExtraction(HttpClient client, HttpRequest request) {
@@ -67,3 +59,11 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         return this.responseFromApi;
     }
 }
+
+
+
+
+
+
+
+

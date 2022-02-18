@@ -1,4 +1,4 @@
-package app.foodapp.controller;
+package app.foodapp.controller.dataRequest;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
