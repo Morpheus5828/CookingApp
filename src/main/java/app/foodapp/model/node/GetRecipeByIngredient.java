@@ -10,6 +10,7 @@ public class GetRecipeByIngredient extends Node{
     private final ArrayList<String> listOfIngredient;
     private boolean addIngredient = true;
     private RecipeInformation recipeInformation;
+    private String recipeToAddFavoriteList = "";
 
     public GetRecipeByIngredient() {
         super();
@@ -27,13 +28,13 @@ public class GetRecipeByIngredient extends Node{
     }
 
     public void launch()  {
-        display();
+        askToEnterIngredients();
         System.out.println("Please hold on ..." + "\n");
         sendRequest();
         Pane.checkStatusCode = false;
     }
 
-    public void display() {
+    public void askToEnterIngredients() {
         System.out.println("\n" + "Please enter ingredient(s) and type 'end' when you're finished" + "\n");
         System.out.println("\t Type ingredient(s) : ");
         while(addIngredient) {
@@ -46,6 +47,13 @@ public class GetRecipeByIngredient extends Node{
             else
                 this.listOfIngredient.add(ingredient);
         }
+    }
+
+    public void askToAddRecipeFavorite() {
+        System.out.println("Do you wish to add a recipe to your favorite ? (yes or no)" + "\n");
+        Scanner sc = new Scanner(System.in);
+        this.recipeToAddFavoriteList = sc.nextLine();
+
     }
 
 

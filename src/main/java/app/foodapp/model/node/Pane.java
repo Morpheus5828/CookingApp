@@ -27,8 +27,8 @@ public class Pane {
             switch (currentNode) {
                 case "WELCOME" -> welcome.launch();
                 case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
-            /*case "FAVORITE" ->
-            case "MEASURE_SYSTEM" ->
+                case "FAVORITE" ->
+            /*case "MEASURE_SYSTEM" ->
             case "RECIPE_DETAILS" ->*/
             }
         }
