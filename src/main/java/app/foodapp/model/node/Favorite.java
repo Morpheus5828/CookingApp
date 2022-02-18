@@ -29,7 +29,12 @@ public class Favorite extends Node {
 
     public void launch() {
         this.displayFavoriteList();
-        Pane.checkStatusCode = false;
+        if (this.isEmpty())
+            Pane.setNextNodeNumber("WELCOME");
+        else {
+            Pane.checkStatusCode = false;
+        }
+
     }
 
     /*public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
@@ -58,14 +63,14 @@ public class Favorite extends Node {
         return favorites.contains(recipe);
     }
 
-    /*public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
+    public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
         if(!isFavorite(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             favorites.remove(recipe);
             saveFavorites();
             return true;
-    }*/
+    }
 
     public List<Recipe> getFavoriteList(){
         return this.favorites;
@@ -80,7 +85,7 @@ public class Favorite extends Node {
             return favorites.get(index);
     }
 
-    /*protected boolean saveFavorites(){
+    public boolean saveFavorites(){
         try {
             FileOutputStream favoritesSaved = new FileOutputStream("save/favoritesSaved");
             ObjectOutputStream objectOut = new ObjectOutputStream(favoritesSaved);
@@ -94,7 +99,7 @@ public class Favorite extends Node {
             e.printStackTrace();
         }
         return false;
-    }*/
+    }
 
     private boolean isEmpty() {
         if (this.favorites.isEmpty())
