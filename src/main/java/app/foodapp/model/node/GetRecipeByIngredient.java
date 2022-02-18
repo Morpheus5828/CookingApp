@@ -10,7 +10,6 @@ public class GetRecipeByIngredient extends Node{
     private final ArrayList<String> listOfIngredient;
     private boolean addIngredient = true;
     private RecipeInformation recipeInformation;
-    private String recipeToAddFavoriteList = "";
 
     public GetRecipeByIngredient() {
         super();
@@ -50,9 +49,14 @@ public class GetRecipeByIngredient extends Node{
     }
 
     public void askToAddRecipeFavorite() {
-        System.out.println("Do you wish to add a recipe to your favorite ? (yes or no)" + "\n");
+        System.out.print("Do you wish to add a recipe to your favorite ? (yes or no)" + "\t");
         Scanner sc = new Scanner(System.in);
-        this.recipeToAddFavoriteList = sc.nextLine();
+        String addFavoriteQuestion = sc.nextLine();
+        if (addFavoriteQuestion.equals("yes")) {
+            System.out.print("Enter menu number : ");
+            String recipeLiked = sc.nextLine();
+        }
+
 
     }
 
