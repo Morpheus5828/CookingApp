@@ -7,7 +7,7 @@ import javax.management.InstanceAlreadyExistsException;
 public class Pane {
     private Welcome welcome;
     private GetRecipeByIngredient getRecipeByIngredient;
-    private Favorite favorite;
+    private static Favorite favorite = new Favorite();
     private MeasureSystem measureSystem;
     private RecipeDetails recipeDetails;
     public static boolean checkStatusCode = true;
@@ -17,7 +17,6 @@ public class Pane {
     public Pane() {
         this.welcome = new Welcome();
         this.getRecipeByIngredient = new GetRecipeByIngredient();
-        this.favorite = new Favorite();
         this.measureSystem = new MeasureSystem();
         this.recipeDetails = new RecipeDetails();
         choice();
@@ -37,7 +36,7 @@ public class Pane {
     }
 
 
-    public void addRecipeToFavoriteList(Recipe recipe) throws InstanceAlreadyExistsException {
+    public static void addRecipeToFavoriteList(Recipe recipe) throws InstanceAlreadyExistsException {
         favorite.addToFavorite(recipe);
     }
 

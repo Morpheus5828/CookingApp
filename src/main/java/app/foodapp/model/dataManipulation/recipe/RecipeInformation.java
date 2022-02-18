@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class RecipeInformation {
 
-    private static ArrayList<Recipe> listOfRecipe;
+    public static ArrayList<Recipe> listOfRecipe;
     private String id;
     private String title;
     private String image;
