@@ -122,7 +122,14 @@ public class RecipeInformation {
 
 
     public void display() {
-        Recipe.simpleDisplay(listOfRecipe);
+        for(int i = 0; i < listOfRecipe.size(); i++) {
+            System.out.println(
+                    "Recipe " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                            "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
+                            "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
+                            "-----------------------------------------------" + "\n"
+            );
+        }
 
     }
 
