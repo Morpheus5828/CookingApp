@@ -32,19 +32,23 @@ javafx {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
+
+
 dependencies {
+
 
     implementation 'org.kordamp.ikonli:ikonli-javafx:11.1.0'
     implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:11.1.0'
     implementation 'org.kordamp.ikonli:ikonli-material-pack:11.1.0'
     implementation 'org.codehaus.griffon:griffon-javafx:2.15.1'
     implementation 'org.controlsfx:controlsfx:11.0.0-RC2'
+    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.1'
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.0"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.4.0"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
     implementation group: 'org.json', name: 'json', version: '20180813'
 

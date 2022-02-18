@@ -1,6 +1,9 @@
-package app.foodapp.controller.apiHttpRequest;
+package app.foodapp.controller;
+
+import app.foodapp.view.errorDisplay.ErrorDisplay;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,8 +38,11 @@ public class MainInstructionsRequest extends ApiDataRequest {
                 this.responseFromApi = response.body();
             else
                 // Request failed
-                System.out.println("problem");
+                ErrorDisplay.connexionFailed();
 
+        }
+        catch (MalformedURLException e) {
+            ErrorDisplay.connexionFailed();
         }
 
         catch (IOException | InterruptedException e) {

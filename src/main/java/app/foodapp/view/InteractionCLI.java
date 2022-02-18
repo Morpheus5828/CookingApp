@@ -1,10 +1,5 @@
 package app.foodapp.view;
 
-
-import app.foodapp.model.dataManipulation.MeasureSystem;
-import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
