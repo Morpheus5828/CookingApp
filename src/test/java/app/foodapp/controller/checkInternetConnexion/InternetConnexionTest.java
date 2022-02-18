@@ -1,6 +1,5 @@
 package app.foodapp.controller.checkInternetConnexion;
 
-import app.foodapp.view.errorDisplay.ErrorDisplay;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +14,23 @@ public class InternetConnexionTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
+
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
-    @Test
+
+    /*@Test
     void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() throws IOException {
         InternetConnexion.checkStatus();
         assertEquals("Internet is connected", outputStreamCaptor.toString().trim());
+    }*/
+
+    @Test
+    void testFailedConnection() throws IOException {
+        InternetConnexion.checkStatus();
+        assertEquals("You are not connected to internet " + "\n" +
+                "Please, try again", outputStreamCaptor.toString().trim());
     }
+
 }
