@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class RecipeInformation {
 
-    private ArrayList<Recipe> listOfRecipe;
+    private static ArrayList<Recipe> listOfRecipe;
     private String id;
     private String title;
     private String image;
@@ -49,7 +49,7 @@ public class RecipeInformation {
 
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
-        this.listOfRecipe = new ArrayList<>();
+        listOfRecipe = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
             for(int i = 0; i < jsonArray.length(); i++) {
@@ -59,7 +59,7 @@ public class RecipeInformation {
                 this.image = jsonObject.get("image").toString();
                 getCookingTime(this.id);
                 getServingValue(this.id);
-                this.listOfRecipe.add(new Recipe(this.title, this.serving, this.cookingTime));
+                listOfRecipe.add(new Recipe(this.title, this.serving, this.cookingTime));
             }
 
 
@@ -121,11 +121,11 @@ public class RecipeInformation {
     }
 
     public void display() {
-        for(int i = 0; i < this.listOfRecipe.size(); i++) {
+        for(int i = 0; i < listOfRecipe.size(); i++) {
             System.out.println(
-                    "Recipe: " + this.listOfRecipe.get(i).getTitle() + "\n" +
-                    "Cooking Time: " + this.listOfRecipe.get(i).getCookingTime() + "\n" +
-                    "Serving: " + this.listOfRecipe.get(i).getServings() + "\n" +
+                    "Recipe " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                    "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
+                    "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
                     "-----------------------------------------------" + "\n"
             );
         }

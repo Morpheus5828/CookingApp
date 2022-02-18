@@ -1,7 +1,5 @@
 package app.foodapp.model.node;
 
-import java.util.ArrayList;
-
 public class Pane {
     private Welcome welcome;
     private GetRecipeByIngredient getRecipeByIngredient;
@@ -27,7 +25,7 @@ public class Pane {
             switch (currentNode) {
                 case "WELCOME" -> welcome.launch();
                 case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
-                case "FAVORITE" ->
+                case "FAVORITE" -> favorite.launch();
             /*case "MEASURE_SYSTEM" ->
             case "RECIPE_DETAILS" ->*/
             }
