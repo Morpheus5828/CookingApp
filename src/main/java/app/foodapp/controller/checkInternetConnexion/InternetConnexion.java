@@ -13,7 +13,7 @@ public class InternetConnexion {
             URLConnection connection = url.openConnection();
             connection.connect();
             System.out.println("Internet is connected" + "\n");
-        } catch (UnknownHostExceptiongi e) {
+        } catch (UnknownHostException e) {
             System.out.println(
                 "You are not connected to internet " + "\n" +
                 "Please, try again"

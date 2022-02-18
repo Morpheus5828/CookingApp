@@ -20,17 +20,19 @@ public class InternetConnexionTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    // Test when pc is connected to internet
     /*@Test
     void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() throws IOException {
         InternetConnexion.checkStatus();
         assertEquals("Internet is connected", outputStreamCaptor.toString().trim());
     }*/
 
-    @Test
+    // Test when pc is not connected to internet
+    /*@Test
     void testFailedConnection() throws IOException {
         InternetConnexion.checkStatus();
         assertEquals("You are not connected to internet " + "\n" +
                 "Please, try again", outputStreamCaptor.toString().trim());
-    }
+    }*/
 
 }
