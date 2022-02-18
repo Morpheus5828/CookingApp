@@ -1,5 +1,9 @@
 package app.foodapp.model.node;
 
+import app.foodapp.model.dataManipulation.recipe.Recipe;
+
+import javax.management.InstanceAlreadyExistsException;
+
 public class Pane {
     private Welcome welcome;
     private GetRecipeByIngredient getRecipeByIngredient;
@@ -33,6 +37,9 @@ public class Pane {
     }
 
 
+    public void addRecipeToFavoriteList(Recipe recipe) throws InstanceAlreadyExistsException {
+        favorite.addToFavorite(recipe);
+    }
 
     public static void setNextNodeNumber(String nextNode) {
         backNode = currentNode;
