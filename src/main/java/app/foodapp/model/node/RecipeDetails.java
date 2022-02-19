@@ -8,6 +8,18 @@ public class RecipeDetails extends Node{
 
     }
 
+
+    public void launch() {
+
+    }
+
+
+
+
+
+
+
+
     private void addNodes() {
         // Creation of link with Welcome class
         this.neighborsList.put(0, NodeName.WELCOME);

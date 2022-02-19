@@ -49,22 +49,42 @@ public class GetRecipeByIngredient extends Node{
     }
 
     public void askToAddRecipeFavorite() {
-        System.out.print("Do you wish to add a recipe to your favorite ? (yes or no)" + "\t");
-        Scanner sc = new Scanner(System.in);
-        String addFavoriteQuestion = sc.nextLine();
-        if (addFavoriteQuestion.equals("yes")) {
+
+        System.out.print(
+             "1. Do you wish to add a recipe to your favorite ? " + "\n" +
+             "2. Get a recipe details ? " + "\n\n\t" + 
+             "-> Please type choice number: "        
+                
+        );
+
+        Scanner choiceRecover = new Scanner(System.in);
+        int addFavoriteQuestion = choiceRecover.nextInt();
+        //Configuration of favorite node way
+        if(addFavoriteQuestion == 1) {
             System.out.print("Enter menu number : ");
-            int recipeNumber = sc.nextInt();
-            //RecipeInformation.listOfRecipe.get(recipeNumber);
-            Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(recipeNumber));
+            Scanner numberRecover = new Scanner(System.in);
+            int choiceNumber = numberRecover.nextInt();
+            Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
             Pane.setNextNodeNumber("FAVORITE");
         }
+
+        // Configuration of RecipeDetails way
+        else if(addFavoriteQuestion == 2) {
+            System.out.print("Enter menu number : ");
+            Scanner numberRecover = new Scanner(System.in);
+            int choiceNumber = numberRecover.nextInt();
+            Pane.setNextNodeNumber("RECIPE_DETAILS");
+        }
+        
         else {
-            //TODO infinity loop -> ask to the other neighbors possibilities
+            // TODO configuration of BACK possibility
         }
 
 
     }
+        
+    
+    
     public void sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         recipeInformation.display();

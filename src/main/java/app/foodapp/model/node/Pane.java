@@ -27,8 +27,9 @@ public class Pane {
                 case "WELCOME" -> welcome.launch();
                 case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
                 case "FAVORITE" -> favorite.launch();
-            /*case "MEASURE_SYSTEM" ->
-            case "RECIPE_DETAILS" ->*/
+                case "RECIPE_DETAILS" -> recipeDetails.launch();
+                /*case "MEASURE_SYSTEM" ->*/
+
             }
         }
     }
