@@ -80,7 +80,7 @@ public class RecipeInformation {
 
             // Extraction value's extendedIngredients and creation of display result
             for(int index = 0; index < jsonArray.length(); index++) {
-                double scale = Math.pow(10, 3);
+                //TODO a finir c'est pour la troncature double scale = Math.pow(10, 3);
 
                 JSONObject jsonObject = jsonArray.getJSONObject(index);
                 Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);

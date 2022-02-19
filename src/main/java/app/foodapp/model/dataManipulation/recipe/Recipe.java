@@ -1,5 +1,6 @@
 package app.foodapp.model.dataManipulation.recipe;
 
+//TODO problem with test because I add a new property in constructor
 public class Recipe {
     private final String id;
     private final String image;
@@ -75,9 +76,9 @@ public class Recipe {
             "------------------------------------------------" + "\n" +
             "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
             "Ingredient(s)" + "\n\n" +
-            getIngredients() + "\n" +
+             getIngredients().length() + "\n" +
             "Step(s) instruction(s): " + "\n" +
-            getSteps() + "\n"
+            getSteps().length() + "\n"
         );
     }
 }
