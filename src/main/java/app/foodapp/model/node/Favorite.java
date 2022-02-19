@@ -3,7 +3,6 @@ package app.foodapp.model.node;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 
 
-import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +97,7 @@ public class Favorite extends Node {
         if (this.isEmpty())
             System.out.println("Sorry: Favorite list is empty");
         for(Recipe recipe : this.listOfRecipe) {
-            recipe.displayCaracteristics();
+            recipe.displayCharacteristics();
         }
     }
 

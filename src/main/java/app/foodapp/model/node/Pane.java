@@ -2,8 +2,6 @@ package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 
-import javax.management.InstanceAlreadyExistsException;
-
 public class Pane {
     private Welcome welcome;
     private GetRecipeByIngredient getRecipeByIngredient;
@@ -44,10 +42,6 @@ public class Pane {
         backNode = currentNode;
         currentNode = nextNode;
 
-    }
-
-    public void display() {
-    //    System.out.println("Current node is : " + currentNode + " and the back node is : " + backNode);
     }
 
 }

@@ -11,7 +11,6 @@ public class InteractionCLI {
        // Check internet connexion
 
         Pane pane = new Pane();
-        pane.display();
 
 
     }

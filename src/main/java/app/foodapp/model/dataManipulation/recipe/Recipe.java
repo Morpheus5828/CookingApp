@@ -57,7 +57,7 @@ public class Recipe {
         return 0;
     }
 
-    public void displayCaracteristics() {
+    public void displayCharacteristics() {
         System.out.println(
             "Recipe :" + getTitle() + "\n" +
             "Cooking Time: " + getCookingTime() + "\n" +
