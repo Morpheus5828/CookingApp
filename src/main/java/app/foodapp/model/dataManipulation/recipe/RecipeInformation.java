@@ -71,7 +71,7 @@ public class RecipeInformation {
             e.printStackTrace();
         }
     }
-    //TODO A finir 
+    
     public void getIngredients() {
         try {
             // Conversion: List to JSONArray
@@ -89,7 +89,7 @@ public class RecipeInformation {
                 this.originalName = mapDeTest.get("originalName").toString();
                 this.unitValue = mapDeTest.get("unit").toString();
                 this.amountValue = (double) mapDeTest.get("amount");
-                this.amountValue = Precis
+                g
 
                 result += this.amountValue + "  " + this.ingredientName + "\n";
             }

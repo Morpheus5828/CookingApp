@@ -3,7 +3,8 @@ package app.foodapp.model.node;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
-public class RecipeDetails extends Node{
+public class RecipeDetails extends Node {
+    public static String id;
     public RecipeDetails() {
         super();
 
@@ -11,7 +12,8 @@ public class RecipeDetails extends Node{
 
 
     public void launch() {
-
+        RecipeInformation recipeInformation = new RecipeInformation(id);
+        recipeInformation.getStepRecipeInformation();
     }
 
 
