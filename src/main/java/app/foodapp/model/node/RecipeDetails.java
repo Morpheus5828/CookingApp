@@ -4,19 +4,16 @@ import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
 public class RecipeDetails extends Node {
-    public static String id;
+    public static Recipe recipe;
     public RecipeDetails() {
         super();
-
     }
-
 
     public void launch() {
-        RecipeInformation recipeInformation = new RecipeInformation(id);
-        recipeInformation.getStepRecipeInformation();
+        recipe.displayDetailsCharacteristics();
+        // Temporally
+        Pane.checkStatusCode = false;
     }
-
-
 
     private void addNodes() {
         // Creation of link with Welcome class

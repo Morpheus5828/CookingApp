@@ -1,14 +1,14 @@
 package app.foodapp.model.dataManipulation.recipe;
 
 public class Recipe {
-    private final int id;
+    private final String id;
     private final String image;
     private final String title;
     private final double servings;
     private final double cookingTime;
 
     // Constructor for detail display
-    public Recipe (final int id, final String image, final String title, final double servings, final double cookingTime) {
+    public Recipe (String id, String image, String title, double servings, double cookingTime) {
         this.id = id;
         this.image = image;
         this.title = title;
@@ -17,15 +17,15 @@ public class Recipe {
     }
 
     // Constructor for simple display
-    public Recipe (final String title, final double servings, final double cookingTime) {
-        this.id = 0; // no value
+    public Recipe (String id, String title, double servings, double cookingTime) {
+        this.id = id; // no value
         this.image = "";   // no value
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -54,9 +54,9 @@ public class Recipe {
         return result;
     }
 
-    public void getIngredients() {
+    public String getIngredients() {
         RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
-        recipeInfo.getIngredients();
+        return recipeInfo.getIngredients();
     }
 
     public void displaySimpleCharacteristics() {
@@ -69,15 +69,15 @@ public class Recipe {
 
     public void displayDetailsCharacteristics() {
         System.out.println(
+            "\n" +
             "------------------------------------------------" + "\n" +
             getTitle() + "\n" +
             "------------------------------------------------" + "\n" +
             "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
-            "Ingredient(s)" + "\n" +
-            //getIngredientsList();
+            "Ingredient(s)" + "\n\n" +
+            getIngredients() + "\n" +
             "Step(s) instruction(s): " + "\n" +
             getSteps() + "\n"
-
         );
     }
 }

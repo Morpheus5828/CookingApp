@@ -36,7 +36,6 @@ public class RecipeInformation {
             // Conversion: JSONObject to Map
             gsonInstance = new Gson();
             this.jsonFile = gsonInstance.fromJson(request.getResponseFromApi(), Map.class);
-
             this.title = jsonFile.get("title").toString();
             this.image = jsonFile.get("image").toString();
             this.cookingTime = (double) jsonFile.get("readyInMinutes");
@@ -61,7 +60,7 @@ public class RecipeInformation {
                 this.image = jsonObject.get("image").toString();
                 getCookingTime(this.id);
                 getServingValue(this.id);
-                listOfRecipe.add(new Recipe(this.title, this.serving, this.cookingTime));
+                listOfRecipe.add(new Recipe(this.id, this.title, this.serving, this.cookingTime));
             }
 
 
@@ -72,14 +71,14 @@ public class RecipeInformation {
         }
     }
     
-    public void getIngredients() {
+    public String getIngredients() {
+        String result = "";
         try {
             // Conversion: List to JSONArray
             List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
             JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
             // Extraction value's extendedIngredients and creation of display result
-            String result = "";
             for(int index = 0; index < jsonArray.length(); index++) {
                 double scale = Math.pow(10, 3);
 
@@ -89,17 +88,14 @@ public class RecipeInformation {
                 this.originalName = mapDeTest.get("originalName").toString();
                 this.unitValue = mapDeTest.get("unit").toString();
                 this.amountValue = (double) mapDeTest.get("amount");
-                g
 
                 result += this.amountValue + "  " + this.ingredientName + "\n";
             }
-            System.out.println(result);
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return result;
     }
 
     public Map<Integer, String> getStepRecipeInformation() {
@@ -127,7 +123,6 @@ public class RecipeInformation {
        }
         return stepInstruction;
     }
-
 
     private void getCookingTime(String idString) {
         RecipeInformation instance = new RecipeInformation(idString);

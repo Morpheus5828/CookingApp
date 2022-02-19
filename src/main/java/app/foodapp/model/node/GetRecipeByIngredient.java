@@ -53,8 +53,7 @@ public class GetRecipeByIngredient extends Node{
         System.out.print(
              "1. Do you wish to add a recipe to your favorite ? " + "\n" +
              "2. Get a recipe details ? " + "\n\n\t" + 
-             "-> Please type choice number: "        
-                
+             "-> Please type choice number: "
         );
 
         Scanner choiceRecover = new Scanner(System.in);
@@ -73,18 +72,17 @@ public class GetRecipeByIngredient extends Node{
             System.out.print("Enter menu number : ");
             Scanner numberRecover = new Scanner(System.in);
             int choiceNumber = numberRecover.nextInt();
-            Pane.setNextNodeNumber("RECIPE_DETAILS");
+            RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber);
+
+            Pane.checkStatusCode = false;
+            //Pane.setNextNodeNumber("RECIPE_DETAILS");
         }
         
         else {
             // TODO configuration of BACK possibility
         }
-
-
     }
-        
-    
-    
+
     public void sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         recipeInformation.display();
