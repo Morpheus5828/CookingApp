@@ -8,11 +8,8 @@ import java.net.InetAddress;
 
 public class InteractionCLI {
     public InteractionCLI()  {
-       // Check internet connexion
-
+       // TODO Check internet connexion before begin
         Pane pane = new Pane();
-
-
     }
 
 

@@ -59,6 +59,9 @@ public class GetRecipeByIngredient extends Node{
             Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(recipeNumber));
             Pane.setNextNodeNumber("FAVORITE");
         }
+        else {
+            //TODO infinity loop -> ask to the other neighbors possibilities
+        }
 
 
     }
