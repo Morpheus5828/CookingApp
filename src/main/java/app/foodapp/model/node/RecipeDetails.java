@@ -1,6 +1,7 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 
 public class RecipeDetails extends Node{
     public RecipeDetails() {
@@ -12,11 +13,6 @@ public class RecipeDetails extends Node{
     public void launch() {
 
     }
-
-
-
-
-
 
 
 

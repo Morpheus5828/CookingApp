@@ -97,7 +97,7 @@ public class Favorite extends Node {
         if (this.isEmpty())
             System.out.println("Sorry: Favorite list is empty");
         for(Recipe recipe : this.listOfRecipe) {
-            recipe.displayCharacteristics();
+            recipe.displaySimpleCharacteristics();
         }
     }
 

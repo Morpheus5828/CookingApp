@@ -1,6 +1,7 @@
 package app.foodapp.model.dataManipulation.recipe;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Recipe {
     private final int id;
@@ -45,25 +46,41 @@ public class Recipe {
         return this.cookingTime;
     }
 
-    public ArrayList<String> getSteps() {
-        return new ArrayList<>();
+    public String getSteps() {
+        RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+        String result = "";
+        for(int i = 0; i < recipeInfo.getStepRecipeInformation().keySet().size(); i++) {
+            result += "\t" + "• " + i + " " + recipeInfo.getStepRecipeInformation().get(i) + "\n";
+        }
+        return result;
     }
 
-    public ArrayList<String> getIngredientsList() {
-        return new ArrayList<>();
+    public void getIngredientsList() {
+        RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+        recipeInfo.getIngredients();
     }
 
     public float getScore() {
         return 0;
     }
 
-    public void displayCharacteristics() {
+    public void displaySimpleCharacteristics() {
         System.out.println(
             "Recipe :" + getTitle() + "\n" +
             "Cooking Time: " + getCookingTime() + "\n" +
             "Serving: " + getServings() + " people(s)" + "\n"
         );
+    }
 
+    public void displayDetailsCharacteristics() {
+        System.out.println(
+            "------------------------------------------------" + "\n" +
+            getTitle() + "\n" +
+            "------------------------------------------------" + "\n" +
+            "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
+            "Steps instructions: " + "\n" +
+            getSteps()
 
+        );
     }
 }

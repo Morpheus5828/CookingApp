@@ -86,8 +86,6 @@ public class RecipeInformation {
                 this.amountValue = (double) mapDeTest.get("amount");
             }
 
-            //TODO To be continued
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,18 +119,6 @@ public class RecipeInformation {
     }
 
 
-    public void display() {
-        for(int i = 0; i < listOfRecipe.size(); i++) {
-            System.out.println(
-                    "Recipe " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
-                            "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
-                            "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
-                            "-----------------------------------------------" + "\n"
-            );
-        }
-
-    }
-
     private void getCookingTime(String idString) {
         RecipeInformation instance = new RecipeInformation(idString);
         this.cookingTime = instance.cookingTime;
@@ -155,7 +141,17 @@ public class RecipeInformation {
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
+    public void display() {
+        for(int i = 0; i < listOfRecipe.size(); i++) {
+            System.out.println(
+                    "Recipe " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                    "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
+                    "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
+                    "-----------------------------------------------" + "\n"
+            );
+        }
 
+    }
 }
 
 
