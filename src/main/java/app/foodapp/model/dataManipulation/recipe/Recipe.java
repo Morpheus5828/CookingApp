@@ -1,8 +1,5 @@
 package app.foodapp.model.dataManipulation.recipe;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 public class Recipe {
     private final int id;
     private final String image;
@@ -10,6 +7,7 @@ public class Recipe {
     private final double servings;
     private final double cookingTime;
 
+    // Constructor for detail display
     public Recipe (final int id, final String image, final String title, final double servings, final double cookingTime) {
         this.id = id;
         this.image = image;
@@ -18,6 +16,7 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
+    // Constructor for simple display
     public Recipe (final String title, final double servings, final double cookingTime) {
         this.id = 0; // no value
         this.image = "";   // no value
@@ -55,13 +54,9 @@ public class Recipe {
         return result;
     }
 
-    public void getIngredientsList() {
+    public void getIngredients() {
         RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
         recipeInfo.getIngredients();
-    }
-
-    public float getScore() {
-        return 0;
     }
 
     public void displaySimpleCharacteristics() {
@@ -78,8 +73,10 @@ public class Recipe {
             getTitle() + "\n" +
             "------------------------------------------------" + "\n" +
             "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
-            "Steps instructions: " + "\n" +
-            getSteps()
+            "Ingredient(s)" + "\n" +
+            //getIngredientsList();
+            "Step(s) instruction(s): " + "\n" +
+            getSteps() + "\n"
 
         );
     }

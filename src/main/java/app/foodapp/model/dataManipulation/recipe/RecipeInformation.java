@@ -7,10 +7,12 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+//import org.apache.commons.math3.util.Precision;
 
 public class RecipeInformation {
 
@@ -76,15 +78,23 @@ public class RecipeInformation {
             List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
             JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
-            // Extraction value's extendedIngredients
+            // Extraction value's extendedIngredients and creation of display result
+            String result = "";
             for(int index = 0; index < jsonArray.length(); index++) {
+                double scale = Math.pow(10, 3);
+
                 JSONObject jsonObject = jsonArray.getJSONObject(index);
                 Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
                 this.ingredientName = mapDeTest.get("name").toString();
                 this.originalName = mapDeTest.get("originalName").toString();
                 this.unitValue = mapDeTest.get("unit").toString();
                 this.amountValue = (double) mapDeTest.get("amount");
+                this.amountValue = Precis
+
+                result += this.amountValue + "  " + this.ingredientName + "\n";
             }
+            System.out.println(result);
+
 
         } catch (Exception e) {
             e.printStackTrace();
