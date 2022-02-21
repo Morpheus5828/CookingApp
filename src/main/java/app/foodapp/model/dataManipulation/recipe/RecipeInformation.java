@@ -50,6 +50,7 @@ public class RecipeInformation {
 
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
+
         listOfRecipe = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
@@ -64,13 +65,12 @@ public class RecipeInformation {
             }
 
 
-
         } catch (Exception e) {
             // Sometimes value's properties are null
             e.printStackTrace();
         }
     }
-    
+
     public String getIngredients() {
         String result = "";
         try {
@@ -149,6 +149,7 @@ public class RecipeInformation {
     public void display() {
         for(int i = 0; i < listOfRecipe.size(); i++) {
             System.out.println(
+                    "id: " + listOfRecipe.get(i).getId() + "\n" +
                     "Recipe " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
                     "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
                     "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
