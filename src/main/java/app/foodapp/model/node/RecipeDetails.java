@@ -10,8 +10,7 @@ public class RecipeDetails extends Node {
     }
 
     public void launch() {
-        //recipe.displayDetailsCharacteristics();
-
+        recipe.displayDetailsCharacteristics();
         // Temporally
         Pane.checkStatusCode = false;
     }

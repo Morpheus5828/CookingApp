@@ -22,7 +22,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         this.request = HttpRequest.newBuilder().uri(URI.create(
                 "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
-                + "&number=5&apiKey="
+                + "&number=3&apiKey="
                 + this.API_KEY
         )).build();
 

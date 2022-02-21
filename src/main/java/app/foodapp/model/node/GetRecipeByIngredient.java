@@ -72,12 +72,9 @@ public class GetRecipeByIngredient extends Node{
             System.out.print("Enter menu number : ");
             Scanner numberRecover = new Scanner(System.in);
             int choiceNumber = numberRecover.nextInt();
-            System.out.println("you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber).getId());
-
-            RecipeInformation.listOfRecipe.get(choiceNumber).displayDetailsCharacteristics();
-
-            Pane.checkStatusCode = false;
-            //Pane.setNextNodeNumber("RECIPE_DETAILS");
+            System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber).getId());
+            RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber);
+            Pane.setNextNodeNumber("RECIPE_DETAILS");
         }
         
         else {
