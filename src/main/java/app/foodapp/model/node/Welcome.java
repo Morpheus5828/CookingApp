@@ -1,5 +1,8 @@
 package app.foodapp.model.node;
 
+import app.foodapp.view.alert.AlertFound;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Welcome extends Node{
@@ -23,15 +26,19 @@ public class Welcome extends Node{
     }
 
     public void askFirstUserChoices() {
-        System.out.println(
-                "\t 1. Get recipe by ingredients" + "\n" +
-                "\t 2. Favorite list" + "\n" +
-                "\t 3. System Measure" + "\n"
-        );
-        System.out.print( "\t\t--> Tap number: ");
-        Scanner sc = new Scanner(System.in);
-        this.choice = sc.nextInt();
-        this.changeCurrentStateNode();
+        try {
+            System.out.println(
+                    "\t 1. Get recipe by ingredients" + "\n" +
+                            "\t 2. Favorite list" + "\n" +
+                            "\t 3. System Measure" + "\n"
+            );
+            System.out.print( "\t\t--> Tap number: ");
+            Scanner sc = new Scanner(System.in);
+            this.choice = sc.nextInt();
+            this.changeCurrentStateNode();
+        } catch (InputMismatchException e) {
+            AlertFound.invalidCharacter();
+        }
     }
 
     public void changeCurrentStateNode() {

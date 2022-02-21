@@ -1,6 +1,6 @@
 package app.foodapp.controller.apiHttpRequest;
 
-import app.foodapp.view.alert.Error;
+import app.foodapp.view.alert.AlertFound;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,7 +19,7 @@ public class MainInstructionsRequest extends ApiDataRequest {
              "https://api.spoonacular.com/recipes/"
              + recipeId
              + "/information?analyzedInstructions"
-             + "&number=3&apiKey="
+             + "&number=10&apiKey="
             + this.API_KEY
         )).build();
 
@@ -36,7 +36,7 @@ public class MainInstructionsRequest extends ApiDataRequest {
                 //We can begin data extraction
                 this.responseFromApi = response.body();
             else
-                Error.connexionFailed();
+                AlertFound.connexionFailed();
 
         }
 

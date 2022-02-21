@@ -49,13 +49,18 @@ public class Recipe {
     }
 
     public String getSteps() {
-        RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
-        String result = "";
-        for(int i = 0; i < recipeInfo.getStepRecipeInformation().keySet().size(); i++) {
-            result += "\t" + "• " + i + " " + recipeInfo.getStepRecipeInformation().get(i) + "\n";
+        String result = "Steps unavailable";
+        try {
+            result = "";
+            RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+            for(int i = 0; i < recipeInfo.getStepRecipeInformation().keySet().size(); i++) {
+                result += "\t" + "• " + i + " " + recipeInfo.getStepRecipeInformation().get(i) + "\n";
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
-
     }
 
     public String getIngredients() {
