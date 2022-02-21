@@ -44,14 +44,11 @@ public class Welcome extends Node{
     public void changeCurrentStateNode() {
         // Check if choicefields is accepted or not
         try {
-            if(this.neighborsList.get(choice) == NodeName.getNodeName(choice)) {
-                // We change current node
-                Pane.setNextNodeNumber(this.neighborsList.get(choice).name());
-            }
-
+            if(this.neighborsList.get(choice) == NodeName.getNodeName(choice))
+                Pane.setNextNodeNumber(this.neighborsList.get(choice).name()); // We change current node
             else
-                // Node choice's not accepted
-                System.out.println("Node doesn't exist");
+                AlertFound.invalidNode();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

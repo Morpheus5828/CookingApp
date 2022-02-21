@@ -4,6 +4,7 @@ import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import app.foodapp.view.alert.AlertFound;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -50,40 +51,48 @@ public class GetRecipeByIngredient extends Node{
     }
 
     public void askToAddRecipeFavorite() {
+        try {
+            System.out.print(
+                    "1. Do you wish to add a recipe to your favorite ? " + "\n" +
+                            "2. Get a recipe details ? " + "\n" +
+                            "3. BACK" + "\n\n\t" +
+                            "-> Please type choice number: "
+            );
 
-        System.out.print(
-             "1. Do you wish to add a recipe to your favorite ? " + "\n" +
-             "2. Get a recipe details ? " + "\n" +
-             "3. BACK" + "\n\n\t" +
-             "-> Please type choice number: " + "\n"
-        );
+            Scanner choiceRecover = new Scanner(System.in);
+            int addFavoriteQuestion = choiceRecover.nextInt();
+            switch (addFavoriteQuestion) {
+                case 1:
+                    System.out.print("Enter menu number : ");
+                    Scanner numberRecover = new Scanner(System.in);
+                    int choiceNumber = numberRecover.nextInt();
+                    Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
+                    Pane.setNextNodeNumber("FAVORITE");
+                    break;
 
-        Scanner choiceRecover = new Scanner(System.in);
-        int addFavoriteQuestion = choiceRecover.nextInt();
-        switch (addFavoriteQuestion) {
-            case 1:
-                System.out.print("Enter menu number : ");
-                Scanner numberRecover = new Scanner(System.in);
-                int choiceNumber = numberRecover.nextInt();
-                Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
-                Pane.setNextNodeNumber("FAVORITE");
-                break;
+                case 2:
+                    System.out.print("Enter menu number : ");
+                    Scanner numberRecover2 = new Scanner(System.in);
+                    int choiceNumber2 = numberRecover2.nextInt();
+                    System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber2).getId());
+                    RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber2);
+                    Pane.setNextNodeNumber("RECIPE_DETAILS");
+                    break;
 
-            case 2:
-                System.out.print("Enter menu number : ");
-                Scanner numberRecover2 = new Scanner(System.in);
-                int choiceNumber2 = numberRecover2.nextInt();
-                System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber2).getId());
-                RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber2);
-                Pane.setNextNodeNumber("RECIPE_DETAILS");
-                break;
-
-            case 3: this.back();
-            default:
-                AlertFound.invalidCharacter();
-                askToAddRecipeFavorite();
-                break;
+                case 3:
+                    this.back();
+                    break;
+                default:
+                    AlertFound.invalidCharacter();
+                    askToAddRecipeFavorite();
+                    break;
+            }
+        } catch (InputMismatchException e) {
+            AlertFound.invalidCharacter();
+            askToAddRecipeFavorite();
         }
+
+
     }
 
     public void sendRequest() {
