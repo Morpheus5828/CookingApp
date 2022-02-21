@@ -1,12 +1,14 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.view.alert.AlertFound;
 
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Favorite extends Node {
     private List<Recipe> listOfRecipe;
@@ -23,8 +25,10 @@ public class Favorite extends Node {
         this.displayFavoriteList();
         if (this.isEmpty())
             Pane.setNextNodeNumber("WELCOME"); // If is empty user cannot go to the other node because it has no sense
-        else
-            this.display();
+        else {
+            askToNextNode();
+        }
+
 
     }
 
@@ -38,6 +42,28 @@ public class Favorite extends Node {
             return true;
         }
     }*/
+
+    public void askToNextNode() throws NoSuchElementException{
+        try {
+            System.out.println("\n" +
+                "What do you want to do ?" + "\n" +
+                "1. Menu" + "\n" +
+                "2. Get a recipe details" + "\n" +
+                "3. BACK"
+            );
+            Scanner sc = new Scanner(System.in);
+            int answer = sc.nextInt();
+            switch (answer) {
+                case 1 -> Pane.setNextNodeNumber("WELCOME");
+                case 2 -> Pane.setNextNodeNumber("GET_RECIPE_BY_INGREDIENT");
+                case 3 -> Pane.back();
+            }
+
+        } catch (NoSuchElementException e) {
+            AlertFound.invalidCharacter();
+        }
+
+    }
 
     public boolean recipeIsInFavoriteList(Recipe recipe){
         return listOfRecipe.contains(recipe);
@@ -104,7 +130,7 @@ public class Favorite extends Node {
             return false;
         }
         listOfRecipe.add(recipe);
-        System.out.println("Recipe has been correctly added to Favorite" + "\n");
+        System.out.println("Recipe has been add successfully =)" + "\n");
         //saveFavorites();
         return true;
 
@@ -131,12 +157,7 @@ public class Favorite extends Node {
         this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
         this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
         this.neighborsList.put(4, NodeName.RECIPE_DETAILS);
+        this.neighborsList.put(5, NodeName.CLOSE_APP);
     }
 
-    public void display() {
-        System.out.println("Favorites : " + "\n");
-        for(int i = 0; i < this.listOfRecipe.size(); i++) {
-            this.listOfRecipe.get(i).displaySimpleCharacteristics();
-        }
-    }
 }

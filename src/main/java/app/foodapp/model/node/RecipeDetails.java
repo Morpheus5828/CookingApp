@@ -21,5 +21,6 @@ public class RecipeDetails extends Node {
         this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
         this.neighborsList.put(2, NodeName.FAVORITE);
         this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
+        this.neighborsList.put(5, NodeName.CLOSE_APP);
     }
 }

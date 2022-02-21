@@ -23,8 +23,9 @@ public class GetRecipeByIngredient extends Node{
         // Creation of link with Welcome class
         this.neighborsList.put(0, NodeName.WELCOME);
         this.neighborsList.put(2, NodeName.FAVORITE);
-        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
+        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM); // a verifier
         this.neighborsList.put(4, NodeName.RECIPE_DETAILS);
+        this.neighborsList.put(5, NodeName.CLOSE_APP);
 
     }
 
@@ -53,10 +54,10 @@ public class GetRecipeByIngredient extends Node{
     public void askToAddRecipeFavorite() {
         try {
             System.out.print(
-                    "1. Do you wish to add a recipe to your favorite ? " + "\n" +
-                            "2. Get a recipe details ? " + "\n" +
-                            "3. BACK" + "\n\n\t" +
-                            "-> Please type choice number: "
+                "1. Do you wish to add a recipe to your favorite ? " + "\n" +
+                "2. Get a recipe details ? " + "\n" +
+                "3. BACK" + "\n\n\t" +
+                "-> Please type choice number: "
             );
 
             Scanner choiceRecover = new Scanner(System.in);
@@ -69,7 +70,6 @@ public class GetRecipeByIngredient extends Node{
                     Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
                     Pane.setNextNodeNumber("FAVORITE");
                     break;
-
                 case 2:
                     System.out.print("Enter menu number : ");
                     Scanner numberRecover2 = new Scanner(System.in);
@@ -78,16 +78,15 @@ public class GetRecipeByIngredient extends Node{
                     RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber2);
                     Pane.setNextNodeNumber("RECIPE_DETAILS");
                     break;
-
                 case 3:
-                    this.back();
+                    Pane.back();
                     break;
                 default:
                     AlertFound.invalidCharacter();
                     askToAddRecipeFavorite();
                     break;
             }
-        } catch (InputMismatchException e) {
+        } catch (Exception e) {
             AlertFound.invalidCharacter();
             askToAddRecipeFavorite();
         }
@@ -98,10 +97,6 @@ public class GetRecipeByIngredient extends Node{
     public void sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         recipeInformation.display();
-    }
-
-    public void back() {
-        Pane.back();
     }
 
 }

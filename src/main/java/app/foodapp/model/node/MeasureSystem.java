@@ -11,6 +11,7 @@ public class MeasureSystem extends Node{
         this.neighborsList.put(0, NodeName.WELCOME);
         this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
         this.neighborsList.put(2, NodeName.FAVORITE);
+        this.neighborsList.put(5, NodeName.CLOSE_APP);
 
     }
 }

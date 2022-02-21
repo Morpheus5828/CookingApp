@@ -22,6 +22,7 @@ public class Welcome extends Node{
         this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
         this.neighborsList.put(2, NodeName.FAVORITE);
         this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
+        this.neighborsList.put(5, NodeName.CLOSE_APP);
 
     }
 
@@ -29,12 +30,14 @@ public class Welcome extends Node{
         try {
             System.out.println(
                     "\t 1. Get recipe by ingredients" + "\n" +
-                            "\t 2. Favorite list" + "\n" +
-                            "\t 3. System Measure" + "\n"
+                    "\t 2. Favorite list" + "\n" +
+                    "\t 3. System Measure" + "\n" +
+                    "\t 4. Close CookingApp" + "\n"
             );
             System.out.print( "\t\t--> Tap number: ");
             Scanner sc = new Scanner(System.in);
             this.choice = sc.nextInt();
+            if(this.choice == 4) Pane.checkStatusCode = false;
             this.changeCurrentStateNode();
         } catch (InputMismatchException e) {
             AlertFound.invalidCharacter();

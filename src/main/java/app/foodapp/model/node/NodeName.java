@@ -5,7 +5,8 @@ public enum NodeName {
     GET_RECIPE_BY_INGREDIENT(1),
     FAVORITE(2),
     MEASURE_SYSTEM(3),
-    RECIPE_DETAILS(4);
+    RECIPE_DETAILS(4),
+    CLOSE_APP(5);
 
 
      NodeName(final int index) {}

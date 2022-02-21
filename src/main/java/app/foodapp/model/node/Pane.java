@@ -29,7 +29,7 @@ public class Pane {
                 case "FAVORITE" -> favorite.launch();
                 case "RECIPE_DETAILS" -> recipeDetails.launch();
                 /*case "MEASURE_SYSTEM" ->*/
-
+                case "CLOSE_APP" -> Pane.checkStatusCode = false;
             }
         }
     }
