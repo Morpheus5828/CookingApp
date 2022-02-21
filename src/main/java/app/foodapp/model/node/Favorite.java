@@ -14,7 +14,7 @@ public class Favorite extends Node {
     public Favorite(){
         super();
         addNodes();
-         listOfRecipe = new ArrayList<>();
+        listOfRecipe = new ArrayList<>();
          //if(!isSavedFavoritesExists())
            // saveFavorites();
     }
@@ -23,12 +23,9 @@ public class Favorite extends Node {
     public void launch() {
         this.displayFavoriteList();
         if (this.isEmpty())
-            // If is empty user cannot go to the other node because it has no sense
-            Pane.setNextNodeNumber("WELCOME");
-        else {
-            // Temporally
-            Pane.checkStatusCode = false;
-        }
+            Pane.setNextNodeNumber("WELCOME"); // If is empty user cannot go to the other node because it has no sense
+        else
+            this.display();
 
     }
 
@@ -95,7 +92,7 @@ public class Favorite extends Node {
 
     public void displayFavoriteList() {
         if (this.isEmpty())
-            System.out.println("Sorry: Favorite list is empty");
+            System.out.println("Sorry favorite list is empty");
         for(Recipe recipe : this.listOfRecipe) {
             recipe.displaySimpleCharacteristics();
         }
@@ -135,5 +132,12 @@ public class Favorite extends Node {
         this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
         this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
         this.neighborsList.put(4, NodeName.RECIPE_DETAILS);
+    }
+
+    public void display() {
+        System.out.println("Favorites : " + "\n");
+        for(int i = 0; i < this.listOfRecipe.size(); i++) {
+            this.listOfRecipe.get(i).displaySimpleCharacteristics();
+        }
     }
 }
