@@ -19,7 +19,6 @@ public class Favorite extends Node {
            // saveFavorites();
     }
 
-    // Launch Favorite methods
     public void launch() {
         this.displayFavoriteList();
         if (this.isEmpty())
@@ -92,7 +91,7 @@ public class Favorite extends Node {
 
     public void displayFavoriteList() {
         if (this.isEmpty())
-            System.out.println("Sorry favorite list is empty");
+            System.out.println("\n" + "⚠ Sorry favorite list is empty" + "\n");
         for(Recipe recipe : this.listOfRecipe) {
             recipe.displaySimpleCharacteristics();
         }

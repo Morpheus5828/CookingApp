@@ -4,7 +4,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 
 public abstract class ApiDataRequest {
-    protected final String API_KEY = "165550d477004117b084d6a175685e39";
+    protected final String API_KEY = "4ba4d2774096480aa78d008736b5f79c";
     protected final int REQUEST_SUCCESSFUL = 200;
     protected int statusCode = 0;
     protected HttpClient client;
@@ -14,7 +14,8 @@ public abstract class ApiDataRequest {
 
 
 }
-//https://api.spoonacular.com/recipes/324694/analyzedInstructions&apiKey=dfe74a73708e4afe81611ce3c399fc31
+// https://api.spoonacular.com/recipes/324694/analyzedInstructions&apiKey=dfe74a73708e4afe81611ce3c399fc31
+// https://api.spoonacular.com/recipes/633547/information?includeNutrition=false&apiKey=165550d477004117b084d6a175685e39
 
 //Test unitaire use this one : 165550d477004117b084d6a175685e39
 
@@ -24,3 +25,4 @@ public abstract class ApiDataRequest {
 // cf77a65bfa1f44559362ef7b150e0700
 // 9df62fafe6774b74b1f820202c05975b
 // 612714f9a4f449b98d81bb8e5c95a835
+// 4ba4d2774096480aa78d008736b5f79c

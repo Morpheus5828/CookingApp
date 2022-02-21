@@ -42,7 +42,10 @@ public class Pane {
     public static void setNextNodeNumber(String nextNode) {
         backNode = currentNode;
         currentNode = nextNode;
+    }
 
+    public static void back() {
+        currentNode = backNode;
     }
 
 }

@@ -1,6 +1,7 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
+import app.foodapp.view.alert.AlertFound;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -52,8 +53,9 @@ public class GetRecipeByIngredient extends Node{
 
         System.out.print(
              "1. Do you wish to add a recipe to your favorite ? " + "\n" +
-             "2. Get a recipe details ? " + "\n\n\t" + 
-             "-> Please type choice number: "
+             "2. Get a recipe details ? " + "\n" +
+             "3. BACK" + "\n\n\t" +
+             "-> Please type choice number: " + "\n"
         );
 
         Scanner choiceRecover = new Scanner(System.in);
@@ -77,8 +79,13 @@ public class GetRecipeByIngredient extends Node{
             Pane.setNextNodeNumber("RECIPE_DETAILS");
         }
         
+        else if (addFavoriteQuestion == 3){
+             Pane.back();
+        }
+
         else {
-            // TODO configuration of BACK possibility
+            AlertFound.invalidCharacter();
+            askToAddRecipeFavorite();
         }
     }
 
