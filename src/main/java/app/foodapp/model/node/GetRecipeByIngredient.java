@@ -60,38 +60,39 @@ public class GetRecipeByIngredient extends Node{
 
         Scanner choiceRecover = new Scanner(System.in);
         int addFavoriteQuestion = choiceRecover.nextInt();
-        //Configuration of favorite node way
-        if(addFavoriteQuestion == 1) {
-            System.out.print("Enter menu number : ");
-            Scanner numberRecover = new Scanner(System.in);
-            int choiceNumber = numberRecover.nextInt();
-            Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
-            Pane.setNextNodeNumber("FAVORITE");
-        }
+        switch (addFavoriteQuestion) {
+            case 1:
+                System.out.print("Enter menu number : ");
+                Scanner numberRecover = new Scanner(System.in);
+                int choiceNumber = numberRecover.nextInt();
+                Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
+                Pane.setNextNodeNumber("FAVORITE");
+                break;
 
-        // Configuration of RecipeDetails way
-        else if(addFavoriteQuestion == 2) {
-            System.out.print("Enter menu number : ");
-            Scanner numberRecover = new Scanner(System.in);
-            int choiceNumber = numberRecover.nextInt();
-            System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber).getId());
-            RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber);
-            Pane.setNextNodeNumber("RECIPE_DETAILS");
-        }
-        
-        else if (addFavoriteQuestion == 3){
-             Pane.back();
-        }
+            case 2:
+                System.out.print("Enter menu number : ");
+                Scanner numberRecover2 = new Scanner(System.in);
+                int choiceNumber2 = numberRecover2.nextInt();
+                System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber2).getId());
+                RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber2);
+                Pane.setNextNodeNumber("RECIPE_DETAILS");
+                break;
 
-        else {
-            AlertFound.invalidCharacter();
-            askToAddRecipeFavorite();
+            case 3: this.back();
+            default:
+                AlertFound.invalidCharacter();
+                askToAddRecipeFavorite();
+                break;
         }
     }
 
     public void sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         recipeInformation.display();
+    }
+
+    public void back() {
+        Pane.back();
     }
 
 }
