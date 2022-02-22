@@ -62,8 +62,10 @@ public final class RecipeTest {
     public void displaySimpleCharacteristicTest() {
         // we display simple details in console
         recipe.displaySimpleCharacteristics();
-        assertEquals("Recipe :Pasta\n" +
-                "Cooking Time: 42.0\n" +
-                "Serving: 52.0 people(s)", outputStreamCaptor.toString().trim());
+        assertEquals(
+            "Recipe :Pasta\n" +
+            "Cooking Time: 42.0\n" +
+            "Serving: 52.0 people(s)", outputStreamCaptor.toString().trim());
     }
+    //TODO finir avec le dernier test pour les details
 }
