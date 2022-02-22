@@ -1,25 +1,31 @@
 package app.foodapp.model.dataManipulation.recipe;
 
-import app.foodapp.controller.dataRequest.MainInstructionsRequest;
-import app.foodapp.controller.dataRequest.SearchRecipesByIngredients;
+import app.foodapp.controller.*;
+import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
+import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+//import org.apache.commons.math3.util.Precision;
 
 public class RecipeInformation {
 
-    // We lit attributes that we need to display
-    private ArrayList<Recipe> listOfRecipe;
+    public static ArrayList<Recipe> listOfRecipe;
     private String id;
     private String title;
     private String image;
     private double cookingTime;
     private double serving;
+    private String ingredientName;
+    private String originalName;
+    private String unitValue;
+    private double amountValue;
     private Gson gsonInstance;
     private Map jsonFile;
 
@@ -30,7 +36,6 @@ public class RecipeInformation {
             // Conversion: JSONObject to Map
             gsonInstance = new Gson();
             this.jsonFile = gsonInstance.fromJson(request.getResponseFromApi(), Map.class);
-
             this.title = jsonFile.get("title").toString();
             this.image = jsonFile.get("image").toString();
             this.cookingTime = (double) jsonFile.get("readyInMinutes");
@@ -45,7 +50,8 @@ public class RecipeInformation {
 
     public RecipeInformation(ArrayList<String> listOfIngredient) {
         SearchRecipesByIngredients ingredientRequest = new SearchRecipesByIngredients(listOfIngredient);
-        this.listOfRecipe = new ArrayList<>();
+
+        listOfRecipe = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
             for(int i = 0; i < jsonArray.length(); i++) {
@@ -55,8 +61,9 @@ public class RecipeInformation {
                 this.image = jsonObject.get("image").toString();
                 getCookingTime(this.id);
                 getServingValue(this.id);
-                this.listOfRecipe.add(new Recipe(this.title, this.serving, this.cookingTime));
+                listOfRecipe.add(new Recipe(this.id, this.title, this.serving, this.cookingTime));
             }
+
 
         } catch (Exception e) {
             // Sometimes value's properties are null
@@ -64,15 +71,31 @@ public class RecipeInformation {
         }
     }
 
-    private void getCookingTime(String idString) {
-        RecipeInformation instance = new RecipeInformation(idString);
-        this.cookingTime = instance.cookingTime;
+    public String getIngredients() {
+        String result = "";
+        try {
+            // Conversion: List to JSONArray
+            List listOfIngredientsElements = (List) jsonFile.get("extendedIngredients");
+            JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
-    }
+            // Extraction value's extendedIngredients and creation of display result
+            for(int index = 0; index < jsonArray.length(); index++) {
+                //TODO a finir c'est pour la troncature double scale = Math.pow(10, 3);
 
-    private void getServingValue(String idString) {
-        RecipeInformation instance = new RecipeInformation(idString);
-        this.serving = instance.serving;
+                JSONObject jsonObject = jsonArray.getJSONObject(index);
+                Map mapDeTest = gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
+                this.ingredientName = mapDeTest.get("name").toString();
+                this.originalName = mapDeTest.get("originalName").toString();
+                this.unitValue = mapDeTest.get("unit").toString();
+                this.amountValue = (double) mapDeTest.get("amount");
+
+                result += this.amountValue + "  " + this.ingredientName + "\n";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public Map<Integer, String> getStepRecipeInformation() {
@@ -101,50 +124,15 @@ public class RecipeInformation {
         return stepInstruction;
     }
 
-    /*
-    This function return a list of map.
-    Each map contains information about one ingredient needed in the recipe.
-     */
-    public ArrayList<Map<String, String>> getIngredientsInformation() {
-        ArrayList<Map<String, String>> ingredientsListInformation = new ArrayList<>();
-        try {
-            List listOfIngredients = (List) this.jsonFile.get("extendedIngredients");
-            JSONArray ingredients = new JSONArray(listOfIngredients);
+    private void getCookingTime(String idString) {
+        RecipeInformation instance = new RecipeInformation(idString);
+        this.cookingTime = instance.cookingTime;
 
-            for (int index = 0; index < ingredients.length(); index++) {
-                Map<String, String> ingredientsInformation = new HashMap<>();
-                Map information = gsonInstance.fromJson(String.valueOf(ingredients.getJSONObject(index)), Map.class);
-
-                ingredientsInformation.put("fullDescription", (String) information.get("original"));
-                ingredientsInformation.put("description", (String) information.get("originalName"));
-                ingredientsInformation.put("unit", (String) information.get("unit"));
-
-                Map measure = (Map) information.get("measures");
-                Map usMeasure = (Map) measure.get("us");
-                Map metricMeasure = (Map) measure.get("metric");
-
-                double usAmount = (Math.round((double) usMeasure.get("amount") *  10.0)) / 10.0;
-                double metricAmount = (Math.round((double) metricMeasure.get("amount") *  10.0)) / 10.0;
-
-                ingredientsInformation.put("usAmount", String.valueOf(usAmount));
-                ingredientsInformation.put("metricAmount", String.valueOf(metricAmount));
-
-                ingredientsInformation.put("usUnit", (String) usMeasure.get("unitShort"));
-                ingredientsInformation.put("metricUnit", (String) metricMeasure.get("unitShort"));
-
-                ingredientsListInformation.add(ingredientsInformation);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ingredientsListInformation;
     }
 
-    /*
-    This function returns the Spoonacular score of the recipe.
-     */
-    public double getScore() {
-        return (double) this.jsonFile.get("spoonacularScore");
+    private void getServingValue(String idString) {
+        RecipeInformation instance = new RecipeInformation(idString);
+        this.serving = instance.serving;
     }
 
     private Map convertListToMap(List list) {
@@ -158,24 +146,18 @@ public class RecipeInformation {
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
-    public void simpleDisplay() {
-        for(int i = 0; i < this.listOfRecipe.size(); i++) {
+    public void display() {
+        for(int i = 0; i < listOfRecipe.size(); i++) {
             System.out.println(
-                    i + "." + "\n" +
-                    "\t" + "Recipe: " + this.listOfRecipe.get(i).getTitle() + "\n" +
-                    "\t" + "Cooking Time: " + this.listOfRecipe.get(i).getCookingTime() + "\n" +
-                    "\t" + "Serving: " + this.listOfRecipe.get(i).getServings() + "\n" +
-                    "\t" + "-----------------------------------------------------------" + "\n"
+                    "id: " + listOfRecipe.get(i).getId() + "\n" +
+                    "Recipe " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                    "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
+                    "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
+                    "-----------------------------------------------" + "\n"
             );
         }
+
     }
-
-
-    public ArrayList<Recipe> getListOfRecipe() {
-        return this.listOfRecipe;
-    }
-
-
 }
 
 

@@ -1,42 +1,34 @@
 package app.foodapp.model.dataManipulation.recipe;
 
-import app.foodapp.model.dataManipulation.MeasureSystem;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
+//TODO problem with test because I add a new property in constructor
 public class Recipe {
-    private final int id;
-    //private final Map<Integer, String> step;
+    private final String id;
     private final String image;
     private final String title;
     private final double servings;
     private final double cookingTime;
-    private final RecipeInformation recipeInformation;
 
-    public Recipe (final int id, final String image, final String title, final double servings, final double cookingTime) {
+    // Constructor for detail display
+    public Recipe (String id, String image, String title, double servings, double cookingTime) {
         this.id = id;
         this.image = image;
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
-        recipeInformation = new RecipeInformation(String.valueOf(id));
-        //this.step = new HashMap<>();
     }
 
-    public Recipe (final String title, final double servings, final double cookingTime) {
-        this.id = 0; // no value
+    // Constructor for simple display
+    public Recipe (String id, String title, double servings, double cookingTime) {
+        this.id = id; // no value
         this.image = "";   // no value
         this.title = title;
         this.servings = servings;
         this.cookingTime = cookingTime;
-        //this.step = step;
-        recipeInformation = new RecipeInformation(String.valueOf(id));
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -56,61 +48,45 @@ public class Recipe {
         return this.cookingTime;
     }
 
-    /*
-    Returns a map of the recipe's steps. Keys are the step's number, and values are the step's description.
-     */
-    public Map<Integer, String> getSteps() {
-        return this.recipeInformation.getStepRecipeInformation();
-    }
-
-    /*
-    Returns a list of the recipe's ingredients.
-    The amount of each ingredient is calculated according to the measure system saved.
-     */
-    public ArrayList<String> getIngredientsList() {
-        ArrayList<String> ingredientsList = new ArrayList<>();
-        ArrayList<Map<String, String>> ingredientsInformation = this.recipeInformation.getIngredientsInformation();
-
-        for (int index = 0; index < ingredientsInformation.size(); index++) {
-            Map<String, String> information = ingredientsInformation.get(index);
-            String unit = information.get("unit");
-
-            if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("servings") || unit.equals("")) {
-                ingredientsList.add(information.get("fullDescription"));
-
-            } else {
-                try {
-                    String measureSystem = MeasureSystem.getMeasureSystem().toString();
-
-                    String ingredient = information.get(measureSystem + "Amount")
-                            + " "
-                            + information.get(measureSystem + "Unit")
-                            + " "
-                            + information.get("description");
-                    ingredientsList.add(ingredient);
-
-                } catch (IOException exception) {
-                    ingredientsList.add(information.get("fullDescription"));
-                }
+    public String getSteps() {
+        String result = "Steps unavailable";
+        try {
+            result = "";
+            RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+            for(int i = 0; i < recipeInfo.getStepRecipeInformation().keySet().size(); i++) {
+                result += "\t" + "• " + i + " " + recipeInfo.getStepRecipeInformation().get(i) + "\n";
             }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return ingredientsList;
+        return result;
     }
 
-    /*
-    This function returns the Spoonacular score of the recipe.
-     */
-    public double getScore() {
-        return this.recipeInformation.getScore();
+    public String getIngredients() {
+        RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+        return recipeInfo.getIngredients();
     }
 
-    /* public void bigDisplay() {
+    public void displaySimpleCharacteristics() {
         System.out.println(
-            "\t" + "Recipe: " + this.title + "\n" +
-            "\t" + "Cooking Time: " + this.cookingTime + "\n" +
-            "\t" + "Serving: " + this.servings + "\n" +
-            "\t" + "Instructions: " + this.step.toString() + "\n" +
-            "\t" + "-----------------------------------------------------------" + "\n"
+            "Recipe :" + getTitle() + "\n" +
+            "Cooking Time: " + getCookingTime() + "\n" +
+            "Serving: " + getServings() + " people(s)" + "\n"
         );
-    }*/
+    }
+
+    public void displayDetailsCharacteristics() {
+        System.out.println(
+            "\n" +
+            "------------------------------------------------" + "\n" +
+            getTitle() + "\n" +
+            "------------------------------------------------" + "\n" +
+            "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
+            "• Ingredient(s)" + "\n\n" +
+             getIngredients() + "\n" +
+            "Step(s) instruction(s): " + "\n" +
+             getSteps() + "\n"
+        );
+    }
 }

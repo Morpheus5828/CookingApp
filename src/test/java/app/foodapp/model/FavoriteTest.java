@@ -1,6 +1,6 @@
 package app.foodapp.model;
 
-import app.foodapp.model.dataManipulation.recipe.Favorite;
+import app.foodapp.model.node.Favorite;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import org.junit.jupiter.api.Test;
 
@@ -30,15 +30,15 @@ public class FavoriteTest {
     @Test
     void testIsFavorite() throws InstanceAlreadyExistsException {
         testFavorite.addToFavorite(testRecipe1);
-        assertEquals(testFavorite.isFavorite(testRecipe1), true);
-        assertEquals(testFavorite.isFavorite(testRecipe2), false);
+        assertEquals(testFavorite.recipeIsInFavoriteList(testRecipe1), true);
+        assertEquals(testFavorite.recipeIsInFavoriteList(testRecipe2), false);
     }
 
     @Test
     void testGetFavorites() throws InstanceAlreadyExistsException {
         testFavorite.addToFavorite(testRecipe1);
         testFavorite.addToFavorite(testRecipe2);
-        assertEquals(testFavorite.getFavorites(), List.of(testRecipe1, testRecipe2));
+        assertEquals(testFavorite.getFavoriteList(), List.of(testRecipe1, testRecipe2));
     }
 
     @Test
@@ -55,13 +55,13 @@ public class FavoriteTest {
     void testGetFavorite() throws InstanceAlreadyExistsException {
         testFavorite.addToFavorite(testRecipe1);
         testFavorite.addToFavorite(testRecipe2);
-        assertEquals(testFavorite.getFavorite(0), testRecipe1);
-        assertEquals(testFavorite.getFavorite(1), testRecipe2);
+        assertEquals(testFavorite.getRecipe(0), testRecipe1);
+        assertEquals(testFavorite.getRecipe(1), testRecipe2);
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-           testFavorite.getFavorite(-1);
+           testFavorite.getRecipe(-1);
         });
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            testFavorite.getFavorite(3);
+            testFavorite.getRecipe(3);
         });
     }
 
@@ -77,11 +77,11 @@ public class FavoriteTest {
 
         Favorite testFavorite2 = new Favorite();
         testFavorite2.readSavedFavorites();
-        assertEquals(testRecipe1.equals(testFavorite2.getFavorite(0)), true);
+        assertEquals(testRecipe1.equals(testFavorite2.getRecipe(0)), true);
     }
 
     @Test
     void testIsFavoritesSavedExists(){
-        assertEquals(testFavorite.isSavedFavoritesExists(), true);
+        assertEquals(testFavorite.favoriteListIsSaved(), true);
     }
 }

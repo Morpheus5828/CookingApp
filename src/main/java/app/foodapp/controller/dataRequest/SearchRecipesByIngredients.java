@@ -1,10 +1,8 @@
-package app.foodapp.controller.dataRequest;
+package app.foodapp.controller.apiHttpRequest;
 
-import app.foodapp.controller.dataRequest.ApiDataRequest;
-import app.foodapp.view.errorDisplay.ErrorDisplay;
+import app.foodapp.view.alert.AlertFound;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -24,7 +22,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         this.request = HttpRequest.newBuilder().uri(URI.create(
                 "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
-                + "&apiKey="
+                + "&number=10&apiKey="
                 + this.API_KEY
         )).build();
 
@@ -47,12 +45,8 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
                 //We can begin data extraction
                 this.responseFromApi = response.body();
             else
-                // Request failed
-                ErrorDisplay.connexionFailed();
+                AlertFound.connexionFailed();
 
-        }
-        catch (MalformedURLException e) {
-            ErrorDisplay.connexionFailed();
         }
 
         catch (IOException | InterruptedException e) {
