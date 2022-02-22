@@ -1,6 +1,6 @@
 package app.foodapp.view;
 
-import app.foodapp.view.errorDisplay.ErrorDisplay;
+import app.foodapp.view.alert.AlertFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class ErrorDisplayTest {
     }
     @Test
     void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() {
-        ErrorDisplay.connexionFailed();
+        AlertFound.connexionFailed();
         assertEquals("Something wrong with your internet connexion, please try again", outputStreamCaptor.toString().trim());
     }
 }

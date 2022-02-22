@@ -9,7 +9,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
-    private Recipe recipe = new Recipe(640355, "image", "title", 2, 40);
+    private Recipe recipe = new Recipe("640355", "image", "title", 2, 40);
 
     @Test
     public void testGetSteps() {
@@ -28,7 +28,7 @@ public class RecipeTest {
 
         MeasureSystem.setMeasureSystem(MeasureSystem.US);
         String ingredientsListUs = "[6.0 cups Rice Krispies cereal, 2.0 cups dried cranberries, 1.0 cup white chocolate chips, 0.3 cups butter, 5.0 cups marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
-        assertEquals(ingredientsListUs, recipe.getIngredientsList().toString());
+        assertEquals(ingredientsListUs, recipe.getIngredients());
 
         MeasureSystem.setMeasureSystem(currentMeasureSystem);
     }
@@ -39,13 +39,9 @@ public class RecipeTest {
 
         MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
         String ingredientsListMetric = "[1.4 l Rice Krispies cereal, 473.2 ml dried cranberries, 236.6 ml white chocolate chips, 59.1 ml butter, 1.2 l marshmallows or 40 regular marshmallows, 1.0 tsp vanilla]";
-        assertEquals(ingredientsListMetric, recipe.getIngredientsList().toString());
+        assertEquals(ingredientsListMetric, recipe.getIngredients());
 
         MeasureSystem.setMeasureSystem(currentMeasureSystem);
     }
 
-    @Test
-    public void testGetScore() {
-        assertEquals(38.0, recipe.getScore());
-    }
 }
