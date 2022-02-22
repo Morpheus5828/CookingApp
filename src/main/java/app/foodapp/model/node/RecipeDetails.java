@@ -14,8 +14,7 @@ public class RecipeDetails extends Node {
 
     public void launch() {
         recipe.displayDetailsCharacteristics();
-        // Temporally
-        Pane.checkStatusCode = false;
+        askToAddRecipeFavorite();
     }
 
     private void addNodes() {
@@ -31,9 +30,9 @@ public class RecipeDetails extends Node {
         try {
             System.out.print(
                     "1. Do you want to do a new request ?" + "\n" +
-                            "2. See favorite list ? " + "\n" +
-                            "3. BACK" + "\n\n\t" +
-                            "-> Please type choice number: "
+                    "2. See favorite list ? " + "\n" +
+                    "3. BACK" + "\n\n\t" +
+                    "-> Please type choice number: "
             );
 
             Scanner choiceRecover = new Scanner(System.in);

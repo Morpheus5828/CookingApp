@@ -29,15 +29,18 @@ public class Welcome extends Node{
     public void askFirstUserChoices() {
         try {
             System.out.println(
-                    "\t 1. Get recipe by ingredients" + "\n" +
-                    "\t 2. Favorite list" + "\n" +
-                    "\t 3. System Measure" + "\n" +
-                    "\t 4. Close CookingApp" + "\n"
+                "\t 1. Get recipe by ingredients" + "\n" +
+                "\t 2. Favorite list" + "\n" +
+                "\t 3. System Measure" + "\n" +
+                "\t 4. Close CookingApp" + "\n"
             );
             System.out.print( "\t\t--> Tap number: ");
             Scanner sc = new Scanner(System.in);
             this.choice = sc.nextInt();
-            if(this.choice == 4) Pane.checkStatusCode = false;
+            if(this.choice == 4) {
+                this.choice = 5;
+                Pane.checkStatusCode = false;
+            }
             this.changeCurrentStateNode();
         } catch (InputMismatchException e) {
             AlertFound.invalidCharacter();

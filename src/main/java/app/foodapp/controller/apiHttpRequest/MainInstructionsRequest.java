@@ -19,7 +19,7 @@ public class MainInstructionsRequest extends ApiDataRequest {
              "https://api.spoonacular.com/recipes/"
              + recipeId
              + "/information?analyzedInstructions"
-             + "&number=20&apiKey="
+             + "&number=10&apiKey="
             + this.API_KEY
         )).build();
 
