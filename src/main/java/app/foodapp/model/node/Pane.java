@@ -20,7 +20,6 @@ public class Pane {
         choice();
     }
 
-
     public void choice() {
         while(checkStatusCode) {
             switch (currentNode) {
@@ -33,7 +32,6 @@ public class Pane {
             }
         }
     }
-
 
     public static void addRecipeToFavoriteList(Recipe recipe) {
         favorite.addToFavorite(recipe);
