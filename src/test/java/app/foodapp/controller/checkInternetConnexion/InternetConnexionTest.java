@@ -25,7 +25,7 @@ public class InternetConnexionTest {
     void givenSystemOutRedirection_whenInvokePrintln_thenOutputCaptorSuccess() throws IOException {
         InternetConnexion.checkStatus();
         assertEquals("Internet is connected", outputStreamCaptor.toString().trim());
-    }*/
+    }
 
     // Test when pc is not connected to internet
     /*@Test
