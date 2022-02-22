@@ -1,5 +1,6 @@
-package app.foodapp.controller.apiHttpRequest;
+package app.foodapp.controller.dataRequest;
 
+import app.foodapp.controller.dataRequest.ApiDataRequest;
 import app.foodapp.view.alert.AlertFound;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         this.request = HttpRequest.newBuilder().uri(URI.create(
                 "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
-                + "&number=10&apiKey="
+                + "&number=4&apiKey="
                 + this.API_KEY
         )).build();
 

@@ -22,10 +22,12 @@ public class Favorite extends Node {
     }
 
     public void launch() {
-        this.displayFavoriteList();
-        if (this.isEmpty())
+        if (this.isEmpty()) {
+            System.out.println("\n" + "⚠ Sorry favorite list is empty" + "\n");
             Pane.setNextNodeNumber("WELCOME"); // If is empty user cannot go to the other node because it has no sense
+        }
         else {
+            this.displayFavoriteList();
             askToNextNode();
         }
 
@@ -115,14 +117,6 @@ public class Favorite extends Node {
         return false;
     }
 
-    public void displayFavoriteList() {
-        if (this.isEmpty())
-            System.out.println("\n" + "⚠ Sorry favorite list is empty" + "\n");
-        for(Recipe recipe : this.listOfRecipe) {
-            recipe.displaySimpleCharacteristics();
-        }
-    }
-
     //Setter
     public boolean addToFavorite(Recipe recipe) {
         if(recipeIsInFavoriteList(recipe)) {
@@ -158,6 +152,12 @@ public class Favorite extends Node {
         this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
         this.neighborsList.put(4, NodeName.RECIPE_DETAILS);
         this.neighborsList.put(5, NodeName.CLOSE_APP);
+    }
+
+    public void displayFavoriteList() {
+        for(Recipe recipe : this.listOfRecipe) {
+            recipe.displaySimpleCharacteristics();
+        }
     }
 
 }

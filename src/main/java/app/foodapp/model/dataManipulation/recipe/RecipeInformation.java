@@ -1,8 +1,7 @@
 package app.foodapp.model.dataManipulation.recipe;
 
-import app.foodapp.controller.*;
-import app.foodapp.controller.apiHttpRequest.MainInstructionsRequest;
-import app.foodapp.controller.apiHttpRequest.SearchRecipesByIngredients;
+import app.foodapp.controller.dataRequest.MainInstructionsRequest;
+import app.foodapp.controller.dataRequest.SearchRecipesByIngredients;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -98,7 +97,7 @@ public class RecipeInformation {
         return result;
     }
 
-    public Map<Integer, String> getStepRecipeInformation() {
+    public Map<Integer, String> getStepRecipeInformation() throws NullPointerException{
         Map<Integer, String> stepInstruction = new HashMap<>();
 
         try {
@@ -118,7 +117,7 @@ public class RecipeInformation {
 
                stepInstruction.put(index, (String) mapDeTest1.get("step"));
            }
-       } catch (Exception e) {
+       } catch (NullPointerException e) {
            e.printStackTrace();
        }
         return stepInstruction;

@@ -30,27 +30,26 @@ public class RecipeDetails extends Node {
         try {
             System.out.print(
                     "1. Do you want to do a new request ?" + "\n" +
-                    "2. See favorite list ? " + "\n" +
-                    "3. BACK" + "\n\n\t" +
+                    "2. Add recipe to favorite list ? " + "\n" +
+                    "3. See favorite list ?" + "\n" +
+                    "4. BACK" + "\n\n\t" +
                     "-> Please type choice number: "
             );
 
             Scanner choiceRecover = new Scanner(System.in);
             int addFavoriteQuestion = choiceRecover.nextInt();
             switch (addFavoriteQuestion) {
-                case 1:
+                case 1 -> {
+                    GetRecipeByIngredient.addIngredient = true;
                     Pane.setNextNodeNumber("GET_RECIPE_BY_INGREDIENT");
-                    break;
-                case 2:
-                    Pane.setNextNodeNumber("FAVORITE");
-                    break;
-                case 3:
-                    Pane.back();
-                    break;
-                default:
+                }
+                case 2 -> Pane.addRecipeToFavoriteList(recipe);
+                case 3 -> Pane.setNextNodeNumber("FAVORITE");
+                case 4 -> Pane.back();
+                default -> {
                     AlertFound.invalidCharacter();
                     askToAddRecipeFavorite();
-                    break;
+                }
             }
         } catch (Exception e) {
             AlertFound.invalidCharacter();

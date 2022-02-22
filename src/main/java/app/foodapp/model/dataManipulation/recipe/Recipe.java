@@ -48,7 +48,7 @@ public class Recipe {
         return this.cookingTime;
     }
 
-    public String getSteps() {
+    public String getSteps() throws NullPointerException{
         String result = "Steps unavailable";
         try {
             result = "";
@@ -57,8 +57,8 @@ public class Recipe {
                 result += "\t" + "• " + i + " " + recipeInfo.getStepRecipeInformation().get(i) + "\n";
             }
             return result;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+            result = "Steps unavailable";
         }
         return result;
     }

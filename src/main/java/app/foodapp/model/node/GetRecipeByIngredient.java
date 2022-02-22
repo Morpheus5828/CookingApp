@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class GetRecipeByIngredient extends Node{
     private final ArrayList<String> listOfIngredient;
-    private boolean addIngredient = true;
+    public static boolean addIngredient = true;
     private RecipeInformation recipeInformation;
 
     public GetRecipeByIngredient() {
