@@ -3,9 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="720.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.Controller">
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.Controller">
    <children>
-      <Button layoutX="567.0" layoutY="292.0" mnemonicParsing="false" prefHeight="135.0" prefWidth="136.0" text="Menu" />
+      <Button fx:id="fromFavoritesToMenuButton" layoutX="567.0" layoutY="292.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="135.0" prefWidth="136.0" text="Menu" />
    </children>
 </AnchorPane>
