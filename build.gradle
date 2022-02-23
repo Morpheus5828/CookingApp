@@ -71,7 +71,7 @@ task(runCLI, dependsOn: 'classes', type: JavaExec) {
 }
 
 application {
-    mainClassName = 'app.foodapp.FoodApp'
+    mainClassName = 'app.foodapp.view.FoodApp'
     applicationDefaultJvmArgs = [
             '--add-opens=javafx.base/com.sun.javafx.event=ALL-UNNAMED'
     ]
