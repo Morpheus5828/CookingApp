@@ -12,7 +12,7 @@ public class FoodApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        try {
-           Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/login.fxml"));
+           Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/login.fxml"));
            stage.setTitle("Cooking App");
            stage.setScene(new Scene(root));
            stage.show();

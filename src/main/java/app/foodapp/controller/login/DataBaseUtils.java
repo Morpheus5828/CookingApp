@@ -1,5 +1,4 @@
 package app.foodapp.controller.login;
 
-public class LoginPage   {
-
+public class DataBaseUtils {
 }
