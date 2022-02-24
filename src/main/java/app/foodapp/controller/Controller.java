@@ -16,26 +16,11 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    /*
-    @FXML private Button helloWorldButton;
-    @FXML private Button goodByeWorldButton;
-    @FXML private Label label;
-    */
-    @FXML private Button login;
-    @FXML private TextField username;
-    @FXML private PasswordField password;
     @FXML private AnchorPane rootPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
-    public void userLogin(ActionEvent actionEvent) throws IOException{
-        //new LoginPage(username.getText(), password.getText());
-    }
-
-    public void createAnAccount(ActionEvent actionEvent) throws IOException{
-
-    }
 
     public void goToFavorites(javafx.event.ActionEvent actionEvent) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));

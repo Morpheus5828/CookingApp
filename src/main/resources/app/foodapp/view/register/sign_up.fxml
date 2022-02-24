@@ -43,7 +43,7 @@
                   <Image url="@../../../../../../../../../Downloads/lockicon_120641(1).png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="regimeChoice" disable="true" layoutX="310.0" layoutY="200.0" opacity="0.25" prefWidth="150.0" />
+            <ComboBox fx:id="regimeChoice" disable="true" layoutX="310.0" layoutY="200.0" onAction="#regimeSelected" opacity="0.25" prefWidth="150.0" />
             <CheckBox layoutX="208.0" layoutY="203.0" mnemonicParsing="false" onAction="#isCheck" prefHeight="18.0" prefWidth="87.0" style="-fx-background-color: transparent;" text="Regime" />
          </children>
       </AnchorPane>
