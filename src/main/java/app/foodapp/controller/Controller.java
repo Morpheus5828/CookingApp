@@ -1,11 +1,11 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.login.LoginPage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -30,7 +30,11 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {}
 
     public void userLogin(ActionEvent actionEvent) throws IOException{
-        System.out.println("login");
+        new LoginPage(username.getText(), password.getText());
+    }
+
+    public void createAnAccount(ActionEvent actionEvent) throws IOException{
+
     }
 
     public void goToFavorites(javafx.event.ActionEvent actionEvent) throws IOException {
