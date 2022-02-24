@@ -30,7 +30,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {}
 
     public void userLogin(ActionEvent actionEvent) throws IOException{
-        new LoginPage(username.getText(), password.getText());
+        //new LoginPage(username.getText(), password.getText());
     }
 
     public void createAnAccount(ActionEvent actionEvent) throws IOException{
