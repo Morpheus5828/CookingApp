@@ -27,25 +27,6 @@ public class MainInstructionsRequest extends ApiDataRequest {
         checkForDataExtraction(client, request);
     }
 
-    private void checkForDataExtraction(HttpClient client, HttpRequest request) {
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            statusCode = response.statusCode();
-
-            if(response.statusCode() == REQUEST_SUCCESSFUL)
-                //We can begin data extraction
-                this.responseFromApi = response.body();
-            else
-                AlertFound.connexionFailed();
-
-        }
-
-        catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     public int getStatusCode() {
         return this.statusCode;
     }
