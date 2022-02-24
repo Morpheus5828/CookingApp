@@ -13,7 +13,7 @@ public class FoodApp extends Application {
     public void start(Stage stage) throws Exception {
        try {
            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-           stage.setTitle("Food App");
+           stage.setTitle("Cooking App");
            stage.setScene(new Scene(root));
            stage.show();
        } catch (Exception e) {
