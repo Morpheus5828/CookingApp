@@ -1,5 +1,6 @@
 package app.foodapp.view;
 
+import app.foodapp.controller.login.SignUpController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +13,7 @@ public class FoodApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        try {
-           Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
+           Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
            stage.setTitle("Cooking App");
            stage.setScene(new Scene(root));
            stage.show();

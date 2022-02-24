@@ -47,7 +47,7 @@
                   <Image url="@../../../../../../../../../Downloads/lockicon_120641(1).png" />
                </image>
             </ImageView>
-            <Button layoutX="232.0" layoutY="295.0" mnemonicParsing="false" onAction="#createAnAccount" style="-fx-background-color: transparent;" text="Create an account" textFill="#20b345" />
+            <Button layoutX="232.0" layoutY="295.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Create an account" textFill="#20b345" />
          </children>
       </AnchorPane>
    </left>
