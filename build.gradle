@@ -38,11 +38,8 @@ repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
-
-
+    implementation group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-9.1.2'
     implementation 'org.kordamp.ikonli:ikonli-javafx:11.1.0'
     implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:11.1.0'
     implementation 'org.kordamp.ikonli:ikonli-material-pack:11.1.0'
