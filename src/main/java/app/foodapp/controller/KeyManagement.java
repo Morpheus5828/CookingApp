@@ -32,11 +32,6 @@ public class KeyManagement {
         return findNextKey();
     }
 
-    public static void limitReach() throws InvalidKeyException{
-        waitingForKeyToBeValid = true;
-        throw new InvalidKeyException("Can't find a valid key.");
-    }
-
     private static String findNextKey() {
         String key = null;
         try {
@@ -59,6 +54,15 @@ public class KeyManagement {
 
         } catch (IOException e) {e.printStackTrace();}
         return key;
+    }
+
+    public static void limitReach() throws InvalidKeyException{
+        waitingForKeyToBeValid = true;
+        throw new InvalidKeyException("Can't find a valid key.");
+    }
+
+    public static void keyIsValid() {
+        waitingForKeyToBeValid = false;
     }
 
 }
