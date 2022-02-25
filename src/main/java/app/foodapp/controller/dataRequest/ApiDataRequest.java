@@ -28,6 +28,14 @@ public abstract class ApiDataRequest {
 
             else if (this.statusCode == INVALID_KEY) {
                 this.API_KEY = KeyManagement.getNextKey();
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                this.statusCode = response.statusCode();
+                if(this.statusCode == REQUEST_SUCCESSFUL)
+                    this.responseFromApi = response.body();
+                else if (this.statusCode == INVALID_KEY)
+                    failed;
+                else
+                    AlertFound.connexionFailed();
             } else
                 AlertFound.connexionFailed();
 

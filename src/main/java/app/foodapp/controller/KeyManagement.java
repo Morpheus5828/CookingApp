@@ -1,12 +1,13 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.exception.InvalidKeyException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class KeyManagement {
     private static int keyIndex = 0;
-    private static boolean isKeyBeforeValid = true;
     private static boolean waitingForKeyToBeValid = false;
 
     public static String getKey() {
@@ -26,7 +27,8 @@ public class KeyManagement {
         return key;
     }
 
-    public static String getNextKey() {
+    public static String getNextKey() throws InvalidKeyException {
+        if (waitingForKeyToBeValid) throw new InvalidKeyException("Can't find a valid key.");
         return null;
     }
 
