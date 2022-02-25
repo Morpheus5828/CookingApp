@@ -29,7 +29,12 @@ public class KeyManagement {
 
     public static String getNextKey() throws InvalidKeyException {
         if (waitingForKeyToBeValid) throw new InvalidKeyException("Can't find a valid key.");
-        return null;
+        return findNextKey();
+    }
+
+    public static void limitReach() throws InvalidKeyException{
+        waitingForKeyToBeValid = true;
+        throw new InvalidKeyException("Can't find a valid key.");
     }
 
     private static String findNextKey() {
