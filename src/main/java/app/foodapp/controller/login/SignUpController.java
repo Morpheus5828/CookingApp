@@ -4,19 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class SignUpController {
     @FXML private ComboBox regimeChoice;
-
-    public SignUpController() throws IOException {
-        signUpUser();
-    }
-
+    @FXML private TextField username;
+    @FXML private PasswordField password;
+    private String regime = "None";
 
     public void isCheck(javafx.event.ActionEvent actionEvent) {
         if(regimeChoice.isDisable()) {
@@ -28,7 +25,6 @@ public class SignUpController {
             regimeChoice.setDisable(true);
             regimeChoice.setOpacity(0.25);
         }
-
     }
 
     public void addRegimeString() {
@@ -40,12 +36,18 @@ public class SignUpController {
     }
 
     public void regimeSelected(javafx.event.ActionEvent actionEvent) {
-        String regime = regimeChoice.getSelectionModel().getSelectedItem().toString();
-        System.out.println(regime); // renvoie le regime choisie
+        String regimeChoice = this.regimeChoice.getSelectionModel().getSelectedItem().toString();
+        this.regime = regimeChoice;
     }
 
-    public void signUpUser() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("userInformation.txt"));
-        System.out.println(reader);
+    public void userRegister() throws IOException {
+        String content = username.getText() + "," + password.getText() + "," + regime;
+        File file = new File("userInformation.txt");
+        if(!file.exists())
+            file.createNewFile();
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+        fw.append(content);
+        fw.close();
+
     }
 }
