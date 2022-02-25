@@ -33,12 +33,15 @@ public abstract class ApiDataRequest {
                 if(this.statusCode == REQUEST_SUCCESSFUL)
                     this.responseFromApi = response.body();
                 else if (this.statusCode == INVALID_KEY)
-                    failed;
+                    KeyManagement.limitReach();
                 else
                     AlertFound.connexionFailed();
             } else
                 AlertFound.connexionFailed();
 
+        }
+        catch (InvalidKeyException e) {
+            AlertFound.invalidKey();
         }
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
