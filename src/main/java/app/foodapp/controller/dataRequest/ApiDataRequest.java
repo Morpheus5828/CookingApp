@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public abstract class ApiDataRequest {
-    protected String API_KEY = KeyManagement.getNextKey();
+    protected String API_KEY = KeyManagement.getKey();
     protected final int REQUEST_SUCCESSFUL = 200;
     protected final int INVALID_KEY = 402;
     protected int statusCode = 0;
