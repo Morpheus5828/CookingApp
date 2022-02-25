@@ -23,21 +23,21 @@ public abstract class ApiDataRequest {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             this.statusCode = response.statusCode();
 
-            if(this.statusCode == REQUEST_SUCCESSFUL)
+            if (this.statusCode == REQUEST_SUCCESSFUL) {
                 this.responseFromApi = response.body();
+                KeyManagement.keyIsValid();
+            }
 
             else if (this.statusCode == INVALID_KEY) {
                 this.API_KEY = KeyManagement.getNextKey();
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 this.statusCode = response.statusCode();
-                if(this.statusCode == REQUEST_SUCCESSFUL)
-                    this.responseFromApi = response.body();
-                else if (this.statusCode == INVALID_KEY)
-                    KeyManagement.limitReach();
-                else
-                    AlertFound.connexionFailed();
-            } else
-                AlertFound.connexionFailed();
+
+                if (this.statusCode == REQUEST_SUCCESSFUL) this.responseFromApi = response.body();
+                else if (this.statusCode == INVALID_KEY) KeyManagement.limitReach();
+                else AlertFound.connexionFailed();
+
+            } else AlertFound.connexionFailed();
 
         }
         catch (InvalidKeyException e) {
