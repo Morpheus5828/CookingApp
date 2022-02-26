@@ -51,7 +51,7 @@ public class KeyManagement {
         return key;
     }
 
-    private static int getKeyIndex() {
+    public static int getKeyIndex() {
         int keyIndex = 0;
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keysManagement.txt");
@@ -63,7 +63,7 @@ public class KeyManagement {
         return keyIndex;
     }
 
-    private static int getKeyIndexLoopStart() {
+    public static int getKeyIndexLoopStart() {
         int keyIndexLoopStart = -1;
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keysManagement.txt");
@@ -78,12 +78,13 @@ public class KeyManagement {
 
     public static void setKeyIndex(final int keyIndex) {
         try {
+            int keyIndexLoopStart = getKeyIndexLoopStart();
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            bufferedWriter.write(keyIndex);
+            bufferedWriter.write(String.valueOf(keyIndex));
             bufferedWriter.newLine();
-            bufferedWriter.write(getKeyIndexLoopStart());
+            bufferedWriter.write(String.valueOf(keyIndexLoopStart));
             bufferedWriter.close();
         }catch (IOException e) {e.printStackTrace();}
     }
@@ -98,7 +99,6 @@ public class KeyManagement {
 
     private static void changeKeyIndexLoopStart(final int keyIndexLoopStart) {
         try {
-            System.out.println("change");
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
