@@ -4,7 +4,6 @@ import app.foodapp.controller.dataRequest.ApiDataRequest;
 import app.foodapp.view.alert.AlertFound;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -18,14 +17,9 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         super();
         this.listOfIngredient = listOfIngredient;
         conversion();
-        this.request = HttpRequest.newBuilder().uri(URI.create(
-                "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
-                + this.ingredient
-                + "&number=4&apiKey="
-                + this.API_KEY
-        )).build();
+        /*this.request =
 
-        checkForDataExtraction(client, request);
+        checkForDataExtraction();*/
     }
 
     private void conversion() {
