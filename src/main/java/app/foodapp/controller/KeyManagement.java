@@ -6,12 +6,15 @@ import java.io.*;
 
 public class KeyManagement {
 
-    public static String getKey() {
+    public static String getCurrentKey() {
+        return getKey(getKeyIndex());
+    }
+
+    public static String getKey(int keyIndex) {
         String key = null;
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keys.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            int keyIndex = getKeyIndex();
 
             for (int index = 0; index < keyIndex; index++) {
                 bufferedReader.readLine();
