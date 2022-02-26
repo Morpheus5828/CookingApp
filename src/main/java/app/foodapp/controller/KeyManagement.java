@@ -110,13 +110,13 @@ public class KeyManagement {
         }catch (IOException e) {e.printStackTrace();}
     }
 
-    private static void increaseKeyIndex() {
+    public static void increaseKeyIndex() {
         int keyIndex = getKeyIndex();
         keyIndex++;
         setKeyIndex(keyIndex);
     }
 
-    private static void limitReach() throws InvalidKeyException {
+    public static void limitReach() throws InvalidKeyException {
         if (getKeyIndex() == getKeyIndexLoopStart())
             throw new InvalidKeyException("Can't find a valid key.");
     }
