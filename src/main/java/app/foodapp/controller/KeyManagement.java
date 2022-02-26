@@ -76,7 +76,7 @@ public class KeyManagement {
         return keyIndexLoopStart;
     }
 
-    public static void setKeyIndex(int keyIndex) {
+    public static void setKeyIndex(final int keyIndex) {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -89,14 +89,17 @@ public class KeyManagement {
     }
 
     public static void setKeyIndexLoopStart() {
+        changeKeyIndexLoopStart(getKeyIndex());
+    }
+
+    private static void changeKeyIndexLoopStart(final int keyIndexLoopStart) {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            int keyIndex = getKeyIndex();
 
-            bufferedWriter.write(keyIndex);
+            bufferedWriter.write(getKeyIndex());
             bufferedWriter.newLine();
-            bufferedWriter.write(keyIndex);
+            bufferedWriter.write(keyIndexLoopStart);
             bufferedWriter.close();
         }catch (IOException e) {e.printStackTrace();}
     }
@@ -108,7 +111,8 @@ public class KeyManagement {
     }
 
     private static void limitReach() throws InvalidKeyException {
-        if (getKeyIndex() == getKeyIndexLoopStart()) throw new InvalidKeyException("Can't find a valid key.");
+        if (getKeyIndex() == getKeyIndexLoopStart())
+            throw new InvalidKeyException("Can't find a valid key.");
     }
 
 }
