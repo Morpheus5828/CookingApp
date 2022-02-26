@@ -49,4 +49,13 @@ public class KeyManagementTest {
         KeyManagement.changeKeyIndexLoopStart(currentKeyIndexLoopStart);
 
     }
+
+    @Test
+    public void testIncreaseKeyIndex() {
+        int currentKeyIndex = KeyManagement.getKeyIndex();
+
+        KeyManagement.increaseKeyIndex();
+        assertEquals(currentKeyIndex + 1, KeyManagement.getKeyIndex());
+        KeyManagement.setKeyIndex(currentKeyIndex);
+    }
 }
