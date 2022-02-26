@@ -41,9 +41,9 @@ public abstract class ApiDataRequest {
             else AlertFound.connexionFailed();
 
         }
-        /*catch (InvalidKeyException e) {
+        catch (InvalidKeyException e) {
             AlertFound.invalidKey();
-        }*/
+        }
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
