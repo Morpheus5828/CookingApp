@@ -70,7 +70,20 @@ public class KeyManagement {
         return keyIndexLoopStart;
     }
 
-    public void setKeyIndexLoopStart() {
+    public static void setKeyIndex(int keyIndex) {
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            int keyIndexLoopStart = getKeyIndexLoopStart();
+
+            bufferedWriter.write(keyIndex);
+            bufferedWriter.newLine();
+            bufferedWriter.write(keyIndexLoopStart);
+            bufferedWriter.close();
+        }catch (IOException e) {e.printStackTrace();}
+    }
+
+    public static void setKeyIndexLoopStart() {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
