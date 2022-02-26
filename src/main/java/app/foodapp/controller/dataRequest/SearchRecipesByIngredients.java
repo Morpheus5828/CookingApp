@@ -13,13 +13,11 @@ import java.util.ArrayList;
 public class SearchRecipesByIngredients extends ApiDataRequest {
     private ArrayList<String> listOfIngredient;
     private String ingredient = "";
-    private String responseFromApi;
 
     public SearchRecipesByIngredients(ArrayList<String> listOfIngredient) {
+        super();
         this.listOfIngredient = listOfIngredient;
-        this.client = HttpClient.newHttpClient();
         conversion();
-        // We launch data request to receive recipe information
         this.request = HttpRequest.newBuilder().uri(URI.create(
                 "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
