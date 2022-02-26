@@ -44,9 +44,7 @@ public class KeyManagement {
 
             if (key == null) {
                 setKeyIndex(0);
-                bufferedReader = new BufferedReader(fileReader);
-                key = bufferedReader.readLine();
-                bufferedReader.close();
+                key = getKey(0);
             }
             limitReach();
 
