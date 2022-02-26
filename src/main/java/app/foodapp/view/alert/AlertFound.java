@@ -1,5 +1,7 @@
 package app.foodapp.view.alert;
 
+import javafx.scene.control.Alert;
+
 public class AlertFound {
 
 
@@ -15,5 +17,25 @@ public class AlertFound {
         System.out.println("\n" + "⚠ Node doesn't exist !" + "\n");
     }
 
+    public static void usernameAlreadyExist() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Username already exist, please try again");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
 
+    public static void usernameNotWrite() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("You forget to enter username, please try again");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    public static void passwordNotWrite() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("You forget to enter password, please try again");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+
+    }
 }
