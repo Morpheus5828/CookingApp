@@ -35,7 +35,7 @@ public class KeyManagement {
             for (int index = 0; index <= keyIndex; index++) {
                 bufferedReader.readLine();
             }
-            increaseKeyIndex(1);
+            increaseKeyIndex();
             key = bufferedReader.readLine();
             bufferedReader.close();
 
@@ -101,9 +101,9 @@ public class KeyManagement {
         }catch (IOException e) {e.printStackTrace();}
     }
 
-    private static void increaseKeyIndex(int value) {
+    private static void increaseKeyIndex() {
         int keyIndex = getKeyIndex();
-        keyIndex = keyIndex + value;
+        keyIndex++;
         setKeyIndex(keyIndex);
     }
 
