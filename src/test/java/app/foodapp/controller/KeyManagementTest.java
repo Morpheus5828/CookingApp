@@ -28,4 +28,25 @@ public class KeyManagementTest {
 
         KeyManagement.changeKeyIndexLoopStart(currentKeyIndexLoopStart);
     }
+
+    @Test
+    public void testSetKeyIndexLoopStart() {
+        int currentKeyIndex = KeyManagement.getKeyIndex();
+        int currentKeyIndexLoopStart = KeyManagement.getKeyIndexLoopStart();
+
+        KeyManagement.setKeyIndexLoopStart();
+        assertEquals(currentKeyIndex, KeyManagement.getKeyIndexLoopStart());
+        KeyManagement.changeKeyIndexLoopStart(currentKeyIndexLoopStart);
+
+    }
+
+    @Test
+    public void testResetKeyIndexLoopStart() {
+        int currentKeyIndexLoopStart = KeyManagement.getKeyIndexLoopStart();
+
+        KeyManagement.resetKeyIndexLoopStart();
+        assertEquals(-1, KeyManagement.getKeyIndexLoopStart());
+        KeyManagement.changeKeyIndexLoopStart(currentKeyIndexLoopStart);
+
+    }
 }
