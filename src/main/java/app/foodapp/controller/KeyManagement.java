@@ -11,7 +11,9 @@ public class KeyManagement {
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keys.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            for (int index = 0; index < getKeyIndex(); index++) {
+            int keyIndex = getKeyIndex();
+
+            for (int index = 0; index < keyIndex; index++) {
                 bufferedReader.readLine();
             }
             key = bufferedReader.readLine();
@@ -23,23 +25,27 @@ public class KeyManagement {
         return key;
     }
 
-    public static String getNextKey() {
+    public static String getNextKey() throws InvalidKeyException{
         String key = null;
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keys.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+            int keyIndex = getKeyIndex();
 
-            for (int index = 0; index <= getKeyIndex(); index++) {
+            for (int index = 0; index <= keyIndex; index++) {
                 bufferedReader.readLine();
             }
+            increaseKeyIndex(1);
             key = bufferedReader.readLine();
             bufferedReader.close();
 
             if (key == null) {
+                setKeyIndex(0);
                 bufferedReader = new BufferedReader(fileReader);
                 key = bufferedReader.readLine();
                 bufferedReader.close();
             }
+            limitReach();
 
         } catch (IOException e) {e.printStackTrace();}
         return key;
@@ -58,7 +64,7 @@ public class KeyManagement {
     }
 
     private static int getKeyIndexLoopStart() {
-        int keyIndexLoopStart = 0;
+        int keyIndexLoopStart = -1;
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keysManagement.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -74,11 +80,10 @@ public class KeyManagement {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            int keyIndexLoopStart = getKeyIndexLoopStart();
 
             bufferedWriter.write(keyIndex);
             bufferedWriter.newLine();
-            bufferedWriter.write(keyIndexLoopStart);
+            bufferedWriter.write(getKeyIndexLoopStart());
             bufferedWriter.close();
         }catch (IOException e) {e.printStackTrace();}
     }
@@ -94,6 +99,16 @@ public class KeyManagement {
             bufferedWriter.write(keyIndex);
             bufferedWriter.close();
         }catch (IOException e) {e.printStackTrace();}
+    }
+
+    private static void increaseKeyIndex(int value) {
+        int keyIndex = getKeyIndex();
+        keyIndex = keyIndex + value;
+        setKeyIndex(keyIndex);
+    }
+
+    private static void limitReach() throws InvalidKeyException {
+        if (getKeyIndex() == getKeyIndexLoopStart()) throw new InvalidKeyException("Can't find a valid key.");
     }
 
 }
