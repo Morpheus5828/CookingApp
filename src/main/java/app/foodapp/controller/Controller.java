@@ -30,7 +30,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
-
     public void goToFavorites(javafx.event.ActionEvent actionEvent) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
         rootPane.getChildren().setAll(pane);
@@ -41,8 +40,8 @@ public class Controller implements Initializable {
         rootPane.getChildren().setAll(pane);
     }
 
-    public void searchByIngredient(KeyEvent keyEvent) {
-        searchByIngredient.setOnKeyPressed( new EventHandler<KeyEvent>() {
+    public void addIngredientToSearch(KeyEvent keyEvent) {
+        searchByIngredient.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.ENTER){
@@ -77,4 +76,7 @@ public class Controller implements Initializable {
     }
 
 
+    public void removeIngredient(ActionEvent actionEvent) {
+        
+    }
 }

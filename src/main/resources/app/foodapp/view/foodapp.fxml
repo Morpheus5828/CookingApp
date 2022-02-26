@@ -2,13 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.Controller">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.Controller">
     <children>
-      <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="100.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle fill="#20b345" height="92.0" layoutX="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="1276.0" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="100.0" style="-fx-background-color: #696969;" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1270.0" style="-fx-background-color: #20b345;" />
       <Text layoutX="100.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coocking App" wrappingWidth="398.13672828674316">
          <font>
             <Font size="58.0" />
@@ -20,12 +19,12 @@
          </font>
       </Text>
       <Button fx:id="menuToFavoritesButton" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToFavorites" prefHeight="75.0" prefWidth="75.0" text="Button" />
-      <TextField fx:id="searchByIngredient" layoutX="1000.0" layoutY="40.0" onKeyReleased="#searchByIngredient" prefHeight="20.0" prefWidth="254.0" promptText="Entrez votre recette" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="33.0" />
-      <Button fx:id="firstIngredient" layoutX="727.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
-      <Button fx:id="fourthIngredient" layoutX="727.0" layoutY="59.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
-      <Button fx:id="secondIngredient" layoutX="814.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
-      <Button fx:id="sixthIngredient" layoutX="898.0" layoutY="59.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
-      <Button fx:id="thirdIngredient" layoutX="898.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
-      <Button fx:id="fifthIngredient" layoutX="814.0" layoutY="59.0" mnemonicParsing="false" prefWidth="75.0" text="Button" visible="false" />
+      <TextField fx:id="searchByIngredient" layoutX="1000.0" layoutY="40.0" onKeyReleased="#addIngredientToSearch" prefHeight="20.0" prefWidth="254.0" promptText="Entrez votre recette" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="33.0" />
+      <Button fx:id="firstIngredient" layoutX="727.0" layoutY="20.0" mnemonicParsing="false" onAction="#removeIngredient" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
+      <Button fx:id="secondIngredient" layoutX="814.0" layoutY="20.0" mnemonicParsing="false" onAction="#removeIngredient" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
+      <Button fx:id="thirdIngredient" layoutX="898.0" layoutY="20.0" mnemonicParsing="false" onAction="#removeIngredient" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
+      <Button fx:id="fourthIngredient" layoutX="727.0" layoutY="59.0" mnemonicParsing="false" onAction="#removeIngredient" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
+      <Button fx:id="fifthIngredient" layoutX="814.0" layoutY="59.0" mnemonicParsing="false" onAction="#removeIngredient" prefWidth="75.0" text="Button" visible="false" />
+      <Button fx:id="sixthIngredient" layoutX="898.0" layoutY="59.0" mnemonicParsing="false" onAction="#removeIngredient" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
     </children>
 </AnchorPane>
