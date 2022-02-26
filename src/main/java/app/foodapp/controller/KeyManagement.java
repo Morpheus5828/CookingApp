@@ -97,14 +97,15 @@ public class KeyManagement {
         changeKeyIndexLoopStart(-1);
     }
 
-    private static void changeKeyIndexLoopStart(final int keyIndexLoopStart) {
+    public static void changeKeyIndexLoopStart(final int keyIndexLoopStart) {
         try {
+            int keyIndex = getKeyIndex();
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            bufferedWriter.write(getKeyIndex());
+            bufferedWriter.write(String.valueOf(keyIndex));
             bufferedWriter.newLine();
-            bufferedWriter.write(keyIndexLoopStart);
+            bufferedWriter.write(String.valueOf(keyIndexLoopStart));
             bufferedWriter.close();
         }catch (IOException e) {e.printStackTrace();}
     }

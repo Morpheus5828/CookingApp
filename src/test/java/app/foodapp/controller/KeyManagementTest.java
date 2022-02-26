@@ -16,4 +16,16 @@ public class KeyManagementTest {
 
         KeyManagement.setKeyIndex(currentKeyIndex);
     }
+
+    @Test
+    public void testChangeKeyIndexLoopStart() {
+        int currentKeyIndex = KeyManagement.getKeyIndex();
+        int currentKeyIndexLoopStart = KeyManagement.getKeyIndexLoopStart();
+
+        KeyManagement.changeKeyIndexLoopStart(7);
+        assertEquals(currentKeyIndex, KeyManagement.getKeyIndex());
+        assertEquals(7, KeyManagement.getKeyIndexLoopStart());
+
+        KeyManagement.changeKeyIndexLoopStart(currentKeyIndexLoopStart);
+    }
 }
