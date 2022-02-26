@@ -1,5 +1,6 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.exception.InvalidKeyException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,5 +58,20 @@ public class KeyManagementTest {
         KeyManagement.increaseKeyIndex();
         assertEquals(currentKeyIndex + 1, KeyManagement.getKeyIndex());
         KeyManagement.setKeyIndex(currentKeyIndex);
+    }
+
+    @Test
+    public void testLimitReach() {
+        int currentKeyIndex = KeyManagement.getKeyIndex();
+        int currentKeyIndexLoopStart = KeyManagement.getKeyIndexLoopStart();
+
+        KeyManagement.setKeyIndex(4);
+        KeyManagement.changeKeyIndexLoopStart(4);
+        assertThrows(InvalidKeyException.class, () -> {
+            KeyManagement.limitReach();
+        });
+
+        KeyManagement.setKeyIndex(currentKeyIndex);
+        KeyManagement.changeKeyIndexLoopStart(currentKeyIndexLoopStart);
     }
 }
