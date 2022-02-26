@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class KeyManagement {
-    private static int keyIndex = 0;
-    private static boolean waitingForKeyToBeValid = false;
 
     public static String getKey() {
         String key = null;
@@ -27,12 +25,7 @@ public class KeyManagement {
         return key;
     }
 
-    public static String getNextKey() throws InvalidKeyException {
-        if (waitingForKeyToBeValid) throw new InvalidKeyException("Can't find a valid key.");
-        return findNextKey();
-    }
-
-    private static String findNextKey() {
+    public static String getNextKey() {
         String key = null;
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keys.txt");
@@ -54,15 +47,6 @@ public class KeyManagement {
 
         } catch (IOException e) {e.printStackTrace();}
         return key;
-    }
-
-    public static void limitReach() throws InvalidKeyException{
-        waitingForKeyToBeValid = true;
-        throw new InvalidKeyException("Can't find a valid key.");
-    }
-
-    public static void keyIsValid() {
-        waitingForKeyToBeValid = false;
     }
 
 }

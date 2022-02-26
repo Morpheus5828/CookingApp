@@ -18,31 +18,30 @@ public abstract class ApiDataRequest {
     protected HttpRequest request;
     protected String responseFromApi;
 
+    protected ApiDataRequest() {
+        this.client = HttpClient.newHttpClient();
+    }
+
     protected void checkForDataExtraction(HttpClient client, HttpRequest request) {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             this.statusCode = response.statusCode();
 
-            if (this.statusCode == REQUEST_SUCCESSFUL) {
-                this.responseFromApi = response.body();
-                KeyManagement.keyIsValid();
+            while(this.statusCode == INVALID_KEY) {
+                this.API_KEY = KeyManagement.getNextKey();
+                //change key
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
             }
 
-            else if (this.statusCode == INVALID_KEY) {
-                this.API_KEY = KeyManagement.getNextKey();
-                response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                this.statusCode = response.statusCode();
+            if (this.statusCode == REQUEST_SUCCESSFUL)
+                this.responseFromApi = response.body();
 
-                if (this.statusCode == REQUEST_SUCCESSFUL) this.responseFromApi = response.body();
-                else if (this.statusCode == INVALID_KEY) KeyManagement.limitReach();
-                else AlertFound.connexionFailed();
-
-            } else AlertFound.connexionFailed();
+            else AlertFound.connexionFailed();
 
         }
-        catch (InvalidKeyException e) {
+        /*catch (InvalidKeyException e) {
             AlertFound.invalidKey();
-        }
+        }*/
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
