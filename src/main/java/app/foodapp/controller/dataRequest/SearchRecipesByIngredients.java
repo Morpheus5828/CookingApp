@@ -15,13 +15,11 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         super();
         this.listOfIngredient = listOfIngredient;
         conversion();
-        /*this.request = HttpRequest.newBuilder().uri(URI.create(
-                "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
+        String rawRequest = "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
-                + "&number=4&apiKey="
-        )).build();
+                + "&number=4&apiKey=";
 
-        checkForDataExtraction();*/
+        checkForDataExtraction(rawRequest);
     }
 
     private void conversion() {
