@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.security.Key;
 
 public abstract class ApiDataRequest {
     protected String API_KEY = KeyManagement.getKey();
@@ -28,6 +29,7 @@ public abstract class ApiDataRequest {
             this.statusCode = response.statusCode();
 
             while(this.statusCode == INVALID_KEY) {
+                KeyManagement.setKeyIndexLoopStart();
                 this.API_KEY = KeyManagement.getNextKey();
                 //change key
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
