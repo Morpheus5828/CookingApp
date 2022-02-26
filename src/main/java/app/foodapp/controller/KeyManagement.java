@@ -2,9 +2,7 @@ package app.foodapp.controller;
 
 import app.foodapp.controller.exception.InvalidKeyException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class KeyManagement {
 
@@ -52,9 +50,37 @@ public class KeyManagement {
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keysManagement.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+
             keyIndex = Integer.parseInt(bufferedReader.readLine());
+            bufferedReader.close();
         } catch (IOException e) {e.printStackTrace();}
         return keyIndex;
+    }
+
+    private static int getKeyIndexLoopStart() {
+        int keyIndexLoopStart = 0;
+        try {
+            FileReader fileReader = new FileReader("src/main/resources/dataBase/keysManagement.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            bufferedReader.readLine();
+            keyIndexLoopStart = Integer.parseInt(bufferedReader.readLine());
+            bufferedReader.close();
+        } catch (IOException e) {e.printStackTrace();}
+        return keyIndexLoopStart;
+    }
+
+    public void setKeyIndexLoopStart() {
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            int keyIndex = getKeyIndex();
+
+            bufferedWriter.write(keyIndex);
+            bufferedWriter.newLine();
+            bufferedWriter.write(keyIndex);
+            bufferedWriter.close();
+        }catch (IOException e) {e.printStackTrace();}
     }
 
 }
