@@ -16,7 +16,6 @@ public abstract class ApiDataRequest {
     protected final int INVALID_KEY = 402;
     protected int statusCode = 0;
     protected HttpClient client;
-    protected String request;
     protected String responseFromApi;
 
     protected ApiDataRequest() {
@@ -33,15 +32,18 @@ public abstract class ApiDataRequest {
             boolean findInvalidKey = false;
 
             while(this.statusCode == INVALID_KEY) {
-                if (!findInvalidKey) findInvalidKey = true;
-                KeyManagement.setKeyIndexLoopStart();
+                if (!findInvalidKey) {
+                    findInvalidKey = true;
+                    KeyManagement.setKeyIndexLoopStart();
+                }
+
                 this.API_KEY = KeyManagement.getNextKey();
                 response = this.client.send(
                         createRequest(rawRequest),
                         HttpResponse.BodyHandlers.ofString()
                 );
             }
-
+            System.out.println(this.API_KEY);
             if (this.statusCode == REQUEST_SUCCESSFUL) {
                 this.responseFromApi = response.body();
                 if (findInvalidKey) KeyManagement.resetKeyIndexLoopStart();
