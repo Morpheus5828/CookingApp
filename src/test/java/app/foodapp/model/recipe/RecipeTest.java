@@ -1,5 +1,6 @@
 package app.foodapp.model.recipe;
 
+import app.foodapp.controller.dataRequest.ApiDataRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
