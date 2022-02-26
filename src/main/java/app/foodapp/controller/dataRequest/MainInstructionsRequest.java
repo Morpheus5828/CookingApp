@@ -7,15 +7,14 @@ public class MainInstructionsRequest extends ApiDataRequest {
 
     public MainInstructionsRequest(String recipeId) {
         super();
-        this.request = HttpRequest.newBuilder().uri(URI.create(
+        /*this.request = HttpRequest.newBuilder().uri(URI.create(
              "https://api.spoonacular.com/recipes/"
              + recipeId
              + "/information?analyzedInstructions"
              + "&number=4&apiKey="
-            + this.API_KEY
         )).build();
 
-        checkForDataExtraction(client, request);
+        checkForDataExtraction();*/
     }
 
     public int getStatusCode() {
