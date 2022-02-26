@@ -13,7 +13,7 @@ public class KeyManagement {
         try {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keys.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            for (int index = 0; index < keyIndex; index++) {
+            for (int index = 0; index < getKeyIndex(); index++) {
                 bufferedReader.readLine();
             }
             key = bufferedReader.readLine();
@@ -31,15 +31,13 @@ public class KeyManagement {
             FileReader fileReader = new FileReader("src/main/resources/dataBase/keys.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            for (int index = 0; index <= keyIndex; index++) {
+            for (int index = 0; index <= getKeyIndex(); index++) {
                 bufferedReader.readLine();
             }
-            keyIndex++;
             key = bufferedReader.readLine();
             bufferedReader.close();
 
             if (key == null) {
-                keyIndex = 0;
                 bufferedReader = new BufferedReader(fileReader);
                 key = bufferedReader.readLine();
                 bufferedReader.close();
@@ -47,6 +45,16 @@ public class KeyManagement {
 
         } catch (IOException e) {e.printStackTrace();}
         return key;
+    }
+
+    private static int getKeyIndex() {
+        int keyIndex = 0;
+        try {
+            FileReader fileReader = new FileReader("src/main/resources/dataBase/keysManagement.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            keyIndex = Integer.parseInt(bufferedReader.readLine());
+        } catch (IOException e) {e.printStackTrace();}
+        return keyIndex;
     }
 
 }
