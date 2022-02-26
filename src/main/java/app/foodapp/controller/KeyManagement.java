@@ -92,6 +92,10 @@ public class KeyManagement {
         changeKeyIndexLoopStart(getKeyIndex());
     }
 
+    public static void resetKeyIndexLoopStart() {
+        changeKeyIndexLoopStart(-1);
+    }
+
     private static void changeKeyIndexLoopStart(final int keyIndexLoopStart) {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
