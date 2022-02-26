@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.security.Key;
+import java.net.URI;
 
 public abstract class ApiDataRequest {
     protected String API_KEY = KeyManagement.getKey();
@@ -16,27 +16,36 @@ public abstract class ApiDataRequest {
     protected final int INVALID_KEY = 402;
     protected int statusCode = 0;
     protected HttpClient client;
-    protected HttpRequest request;
+    protected String request;
     protected String responseFromApi;
 
     protected ApiDataRequest() {
         this.client = HttpClient.newHttpClient();
     }
 
-    protected void checkForDataExtraction(HttpClient client, HttpRequest request) {
+    protected void checkForDataExtraction(String rawRequest) {
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = this.client.send(
+                    createRequest(rawRequest),
+                    HttpResponse.BodyHandlers.ofString()
+            );
             this.statusCode = response.statusCode();
+            boolean findInvalidKey = false;
 
             while(this.statusCode == INVALID_KEY) {
+                if (!findInvalidKey) findInvalidKey = true;
                 KeyManagement.setKeyIndexLoopStart();
                 this.API_KEY = KeyManagement.getNextKey();
-                //change key
-                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                response = this.client.send(
+                        createRequest(rawRequest),
+                        HttpResponse.BodyHandlers.ofString()
+                );
             }
 
-            if (this.statusCode == REQUEST_SUCCESSFUL)
+            if (this.statusCode == REQUEST_SUCCESSFUL) {
                 this.responseFromApi = response.body();
+                if (findInvalidKey) KeyManagement.resetKeyIndexLoopStart();
+            }
 
             else AlertFound.connexionFailed();
 
@@ -47,6 +56,10 @@ public abstract class ApiDataRequest {
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private HttpRequest createRequest(String rawRequest) {
+        return HttpRequest.newBuilder().uri(URI.create(rawRequest + this.API_KEY)).build();
     }
 }
 // https://api.spoonacular.com/recipes/324694/analyzedInstructions&apiKey=dfe74a73708e4afe81611ce3c399fc31
