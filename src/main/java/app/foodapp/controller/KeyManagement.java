@@ -98,6 +98,7 @@ public class KeyManagement {
 
     private static void changeKeyIndexLoopStart(final int keyIndexLoopStart) {
         try {
+            System.out.println("change");
             FileWriter fileWriter = new FileWriter("src/main/resources/dataBase/keysManagement.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 

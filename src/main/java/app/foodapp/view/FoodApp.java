@@ -18,7 +18,7 @@ public class FoodApp extends Application {
         primaryStage.show();
          */
         Recipe recipe = new Recipe("622561", null, 0, 0);
-        recipe.getSteps();
+        System.out.println(recipe.getSteps());
     }
 
     public static void main(String[] args) { launch(args); }
