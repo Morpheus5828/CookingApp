@@ -35,7 +35,7 @@ public final class SignUpController {
 
     public void addRegimeString() {
         ObservableList<String> list = FXCollections.observableArrayList(
-        "vegetarian",
+                "vegetarian",
                 "vegan"
         );
         regimeChoice.setItems(list);
