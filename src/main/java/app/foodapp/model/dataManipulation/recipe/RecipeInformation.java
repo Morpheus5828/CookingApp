@@ -53,7 +53,7 @@ public class RecipeInformation {
         listOfRecipe = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(ingredientRequest.getResponseFromApi());
-            for(int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 this.id = jsonObject.get("id").toString();
                 this.title = jsonObject.get("title").toString();
@@ -78,7 +78,7 @@ public class RecipeInformation {
             JSONArray jsonArray = new JSONArray(listOfIngredientsElements);
 
             // Extraction value's extendedIngredients and creation of display result
-            for(int index = 0; index < jsonArray.length(); index++) {
+            for (int index = 0; index < jsonArray.length(); index++) {
                 //TODO a finir c'est pour la troncature double scale = Math.pow(10, 3);
 
                 JSONObject jsonObject = jsonArray.getJSONObject(index);
@@ -97,29 +97,29 @@ public class RecipeInformation {
         return result;
     }
 
-    public Map<Integer, String> getStepRecipeInformation() throws NullPointerException{
+    public Map<Integer, String> getStepRecipeInformation() throws NullPointerException {
         Map<Integer, String> stepInstruction = new HashMap<>();
 
         try {
-           // Conversion to use key-value system
-           List listOfInstructions = (List) this.jsonFile.get("analyzedInstructions");
-           if(convertListToMap(listOfInstructions) == null)
-               return null;
-           Map instructions = convertListToMap(listOfInstructions);
+            // Conversion to use key-value system
+            List listOfInstructions = (List) this.jsonFile.get("analyzedInstructions");
+            if (convertListToMap(listOfInstructions) == null)
+                return null;
+            Map instructions = convertListToMap(listOfInstructions);
 
-           List listOfSteps = (List) instructions.get("steps");
-           JSONArray jsonArray1 = new JSONArray(listOfSteps);
+            List listOfSteps = (List) instructions.get("steps");
+            JSONArray jsonArray1 = new JSONArray(listOfSteps);
 
-           // Add step with number associated
-           for(int index = 0; index < jsonArray1.length(); index++) {
-              JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
-               Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
+            // Add step with number associated
+            for (int index = 0; index < jsonArray1.length(); index++) {
+                JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
+                Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
 
-               stepInstruction.put(index, (String) mapDeTest1.get("step"));
-           }
-       } catch (NullPointerException e) {
-           e.printStackTrace();
-       }
+                stepInstruction.put(index, (String) mapDeTest1.get("step"));
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         return stepInstruction;
     }
 
@@ -139,23 +139,35 @@ public class RecipeInformation {
         JSONArray jsonArray = new JSONArray(list);
         // First index is 0
 
-        if(jsonArray.isEmpty())
+        if (jsonArray.isEmpty())
             return null;
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
     public void display() {
-        for(int i = 0; i < listOfRecipe.size(); i++) {
+        for (int i = 0; i < listOfRecipe.size(); i++) {
             System.out.println(
-                "Menu number: " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
-                "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
-                "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
-                "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
-                "-----------------------------------------------" + "\n"
+                    "Menu number: " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                            "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
+                            "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
+                            "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
+                            "-----------------------------------------------" + "\n"
             );
         }
+    }
 
+    public String displayGUI() {
+        String recipe = "";
+        for (int i = 0; i < listOfRecipe.size(); i++) {
+            recipe +=
+                    "Menu number: " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                            "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
+                            "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
+                            "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
+                            "-----------------------------------------------" + "\n";
+        }
+        return recipe;
     }
 }
 

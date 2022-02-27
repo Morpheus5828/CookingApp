@@ -1,5 +1,6 @@
 package app.foodapp.controller;
 
+import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -122,7 +123,13 @@ public class Controller implements Initializable {
         sixthIngredient.setText("");
     }
 
+    public void sendRequest() {
+
+    }
+
     public void displayApiInformations(ActionEvent actionEvent) {
-        mainDisplay.setText(strings.toString());
+        //mainDisplay.setText(strings.toString());
+        RecipeInformation recipeInformation = new RecipeInformation(strings);
+        mainDisplay.setText(recipeInformation.displayGUI());
     }
 }
