@@ -33,6 +33,17 @@ public class AlertFound {
         alert.setContentText("You forget to enter password, please try again");
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
 
+    public static void usernameNotExist() {
+        alert.setContentText("Username not exist, please try again");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    public static void passwordNotExist() {
+        alert.setContentText("Password doesn't match, please try again");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }
