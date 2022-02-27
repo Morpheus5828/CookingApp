@@ -17,10 +17,12 @@ import java.io.*;
 
 public class LoginPage {
     @FXML private TextField usernameEntered;
+    @FXML private PasswordField passwordEntered;
     private BufferedReader reader = null;
     private PrintWriter wrote = null;
     private String userInformation = "userInformation.txt";
     private String line = "";
+
 
 
     public LoginPage() throws IOException {
@@ -30,6 +32,7 @@ public class LoginPage {
 
     public void checkUserLogin(ActionEvent actionEvent) throws IOException {
         boolean isTheSameUsername = false;
+        boolean isTheSamePassword = false;
         try {
             while ((line = reader.readLine()) != null) {
                 int compteur = 0;
@@ -38,23 +41,39 @@ public class LoginPage {
                     if(compteur == 0) {
                         if (index.equals(usernameEntered.getText()))
                             isTheSameUsername = true;
+                        if(index.equals(passwordEntered.getText()))
+                            isTheSamePassword = true;
                     }
                     compteur += 1;
                 }
             }
-            if(isTheSameUsername)
-                AlertFound.usernameAlreadyExist();
+            if(!isTheSameUsername)
+                AlertFound.usernameNotExist();
+            else if(!isTheSamePassword)
+                AlertFound.passwordNotExist();
+            if(isTheSamePassword && isTheSameUsername)
+                loginAccepted();
         } catch (Exception e) {
             e.printStackTrace();
         }
         finally {
             reader.close();
         }
+        if(isTheSameUsername)
+            loginAccepted();
     }
 
     public void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
         Stage loginStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
+        loginStage.setTitle("Cooking App");
+        loginStage.setScene(new Scene(root));
+        loginStage.show();
+    }
+
+    public void loginAccepted() throws IOException {
+        Stage loginStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
         loginStage.show();

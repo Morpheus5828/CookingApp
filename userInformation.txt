@@ -1,2 +1,4 @@
 Marius,123654,None,
 Arthur,vrevre,vegetarian,
+Léna,01200326,vegan,
+Denis,bi78k5413,vegan,
