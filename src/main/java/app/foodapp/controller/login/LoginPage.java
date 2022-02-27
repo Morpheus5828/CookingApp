@@ -1,6 +1,5 @@
 package app.foodapp.controller.login;
 
-import app.foodapp.view.FoodApp;
 import app.foodapp.view.alert.AlertFound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,35 +11,37 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.*;
 
-public class LoginPage {
+public final class LoginPage {
     @FXML private TextField usernameEntered;
     @FXML private PasswordField passwordEntered;
-    private final BufferedReader reader;
-    private boolean isTheSameUsername = false;
-    private boolean isTheSamePassword = false;
-    private final boolean condition = true;
-    private String line = "";
+    private BufferedReader reader;
 
-    public LoginPage() throws IOException {
-        this.reader = new BufferedReader(new FileReader("userInformation.txt"));
-    }
+
     public void checkUserLogin(ActionEvent actionEvent) throws IOException {
         try {
+            reader = new BufferedReader(new FileReader("userInformation.txt"));
+            boolean isTheSameUsername = false;
+            boolean isTheSamePassword = false;
+            String line = "";
             while ((line = reader.readLine()) != null) {
                 int counter = 0;
                 String[] tabOfRow = line.split(",");
 
-                for(String index : tabOfRow) {
-                    if(counter != 2) {
+                for (String index : tabOfRow) {
+                    if (counter != 2) {
                         if (index.equals(usernameEntered.getText()))
                             isTheSameUsername = true;
-                        if(index.equals(passwordEntered.getText()))
+                        if (index.equals(passwordEntered.getText()))
                             isTheSamePassword = true;
                     }
                     counter += 1;
                 }
             }
-            checkAttributionProperties();
+
+            if(!isTheSameUsername)
+                AlertFound.usernameNotExist();
+            if(!isTheSamePassword)
+                AlertFound.passwordNotExist();
             if(isTheSamePassword && isTheSameUsername)
                 // Open next stage
                 loginAccepted();
@@ -51,6 +52,7 @@ public class LoginPage {
         }
     }
 
+    @FXML
     private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
         Stage loginStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
@@ -65,13 +67,6 @@ public class LoginPage {
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
         loginStage.show();
-    }
-
-    private void checkAttributionProperties() throws IOException {
-        if(!isTheSameUsername)
-            AlertFound.usernameNotExist();
-        if(!isTheSamePassword)
-            AlertFound.passwordNotExist();
     }
 
 }
