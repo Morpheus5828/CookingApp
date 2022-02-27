@@ -50,7 +50,7 @@ public class SignUpController {
             AlertFound.usernameNotWrite();
         if(password.getText().isEmpty())
             AlertFound.passwordNotWrite();
-        if(!userAlreadyExist(content)){
+        else {
             File file = new File("userInformation.txt");
             if(!file.exists())
                 file.createNewFile();
