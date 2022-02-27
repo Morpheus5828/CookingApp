@@ -98,29 +98,29 @@ public class RecipeInformation {
         return result;
     }
 
-    public Map<Integer, String> getStepRecipeInformation() throws NullPointerException{
+    public Map<Integer, String> getStepRecipeInformation() throws NullPointerException {
         Map<Integer, String> stepInstruction = new HashMap<>();
 
         try {
-           // Conversion to use key-value system
-           List listOfInstructions = (List) this.jsonFile.get("analyzedInstructions");
-           if(convertListToMap(listOfInstructions) == null)
-               return null;
-           Map instructions = convertListToMap(listOfInstructions);
+            // Conversion to use key-value system
+            List listOfInstructions = (List) this.jsonFile.get("analyzedInstructions");
+            if (convertListToMap(listOfInstructions) == null)
+                return null;
+            Map instructions = convertListToMap(listOfInstructions);
 
-           List listOfSteps = (List) instructions.get("steps");
-           JSONArray jsonArray1 = new JSONArray(listOfSteps);
+            List listOfSteps = (List) instructions.get("steps");
+            JSONArray jsonArray1 = new JSONArray(listOfSteps);
 
-           // Add step with number associated
-           for(int index = 0; index < jsonArray1.length(); index++) {
-              JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
-               Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
+            // Add step with number associated
+            for (int index = 0; index < jsonArray1.length(); index++) {
+                JSONObject jsonObject1 = jsonArray1.getJSONObject(index);
+                Map mapDeTest1 = gsonInstance.fromJson(String.valueOf(jsonObject1), Map.class);
 
-               stepInstruction.put(index, (String) mapDeTest1.get("step"));
-           }
-       } catch (NullPointerException e) {
-           e.printStackTrace();
-       }
+                stepInstruction.put(index, (String) mapDeTest1.get("step"));
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         return stepInstruction;
     }
 
