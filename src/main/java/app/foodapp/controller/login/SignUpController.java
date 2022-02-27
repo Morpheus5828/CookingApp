@@ -4,14 +4,18 @@ import app.foodapp.view.alert.AlertFound;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.*;
 
-public class SignUpController {
+public final class SignUpController {
     @FXML private ComboBox regimeChoice;
     @FXML private TextField username;
     @FXML private PasswordField password;
@@ -57,6 +61,7 @@ public class SignUpController {
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             fw.append(content);
             fw.close();
+            loginAccepted();
         }
     }
 
@@ -73,6 +78,14 @@ public class SignUpController {
         }
 
         return usernameAlreadyExist;
+    }
+
+    private void loginAccepted() throws IOException {
+        Stage loginStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+        loginStage.setTitle("Cooking App");
+        loginStage.setScene(new Scene(root));
+        loginStage.show();
     }
 
 }

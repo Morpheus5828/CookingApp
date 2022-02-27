@@ -36,7 +36,7 @@ public class AlertFound {
     }
 
     public static void usernameNotExist() {
-        alert.setContentText("Username not exist, please try again");
+        alert.setContentText("Username not exist, please try again or create an account");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
