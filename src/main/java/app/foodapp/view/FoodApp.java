@@ -1,6 +1,6 @@
 package app.foodapp.view;
 
-import app.foodapp.controller.login.SignUp;
+import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +16,7 @@ public class FoodApp extends Application {
            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/login.fxml"));
            loginStage.setTitle("Cooking App");
            loginStage.setScene(new Scene(root));
-           //loginStage.show();
+           loginStage.show();
 
        } catch (Exception e) {
            e.printStackTrace();
