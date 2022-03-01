@@ -49,9 +49,9 @@ public class FavoriteController implements Initializable {
             contents.add(content);
             Label title = new Label(recipe.getTitle());
             title.getStyleClass().add("recipe-title");
-            Label cookingTime = new Label(String.valueOf(recipe.getCookingTime()) + " min");
+            Label cookingTime = new Label((int) Math.round(recipe.getCookingTime()) + " min");
             cookingTime.getStyleClass().add("recipe-cookingTime");
-            Label servings = new Label(String.valueOf(recipe.getServings()) + " people");
+            Label servings = new Label((int) Math.round(recipe.getServings()) + " servings");
             servings.getStyleClass().add("recipe-servings");
             Button buttonFavorite = new Button("Remove from Favorite");
             buttonsRemoveFavorite.add(buttonFavorite);
