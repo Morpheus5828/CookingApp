@@ -12,6 +12,7 @@
 
 .recipe-title, .recipe-cookingTime, .recipe-servings {
     -fx-text-fill: white;
+    -fx-font-family: "Source Code Pro";
 }
 
 .recipe-title {
@@ -20,6 +21,7 @@
 }
 
 .recipe-cookingTime, .recipe-servings {
+    -fx-text-fill: #ebebeb;
     -fx-font-size: 20;
     -fx-font-style: italic;
     -fx-padding: 10 0 0 0;

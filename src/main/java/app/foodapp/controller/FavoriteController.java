@@ -63,8 +63,8 @@ public class FavoriteController implements Initializable {
             Image favoriteImage = new Image(getClass().getResourceAsStream("/pictures/full-heart.png"));
             ImageView image = new ImageView();
             image.setImage(favoriteImage);
+            image.setPreserveRatio(true);
             image.setFitWidth(30);
-            image.setFitHeight(30);
             Button buttonFavorite = new Button("", image);
             buttonFavorite.getStyleClass().add("button-favorite");
             buttonsRemoveFavorite.add(buttonFavorite);
@@ -78,8 +78,8 @@ public class FavoriteController implements Initializable {
             EventHandler<MouseEvent> favoriteMouseExited = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    Image brokenHeart = new Image(getClass().getResourceAsStream("/pictures/full-heart.png"));
-                    image.setImage(brokenHeart);
+                    Image fullHeart = new Image(getClass().getResourceAsStream("/pictures/full-heart.png"));
+                    image.setImage(fullHeart);
                 }
             };
             buttonFavorite.addEventFilter(MouseEvent.MOUSE_ENTERED, favoriteMouseEntered);
@@ -94,6 +94,7 @@ public class FavoriteController implements Initializable {
                     contents.remove(recipeIndex);
                 }
             };
+
             EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
