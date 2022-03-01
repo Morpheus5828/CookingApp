@@ -1,4 +1,4 @@
-package app.foodapp.view.alert;
+package app.foodapp.model.alert;
 
 import javafx.scene.control.Alert;
 

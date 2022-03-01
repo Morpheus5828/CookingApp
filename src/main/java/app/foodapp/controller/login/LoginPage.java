@@ -1,6 +1,6 @@
 package app.foodapp.controller.login;
 
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.model.alert.AlertFound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.text.html.ImageView;
-import java.awt.*;
 import java.io.*;
 
 public final class LoginPage {

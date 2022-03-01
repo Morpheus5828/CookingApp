@@ -1,10 +1,9 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.model.alert.AlertFound;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 

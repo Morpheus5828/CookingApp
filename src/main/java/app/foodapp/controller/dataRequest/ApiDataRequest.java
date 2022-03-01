@@ -1,8 +1,7 @@
 package app.foodapp.controller.dataRequest;
 
-import app.foodapp.controller.KeyManagement;
-import app.foodapp.controller.exception.InvalidKeyException;
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.controller.dataRequest.exception.InvalidKeyException;
+import app.foodapp.model.alert.AlertFound;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
