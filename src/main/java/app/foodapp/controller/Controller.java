@@ -42,10 +42,7 @@ public class Controller implements Initializable {
         rootPane.getChildren().setAll(pane);
     }
 
-    public void goToMenu(ActionEvent actionEvent) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-        rootPane.getChildren().setAll(pane);
-    }
+
 
     public void addIngredientToSearch(KeyEvent keyEvent) {
         searchByIngredient.setOnKeyPressed(new EventHandler<KeyEvent>() {
