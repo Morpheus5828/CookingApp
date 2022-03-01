@@ -1,6 +1,5 @@
-package app.foodapp.controller.apiHttpRequest;
+package app.foodapp.controller.dataRequest;
 
-import app.foodapp.controller.dataRequest.MainInstructionsRequest;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -20,7 +20,7 @@
          </font>
       </Text>
       <Button fx:id="menuToFavoritesButton" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToFavorites" prefHeight="75.0" prefWidth="75.0" text="Button" />
-      <TextField fx:id="searchByIngredient" layoutX="1000.0" layoutY="40.0" onKeyReleased="#searchByIngredient" prefHeight="20.0" prefWidth="254.0" promptText="Entrez votre recette" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="33.0" />
+      <TextField fx:id="searchByIngredient" layoutX="1000.0" layoutY="40.0" prefHeight="20.0" prefWidth="254.0" promptText="Entrez votre recette" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="33.0" />
       <Button fx:id="firstIngredient" layoutX="727.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
       <Button fx:id="fourthIngredient" layoutX="727.0" layoutY="59.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
       <Button fx:id="secondIngredient" layoutX="814.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />

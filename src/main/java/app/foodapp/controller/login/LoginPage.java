@@ -8,12 +8,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import javax.swing.*;
+import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.io.*;
 
 public final class LoginPage {
+    @FXML public javafx.scene.image.ImageView displayImage;
     @FXML private TextField usernameEntered;
     @FXML private PasswordField passwordEntered;
+
     private BufferedReader reader;
 
 
@@ -38,8 +45,10 @@ public final class LoginPage {
                 }
             }
 
-            if(!isTheSameUsername)
+            if(!isTheSameUsername) {
                 AlertFound.usernameNotExist();
+            }
+
             if(!isTheSamePassword)
                 AlertFound.passwordNotExist();
             if(isTheSamePassword && isTheSameUsername)
@@ -63,7 +72,7 @@ public final class LoginPage {
 
     private void loginAccepted() throws IOException {
         Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
         loginStage.show();
