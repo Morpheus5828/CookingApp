@@ -148,7 +148,7 @@ public class RecipeInformation {
     public void display() {
         for (int i = 0; i < listOfRecipe.size(); i++) {
             System.out.println(
-                    "Menu number: " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                    "Menu number " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
                             "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
                             "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
                             "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
@@ -161,7 +161,7 @@ public class RecipeInformation {
         String recipe = "";
         for (int i = 0; i < listOfRecipe.size(); i++) {
             recipe +=
-                    "Menu number: " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
+                    listOfRecipe.get(i).getTitle() + "\n" +
                             "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
                             "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
                             "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
