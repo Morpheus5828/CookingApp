@@ -17,6 +17,10 @@ public class AlertFound {
         System.out.println("\n" + "⚠ Node doesn't exist !" + "\n");
     }
 
+    public static void invalidKey() {
+        System.out.println("\n" + "⚠ You have reach the limit of possible research for a day. Please try later." + "\n");
+    }
+
     public static void usernameAlreadyExist() {
         alert.setContentText("Username already exist, please try again");
         alert.setHeaderText(null);
