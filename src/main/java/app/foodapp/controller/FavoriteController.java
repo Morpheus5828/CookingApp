@@ -3,6 +3,9 @@ package app.foodapp.controller;
 import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.node.Favorite;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,11 +16,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,14 +60,36 @@ public class FavoriteController implements Initializable {
             cookingTime.getStyleClass().add("recipe-cookingTime");
             Label servings = new Label((int) Math.round(recipe.getServings()) + " servings");
             servings.getStyleClass().add("recipe-servings");
-            Button buttonFavorite = new Button("Remove from Favorite");
+            Image favoriteImage = new Image(getClass().getResourceAsStream("/pictures/full-heart.png"));
+            ImageView image = new ImageView();
+            image.setImage(favoriteImage);
+            image.setFitWidth(30);
+            image.setFitHeight(30);
+            Button buttonFavorite = new Button("", image);
+            buttonFavorite.getStyleClass().add("button-favorite");
             buttonsRemoveFavorite.add(buttonFavorite);
+            EventHandler<MouseEvent> favoriteMouseEntered = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    Image brokenHeart = new Image(getClass().getResourceAsStream("/pictures/broken-heart.png"));
+                    image.setImage(brokenHeart);
+                }
+            };
+            EventHandler<MouseEvent> favoriteMouseExited = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    Image brokenHeart = new Image(getClass().getResourceAsStream("/pictures/full-heart.png"));
+                    image.setImage(brokenHeart);
+                }
+            };
+            buttonFavorite.addEventFilter(MouseEvent.MOUSE_ENTERED, favoriteMouseEntered);
+            buttonFavorite.addEventFilter(MouseEvent.MOUSE_EXITED, favoriteMouseExited);
             EventHandler<ActionEvent> removeRecipe = new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     int recipeIndex = buttonsRemoveFavorite.indexOf(buttonFavorite);
-                    favoriteNode.removeFromFavorite(favorites.get(recipeIndex));
                     recipeDisplay.getChildren().remove(contents.get(recipeIndex));
+                    favoriteNode.removeFromFavorite(favorites.get(recipeIndex));
                     buttonsRemoveFavorite.remove(recipeIndex);
                     contents.remove(recipeIndex);
                 }

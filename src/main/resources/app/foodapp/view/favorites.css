@@ -24,3 +24,8 @@
     -fx-font-style: italic;
     -fx-padding: 10 0 0 0;
 }
+
+.button-favorite {
+    -fx-background-color: none;
+    -fx-padding: 10;
+}
