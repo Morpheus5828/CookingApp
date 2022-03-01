@@ -83,6 +83,9 @@ public class FavoriteController implements Initializable {
     public void goToDetails(MouseEvent event, Recipe recipe) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
         Parent root = loader.load();
+        DetailsController detailsController = new DetailsController();
+        detailsController.showDetails(recipe);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
