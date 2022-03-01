@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class Controller implements Initializable {
     @FXML private Button fifthIngredient;
     @FXML private Button sixthIngredient;
     @FXML private Button submitButton;
-    @FXML private Label mainDisplay;
+    @FXML private Text mainDisplay;
 
     private ArrayList<String> strings = new ArrayList<String>();
 
