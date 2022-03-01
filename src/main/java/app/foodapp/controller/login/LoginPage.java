@@ -17,12 +17,11 @@ import java.awt.*;
 import java.io.*;
 
 public final class LoginPage {
-    @FXML public javafx.scene.image.ImageView displayImage;
     @FXML private TextField usernameEntered;
     @FXML private PasswordField passwordEntered;
-
     private BufferedReader reader;
 
+    public LoginPage() {}
 
     public void checkUserLogin(ActionEvent actionEvent) throws IOException {
         try {
@@ -76,6 +75,40 @@ public final class LoginPage {
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
         loginStage.show();
+    }
+    // this one is just for unit test
+    public void checkUserLogin(String username, String password) throws IOException {
+        try {
+            reader = new BufferedReader(new FileReader("userInformation.txt"));
+            boolean isTheSameUsername = false;
+            boolean isTheSamePassword = false;
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                int counter = 0;
+                String[] tabOfRow = line.split(",");
+
+                for (String index : tabOfRow) {
+                    if (counter != 2) {
+                        if (index.equals(username))
+                            isTheSameUsername = true;
+                        if (index.equals(password))
+                            isTheSamePassword = true;
+                    }
+                    counter += 1;
+                }
+            }
+
+            if(!isTheSameUsername)
+                System.out.println("Username not exist, please create an account");
+            if(!isTheSamePassword)
+                System.out.println("Password doesn't match, please try again");
+            if(isTheSamePassword && isTheSameUsername)
+                System.out.println("Login validated");
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
