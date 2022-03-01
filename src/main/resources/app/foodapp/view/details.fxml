@@ -11,7 +11,6 @@
     <children>
         <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.topAnchor="0.0" />
         <Rectangle fill="#20b345" height="92.0" layoutX="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1276.0" />
-        <Button fx:id="fromFavoritesToMenuButton" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="75.0" text="Menu" />
         <Text layoutX="100.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coocking App" wrappingWidth="653.1367282867432">
             <font>
                 <Font size="58.0" />
