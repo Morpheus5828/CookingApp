@@ -1,7 +1,6 @@
 package app.foodapp.controller;
 
 import app.foodapp.controller.login.LoginPage;
-import javafx.event.ActionEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

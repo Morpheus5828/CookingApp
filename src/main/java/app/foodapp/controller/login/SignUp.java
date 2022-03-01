@@ -32,7 +32,7 @@ public final class SignUp {
         }
     }
 
-    public void addRegimeString() {
+    private void addRegimeString() {
         ObservableList<String> list = FXCollections.observableArrayList(
                 "vegetarian",
                 "vegan"
@@ -64,7 +64,7 @@ public final class SignUp {
         }
     }
 
-    private Boolean userAlreadyExist(String content) throws IOException {
+    public Boolean userAlreadyExist(String content) throws IOException {
         Boolean usernameAlreadyExist = false;
         File userInformation = new File("userInformation.txt");
         BufferedReader obj = new BufferedReader(new FileReader(userInformation));
@@ -85,6 +85,25 @@ public final class SignUp {
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
         loginStage.show();
+    }
+
+    public void userRegister(String user, String userPassword, String userRegime) throws IOException {
+        if(userAlreadyExist(user + "," + userPassword + "," + userRegime + ",\n"))
+            System.out.println("Username already exist, please try again");
+        if(userPassword.isEmpty())
+            System.out.println("You forget to enter password, please try again");
+        if(user.isEmpty())
+            System.out.println("You forget to enter username, please try again");
+        if(!userAlreadyExist(user + "," + userPassword + "," + userRegime + ",\n") && !userPassword.isEmpty() && !user.isEmpty()) {
+            File file = new File("userInformation.txt");
+            if(!file.exists())
+                file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            fw.append(user + "," + userPassword + "," + userRegime + ",\n");
+            System.out.println("User has been add successfully");
+            fw.close();
+        }
+
     }
 
 }
