@@ -1,6 +1,6 @@
 package app.foodapp.controller.login;
 
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.model.alert.AlertFound;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

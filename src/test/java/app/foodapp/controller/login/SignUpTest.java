@@ -1,4 +1,4 @@
-package app.foodapp.controller;
+package app.foodapp.controller.login;
 
 import app.foodapp.controller.login.LoginPage;
 import app.foodapp.controller.login.SignUp;

@@ -1,6 +1,6 @@
-package app.foodapp.controller;
+package app.foodapp.controller.dataRequest;
 
-import app.foodapp.controller.exception.InvalidKeyException;
+import app.foodapp.controller.dataRequest.exception.InvalidKeyException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

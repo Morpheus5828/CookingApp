@@ -1,8 +1,7 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
-import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.model.alert.AlertFound;
 
 import java.util.Scanner;
 

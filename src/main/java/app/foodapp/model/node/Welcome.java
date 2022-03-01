@@ -1,6 +1,6 @@
 package app.foodapp.model.node;
 
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.model.alert.AlertFound;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
