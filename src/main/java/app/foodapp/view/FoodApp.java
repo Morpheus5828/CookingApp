@@ -1,5 +1,6 @@
 package app.foodapp.view;
 
+import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
