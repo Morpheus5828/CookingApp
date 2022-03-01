@@ -26,7 +26,7 @@
       <Button fx:id="sixthIngredient" layoutX="898.0" layoutY="59.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Button" visible="false" />
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="99.0" layoutY="92.0" prefWidth="1171.0" style="-fx-background-color: #4a4b4b; -fx-background: #4a4b4b;">
          <content>
-            <SplitPane dividerPositions="0.8672402159244263" prefHeight="629.0" prefWidth="1170.0">
+            <SplitPane dividerPositions="0.8688946015424165" prefHeight="628.0" prefWidth="1163.0" style="-fx-background-color: #4a4b4b;" stylesheets="@stylesheet.css">
               <items>
                   <Text fx:id="mainDisplay" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textOrigin="TOP" wrappingWidth="1010.1367378234863">
                      <font>
