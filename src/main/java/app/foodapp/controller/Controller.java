@@ -123,12 +123,8 @@ public class Controller implements Initializable {
         sixthIngredient.setText("");
     }
 
-    public void sendRequest() {
-
-    }
 
     public void displayApiInformations(ActionEvent actionEvent) {
-        //mainDisplay.setText(strings.toString());
         RecipeInformation recipeInformation = new RecipeInformation(strings);
         mainDisplay.setText(recipeInformation.displayGUI());
     }
