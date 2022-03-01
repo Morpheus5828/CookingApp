@@ -85,7 +85,7 @@ public class Recipe {
             "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
             "• Ingredient(s)" + "\n\n" +
              getIngredients() + "\n" +
-            "Step(s) instruction(s): " + "\n" +
+            "• Step(s) instruction(s): " + "\n" +
              getSteps() + "\n"
         );
     }

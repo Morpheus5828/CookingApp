@@ -57,7 +57,7 @@ public class Favorite extends Node {
             int answer = sc.nextInt();
             switch (answer) {
                 case 1 -> Pane.setNextNodeNumber("WELCOME");
-                case 2 -> Pane.setNextNodeNumber("GET_RECIPE_BY_INGREDIENT");
+                case 2 -> Pane.setNextNodeNumber("RECIPE_DETAILS");
                 case 3 -> Pane.back();
             }
 
