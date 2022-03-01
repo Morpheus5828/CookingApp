@@ -117,7 +117,6 @@ public class Favorite {
         return false;
     }
 
-    //Setter
     public boolean addToFavorite(Recipe recipe) {
         if(recipeIsInFavoriteList(recipe)) {
             System.out.println("Recipe already in Favorites");
@@ -130,7 +129,6 @@ public class Favorite {
 
     }
 
-    //Getter
     public Recipe getRecipe(int index) throws ArrayIndexOutOfBoundsException{
         if(index < 0)
             throw new ArrayIndexOutOfBoundsException("Index can't be under 0");
@@ -150,5 +148,4 @@ public class Favorite {
             recipe.displaySimpleCharacteristics();
         }
     }
-
 }

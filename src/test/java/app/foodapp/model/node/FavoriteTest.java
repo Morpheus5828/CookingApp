@@ -1,4 +1,4 @@
-package app.foodapp.model;
+package app.foodapp.model.node;
 
 import app.foodapp.model.node.Favorite;
 import app.foodapp.model.dataManipulation.recipe.Recipe;

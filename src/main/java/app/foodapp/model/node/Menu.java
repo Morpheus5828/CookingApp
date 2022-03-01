@@ -5,10 +5,10 @@ import app.foodapp.model.alert.AlertFound;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Welcome {
+public class Menu {
     private int choice;
 
-    public Welcome() {
+    public Menu() {
     }
 
     public void launch() {
