@@ -39,7 +39,7 @@ public class GetRecipeByIngredient extends Node{
         System.out.println("\n" + "Please enter ingredient(s) and type 'end' when you're finished" + "\n");
         System.out.println("\t Type ingredient(s) : ");
         while(addIngredient) {
-            System.out.print("-> ");
+            System.out.print("--> ");
             Scanner sc = new Scanner(System.in);
             String ingredient = sc.nextLine();
 
@@ -48,6 +48,7 @@ public class GetRecipeByIngredient extends Node{
             else
                 this.listOfIngredient.add(ingredient);
         }
+
     }
 
     public void askToAddRecipeFavorite() {
@@ -79,6 +80,7 @@ public class GetRecipeByIngredient extends Node{
                     break;
                 case 3:
                     Pane.back();
+                    GetRecipeByIngredient.addIngredient = true;
                     break;
                 default:
                     AlertFound.invalidCharacter();
