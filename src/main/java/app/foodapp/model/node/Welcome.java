@@ -5,26 +5,16 @@ import app.foodapp.model.alert.AlertFound;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Welcome extends Node{
+public class Welcome {
     private int choice;
 
     public Welcome() {
-        super();
-        addNodes();
     }
 
     public void launch() {
         askFirstUserChoices();
     }
 
-    private void addNodes() {
-        // Creation of link with Welcome class
-        this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
-        this.neighborsList.put(2, NodeName.FAVORITE);
-        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
-        this.neighborsList.put(5, NodeName.CLOSE_APP);
-
-    }
 
     public void askFirstUserChoices() {
         try {
@@ -37,26 +27,20 @@ public class Welcome extends Node{
             System.out.print( "\t\t--> Tap number: ");
             Scanner sc = new Scanner(System.in);
             this.choice = sc.nextInt();
-            if(this.choice == 4) {
-                this.choice = 5;
-                Pane.checkStatusCode = false;
+
+            switch (this.choice) {
+                case 1 -> {
+                    GetRecipeByIngredient.addIngredient = true;
+                    Pane.setNextNodeNumber("GET_RECIPE_BY_INGREDIENT");
+                }
+                case 2 -> Pane.setNextNodeNumber("FAVORITE");
+                case 3 -> Pane.setNextNodeNumber("MEASURE_SYSTEM");
+                case 4 -> Pane.checkStatusCode = false;
+                default -> AlertFound.invalidNode();
+
             }
-            this.changeCurrentStateNode();
         } catch (InputMismatchException e) {
             AlertFound.invalidCharacter();
-        }
-    }
-
-    public void changeCurrentStateNode() {
-        // Check if choicefields is accepted or not
-        try {
-            if(this.neighborsList.get(choice) == NodeName.getNodeName(choice))
-                Pane.setNextNodeNumber(this.neighborsList.get(choice).name()); // We change current node
-            else
-                AlertFound.invalidNode();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -7,25 +7,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class GetRecipeByIngredient extends Node{
+public class GetRecipeByIngredient{
     private final ArrayList<String> listOfIngredient;
     public static boolean addIngredient = true;
     private RecipeInformation recipeInformation;
 
     public GetRecipeByIngredient() {
         super();
-        addNodes();
         this.listOfIngredient = new ArrayList<>();
-    }
-
-    private void addNodes() {
-        // Creation of link with Welcome class
-        this.neighborsList.put(0, NodeName.WELCOME);
-        this.neighborsList.put(2, NodeName.FAVORITE);
-        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM); // a verifier
-        this.neighborsList.put(4, NodeName.RECIPE_DETAILS);
-        this.neighborsList.put(5, NodeName.CLOSE_APP);
-
     }
 
     public void launch()  {
