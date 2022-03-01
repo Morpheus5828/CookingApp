@@ -1,3 +1,22 @@
 .recipe-content {
+    -fx-spacing: 30;
+    -fx-padding: 10;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+    -fx-border-color: #2e2e2e;
+}
 
+.recipe-title, .recipe-cookingTime, .recipe-servings {
+    -fx-text-fill: white;
+}
+
+.recipe-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 30;
+}
+
+.recipe-cookingTime, .recipe-servings {
+    -fx-font-size: 20;
+    -fx-font-style: italic;
+    -fx-padding: 10 0 0 0;
 }
