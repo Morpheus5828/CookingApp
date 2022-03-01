@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.Controller">
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.Controller">
    <children>
-      <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="100.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle fill="#20b345" height="92.0" layoutX="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="1276.0" />
+      <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle fill="#20b345" height="92.0" layoutX="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1276.0" />
       <Button fx:id="fromFavoritesToMenuButton" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="75.0" text="Menu" />
-      <Text layoutX="100.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coocking App - Favorites" wrappingWidth="653.1367282867432">
+      <Text layoutX="100.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coocking App" wrappingWidth="653.1367282867432">
          <font>
             <Font size="58.0" />
          </font>
       </Text>
-      <TextField layoutX="1000.0" layoutY="40.0" prefHeight="20.0" prefWidth="254.0" promptText="Entrez votre recette" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="33.0" />
+      <Text fill="#105722" layoutX="481.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="- F a v o r i t e s" wrappingWidth="209.99993896484375">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <AnchorPane fx:id="centerPane" layoutX="100.0" layoutY="91.0" prefHeight="629.0" prefWidth="1173.0" />
    </children>
 </AnchorPane>
