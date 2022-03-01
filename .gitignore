@@ -6,3 +6,4 @@ gradlew.bat
 lib/*
 libs/*
 jar_files/*
+src/main/resources/keysManagement.txt
