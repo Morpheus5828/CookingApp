@@ -1,18 +1,19 @@
 package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
+import app.foodapp.model.node.Favorite;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,16 +23,16 @@ public class Controller implements Initializable {
 
     @FXML private AnchorPane rootPane;
     @FXML private TextField searchByIngredient;
-    @FXML private Button firstIngredient;
-    @FXML private Button secondIngredient;
-    @FXML private Button thirdIngredient;
-    @FXML private Button fourthIngredient;
-    @FXML private Button fifthIngredient;
-    @FXML private Button sixthIngredient;
-    @FXML private Button submitButton;
-    @FXML private Label mainDisplay;
+    @FXML private Text mainDisplay;
+    @FXML private AnchorPane favoritesAnchorPane;
+    @FXML private AnchorPane ingredientsAnchorPane;
 
+
+    private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
     private ArrayList<String> strings = new ArrayList<String>();
+    private RecipeInformation recipeInformation;
+    private ArrayList<Button> favoritesButtons = new ArrayList<Button>();
+    protected Favorite favorites = new Favorite();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -51,85 +52,72 @@ public class Controller implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.ENTER){
-                    if(!sixthIngredient.isVisible()){
-                        sixthIngredient.setText(searchByIngredient.getText() + "  x");
-                        sixthIngredient.setVisible(true);
-                        strings.add(0, searchByIngredient.getText());
-                    }
-                    else if(sixthIngredient.isVisible() && !fifthIngredient.isVisible()){
-                        fifthIngredient.setText(searchByIngredient.getText() + "  x");
-                        fifthIngredient.setVisible(true);
-                        strings.add(1, searchByIngredient.getText());
-                    }
-                    else if(fifthIngredient.isVisible() && !fourthIngredient.isVisible()){
-                        fourthIngredient.setText(searchByIngredient.getText() + " x");
-                        fourthIngredient.setVisible(true);
-                        strings.add(2, searchByIngredient.getText());
-                    }
-                    else if(fourthIngredient.isVisible() && !thirdIngredient.isVisible()){
-                        thirdIngredient.setText(searchByIngredient.getText() + " x");
-                        thirdIngredient.setVisible(true);
-                        strings.add(3, searchByIngredient.getText());
-                    }
-                    else if(thirdIngredient.isVisible() && !secondIngredient.isVisible()){
-                        secondIngredient.setText(searchByIngredient.getText() + " x");
-                        secondIngredient.setVisible(true);
-                        strings.add(4, searchByIngredient.getText());
-                    }
-                    else if(secondIngredient.isVisible() && !firstIngredient.isVisible()){
-                        firstIngredient.setText(searchByIngredient.getText() + " x");
-                        firstIngredient.setVisible(true);
-                        strings.add(5, searchByIngredient.getText());
-                    }
+                    createIngredientsButton();
                     searchByIngredient.clear();
                 }
             }
         });
     }
 
-    public void removeFirstIngredient(ActionEvent actionEvent) {
-        strings.remove(5);
-        firstIngredient.setVisible(false);
-        firstIngredient.setText("");
-    }
-
-    public void removeSecondIngredient(ActionEvent actionEvent) {
-        strings.remove(4);
-        secondIngredient.setVisible(false);
-        secondIngredient.setText("");
-    }
-
-    public void removeThirdIngredient(ActionEvent actionEvent) {
-        strings.remove(3);
-        thirdIngredient.setVisible(false);
-        thirdIngredient.setText("");
-    }
-
-    public void removeFourthIngredient(ActionEvent actionEvent) {
-        strings.remove(2);
-        fourthIngredient.setVisible(false);
-        fourthIngredient.setText("");
-    }
-
-    public void removeFifthIngredient(ActionEvent actionEvent) {
-        strings.remove(1);
-        fifthIngredient.setVisible(false);
-        fifthIngredient.setText("");
-    }
-
-    public void removeSixthIngredient(ActionEvent actionEvent) {
-        strings.remove(0);
-        sixthIngredient.setVisible(false);
-        sixthIngredient.setText("");
-    }
-
-    public void sendRequest() {
-
-    }
-
     public void displayApiInformations(ActionEvent actionEvent) {
-        //mainDisplay.setText(strings.toString());
-        RecipeInformation recipeInformation = new RecipeInformation(strings);
+        recipeInformation = new RecipeInformation(strings);
         mainDisplay.setText(recipeInformation.displayGUI());
+        favoritesButtons.clear();
+        createFavoriteButtons();
     }
+
+    private void createFavoriteButtons(){
+        int positionY = 20;
+        for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
+            Button newFavoriteButton = new Button();
+            newFavoriteButton.setPrefSize(50, 50);
+            newFavoriteButton.setText("<3");
+            newFavoriteButton.setLayoutX(favoritesAnchorPane.getPrefWidth() / 2);
+            newFavoriteButton.setLayoutY(positionY);
+            favoritesAnchorPane.getChildren().add(newFavoriteButton);
+            favoritesButtons.add(newFavoriteButton);
+            newFavoriteButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    favorites.addToFavorite(recipeInformation.listOfRecipe.get(favoritesButtons.indexOf(newFavoriteButton)));
+                    newFavoriteButton.setText("Added");
+                }
+            });
+            positionY += 175;
+        }
+    }
+
+    private int positionX = 898;
+    private int positionY = 59;
+
+    private void createIngredientsButton(){
+        if(ingredientButtons.size() < 10) {
+            Button newIngredientButton = new Button();
+            newIngredientButton.setText(searchByIngredient.getText() + " x");
+            newIngredientButton.setPrefSize(75, 25);
+            if (ingredientButtons.size() == 5) {
+                positionX = 898;
+                positionY -= (10 + newIngredientButton.getPrefHeight());
+            }
+            ingredientButtons.add(newIngredientButton);
+            newIngredientButton.setLayoutX(positionX);
+            newIngredientButton.setLayoutY(positionY);
+            ingredientsAnchorPane.getChildren().add(newIngredientButton);
+            strings.add(ingredientButtons.indexOf(newIngredientButton), searchByIngredient.getText());
+            newIngredientButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    strings.remove(ingredientButtons.indexOf(newIngredientButton));
+                    ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
+                    ingredientsAnchorPane.getChildren().remove(newIngredientButton);
+                }
+            });
+            positionX -= (20 + newIngredientButton.getPrefWidth());
+        }
+        else{
+            throw new ArrayIndexOutOfBoundsException("Can't add more ingredients");
+        }
+    }
+
+
 }
