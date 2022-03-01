@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,7 +26,6 @@ public class FavoriteController implements Initializable {
     @FXML private AnchorPane rootPane;
 
     FavoriteStamp favoriteNode = new FavoriteStamp();
-    ArrayList<Button> buttonsDetail = new ArrayList<>();
     ArrayList<Button> buttonsRemoveFavorite = new ArrayList<>();
     ArrayList<HBox> contents = new ArrayList<>();
 
@@ -44,10 +44,11 @@ public class FavoriteController implements Initializable {
             content.getStyleClass().add("recipe-content");
             contents.add(content);
             Label title = new Label(recipe.getTitle());
+            title.getStyleClass().add("recipe-title");
             Label cookingTime = new Label(String.valueOf(recipe.getCookingTime()) + " min");
-            Label servings = new Label(String.valueOf(recipe.getServings()) + "people(s)");
-            Button buttonDetails = new Button("Details");
-            buttonsDetail.add(buttonDetails);
+            cookingTime.getStyleClass().add("recipe-cookingTime");
+            Label servings = new Label(String.valueOf(recipe.getServings()) + " people");
+            servings.getStyleClass().add("recipe-servings");
             Button buttonFavorite = new Button("Remove from Favorite");
             buttonsRemoveFavorite.add(buttonFavorite);
             EventHandler<ActionEvent> removeRecipe = new EventHandler<ActionEvent>() {
@@ -56,16 +57,20 @@ public class FavoriteController implements Initializable {
                     int recipeIndex = buttonsRemoveFavorite.indexOf(buttonFavorite);
                     favoriteNode.removeFromFavorite(favorites.get(recipeIndex));
                     recipeDisplay.getChildren().remove(contents.get(recipeIndex));
-                    buttonsDetail.remove(recipeIndex);
                     buttonsRemoveFavorite.remove(recipeIndex);
                     contents.remove(recipeIndex);
+                }
+            };
+            EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
                 }
             };
             buttonFavorite.setOnAction(removeRecipe);
             content.getChildren().add(title);
             content.getChildren().add(cookingTime);
             content.getChildren().add(servings);
-            content.getChildren().add(buttonDetails);
             content.getChildren().add(buttonFavorite);
             recipeDisplay.getChildren().add(content);
         }
