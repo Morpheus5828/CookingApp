@@ -68,9 +68,14 @@ public class FavoriteController implements Initializable {
             EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-
+                    try {
+                        goToDetails(event, recipe);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
+            content.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClick);
             buttonFavorite.setOnAction(removeRecipe);
             content.getChildren().add(title);
             content.getChildren().add(cookingTime);
@@ -81,7 +86,7 @@ public class FavoriteController implements Initializable {
     }
 
     public void goToDetails(MouseEvent event, Recipe recipe) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
         Parent root = loader.load();
         DetailsController detailsController = new DetailsController();
         detailsController.showDetails(recipe);
