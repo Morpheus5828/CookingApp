@@ -60,6 +60,10 @@ public class Controller implements Initializable {
     }
 
     public void displayApiInformations(ActionEvent actionEvent) {
+        for(Button oneButton : favoritesButtons){
+            favoritesAnchorPane.getChildren().remove(oneButton);
+        }
+        favoritesButtons.clear();
         recipeInformation = new RecipeInformation(strings);
         mainDisplay.setText(recipeInformation.displayGUI());
         favoritesButtons.clear();
@@ -70,9 +74,9 @@ public class Controller implements Initializable {
         int positionY = 20;
         for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
             Button newFavoriteButton = new Button();
-            newFavoriteButton.setPrefSize(50, 50);
+            newFavoriteButton.setPrefSize(75, 75);
             newFavoriteButton.setText("<3");
-            newFavoriteButton.setLayoutX(favoritesAnchorPane.getPrefWidth() / 2);
+            newFavoriteButton.setLayoutX(40);
             newFavoriteButton.setLayoutY(positionY);
             favoritesAnchorPane.getChildren().add(newFavoriteButton);
             favoritesButtons.add(newFavoriteButton);
