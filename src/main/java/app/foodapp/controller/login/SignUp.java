@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
-public final class SignUpController {
+public final class SignUp {
     @FXML private ComboBox regimeChoice;
     @FXML private TextField username;
     @FXML private PasswordField password;
@@ -82,7 +81,7 @@ public final class SignUpController {
 
     private void loginAccepted() throws IOException {
         Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
         loginStage.show();
