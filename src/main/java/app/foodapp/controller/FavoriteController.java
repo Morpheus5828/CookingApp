@@ -40,12 +40,11 @@ public class FavoriteController implements Initializable {
     @FXML private VBox recipeDisplay;
     @FXML private AnchorPane rootPane;
     @FXML private ImageView leftCornerLogo;
-    @FXML private Button buttonFavorite;
 
 
-    FavoriteStamp favoriteNode = new FavoriteStamp();
-    ArrayList<Button> buttonsRemoveFavorite = new ArrayList<>();
-    ArrayList<HBox> contents = new ArrayList<>();
+    private FavoriteStamp favoriteNode = new FavoriteStamp();
+    private ArrayList<Button> buttonsRemoveFavorite = new ArrayList<>();
+    private ArrayList<HBox> contents = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -63,8 +62,8 @@ public class FavoriteController implements Initializable {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
         Image logo = new Image(getClass().getResourceAsStream("/pictures/test3.png"));
         leftCornerLogo.setImage(logo);
-        buttonFavorite.getStyleClass().remove("navigBarButton");
-        buttonFavorite.getStyleClass().add("currentButton");
+        checkIfEmpty();
+
         for (Recipe recipe : favorites) {
             HBox content = new HBox();
             content.getStyleClass().add("recipe-content");
@@ -107,7 +106,7 @@ public class FavoriteController implements Initializable {
                     favoriteNode.removeFromFavorite(favorites.get(recipeIndex));
                     buttonsRemoveFavorite.remove(recipeIndex);
                     contents.remove(recipeIndex);
-                    if (favoriteNode.isEmpty()) emptyFavoritesDisplay();
+                    checkIfEmpty();
                 }
             };
 
@@ -129,7 +128,6 @@ public class FavoriteController implements Initializable {
             content.getChildren().add(buttonFavorite);
             recipeDisplay.getChildren().add(content);
         }
-        if (favoriteNode.isEmpty()) emptyFavoritesDisplay();
     }
 
     public void goToDetails(MouseEvent event, Recipe recipe) throws IOException {
@@ -144,11 +142,12 @@ public class FavoriteController implements Initializable {
         stage.show();
     }
 
-    public void emptyFavoritesDisplay() {
-        Text message = new Text("It seems like you don't have any favorite recipe...");
-        message.setId("text-empty-favorite");
-        recipeDisplay.setAlignment(Pos.TOP_CENTER);
-        recipeDisplay.getChildren().add(message);
-
+    public void checkIfEmpty() {
+        if (favoriteNode.isEmpty()) {
+            Text message = new Text("It seems that you don't have any favorite recipe...");
+            message.setId("text-empty-favorites");
+            recipeDisplay.setAlignment(Pos.TOP_CENTER);
+            recipeDisplay.getChildren().add(message);
+        }
     }
 }
