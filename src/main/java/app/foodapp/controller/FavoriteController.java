@@ -144,7 +144,7 @@ public class FavoriteController implements Initializable {
 
     public void checkIfEmpty() {
         if (favoriteNode.isEmpty()) {
-            Text message = new Text("It seems that you don't have any favorite recipe...");
+            Label message = new Label("It seems that you don't have any favorite recipe...");
             message.setId("text-empty-favorites");
             recipeDisplay.setAlignment(Pos.TOP_CENTER);
             recipeDisplay.getChildren().add(message);
