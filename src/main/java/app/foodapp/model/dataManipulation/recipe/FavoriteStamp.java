@@ -20,4 +20,9 @@ public class FavoriteStamp {
     public ArrayList<Recipe> getFavorites() {
         return favorites;
     }
+
+    public boolean isEmpty() {
+        if (favorites.isEmpty()) return true;
+        return false;
+    }
 }

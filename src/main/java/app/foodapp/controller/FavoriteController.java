@@ -11,17 +11,21 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,9 +40,7 @@ public class FavoriteController implements Initializable {
     @FXML private VBox recipeDisplay;
     @FXML private AnchorPane rootPane;
     @FXML private ImageView leftCornerLogo;
-    @FXML private Button buttonMenu;
     @FXML private Button buttonFavorite;
-    @FXML private Button buttonProfil;
 
 
     FavoriteStamp favoriteNode = new FavoriteStamp();
@@ -105,6 +107,7 @@ public class FavoriteController implements Initializable {
                     favoriteNode.removeFromFavorite(favorites.get(recipeIndex));
                     buttonsRemoveFavorite.remove(recipeIndex);
                     contents.remove(recipeIndex);
+                    if (favoriteNode.isEmpty()) emptyFavoritesDisplay();
                 }
             };
 
@@ -126,6 +129,7 @@ public class FavoriteController implements Initializable {
             content.getChildren().add(buttonFavorite);
             recipeDisplay.getChildren().add(content);
         }
+        if (favoriteNode.isEmpty()) emptyFavoritesDisplay();
     }
 
     public void goToDetails(MouseEvent event, Recipe recipe) throws IOException {
@@ -138,5 +142,13 @@ public class FavoriteController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void emptyFavoritesDisplay() {
+        Text message = new Text("It seems like you don't have any favorite recipe...");
+        message.setId("text-empty-favorite");
+        recipeDisplay.setAlignment(Pos.TOP_CENTER);
+        recipeDisplay.getChildren().add(message);
+
     }
 }
