@@ -2,10 +2,6 @@ package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
-import app.foodapp.model.node.Favorite;
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,18 +13,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +28,6 @@ import java.util.ResourceBundle;
 public class FavoriteController implements Initializable {
 
     @FXML private VBox recipeDisplay;
-    @FXML private AnchorPane rootPane;
     @FXML private ImageView leftCornerLogo;
 
 
@@ -50,11 +39,15 @@ public class FavoriteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {}
 
     public void goToMenu(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
 
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goToProfile(ActionEvent actionEvent) {
@@ -74,7 +67,7 @@ public class FavoriteController implements Initializable {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
         Image logo = new Image(getClass().getResourceAsStream("/pictures/test3.png"));
         leftCornerLogo.setImage(logo);
-        checkIfEmpty();
+        if (favorites.isEmpty()) emptyFavoriteDisplay();
 
         for (Recipe recipe : favorites) {
             HBox content = new HBox();
@@ -101,6 +94,8 @@ public class FavoriteController implements Initializable {
                     image.setImage(brokenHeart);
                 }
             };
+            buttonFavorite.addEventFilter(MouseEvent.MOUSE_ENTERED, favoriteMouseEntered);
+
             EventHandler<MouseEvent> favoriteMouseExited = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -108,7 +103,7 @@ public class FavoriteController implements Initializable {
                     image.setImage(fullHeart);
                 }
             };
-            buttonFavorite.addEventFilter(MouseEvent.MOUSE_ENTERED, favoriteMouseEntered);
+
             buttonFavorite.addEventFilter(MouseEvent.MOUSE_EXITED, favoriteMouseExited);
             EventHandler<ActionEvent> removeRecipe = new EventHandler<ActionEvent>() {
                 @Override
@@ -118,9 +113,10 @@ public class FavoriteController implements Initializable {
                     favoriteNode.removeFromFavorite(favorites.get(recipeIndex));
                     buttonsRemoveFavorite.remove(recipeIndex);
                     contents.remove(recipeIndex);
-                    checkIfEmpty();
+                    if (favoriteNode.getFavorites().isEmpty()) emptyFavoriteDisplay();
                 }
             };
+            buttonFavorite.setOnAction(removeRecipe);
 
             EventHandler<MouseEvent> mouseClick = new EventHandler<MouseEvent>() {
                 @Override
@@ -133,7 +129,7 @@ public class FavoriteController implements Initializable {
                 }
             };
             content.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClick);
-            buttonFavorite.setOnAction(removeRecipe);
+
             content.getChildren().add(title);
             content.getChildren().add(cookingTime);
             content.getChildren().add(servings);
@@ -154,12 +150,10 @@ public class FavoriteController implements Initializable {
         stage.show();
     }
 
-    public void checkIfEmpty() {
-        if (favoriteNode.isEmpty()) {
-            Label message = new Label("It seems that you don't have any favorite recipe...");
-            message.setId("text-empty-favorites");
-            recipeDisplay.setAlignment(Pos.TOP_CENTER);
-            recipeDisplay.getChildren().add(message);
-        }
+    public void emptyFavoriteDisplay() {
+        Label message = new Label("It seems that you don't have any favorite recipe...");
+        message.setId("text-empty-favorites");
+        recipeDisplay.setAlignment(Pos.TOP_CENTER);
+        recipeDisplay.getChildren().add(message);
     }
 }
