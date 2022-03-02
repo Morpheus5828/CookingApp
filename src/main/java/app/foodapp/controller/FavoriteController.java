@@ -2,6 +2,7 @@ package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -172,8 +173,10 @@ public class FavoriteController implements Initializable {
         return new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
+                Label title = (Label) recipeBoxDisplay.getChildren().get(0);
                 Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
                 Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
+
                 recipeBoxDisplay.getStyleClass().add("recipe-content-hover");
                 cookingTime.getStyleClass().add("recipe-information-hover");
                 servings.getStyleClass().add("recipe-information-hover");
@@ -185,8 +188,10 @@ public class FavoriteController implements Initializable {
         return new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
+                Label title = (Label) recipeBoxDisplay.getChildren().get(0);
                 Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
                 Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
+
                 recipeBoxDisplay.getStyleClass().remove("recipe-content-hover");
                 cookingTime.getStyleClass().remove("recipe-information-hover");
                 servings.getStyleClass().remove("recipe-information-hover");
