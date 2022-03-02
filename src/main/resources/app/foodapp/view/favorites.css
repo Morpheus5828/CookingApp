@@ -1,6 +1,25 @@
+.navigBarButton {
+    -fx-background-color: #a3a3a3;
+    -fx-font-size: 15;
+    -fx-font-family: "Tw Cen MT";
+    -fx-text-fill:  #4a4b4b;
+}
+
+.navigBarButton:hover {
+    -fx-background-color: #4a4b4b;
+    -fx-text-fill:  #ebebeb;
+}
+
+.currentButton {
+    -fx-background-color: #4a4b4b;
+    -fx-font-size: 15;
+    -fx-font-family: "Tw Cen MT";
+    -fx-text-fill:  #ebebeb;
+}
+
 .recipe-content {
     -fx-spacing: 30;
-    -fx-padding: 10;
+    -fx-padding: 22 15 15 15;
     -fx-border-width: 0 0 1 0;
     -fx-border-style: solid;
     -fx-border-color: #2e2e2e;
@@ -12,16 +31,17 @@
 
 .recipe-title, .recipe-cookingTime, .recipe-servings {
     -fx-text-fill: white;
-    -fx-font-family: "Source Code Pro";
 }
 
 .recipe-title {
+    -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-weight: bold;
     -fx-font-size: 30;
 }
 
 .recipe-cookingTime, .recipe-servings {
     -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT";
     -fx-font-size: 20;
     -fx-font-style: italic;
     -fx-padding: 10 0 0 0;

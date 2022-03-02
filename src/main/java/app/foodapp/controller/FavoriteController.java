@@ -35,6 +35,11 @@ public class FavoriteController implements Initializable {
 
     @FXML private VBox recipeDisplay;
     @FXML private AnchorPane rootPane;
+    @FXML private ImageView leftCornerLogo;
+    @FXML private Button buttonMenu;
+    @FXML private Button buttonFavorite;
+    @FXML private Button buttonProfil;
+
 
     FavoriteStamp favoriteNode = new FavoriteStamp();
     ArrayList<Button> buttonsRemoveFavorite = new ArrayList<>();
@@ -48,8 +53,16 @@ public class FavoriteController implements Initializable {
         rootPane.getChildren().setAll(pane);
     }
 
+    public void goToFavorites(ActionEvent actionEvent) {
+
+    }
+
     public void showFavorites() {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
+        Image logo = new Image(getClass().getResourceAsStream("/pictures/test3.png"));
+        leftCornerLogo.setImage(logo);
+        buttonFavorite.getStyleClass().remove("navigBarButton");
+        buttonFavorite.getStyleClass().add("currentButton");
         for (Recipe recipe : favorites) {
             HBox content = new HBox();
             content.getStyleClass().add("recipe-content");

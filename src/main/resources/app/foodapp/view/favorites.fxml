@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -9,17 +11,24 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.FavoriteController">
    <children>
+      <ImageView fx:id="leftCornerLogo" fitHeight="75.0" fitWidth="75.0" layoutX="13.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle fill="#20b345" height="92.0" layoutX="-4.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1276.0" />
-      <Button fx:id="fromFavoritesToMenuButton" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="75.0" text="Menu" />
-      <Text layoutX="100.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coocking App" wrappingWidth="653.1367282867432">
+      <Button fx:id="buttonMenu" layoutX="12.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="75.0" styleClass="navigBarButton" text="Menu">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="buttonFavorite" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#goToFavorites" prefHeight="75.0" prefWidth="75.0" styleClass="navigBarButton" text="Favorites" />
+      <Button fx:id="buttonProfil" layoutX="13.0" layoutY="360.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" styleClass="navigBarButton" text="Profil" />
+      <Rectangle fill="#1aa63d" height="92.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1282.0" />
+      <Text fill="#0f3a19" layoutX="113.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COOKING APP" wrappingWidth="266.6666259765624">
          <font>
-            <Font size="58.0" />
+            <Font name="Tw Cen MT Condensed" size="56.0" />
          </font>
       </Text>
-      <Text fill="#105722" layoutX="481.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="- F a v o r i t e s" wrappingWidth="209.99993896484375">
+      <Text fill="#105722" layoutX="380.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorites" wrappingWidth="209.99993896484375">
          <font>
-            <Font size="30.0" />
+            <Font name="Tw Cen MT Italic" size="30.0" />
          </font>
       </Text>
       <VBox fx:id="recipeDisplay" layoutX="100.0" layoutY="92.0" prefHeight="628.0" prefWidth="1172.0" style="-fx-padding: 30;" />
