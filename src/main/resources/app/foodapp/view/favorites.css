@@ -1,19 +1,6 @@
-.navigBarButton {
-    -fx-background-color: #a3a3a3;
-    -fx-font-size: 15;
-    -fx-font-family: "Tw Cen MT";
-    -fx-text-fill:  #4a4b4b;
-}
 
-.navigBarButton:hover {
+.button-navig-unselected:hover {
     -fx-background-color: #4a4b4b;
-    -fx-text-fill:  #ebebeb;
-}
-
-.currentButton {
-    -fx-background-color: #4a4b4b;
-    -fx-font-size: 15;
-    -fx-font-family: "Tw Cen MT";
     -fx-text-fill:  #ebebeb;
 }
 
