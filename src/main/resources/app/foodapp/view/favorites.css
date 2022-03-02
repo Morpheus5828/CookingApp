@@ -1,10 +1,10 @@
-#buttonMenu, #buttonProfil {
+#buttonMenu, #buttonProfile {
     -fx-background-color: #a3a3a3;
     -fx-text-fill:  #4a4b4b;
 }
 
 
-#buttonMenu:hover, #buttonProfil:hover {
+#buttonMenu:hover, #buttonProfile:hover {
     -fx-background-color: #949494;
     -fx-text-fill:  #323333;
 }
