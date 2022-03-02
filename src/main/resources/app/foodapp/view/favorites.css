@@ -34,12 +34,16 @@
 }
 
 .recipe-title {
+    -fx-min-width: 600;
+    -fx-max-width: 600;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-weight: bold;
     -fx-font-size: 30;
 }
 
 .recipe-cookingTime, .recipe-servings {
+    -fx-min-width: 90;
+    -fx-max-width: 90;
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT";
     -fx-font-size: 20;
