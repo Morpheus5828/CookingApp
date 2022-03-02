@@ -13,7 +13,7 @@
    <children>
       <ImageView fx:id="leftCornerLogo" fitHeight="75.0" fitWidth="75.0" layoutX="13.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.topAnchor="0.0" />
-      <Button fx:id="buttonMenu" layoutX="12.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #a3a3a3;" styleClass="button-navig-unselected" text="Menu" textFill="#4a4b4b">
+      <Button fx:id="buttonMenu" layoutX="12.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="75.0" styleClass="button-navig-unselected" text="Menu">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -21,11 +21,11 @@
             <Font name="Tw Cen MT" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="buttonFavorite" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#goToFavorites" prefHeight="75.0" prefWidth="89.0" style="-fx-background-color: #4a4b4b;" text="Favorites" textFill="#ebebeb">
+      <Button fx:id="buttonFavorite" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#goToFavorites" prefHeight="75.0" prefWidth="91.0" style="-fx-background-color: #4a4b4b;" text="Favorites" textFill="#ebebeb">
          <font>
             <Font name="Tw Cen MT" size="15.0" />
          </font></Button>
-      <Button fx:id="buttonProfil" layoutX="13.0" layoutY="360.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #a3a3a3;" styleClass="button-navig-unselected" text="Profil" textFill="#4a4b4b">
+      <Button fx:id="buttonProfil" layoutX="13.0" layoutY="360.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" text="Profil">
          <font>
             <Font name="Tw Cen MT" size="15.0" />
          </font></Button>
