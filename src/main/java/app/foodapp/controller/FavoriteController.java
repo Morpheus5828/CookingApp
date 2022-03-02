@@ -16,8 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,14 +33,14 @@ public class FavoriteController implements Initializable {
     @FXML private ImageView leftCornerLogo;
 
 
-    private FavoriteStamp favoriteNode = new FavoriteStamp();
-    private ArrayList<Button> removeFromFavoriteButtonList = new ArrayList<>();
-    private ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
+    private final FavoriteStamp favoriteNode = new FavoriteStamp();
+    private final ArrayList<Button> removeFromFavoriteButtonList = new ArrayList<>();
+    private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
-    public void goToMenu(ActionEvent actionEvent) throws IOException {
+    public void goToMenu(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
 
@@ -90,6 +92,8 @@ public class FavoriteController implements Initializable {
             removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoriteImage));
             removeFromFavoriteButton.setOnAction(removeRecipeFromFavorite(removeFromFavoriteButton));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
 
             recipeBoxDisplay.getChildren().add(title);
             recipeBoxDisplay.getChildren().add(cookingTime);
@@ -162,6 +166,32 @@ public class FavoriteController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(HBox recipeBoxDisplay) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
+                Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
+                recipeBoxDisplay.getStyleClass().add("recipe-content-hover");
+                cookingTime.getStyleClass().add("recipe-information-hover");
+                servings.getStyleClass().add("recipe-information-hover");
+            }
+        };
+    }
+
+    public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(HBox recipeBoxDisplay) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
+                Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
+                recipeBoxDisplay.getStyleClass().remove("recipe-content-hover");
+                cookingTime.getStyleClass().remove("recipe-information-hover");
+                servings.getStyleClass().remove("recipe-information-hover");
+            }
+        };
     }
 
     public void emptyFavoriteDisplay() {

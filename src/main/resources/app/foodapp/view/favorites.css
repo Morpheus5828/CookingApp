@@ -15,9 +15,10 @@
     -fx-border-width: 0 0 1 0;
     -fx-border-style: solid;
     -fx-border-color: #2e2e2e;
+    -fx-background-color: none;
 }
 
-.recipe-content:hover {
+.recipe-content-hover {
     -fx-background-color: #2e2e2e;
 }
 
@@ -26,21 +27,37 @@
 }
 
 .recipe-title {
-    -fx-min-width: 600;
-    -fx-max-width: 600;
+    -fx-min-width: 700;
+    -fx-max-width: 700;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-weight: bold;
     -fx-font-size: 30;
 }
 
 .recipe-cookingTime, .recipe-servings {
-    -fx-min-width: 90;
-    -fx-max-width: 90;
+    -fx-text-alignment: center;
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT";
     -fx-font-size: 20;
     -fx-font-style: italic;
-    -fx-padding: 10 0 0 0;
+    -fx-padding: 12 20 0 20;
+    -fx-border-width: 0 0 0 1;
+    -fx-border-style: solid;
+    -fx-border-color: #2e2e2e;
+}
+
+.recipe-cookingTime {
+    -fx-min-width: 110;
+    -fx-max-width: 110;
+}
+
+.recipe-servings {
+    -fx-min-width: 140;
+    -fx-max-width: 140;
+}
+
+.recipe-information-hover {
+    -fx-border-color:  #4a4b4b;
 }
 
 .button-favorite {
