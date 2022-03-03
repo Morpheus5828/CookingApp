@@ -14,7 +14,7 @@ public class MainMenu {
         try {
             System.out.println(askFirstChoices());
             System.out.print(askChoiceNumber());
-            choice = getChoiceNumber();
+            choice = choiceNumberRecovered();
             changeCurrentNode();
         } catch (InputMismatchException e) {
             AlertFound.invalidCharacter();
@@ -32,7 +32,7 @@ public class MainMenu {
         return "\t\t--> Tap number: ";
     }
 
-    public int getChoiceNumber() {
+    public int choiceNumberRecovered() {
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }

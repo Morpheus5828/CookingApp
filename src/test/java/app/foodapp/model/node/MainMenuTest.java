@@ -42,8 +42,8 @@ public class MainMenuTest {
     @Test
     public void getChoiceNumberTest() {
         menu = Mockito.mock(MainMenu.class);
-        Mockito.when(menu.getChoiceNumber()).thenReturn(1);
-        assertEquals(menu.getChoiceNumber(), 1);
+        Mockito.when(menu.choiceNumberRecovered()).thenReturn(1);
+        assertEquals(menu.choiceNumberRecovered(), 1);
     }
 
     @Test

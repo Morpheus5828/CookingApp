@@ -42,15 +42,15 @@ public class GetRecipeByIngredient {
         }
     }
 
-    public void sendRequest() {
+    public String sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
-        recipeInformation.display();
+        return  recipeInformation.display();
     }
 
     public void askToChangeCurrentNode() {
         try {
             System.out.println(askToNextNodePossibility());
-            setChoiceNumber();
+            choiceNumberRecovered();
             changeCurrentNode();
         } catch (InputMismatchException e) {
             AlertFound.invalidCharacter();
@@ -66,7 +66,7 @@ public class GetRecipeByIngredient {
                "-> Please type choice number: ";
     }
 
-    public void setChoiceNumber() {
+    public void choiceNumberRecovered() {
         Scanner sc = new Scanner(System.in);
         choiceNumber =  sc.nextInt();
     }
@@ -97,5 +97,9 @@ public class GetRecipeByIngredient {
                 askToChangeCurrentNode();
             }
         }
+    }
+
+    public void setChoiceNumber(int choice) {
+        this.choiceNumber = choice;
     }
 }
