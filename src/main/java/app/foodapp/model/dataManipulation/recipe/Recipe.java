@@ -92,11 +92,9 @@ public class Recipe {
 
     public String displayDetailsCharacteristicsGUI(){
         String details = "\n" +
-                "------------------------------------------------" + "\n" +
                 getTitle() + "\n" +
-                "------------------------------------------------" + "\n" +
-                "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
-                "• Ingredient(s)" + "\n\n" +
+                getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
+                "Ingredient(s)" + "\n\n" +
                 getIngredients() + "\n" +
                 "Step(s) instruction(s): " + "\n" +
                 getSteps() + "\n";
