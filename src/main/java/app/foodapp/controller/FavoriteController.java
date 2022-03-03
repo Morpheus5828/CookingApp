@@ -67,11 +67,12 @@ public class FavoriteController implements Initializable {
         }
     }
 
-    public void showFavorites() {
+    public void getFavoritesRecipes() {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
         Image logo = new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/test3.png"));
         leftCornerLogo.setImage(logo);
         if (favorites.isEmpty()) emptyFavoriteDisplay();
+        else pageDisplay(1);
     }
 
     public Label createLabel(String content, String styleClass) {
@@ -199,6 +200,7 @@ public class FavoriteController implements Initializable {
     }
 
     public void pageDisplay(int pageIndex) {
+        recipeDisplay.getChildren().clear();
         ArrayList<Recipe> favoritesRecipes = favoriteNode.getFavorites();
         for (int recipeIndex = (pageIndex-1)*10; recipeIndex < favoritesRecipes.size() && recipeIndex < pageIndex*10; recipeIndex++) {
             Recipe recipe = favoritesRecipes.get(recipeIndex);
@@ -235,5 +237,18 @@ public class FavoriteController implements Initializable {
         HBox lastBox = new HBox();
         recipeDisplay.getChildren().add(lastBox);
         pageNavigationButtonDisplay(pageIndex, favoritesRecipes.size(), lastBox);
+    }
+
+    public void update(int pageIndex) {
+        int nbOfFavoriteRecipe = favoriteNode.getFavorites().size();
+        int maxPageIndex = (int) Math.ceil(nbOfFavoriteRecipe / 10.0);
+
+        if (nbOfFavoriteRecipe == 0) {
+            emptyFavoriteDisplay();
+        } else if (maxPageIndex < pageIndex) {
+            pageDisplay(pageIndex-1);
+        } else if (pageIndex != maxPageIndex) {
+            pageDisplay(pageIndex);
+        }
     }
 }
