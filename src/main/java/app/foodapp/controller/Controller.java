@@ -170,7 +170,9 @@ public class Controller implements Initializable {
                     }
                 }
             });
+            positionY += 175;
         }
+
     }
 
     public void goToProfile(ActionEvent actionEvent) {
