@@ -208,7 +208,7 @@ public class FavoriteController implements Initializable {
     }
 
     public void emptyFavoriteDisplay() {
-        Label message = new Label("It seems that you don't have any favorite recipe...");
+        Label message = new Label("It seems like you don't have any favorite recipe...");
         message.setId("text-empty-favorites");
         recipeDisplay.setAlignment(Pos.TOP_CENTER);
         recipeDisplay.getChildren().add(message);
