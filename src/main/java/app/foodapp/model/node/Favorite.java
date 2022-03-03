@@ -12,14 +12,9 @@ import java.util.Scanner;
 
 public class Favorite {
     private List<Recipe> listOfRecipe;
+    private int choice;
 
-    public Favorite(){
-        super();
-        //addNodes();
-        listOfRecipe = new ArrayList<>();
-         //if(!isSavedFavoritesExists())
-           // saveFavorites();
-    }
+    public Favorite() {}
 
     public void launch() {
         if (this.isEmpty()) {
@@ -29,12 +24,13 @@ public class Favorite {
         else {
             this.displayFavoriteList();
             askToNextNode();
+            choiceNumberRecovered();
+            changeCurrentNode();
         }
 
 
     }
 
-    // TODO check saveFavorite method
     /*public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
         if(recipeIsInFavoriteList(recipe))
             throw new InstanceAlreadyExistsException("Recipe already in Favorites");
@@ -45,27 +41,26 @@ public class Favorite {
         }
     }*/
 
-    public void askToNextNode() throws NoSuchElementException{
-        try {
-            System.out.println("\n" +
-                "What do you want to do ?" + "\n" +
+    public String askToNextNode() {
+        return "What do you want to do ?" + "\n" +
                 "1. Menu" + "\n" +
                 "2. Get a recipe details" + "\n" +
-                "3. BACK"
-            );
-            Scanner sc = new Scanner(System.in);
-            int answer = sc.nextInt();
-            switch (answer) {
-                case 1 -> Pane.setNextNodeNumber("WELCOME");
-                case 2 -> Pane.setNextNodeNumber("RECIPE_DETAILS");
-                case 3 -> Pane.back();
-            }
-
-        } catch (NoSuchElementException e) {
-            AlertFound.invalidCharacter();
-        }
-
+                "3. BACK";
     }
+
+    public void choiceNumberRecovered() {
+        Scanner sc = new Scanner(System.in);
+        choice = sc.nextInt();
+    }
+
+    public void changeCurrentNode() {
+        switch (choice) {
+            case 1 -> Pane.setNextNodeNumber("WELCOME");
+            case 2 -> Pane.setNextNodeNumber("RECIPE_DETAILS");
+            case 3 -> Pane.back();
+        }
+    }
+
 
     public boolean recipeIsInFavoriteList(Recipe recipe){
         return listOfRecipe.contains(recipe);
