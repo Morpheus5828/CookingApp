@@ -206,4 +206,16 @@ public class FavoriteController implements Initializable {
         recipeDisplay.setAlignment(Pos.TOP_CENTER);
         recipeDisplay.getChildren().add(message);
     }
+
+    public void pageNavigationButtonDisplay(int pageIndex, int nbOfElement, HBox lastBox) {
+        //TODO: link to previous/next page
+        if (pageIndex > 1) {
+            Button previousPage = new Button("previousPage");
+            lastBox.getChildren().add(previousPage);
+        }
+        if (nbOfElement > pageIndex * 10) {
+            Button nextPage = new Button("nextPage");
+            lastBox.getChildren().add(nextPage);
+        }
+    }
 }
