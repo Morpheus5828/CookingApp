@@ -26,6 +26,8 @@ public class DetailsController {
         detailsDisplay.setText(recipe.displayDetailsCharacteristicsGUI());
     }
 
+
+
     public void goToMenu(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
@@ -53,5 +55,20 @@ public class DetailsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToFavorites(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+        Parent root = loader.load();
+        FavoriteController favoriteController = loader.getController();
+        favoriteController.showFavorites();
+
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("/app/foodapp/view/favorites.css").toExternalForm();
+
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
     }
 }
