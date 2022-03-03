@@ -1,6 +1,6 @@
 package app.foodapp.model.node;
 
-import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.alert.AlertFound;
 
 

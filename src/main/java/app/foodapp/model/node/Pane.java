@@ -1,19 +1,19 @@
 package app.foodapp.model.node;
 
-import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.model.recipe.Recipe;
 
 public class Pane {
-    private Menu menu;
+    private MainMenu mainMenu;
     private GetRecipeByIngredient getRecipeByIngredient;
     private static Favorite favorite = new Favorite();
     private MeasureSystem measureSystem;
     private RecipeDetails recipeDetails;
     public static boolean checkStatusCode = true;
-    public static String currentNode = NodeName.WELCOME.name();
+    public static String currentNode = NodeName.MAIN_MENU.name();
     private static String backNode = null;
 
     public Pane(){
-        this.menu = new Menu();
+        this.mainMenu = new MainMenu();
         this.getRecipeByIngredient = new GetRecipeByIngredient();
         this.measureSystem = new MeasureSystem();
         this.recipeDetails = new RecipeDetails();
@@ -23,7 +23,7 @@ public class Pane {
     public void choice() {
         while(checkStatusCode) {
             switch (currentNode) {
-                case "WELCOME" -> menu.launch();
+                case "MAIN_MENU" -> mainMenu.launch();
                 case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
                 case "FAVORITE" -> favorite.launch();
                 case "RECIPE_DETAILS" -> recipeDetails.launch();

@@ -1,6 +1,4 @@
-package app.foodapp.model.dataManipulation.recipe;
-
-import java.util.Map;
+package app.foodapp.model.recipe;
 
 //TODO problem with test because I add a new property in constructor
 public class Recipe {

@@ -1,4 +1,4 @@
-package app.foodapp.model.dataManipulation.recipe;
+package app.foodapp.model.recipe;
 
 import app.foodapp.controller.dataRequest.MainInstructionsRequest;
 import app.foodapp.controller.dataRequest.SearchRecipesByIngredients;
@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

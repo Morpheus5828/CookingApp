@@ -1,6 +1,6 @@
 package app.foodapp.model.node;
 
-import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
+import app.foodapp.model.recipe.RecipeInformation;
 import app.foodapp.model.alert.AlertFound;
 
 import java.util.ArrayList;
