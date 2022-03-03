@@ -169,6 +169,15 @@ public class FavoriteController implements Initializable {
         };
     }
 
+    public EventHandler<ActionEvent> goToPage(int pageIndex) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(ActionEvent event) {
+                pageDisplay(pageIndex);
+            }
+        };
+    }
+
     public void emptyFavoriteDisplay() {
         Label message = new Label("It seems that you don't have any favorite recipe...");
         message.setId("text-empty-favorites");
@@ -177,18 +186,20 @@ public class FavoriteController implements Initializable {
     }
 
     public void pageNavigationButtonDisplay(int pageIndex, int nbOfElement, HBox lastBox) {
-        //TODO: link to previous/next page
         if (pageIndex > 1) {
             Button previousPage = new Button("previousPage");
             lastBox.getChildren().add(previousPage);
+            previousPage.setOnAction(goToPage(pageIndex-1));
         }
         if (nbOfElement > pageIndex * 10) {
             Button nextPage = new Button("nextPage");
             lastBox.getChildren().add(nextPage);
+            nextPage.setOnAction(goToPage(pageIndex+1));
         }
     }
 
-    public void pageDisplay(int pageIndex, ArrayList<Recipe> favoritesRecipes) {
+    public void pageDisplay(int pageIndex) {
+        ArrayList<Recipe> favoritesRecipes = favoriteNode.getFavorites();
         for (int recipeIndex = (pageIndex-1)*10; recipeIndex < favoritesRecipes.size() && recipeIndex < pageIndex*10; recipeIndex++) {
             Recipe recipe = favoritesRecipes.get(recipeIndex);
 
