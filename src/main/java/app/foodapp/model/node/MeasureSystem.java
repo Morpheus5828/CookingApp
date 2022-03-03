@@ -4,6 +4,8 @@ public class MeasureSystem {
     public MeasureSystem() {
 
     }
+    public void launch() {
 
+    }
 
 }
