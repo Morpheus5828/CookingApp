@@ -14,7 +14,10 @@ public class FoodApp extends Application {
        try {
            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
            stage.setTitle("Cooking App");
-           stage.setScene(new Scene(root));
+           Scene scene = new Scene(root);
+           String css = this.getClass().getResource("/app/foodapp/view/stylesheet.css").toExternalForm();
+           scene.getStylesheets().add(css);
+           stage.setScene(scene);
            stage.show();
        } catch (Exception e) {
            e.printStackTrace();
