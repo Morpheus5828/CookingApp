@@ -28,8 +28,8 @@ public class Controller implements Initializable {
     @FXML private AnchorPane rootPane;
     @FXML private TextField searchByIngredient;
     @FXML private Text mainDisplay;
-    @FXML private AnchorPane buttonsAnchorpane;
-    @FXML private AnchorPane ingredientsAnchorpane;
+    @FXML private AnchorPane buttonsAnchorPane;
+    @FXML private AnchorPane ingredientsAnchorPane;
 
 
     private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
@@ -71,7 +71,7 @@ public class Controller implements Initializable {
     }
 
     public void displayApiInformations(ActionEvent actionEvent) {
-        buttonsAnchorpane.getChildren().clear();
+        buttonsAnchorPane.getChildren().clear();
         favoritesButtons.clear();
         detailsButtons.clear();
         recipeInformation = new RecipeInformation(strings);
@@ -88,7 +88,7 @@ public class Controller implements Initializable {
             newFavoriteButton.setText("<3");
             newFavoriteButton.setLayoutX(0);
             newFavoriteButton.setLayoutY(positionY);
-            buttonsAnchorpane.getChildren().add(newFavoriteButton);
+            buttonsAnchorPane.getChildren().add(newFavoriteButton);
             favoritesButtons.add(newFavoriteButton);
             newFavoriteButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -116,14 +116,14 @@ public class Controller implements Initializable {
             ingredientButtons.add(newIngredientButton);
             newIngredientButton.setLayoutX(positionX);
             newIngredientButton.setLayoutY(positionY);
-            ingredientsAnchorpane.getChildren().add(newIngredientButton);
+            ingredientsAnchorPane.getChildren().add(newIngredientButton);
             strings.add(ingredientButtons.indexOf(newIngredientButton), searchByIngredient.getText());
             newIngredientButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     strings.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
-                    ingredientsAnchorpane.getChildren().remove(newIngredientButton);
+                    ingredientsAnchorPane.getChildren().remove(newIngredientButton);
                     displayApiInformations(event);
                 }
             });
@@ -157,7 +157,7 @@ public class Controller implements Initializable {
             newDetailsButton.setText("Details");
             newDetailsButton.setLayoutX(80);
             newDetailsButton.setLayoutY(positionY);
-            buttonsAnchorpane.getChildren().add(newDetailsButton);
+            buttonsAnchorPane.getChildren().add(newDetailsButton);
             detailsButtons.add(newDetailsButton);
             newDetailsButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
