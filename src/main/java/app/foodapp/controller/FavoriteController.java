@@ -34,6 +34,7 @@ public class FavoriteController implements Initializable {
     private final FavoriteStamp favoriteNode = new FavoriteStamp();
     private final ArrayList<Button> removeFromFavoriteButtonList = new ArrayList<>();
     private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
+    private int pageIndex = 1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -71,8 +72,37 @@ public class FavoriteController implements Initializable {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
         Image logo = new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/test3.png"));
         leftCornerLogo.setImage(logo);
+        for (Recipe recipe : favorites) {
+            HBox recipeBoxDisplay = new HBox();
+            recipeBoxDisplay.getStyleClass().add("recipe-content");
+            recipeBoxDisplayList.add(recipeBoxDisplay);
+
+            Label title = createLabel(recipe.getTitle(), "recipe-title");
+            Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
+            Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
+
+            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
+            removeFromFavoriteImage.setPreserveRatio(true);
+            removeFromFavoriteImage.setFitWidth(30);
+
+            Button removeFromFavoriteButton = new Button("", removeFromFavoriteImage);
+            removeFromFavoriteButton.getStyleClass().add("button-favorite");
+            removeFromFavoriteButtonList.add(removeFromFavoriteButton);
+
+            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setBrokenHeartImage(removeFromFavoriteImage));
+            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoriteImage));
+            removeFromFavoriteButton.setOnAction(removeRecipeFromFavorite(removeFromFavoriteButton));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
+
+            recipeBoxDisplay.getChildren().add(title);
+            recipeBoxDisplay.getChildren().add(cookingTime);
+            recipeBoxDisplay.getChildren().add(servings);
+            recipeBoxDisplay.getChildren().add(removeFromFavoriteButton);
+        }
         if (favorites.isEmpty()) emptyFavoriteDisplay();
-        else pageDisplay(1);
+        else pageDisplay();
     }
 
     public Label createLabel(String content, String styleClass) {
@@ -110,7 +140,7 @@ public class FavoriteController implements Initializable {
                 removeFromFavoriteButtonList.remove(index);
                 recipeBoxDisplayList.remove(index);
 
-                if (favoriteNode.getFavorites().isEmpty()) emptyFavoriteDisplay();
+                update();
             }
         };
     }
@@ -170,11 +200,11 @@ public class FavoriteController implements Initializable {
         };
     }
 
-    public EventHandler<ActionEvent> goToPage(int pageIndex) {
+    public EventHandler<ActionEvent> goToPage() {
         return new EventHandler<>() {
             @Override
             public void handle(ActionEvent event) {
-                pageDisplay(pageIndex);
+                pageDisplay();
             }
         };
     }
@@ -186,69 +216,44 @@ public class FavoriteController implements Initializable {
         recipeDisplay.getChildren().add(message);
     }
 
-    public void pageNavigationButtonDisplay(int pageIndex, int nbOfElement, HBox lastBox) {
-        if (pageIndex > 1) {
+    public void pageNavigationButtonDisplay(int nbOfElement, HBox lastBox) {
+        if (this.pageIndex > 1) {
             Button previousPage = new Button("previousPage");
             lastBox.getChildren().add(previousPage);
-            previousPage.setOnAction(goToPage(pageIndex-1));
+            this.pageIndex--;
+            previousPage.setOnAction(goToPage());
         }
-        if (nbOfElement > pageIndex * 10) {
+        if (nbOfElement > this.pageIndex * 10) {
             Button nextPage = new Button("nextPage");
             lastBox.getChildren().add(nextPage);
-            nextPage.setOnAction(goToPage(pageIndex+1));
+            this.pageIndex++;
+            nextPage.setOnAction(goToPage());
         }
     }
 
-    public void pageDisplay(int pageIndex) {
-        recipeDisplay.getChildren().clear();
+    public void pageDisplay() {
+        this.recipeDisplay.getChildren().clear();
         ArrayList<Recipe> favoritesRecipes = favoriteNode.getFavorites();
-        for (int recipeIndex = (pageIndex-1)*10; recipeIndex < favoritesRecipes.size() && recipeIndex < pageIndex*10; recipeIndex++) {
-            Recipe recipe = favoritesRecipes.get(recipeIndex);
-
-            HBox recipeBoxDisplay = new HBox();
-            recipeBoxDisplay.getStyleClass().add("recipe-content");
-            recipeBoxDisplayList.add(recipeBoxDisplay);
-
-            Label title = createLabel(recipe.getTitle(), "recipe-title");
-            Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
-            Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
-
-            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
-            removeFromFavoriteImage.setPreserveRatio(true);
-            removeFromFavoriteImage.setFitWidth(30);
-
-            Button removeFromFavoriteButton = new Button("", removeFromFavoriteImage);
-            removeFromFavoriteButton.getStyleClass().add("button-favorite");
-            removeFromFavoriteButtonList.add(removeFromFavoriteButton);
-
-            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setBrokenHeartImage(removeFromFavoriteImage));
-            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoriteImage));
-            removeFromFavoriteButton.setOnAction(removeRecipeFromFavorite(removeFromFavoriteButton));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
-
-            recipeBoxDisplay.getChildren().add(title);
-            recipeBoxDisplay.getChildren().add(cookingTime);
-            recipeBoxDisplay.getChildren().add(servings);
-            recipeBoxDisplay.getChildren().add(removeFromFavoriteButton);
-            recipeDisplay.getChildren().add(recipeBoxDisplay);
+        for (int recipeIndex = (this.pageIndex-1)*10; recipeIndex < favoritesRecipes.size() && recipeIndex < pageIndex*10; recipeIndex++) {
+            recipeDisplay.getChildren().add(recipeBoxDisplayList.get(recipeIndex));
         }
         HBox lastBox = new HBox();
-        recipeDisplay.getChildren().add(lastBox);
-        pageNavigationButtonDisplay(pageIndex, favoritesRecipes.size(), lastBox);
+        lastBox.getStyleClass().add("box-pagination");
+        this.recipeDisplay.getChildren().add(lastBox);
+        pageNavigationButtonDisplay(favoritesRecipes.size(), lastBox);
     }
 
-    public void update(int pageIndex) {
+    public void update() {
         int nbOfFavoriteRecipe = favoriteNode.getFavorites().size();
         int maxPageIndex = (int) Math.ceil(nbOfFavoriteRecipe / 10.0);
 
         if (nbOfFavoriteRecipe == 0) {
             emptyFavoriteDisplay();
-        } else if (maxPageIndex < pageIndex) {
-            pageDisplay(pageIndex-1);
-        } else if (pageIndex != maxPageIndex) {
-            pageDisplay(pageIndex);
+        } else if (maxPageIndex < this.pageIndex) {
+            this.pageIndex--;
+            pageDisplay();
+        } else if (this.pageIndex != maxPageIndex) {
+            pageDisplay();
         }
     }
 }
