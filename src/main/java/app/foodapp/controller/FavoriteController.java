@@ -50,7 +50,7 @@ public class FavoriteController implements Initializable {
             scene.getStylesheets().add(css);
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -102,7 +102,7 @@ public class FavoriteController implements Initializable {
             recipeBoxDisplay.getChildren().add(removeFromFavoriteButton);
         }
         if (favorites.isEmpty()) emptyFavoriteDisplay();
-        else pageDisplay();
+        else pageDisplay(1);
     }
 
     public Label createLabel(String content, String styleClass) {
@@ -174,7 +174,6 @@ public class FavoriteController implements Initializable {
         return new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                Label title = (Label) recipeBoxDisplay.getChildren().get(0);
                 Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
                 Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
 
@@ -189,7 +188,6 @@ public class FavoriteController implements Initializable {
         return new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                Label title = (Label) recipeBoxDisplay.getChildren().get(0);
                 Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
                 Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
 
@@ -200,11 +198,11 @@ public class FavoriteController implements Initializable {
         };
     }
 
-    public EventHandler<ActionEvent> goToPage() {
+    public EventHandler<ActionEvent> goToPage(int pageIndex) {
         return new EventHandler<>() {
             @Override
             public void handle(ActionEvent event) {
-                pageDisplay();
+                pageDisplay(pageIndex);
             }
         };
     }
@@ -220,18 +218,18 @@ public class FavoriteController implements Initializable {
         if (this.pageIndex > 1) {
             Button previousPage = new Button("previousPage");
             lastBox.getChildren().add(previousPage);
-            this.pageIndex--;
-            previousPage.setOnAction(goToPage());
+            previousPage.setOnAction(goToPage(this.pageIndex-1));
         }
+        System.out.println(nbOfElement + " " + this.pageIndex*10);
         if (nbOfElement > this.pageIndex * 10) {
             Button nextPage = new Button("nextPage");
             lastBox.getChildren().add(nextPage);
-            this.pageIndex++;
-            nextPage.setOnAction(goToPage());
+            nextPage.setOnAction(goToPage(this.pageIndex+1));
         }
     }
 
-    public void pageDisplay() {
+    public void pageDisplay(int pageIndex) {
+        this.pageIndex = pageIndex;
         this.recipeDisplay.getChildren().clear();
         ArrayList<Recipe> favoritesRecipes = favoriteNode.getFavorites();
         for (int recipeIndex = (this.pageIndex-1)*10; recipeIndex < favoritesRecipes.size() && recipeIndex < pageIndex*10; recipeIndex++) {
@@ -250,10 +248,9 @@ public class FavoriteController implements Initializable {
         if (nbOfFavoriteRecipe == 0) {
             emptyFavoriteDisplay();
         } else if (maxPageIndex < this.pageIndex) {
-            this.pageIndex--;
-            pageDisplay();
-        } else if (this.pageIndex != maxPageIndex) {
-            pageDisplay();
+            pageDisplay(this.pageIndex-1);
+        } else {
+            pageDisplay(this.pageIndex);
         }
     }
 }
