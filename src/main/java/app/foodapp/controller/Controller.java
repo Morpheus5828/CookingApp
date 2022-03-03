@@ -7,6 +7,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -14,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,14 +42,21 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {}
 
     public void goToFavorites(javafx.event.ActionEvent actionEvent) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
-        rootPane.getChildren().setAll(pane);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+        Parent root = loader.load();
+        FavoriteController favoriteController = loader.getController();
+        favoriteController.showFavorites();
+
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("/app/foodapp/view/favorites.css").toExternalForm();
+
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public void goToMenu(ActionEvent actionEvent) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-        rootPane.getChildren().setAll(pane);
-    }
+
 
     public void addIngredientToSearch(KeyEvent keyEvent) {
         searchByIngredient.setOnKeyPressed(new EventHandler<KeyEvent>() {
