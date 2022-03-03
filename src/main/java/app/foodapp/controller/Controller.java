@@ -1,5 +1,6 @@
 package app.foodapp.controller;
 
+import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import app.foodapp.model.node.Favorite;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -28,8 +28,8 @@ public class Controller implements Initializable {
     @FXML private AnchorPane rootPane;
     @FXML private TextField searchByIngredient;
     @FXML private Text mainDisplay;
-    @FXML private AnchorPane favoritesAnchorPane;
-    @FXML private AnchorPane ingredientsAnchorPane;
+    @FXML private AnchorPane buttonsAnchorpane;
+    @FXML private AnchorPane ingredientsAnchorpane;
 
 
     private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
@@ -37,6 +37,8 @@ public class Controller implements Initializable {
     private RecipeInformation recipeInformation;
     private ArrayList<Button> favoritesButtons = new ArrayList<Button>();
     protected Favorite favorites = new Favorite();
+    private ArrayList<Button> detailsButtons = new ArrayList<Button>();
+    protected Recipe recipeSelectedForDetails;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -56,14 +58,12 @@ public class Controller implements Initializable {
         stage.show();
     }
 
-
-
     public void addIngredientToSearch(KeyEvent keyEvent) {
         searchByIngredient.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.ENTER){
-                    createIngredientsButton();
+                    createIngredientsButtons();
                     searchByIngredient.clear();
                 }
             }
@@ -72,24 +72,25 @@ public class Controller implements Initializable {
 
     public void displayApiInformations(ActionEvent actionEvent) {
         for(Button oneButton : favoritesButtons){
-            favoritesAnchorPane.getChildren().remove(oneButton);
+            buttonsAnchorpane.getChildren().remove(oneButton);
         }
         favoritesButtons.clear();
         recipeInformation = new RecipeInformation(strings);
         mainDisplay.setText(recipeInformation.displayGUI());
         favoritesButtons.clear();
         createFavoriteButtons();
+        createDetailsButtons();
     }
 
     private void createFavoriteButtons(){
         int positionY = 20;
         for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
             Button newFavoriteButton = new Button();
-            newFavoriteButton.setPrefSize(75, 75);
+            newFavoriteButton.setPrefSize(50, 50);
             newFavoriteButton.setText("<3");
-            newFavoriteButton.setLayoutX(40);
+            newFavoriteButton.setLayoutX(0);
             newFavoriteButton.setLayoutY(positionY);
-            favoritesAnchorPane.getChildren().add(newFavoriteButton);
+            buttonsAnchorpane.getChildren().add(newFavoriteButton);
             favoritesButtons.add(newFavoriteButton);
             newFavoriteButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -105,7 +106,7 @@ public class Controller implements Initializable {
     private int positionX = 898;
     private int positionY = 59;
 
-    private void createIngredientsButton(){
+    private void createIngredientsButtons(){
         if(ingredientButtons.size() < 10) {
             Button newIngredientButton = new Button();
             newIngredientButton.setText(searchByIngredient.getText() + " x");
@@ -117,14 +118,14 @@ public class Controller implements Initializable {
             ingredientButtons.add(newIngredientButton);
             newIngredientButton.setLayoutX(positionX);
             newIngredientButton.setLayoutY(positionY);
-            ingredientsAnchorPane.getChildren().add(newIngredientButton);
+            ingredientsAnchorpane.getChildren().add(newIngredientButton);
             strings.add(ingredientButtons.indexOf(newIngredientButton), searchByIngredient.getText());
             newIngredientButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     strings.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
-                    ingredientsAnchorPane.getChildren().remove(newIngredientButton);
+                    ingredientsAnchorpane.getChildren().remove(newIngredientButton);
                 }
             });
             positionX -= (20 + newIngredientButton.getPrefWidth());
@@ -134,5 +135,42 @@ public class Controller implements Initializable {
         }
     }
 
+    private void goToDetails(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
+        Parent root = loader.load();
+        DetailsController detailsController = loader.getController();
+        detailsController.showDetails(recipeSelectedForDetails);
 
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("/app/foodapp/view/details.css").toExternalForm();
+
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void createDetailsButtons(){
+        int positionY = 20;
+        for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
+            Button newDetailsButton = new Button();
+            newDetailsButton.setPrefSize(50, 50);
+            newDetailsButton.setText("Details");
+            newDetailsButton.setLayoutX(80);
+            newDetailsButton.setLayoutY(positionY);
+            buttonsAnchorpane.getChildren().add(newDetailsButton);
+            detailsButtons.add(newDetailsButton);
+            newDetailsButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    recipeSelectedForDetails = recipeInformation.listOfRecipe.get(detailsButtons.indexOf(newDetailsButton));
+                    try {
+                        goToDetails(event);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
 }
