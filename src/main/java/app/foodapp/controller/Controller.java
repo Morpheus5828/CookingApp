@@ -71,13 +71,11 @@ public class Controller implements Initializable {
     }
 
     public void displayApiInformations(ActionEvent actionEvent) {
-        for(Button oneButton : favoritesButtons){
-            buttonsAnchorpane.getChildren().remove(oneButton);
-        }
+        buttonsAnchorpane.getChildren().clear();
         favoritesButtons.clear();
+        detailsButtons.clear();
         recipeInformation = new RecipeInformation(strings);
         mainDisplay.setText(recipeInformation.displayGUI());
-        favoritesButtons.clear();
         createFavoriteButtons();
         createDetailsButtons();
     }
@@ -126,6 +124,7 @@ public class Controller implements Initializable {
                     strings.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientsAnchorpane.getChildren().remove(newIngredientButton);
+                    displayApiInformations(event);
                 }
             });
             positionX -= (20 + newIngredientButton.getPrefWidth());
