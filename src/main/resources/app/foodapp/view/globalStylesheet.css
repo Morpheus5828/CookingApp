@@ -18,6 +18,12 @@
     -fx-background-color: none;
 }
 
+.box-pagination {
+    -fx-alignment: center;
+    -fx-spacing: 30;
+    -fx-padding: 22 15 15 15;
+}
+
 .recipe-content-hover {
     -fx-background-color: #2e2e2e;
 }
