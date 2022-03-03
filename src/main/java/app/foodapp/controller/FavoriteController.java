@@ -2,7 +2,6 @@ package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,10 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -68,7 +65,7 @@ public class FavoriteController implements Initializable {
 
     public void showFavorites() {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
-        Image logo = new Image(getClass().getResourceAsStream("/pictures/test3.png"));
+        Image logo = new Image(getClass().getResourceAsStream("/picturesForFavorites/test3.png"));
         leftCornerLogo.setImage(logo);
         if (favorites.isEmpty()) emptyFavoriteDisplay();
 
@@ -81,7 +78,7 @@ public class FavoriteController implements Initializable {
             Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
             Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
 
-            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/pictures/full-heart.png")));
+            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/picturesForFavorites/full-heart.png")));
             removeFromFavoriteImage.setPreserveRatio(true);
             removeFromFavoriteImage.setFitWidth(30);
 
@@ -114,7 +111,7 @@ public class FavoriteController implements Initializable {
         return new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/pictures/broken-heart.png")));
+                imageView.setImage(new Image(getClass().getResourceAsStream("/picturesForFavorites/broken-heart.png")));
             }
         };
     }
@@ -123,7 +120,7 @@ public class FavoriteController implements Initializable {
         return new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/pictures/full-heart.png")));
+                imageView.setImage(new Image(getClass().getResourceAsStream("/picturesForFavorites/full-heart.png")));
             }
         };
     }
