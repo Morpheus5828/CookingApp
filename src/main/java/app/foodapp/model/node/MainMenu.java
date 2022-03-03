@@ -33,14 +33,8 @@ public class MainMenu {
     }
 
     public int getChoiceNumber() {
-        int result = 0;
-        try {
-            Scanner sc = new Scanner(System.in);
-            result = sc.nextInt();
-        } catch (ExceptionInInitializerError | IllegalStateException e) {
-            AlertFound.invalidNode();
-        }
-        return result;
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
     }
 
     public void changeCurrentNode() throws ExceptionInInitializerError {

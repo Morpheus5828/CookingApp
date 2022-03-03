@@ -59,9 +59,9 @@ public class MainMenuTest {
         menu.setChoice(3);
         menu.changeCurrentNode();
         assertEquals("MEASURE_SYSTEM", Pane.currentNode);
-        menu.setChoice(4);
-
-        //assertEquals("\n" + "⚠ Node doesn't exist !" + "\n", outputStreamCaptor.toString().trim());
+        menu.setChoice(5);
+        menu.changeCurrentNode();
+        assertEquals("⚠ Node doesn't exist !", outputStreamCaptor.toString().trim());
 
 
     }
