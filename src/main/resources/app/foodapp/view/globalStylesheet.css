@@ -72,7 +72,7 @@
 
 .button-favorite {
     -fx-background-color: none;
-    -fx-padding: 10;
+    -fx-padding: 5;
 }
 
 #text-empty-favorites {

@@ -83,7 +83,7 @@ public class FavoriteController implements Initializable {
 
             ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
             removeFromFavoriteImage.setPreserveRatio(true);
-            removeFromFavoriteImage.setFitWidth(30);
+            removeFromFavoriteImage.setFitWidth(40);
 
             Button removeFromFavoriteButton = new Button("", removeFromFavoriteImage);
             removeFromFavoriteButton.getStyleClass().add("button-favorite");
