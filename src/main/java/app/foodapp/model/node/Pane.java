@@ -12,7 +12,7 @@ public class Pane {
     public static String currentNode = NodeName.MAIN_MENU.name();
     private static String backNode = null;
 
-    public Pane(){
+    public Pane() {
         this.mainMenu = new MainMenu();
         this.getRecipeByIngredient = new GetRecipeByIngredient();
         this.measureSystem = new MeasureSystem();

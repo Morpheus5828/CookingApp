@@ -23,7 +23,7 @@ public class PaneTest {
         Pane.checkStatusCode = false;
     }
 
-    @Test //TODO A finir
+    @Test
     public void backTest() {
         Pane.setNextNodeNumber("MAIN_MENU");
         Pane.back();
@@ -50,5 +50,6 @@ public class PaneTest {
         assertEquals("MAIN_MENU", Pane.currentNode);
 
         Pane.checkStatusCode = false;
+
     }
 }
