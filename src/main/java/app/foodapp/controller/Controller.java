@@ -34,14 +34,10 @@ public class Controller implements Initializable {
     @FXML private AnchorPane ingredientsAnchorPane;
     @FXML private VBox recipeDisplay;
 
-
     private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
-    private ArrayList<String> strings = new ArrayList<String>();
+    private ArrayList<String> stringsListOfRecipes = new ArrayList<String>();
     private RecipeInformation recipeInformation;
-    private ArrayList<Button> favoritesButtons = new ArrayList<Button>();
     protected Favorite favorites = new Favorite();
-    private ArrayList<Button> detailsButtons = new ArrayList<Button>();
-    protected Recipe recipeSelectedForDetails;
     private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
 
     @Override
@@ -79,10 +75,8 @@ public class Controller implements Initializable {
 
     public void displayApiInformations(ActionEvent actionEvent) {
         recipeDisplay.getChildren().clear();
-        favoritesButtons.clear();
-        detailsButtons.clear();
         recipeBoxDisplayList.clear();
-        recipeInformation = new RecipeInformation(strings);
+        recipeInformation = new RecipeInformation(stringsListOfRecipes);
 
         for (Recipe recipe : recipeInformation.listOfRecipe) {
             HBox recipeBoxDisplay = new HBox();
@@ -113,7 +107,6 @@ public class Controller implements Initializable {
             recipeBoxDisplay.getChildren().add(removeFromFavoriteButton);
             recipeDisplay.getChildren().add(recipeBoxDisplay);
         }
-
         isSearchLunched = true;
     }
 
@@ -215,11 +208,11 @@ public class Controller implements Initializable {
             newIngredientButton.setLayoutX(positionX);
             newIngredientButton.setLayoutY(positionY);
             ingredientsAnchorPane.getChildren().add(newIngredientButton);
-            strings.add(ingredientButtons.indexOf(newIngredientButton), searchByIngredient.getText());
+            stringsListOfRecipes.add(ingredientButtons.indexOf(newIngredientButton), searchByIngredient.getText());
             newIngredientButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    strings.remove(ingredientButtons.indexOf(newIngredientButton));
+                    stringsListOfRecipes.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientsAnchorPane.getChildren().remove(newIngredientButton);
                     positionX += (20 + newIngredientButton.getPrefWidth());
@@ -231,21 +224,6 @@ public class Controller implements Initializable {
         else{
             throw new ArrayIndexOutOfBoundsException("Can't add more ingredients");
         }
-    }
-
-    private void goToDetails(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
-        Parent root = loader.load();
-        DetailsController detailsController = loader.getController();
-        detailsController.showDetails(recipeSelectedForDetails);
-
-        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("/app/foodapp/view/details.css").toExternalForm();
-
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
     }
 
     /*private void createDetailsButtons(){
