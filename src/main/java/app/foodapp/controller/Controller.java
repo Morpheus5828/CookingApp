@@ -3,7 +3,6 @@ package app.foodapp.controller;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import app.foodapp.model.node.Favorite;
-import com.google.gson.JsonArray;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,8 +31,6 @@ import java.util.*;
 public class Controller implements Initializable {
 
     @FXML private TextField searchByIngredient;
-    //@FXML private Text mainDisplay;
-    //@FXML private AnchorPane buttonsAnchorPane;
     @FXML private AnchorPane ingredientsAnchorPane;
     @FXML private VBox recipeDisplay;
 
@@ -59,7 +55,7 @@ public class Controller implements Initializable {
 
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("/app/foodapp/view/favorites.css").toExternalForm();
+        String css = this.getClass().getResource("/app/foodapp/view/globalStylesheet.css").toExternalForm();
 
         scene.getStylesheets().add(css);
         stage.setScene(scene);
@@ -82,14 +78,11 @@ public class Controller implements Initializable {
     private boolean isSearchLunched = false;
 
     public void displayApiInformations(ActionEvent actionEvent) {
-        //buttonsAnchorPane.getChildren().clear();
         recipeDisplay.getChildren().clear();
         favoritesButtons.clear();
         detailsButtons.clear();
         recipeBoxDisplayList.clear();
         recipeInformation = new RecipeInformation(strings);
-
-        //mainDisplay.setText(recipeInformation.displayGUI());
 
         for (Recipe recipe : recipeInformation.listOfRecipe) {
             HBox recipeBoxDisplay = new HBox();
@@ -121,8 +114,6 @@ public class Controller implements Initializable {
             recipeDisplay.getChildren().add(recipeBoxDisplay);
         }
 
-        //createFavoriteButtons();
-        //createDetailsButtons();
         isSearchLunched = true;
     }
 
@@ -208,27 +199,6 @@ public class Controller implements Initializable {
         };
     }
 
-        private void createFavoriteButtons(){
-        int positionY = 20;
-        for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
-            Button newFavoriteButton = new Button();
-            newFavoriteButton.setPrefSize(50, 50);
-            newFavoriteButton.setText("<3");
-            newFavoriteButton.setLayoutX(0);
-            newFavoriteButton.setLayoutY(positionY);
-            //buttonsAnchorPane.getChildren().add(newFavoriteButton);
-            favoritesButtons.add(newFavoriteButton);
-            newFavoriteButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    favorites.addToFavorite(recipeInformation.listOfRecipe.get(favoritesButtons.indexOf(newFavoriteButton)));
-                    newFavoriteButton.setText("Added");
-                }
-            });
-            positionY += 175;
-        }
-    }
-
     private int positionX = 898;
     private int positionY = 59;
 
@@ -278,7 +248,7 @@ public class Controller implements Initializable {
         stage.show();
     }
 
-    private void createDetailsButtons(){
+    /*private void createDetailsButtons(){
         int positionY = 20;
         for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
             Button newDetailsButton = new Button();
@@ -302,7 +272,7 @@ public class Controller implements Initializable {
             positionY += 175;
         }
 
-    }
+    }*/
 
     public void goToProfile(ActionEvent actionEvent) {
         try {
