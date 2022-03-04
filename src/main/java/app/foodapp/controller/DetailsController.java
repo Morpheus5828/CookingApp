@@ -26,8 +26,6 @@ public class DetailsController {
         detailsDisplay.setText(recipe.displayDetailsCharacteristicsGUI());
     }
 
-
-
     public void goToMenu(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
@@ -65,7 +63,7 @@ public class DetailsController {
 
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("/app/foodapp/view/favorites.css").toExternalForm();
+        String css = this.getClass().getResource("/app/foodapp/view/globalStylesheet.css").toExternalForm();
 
         scene.getStylesheets().add(css);
         stage.setScene(scene);
