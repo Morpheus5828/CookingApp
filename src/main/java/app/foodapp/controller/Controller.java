@@ -25,7 +25,6 @@ import java.util.*;
 
 public class Controller implements Initializable {
 
-    @FXML private AnchorPane rootPane;
     @FXML private TextField searchByIngredient;
     @FXML private Text mainDisplay;
     @FXML private AnchorPane buttonsAnchorPane;
