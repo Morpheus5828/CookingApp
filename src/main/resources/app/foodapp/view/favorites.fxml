@@ -34,7 +34,10 @@
       <Button fx:id="buttonProfile" layoutX="12.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToProfile" prefHeight="75.0" prefWidth="75.0" text="Profile">
          <font>
             <Font name="Tw Cen MT" size="15.0" />
-         </font></Button>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Rectangle fill="#1aa63d" height="92.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1282.0" />
       <Text fill="#0f3a19" layoutX="113.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COOKING APP" wrappingWidth="266.6666259765624">
          <font>
