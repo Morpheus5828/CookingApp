@@ -147,6 +147,24 @@ public class FavoriteController implements Initializable {
         };
     }
 
+    public EventHandler<MouseEvent> setForkWithoutSauceImage(ImageView imageView) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/forkWithoutSauce.png")));
+            }
+        };
+    }
+
+    public EventHandler<MouseEvent> setForkWithSauceImage(ImageView imageView) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/forkWithSauce.png")));
+            }
+        };
+    }
+
     public EventHandler<ActionEvent> removeRecipeFromFavorite(Button removeFromFavoriteButton) {
         return new EventHandler<>() {
             @Override
@@ -234,7 +252,7 @@ public class FavoriteController implements Initializable {
 
     public void pageNavigationButtonDisplay(int nbOfElement, HBox lastBox) {
         if (this.pageIndex > 1) {
-            ImageView knifeImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSAuce.png")));
+            ImageView knifeImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
             knifeImage.setPreserveRatio(true);
             knifeImage.setFitWidth(100);
 
@@ -248,8 +266,15 @@ public class FavoriteController implements Initializable {
         }
 
         if (nbOfElement > this.pageIndex * 10) {
-            Button nextPage = new Button("nextPage");
+            ImageView forkImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/forkWithoutSauce.png")));
+            forkImage.setPreserveRatio(true);
+            forkImage.setFitWidth(100);
+
+            Button nextPage = new Button("", forkImage);
+            nextPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setForkWithSauceImage(forkImage));
+            nextPage.addEventFilter(MouseEvent.MOUSE_EXITED, setForkWithoutSauceImage(forkImage));
             nextPage.getStyleClass().add("button-pagination");
+
             lastBox.getChildren().add(nextPage);
             nextPage.setOnAction(goToPage(this.pageIndex+1));
         }
