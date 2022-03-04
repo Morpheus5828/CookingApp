@@ -11,7 +11,7 @@
    <children>
       <ScrollPane id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="88.0" layoutY="87.0" prefHeight="633.0" prefWidth="1193.0" style="-fx-background-color: #4a4b4b;">
          <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane fx:id="centerPane" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <VBox fx:id="recipeDisplay" layoutX="10.0" prefHeight="631.0" prefWidth="1181.0" style="-fx-padding: 30; -fx-background-color: #4a4b4b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>

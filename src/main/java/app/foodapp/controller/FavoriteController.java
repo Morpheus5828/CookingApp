@@ -2,6 +2,7 @@ package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,9 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +38,7 @@ public class FavoriteController implements Initializable {
     private final FavoriteStamp favoriteNode = new FavoriteStamp();
     private final ArrayList<Button> removeFromFavoriteButtonList = new ArrayList<>();
     private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
+    //private final Scene scene;
     private int pageIndex = 1;
 
     @Override
@@ -81,17 +86,20 @@ public class FavoriteController implements Initializable {
             Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
             Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
 
-            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
-            removeFromFavoriteImage.setPreserveRatio(true);
-            removeFromFavoriteImage.setFitWidth(40);
+            ImageView removeFromFavoritesImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
+            removeFromFavoritesImage.setPreserveRatio(true);
+            removeFromFavoritesImage.setFitWidth(40);
 
-            Button removeFromFavoriteButton = new Button("", removeFromFavoriteImage);
-            removeFromFavoriteButton.getStyleClass().add("button-favorite");
-            removeFromFavoriteButtonList.add(removeFromFavoriteButton);
+            StackPane removeFromFavoritesStackPane = new StackPane();
+            removeFromFavoritesStackPane.getChildren().add(removeFromFavoritesImage);
 
-            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setBrokenHeartImage(removeFromFavoriteImage));
-            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoriteImage));
-            removeFromFavoriteButton.setOnAction(removeRecipeFromFavorite(removeFromFavoriteButton));
+            Button removeFromFavoritesButton = new Button("", removeFromFavoritesStackPane);
+            removeFromFavoritesButton.getStyleClass().add("button-favorite");
+            removeFromFavoriteButtonList.add(removeFromFavoritesButton);
+
+            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setBrokenHeartImage(removeFromFavoritesImage));
+            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoritesImage));
+            removeFromFavoritesButton.setOnAction(removeRecipeFromFavorite(removeFromFavoritesButton, removeFromFavoritesStackPane));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
@@ -99,7 +107,7 @@ public class FavoriteController implements Initializable {
             recipeBoxDisplay.getChildren().add(title);
             recipeBoxDisplay.getChildren().add(cookingTime);
             recipeBoxDisplay.getChildren().add(servings);
-            recipeBoxDisplay.getChildren().add(removeFromFavoriteButton);
+            recipeBoxDisplay.getChildren().add(removeFromFavoritesButton);
         }
         if (favorites.isEmpty()) emptyFavoriteDisplay();
         else pageDisplay(1);
@@ -165,29 +173,59 @@ public class FavoriteController implements Initializable {
         };
     }
 
-    public EventHandler<ActionEvent> removeRecipeFromFavorite(Button removeFromFavoriteButton) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(ActionEvent event) {
-                int index = removeFromFavoriteButtonList.indexOf(removeFromFavoriteButton);
+    public EventHandler<ActionEvent> removeRecipeFromFavorite(Button removeFromFavoriteButton, StackPane stackPane) {
+        return event -> {
+            stackPane.getChildren().clear();
 
-                recipeDisplay.getChildren().remove(recipeBoxDisplayList.get(index));
+            ImageView leftBrokenHeart = new ImageView(new Image("/app/foodapp/view/images/picturesForFavorites/broken-heart-left.png"));
+            ImageView rightBrokenHeart = new ImageView(new Image("/app/foodapp/view/images/picturesForFavorites/broken-heart-right.png"));
+            leftBrokenHeart.setPreserveRatio(true);
+            rightBrokenHeart.setPreserveRatio(true);
+            leftBrokenHeart.setFitWidth(40);
+            rightBrokenHeart.setFitWidth(40);
+            stackPane.getChildren().add(leftBrokenHeart);
+            stackPane.getChildren().add(rightBrokenHeart);
+
+            TranslateTransition leftBrokenHeartTranslation = new TranslateTransition(Duration.millis(500), leftBrokenHeart);
+            TranslateTransition rightBrokenHeartTranslation = new TranslateTransition(Duration.millis(500), rightBrokenHeart);
+            leftBrokenHeartTranslation.setByX(-20);
+            rightBrokenHeartTranslation.setByX(20);
+            leftBrokenHeartTranslation.setByY(10);
+            rightBrokenHeartTranslation.setByY(10);
+
+            FadeTransition leftBrokenHeartFading = new FadeTransition(Duration.millis(500), leftBrokenHeart);
+            FadeTransition rightBrokenHeartFading = new FadeTransition(Duration.millis(500), rightBrokenHeart);
+            leftBrokenHeartFading.setFromValue(1);
+            rightBrokenHeartFading.setFromValue(1);
+            leftBrokenHeartFading.setToValue(0);
+            rightBrokenHeartFading.setToValue(0);
+
+            RotateTransition leftBrokenHeartRotation = new RotateTransition(Duration.millis(500), leftBrokenHeart);
+            RotateTransition rightBrokenHeartRotation = new RotateTransition(Duration.millis(500), rightBrokenHeart);
+            leftBrokenHeartRotation.setByAngle(-10);
+            rightBrokenHeartRotation.setByAngle(10);
+
+            ParallelTransition parallelTransition = new ParallelTransition(
+                    leftBrokenHeartTranslation,
+                    rightBrokenHeartTranslation,
+                    leftBrokenHeartFading,
+                    rightBrokenHeartFading,
+                    leftBrokenHeartRotation,
+                    rightBrokenHeartRotation);
+
+            parallelTransition.setOnFinished(event1 -> {
+                int index = removeFromFavoriteButtonList.indexOf(removeFromFavoriteButton);
                 favoriteNode.removeFromFavorite(favoriteNode.getFavorites().get(index));
                 removeFromFavoriteButtonList.remove(index);
                 recipeBoxDisplayList.remove(index);
-
                 update();
-            }
+            });
+            parallelTransition.play();
         };
     }
 
     public EventHandler<MouseEvent> getRecipeDetails(Recipe recipe) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                goToRecipeDetails(event, recipe);
-            }
-        };
+        return event -> goToRecipeDetails(event, recipe);
     }
 
     public void goToRecipeDetails(MouseEvent event, Recipe recipe) {
@@ -207,40 +245,30 @@ public class FavoriteController implements Initializable {
     }
 
     public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(HBox recipeBoxDisplay) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
-                Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
+        return event -> {
+            Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
+            Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
 
-                recipeBoxDisplay.getStyleClass().add("recipe-content-hover");
-                cookingTime.getStyleClass().add("recipe-information-hover");
-                servings.getStyleClass().add("recipe-information-hover");
-            }
+            recipeBoxDisplay.getStyleClass().add("recipe-content-hover");
+            cookingTime.getStyleClass().add("recipe-information-hover");
+            servings.getStyleClass().add("recipe-information-hover");
+
         };
     }
 
     public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(HBox recipeBoxDisplay) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
-                Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
+        return event -> {
+            Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
+            Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
 
-                recipeBoxDisplay.getStyleClass().remove("recipe-content-hover");
-                cookingTime.getStyleClass().remove("recipe-information-hover");
-                servings.getStyleClass().remove("recipe-information-hover");
-            }
+            recipeBoxDisplay.getStyleClass().remove("recipe-content-hover");
+            cookingTime.getStyleClass().remove("recipe-information-hover");
+            servings.getStyleClass().remove("recipe-information-hover");
         };
     }
 
     public EventHandler<ActionEvent> goToPage(int pageIndex) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(ActionEvent event) {
-                pageDisplay(pageIndex);
-            }
-        };
+        return event -> pageDisplay(pageIndex);
     }
 
     public void emptyFavoriteDisplay() {
