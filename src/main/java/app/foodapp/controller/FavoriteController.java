@@ -129,6 +129,24 @@ public class FavoriteController implements Initializable {
         };
     }
 
+    public EventHandler<MouseEvent> setKnifeWithoutSauceImage(ImageView imageView) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
+            }
+        };
+    }
+
+    public EventHandler<MouseEvent> setKnifeWithSauceImage(ImageView imageView) {
+        return new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithSauce.png")));
+            }
+        };
+    }
+
     public EventHandler<ActionEvent> removeRecipeFromFavorite(Button removeFromFavoriteButton) {
         return new EventHandler<>() {
             @Override
@@ -216,13 +234,22 @@ public class FavoriteController implements Initializable {
 
     public void pageNavigationButtonDisplay(int nbOfElement, HBox lastBox) {
         if (this.pageIndex > 1) {
-            Button previousPage = new Button("previousPage");
+            ImageView knifeImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSAuce.png")));
+            knifeImage.setPreserveRatio(true);
+            knifeImage.setFitWidth(100);
+
+            Button previousPage = new Button("", knifeImage);
+            previousPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setKnifeWithSauceImage(knifeImage));
+            previousPage.addEventFilter(MouseEvent.MOUSE_EXITED, setKnifeWithoutSauceImage(knifeImage));
+            previousPage.getStyleClass().add("button-pagination");
+
             lastBox.getChildren().add(previousPage);
             previousPage.setOnAction(goToPage(this.pageIndex-1));
         }
-        System.out.println(nbOfElement + " " + this.pageIndex*10);
+
         if (nbOfElement > this.pageIndex * 10) {
             Button nextPage = new Button("nextPage");
+            nextPage.getStyleClass().add("button-pagination");
             lastBox.getChildren().add(nextPage);
             nextPage.setOnAction(goToPage(this.pageIndex+1));
         }
