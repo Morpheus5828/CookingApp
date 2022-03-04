@@ -9,9 +9,13 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.FavoriteController">
    <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="88.0" layoutY="87.0" prefHeight="633.0" prefWidth="1193.0" style="-fx-background-color: #4a4b4b;" vbarPolicy="NEVER">
+      <ScrollPane id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="88.0" layoutY="87.0" prefHeight="633.0" prefWidth="1193.0" style="-fx-background-color: #4a4b4b;">
          <content>
-            <VBox fx:id="recipeDisplay" prefHeight="631.0" prefWidth="1191.0" style="-fx-padding: 30; -fx-background-color: #4a4b4b;" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox fx:id="recipeDisplay" layoutX="10.0" prefHeight="631.0" prefWidth="1181.0" style="-fx-padding: 30; -fx-background-color: #4a4b4b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
          </content>
       </ScrollPane>
       <Rectangle fill="#696969" height="720.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.topAnchor="0.0" />
