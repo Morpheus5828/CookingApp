@@ -158,7 +158,7 @@ public class FavoriteController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
             Parent root = loader.load();
-            DetailsController detailsController = new DetailsController();
+            DetailsController detailsController = loader.getController();
             detailsController.showDetails(recipe);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
