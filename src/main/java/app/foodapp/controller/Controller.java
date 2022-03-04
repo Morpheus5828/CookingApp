@@ -63,11 +63,14 @@ public class Controller implements Initializable {
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.ENTER){
                     createIngredientsButtons();
+                    isSearchLunched = false;
                     searchByIngredient.clear();
                 }
             }
         });
     }
+
+    private boolean isSearchLunched = false;
 
     public void displayApiInformations(ActionEvent actionEvent) {
         buttonsAnchorPane.getChildren().clear();
@@ -77,6 +80,7 @@ public class Controller implements Initializable {
         mainDisplay.setText(recipeInformation.displayGUI());
         createFavoriteButtons();
         createDetailsButtons();
+        isSearchLunched = true;
     }
 
     private void createFavoriteButtons(){
@@ -123,7 +127,8 @@ public class Controller implements Initializable {
                     strings.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
                     ingredientsAnchorPane.getChildren().remove(newIngredientButton);
-                    displayApiInformations(event);
+                    positionX += (20 + newIngredientButton.getPrefWidth());
+                    if(isSearchLunched) displayApiInformations(event);
                 }
             });
             positionX -= (20 + newIngredientButton.getPrefWidth());
