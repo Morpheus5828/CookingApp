@@ -1,6 +1,4 @@
-package app.foodapp.model.dataManipulation.recipe;
-
-import java.util.Map;
+package app.foodapp.model.recipe;
 
 //TODO problem with test because I add a new property in constructor
 public class Recipe {
@@ -85,7 +83,7 @@ public class Recipe {
             "• " + getServings() + " People(s)" + "\t\t" + " • Cooking time: " + getCookingTime() + " min " + "\n\n" +
             "• Ingredient(s)" + "\n\n" +
              getIngredients() + "\n" +
-            "Step(s) instruction(s): " + "\n" +
+            "• Step(s) instruction(s): " + "\n" +
              getSteps() + "\n"
         );
     }

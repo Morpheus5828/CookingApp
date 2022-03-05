@@ -1,6 +1,6 @@
 package app.foodapp.model.node;
 
-import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.alert.AlertFound;
 
 
@@ -10,16 +10,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Favorite extends Node {
+public class Favorite {
     private List<Recipe> listOfRecipe;
+    private int choice;
 
-    public Favorite(){
-        super();
-        addNodes();
-        listOfRecipe = new ArrayList<>();
-         //if(!isSavedFavoritesExists())
-           // saveFavorites();
-    }
+    public Favorite() {}
 
     public void launch() {
         if (this.isEmpty()) {
@@ -29,12 +24,13 @@ public class Favorite extends Node {
         else {
             this.displayFavoriteList();
             askToNextNode();
+            choiceNumberRecovered();
+            changeCurrentNode();
         }
 
 
     }
 
-    // TODO check saveFavorite method
     /*public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
         if(recipeIsInFavoriteList(recipe))
             throw new InstanceAlreadyExistsException("Recipe already in Favorites");
@@ -45,27 +41,26 @@ public class Favorite extends Node {
         }
     }*/
 
-    public void askToNextNode() throws NoSuchElementException{
-        try {
-            System.out.println("\n" +
-                "What do you want to do ?" + "\n" +
+    public String askToNextNode() {
+        return "What do you want to do ?" + "\n" +
                 "1. Menu" + "\n" +
                 "2. Get a recipe details" + "\n" +
-                "3. BACK"
-            );
-            Scanner sc = new Scanner(System.in);
-            int answer = sc.nextInt();
-            switch (answer) {
-                case 1 -> Pane.setNextNodeNumber("WELCOME");
-                case 2 -> Pane.setNextNodeNumber("GET_RECIPE_BY_INGREDIENT");
-                case 3 -> Pane.back();
-            }
-
-        } catch (NoSuchElementException e) {
-            AlertFound.invalidCharacter();
-        }
-
+                "3. BACK";
     }
+
+    public void choiceNumberRecovered() {
+        Scanner sc = new Scanner(System.in);
+        choice = sc.nextInt();
+    }
+
+    public void changeCurrentNode() {
+        switch (choice) {
+            case 1 -> Pane.setNextNodeNumber("WELCOME");
+            case 2 -> Pane.setNextNodeNumber("RECIPE_DETAILS");
+            case 3 -> Pane.back();
+        }
+    }
+
 
     public boolean recipeIsInFavoriteList(Recipe recipe){
         return listOfRecipe.contains(recipe);
@@ -117,7 +112,6 @@ public class Favorite extends Node {
         return false;
     }
 
-    //Setter
     public boolean addToFavorite(Recipe recipe) {
         if(recipeIsInFavoriteList(recipe)) {
             System.out.println("Recipe already in Favorites");
@@ -130,7 +124,6 @@ public class Favorite extends Node {
 
     }
 
-    //Getter
     public Recipe getRecipe(int index) throws ArrayIndexOutOfBoundsException{
         if(index < 0)
             throw new ArrayIndexOutOfBoundsException("Index can't be under 0");
@@ -144,20 +137,10 @@ public class Favorite extends Node {
         return this.listOfRecipe;
     }
 
-    // Add Favorite class neighbours
-    private void addNodes() {
-        // Creation of link with Welcome class
-        this.neighborsList.put(0, NodeName.WELCOME);
-        this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
-        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
-        this.neighborsList.put(4, NodeName.RECIPE_DETAILS);
-        this.neighborsList.put(5, NodeName.CLOSE_APP);
-    }
 
     public void displayFavoriteList() {
         for(Recipe recipe : this.listOfRecipe) {
             recipe.displaySimpleCharacteristics();
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package app.foodapp.model.dataManipulation.recipe;
+package app.foodapp.model.recipe;
 
 import app.foodapp.controller.dataRequest.MainInstructionsRequest;
 import app.foodapp.controller.dataRequest.SearchRecipesByIngredients;
@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,17 +144,18 @@ public class RecipeInformation {
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
-    public void display() {
+    public String display() {
+        String result = "";
         for(int i = 0; i < listOfRecipe.size(); i++) {
-            System.out.println(
+            result +=
                 "Menu number: " + i + ": " + listOfRecipe.get(i).getTitle() + "\n" +
                 "Cooking Time: " + listOfRecipe.get(i).getCookingTime() + "\n" +
                 "Serving: " + listOfRecipe.get(i).getServings() + " people(s)" + "\n" +
                 "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
-                "-----------------------------------------------" + "\n"
-            );
+                "-----------------------------------------------" + "\n";
         }
 
+        return result;
     }
 }
 

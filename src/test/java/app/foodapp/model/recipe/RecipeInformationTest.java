@@ -1,9 +1,8 @@
-package app.foodapp.model.dataManipulation.recipe;
+package app.foodapp.model.recipe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import org.junit.jupiter.api.Test;
 
 

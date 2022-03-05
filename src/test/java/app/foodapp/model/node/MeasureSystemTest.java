@@ -1,4 +1,4 @@
-package app.foodapp.model.dataManipulation;
+package app.foodapp.model.node;
 
 import app.foodapp.model.dataManipulation.MeasureSystem;
 import org.junit.jupiter.api.Test;

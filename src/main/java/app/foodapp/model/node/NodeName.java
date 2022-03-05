@@ -1,7 +1,7 @@
 package app.foodapp.model.node;
 
 public enum NodeName {
-    WELCOME(0),
+    MAIN_MENU(0),
     GET_RECIPE_BY_INGREDIENT(1),
     FAVORITE(2),
     MEASURE_SYSTEM(3),

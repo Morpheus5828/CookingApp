@@ -3,7 +3,6 @@ package app.foodapp.model.alert;
 import javafx.scene.control.Alert;
 
 public class AlertFound {
-    private static Alert alert = new Alert(Alert.AlertType.INFORMATION);;
 
     public static void connexionFailed() {
         System.out.println("\n" + "⚠ Check your internet connection and please try again" + "\n");
@@ -22,32 +21,38 @@ public class AlertFound {
     }
 
     public static void usernameAlreadyExist() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("Username already exist, please try again");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
 
     public static void usernameNotWrite() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("You forget to enter username, please try again");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
 
     public static void passwordNotWrite() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("You forget to enter password, please try again");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
 
     public static void usernameNotExist() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("Username not exist, please try again or create an account");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
 
     public static void passwordNotExist() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("Password doesn't match, please try again");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
+
 }
