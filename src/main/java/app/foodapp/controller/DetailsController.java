@@ -58,7 +58,7 @@ public class DetailsController {
     public void goToFavorites(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
         Parent root = loader.load();
-        FavoriteController favoriteController = loader.getController();
+        FavoritesController favoriteController = loader.getController();
         favoriteController.getFavoritesRecipes();
 
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
