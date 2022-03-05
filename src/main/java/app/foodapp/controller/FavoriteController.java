@@ -15,10 +15,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -45,7 +45,7 @@ public class FavoriteController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
-    public void goToMenu(ActionEvent actionEvent) {
+    public void goToMenu(final ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
 
@@ -61,7 +61,7 @@ public class FavoriteController implements Initializable {
         }
     }
 
-    public void goToProfile(ActionEvent actionEvent) {
+    public void goToProfile(final ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/profile.fxml"));
             Parent root = loader.load();
@@ -97,11 +97,12 @@ public class FavoriteController implements Initializable {
 
             Button removeFromFavoritesButton = new Button("", removeFromFavoritesStackPane);
             removeFromFavoritesButton.getStyleClass().add("button-favorite");
+            Tooltip.install(removeFromFavoritesButton, new Tooltip("Remove from favorites"));
             removeFromFavoriteButtonList.add(removeFromFavoritesButton);
 
-            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setBrokenHeartImage(removeFromFavoritesImage));
-            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoritesImage));
-            removeFromFavoritesButton.setOnAction(removeRecipeFromFavorite(removeFromFavoritesButton, removeFromFavoritesStackPane));
+            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(removeFromFavoritesImage, new Image("/app/foodapp/view/images/picturesForFavorites/broken-heart.png")));
+            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(removeFromFavoritesImage, new Image("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
+            removeFromFavoritesButton.setOnAction(removeRecipeFromFavorite(removeFromFavoritesButton, removeFromFavoritesStackPane, recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
@@ -115,67 +116,18 @@ public class FavoriteController implements Initializable {
         else pageDisplay(1);
     }
 
-    public Label createLabel(String content, String styleClass) {
+    public Label createLabel(final String content, final String styleClass) {
         Label label = new Label(content);
         label.getStyleClass().add(styleClass);
         return label;
     }
 
-    public EventHandler<MouseEvent> setBrokenHeartImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/broken-heart.png")));
-            }
-        };
+    public EventHandler<MouseEvent> setImage(final ImageView imageView, final Image image) {
+        return event ->
+                imageView.setImage(image);
     }
 
-    public EventHandler<MouseEvent> setFullHeartImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> setKnifeWithoutSauceImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> setKnifeWithSauceImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithSauce.png")));
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> setForkWithoutSauceImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/forkWithoutSauce.png")));
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> setForkWithSauceImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/forkWithSauce.png")));
-            }
-        };
-    }
-
-    public EventHandler<ActionEvent> removeRecipeFromFavorite(Button removeFromFavoriteButton, StackPane stackPane) {
+    public EventHandler<ActionEvent> removeRecipeFromFavorite(final Button removeFromFavoriteButton, final StackPane stackPane, final HBox box) {
         return event -> {
             stackPane.getChildren().clear();
 
@@ -192,26 +144,22 @@ public class FavoriteController implements Initializable {
             TranslateTransition rightBrokenHeartTranslation = new TranslateTransition(Duration.millis(500), rightBrokenHeart);
             leftBrokenHeartTranslation.setByX(-20);
             rightBrokenHeartTranslation.setByX(20);
-            leftBrokenHeartTranslation.setByY(10);
-            rightBrokenHeartTranslation.setByY(10);
+            leftBrokenHeartTranslation.setByY(15);
+            rightBrokenHeartTranslation.setByY(15);
 
-            FadeTransition leftBrokenHeartFading = new FadeTransition(Duration.millis(500), leftBrokenHeart);
-            FadeTransition rightBrokenHeartFading = new FadeTransition(Duration.millis(500), rightBrokenHeart);
-            leftBrokenHeartFading.setFromValue(1);
-            rightBrokenHeartFading.setFromValue(1);
-            leftBrokenHeartFading.setToValue(0);
-            rightBrokenHeartFading.setToValue(0);
+            FadeTransition recipeFading = new FadeTransition(Duration.millis(500), box);
+            recipeFading.setFromValue(1);
+            recipeFading.setToValue(0);
 
             RotateTransition leftBrokenHeartRotation = new RotateTransition(Duration.millis(500), leftBrokenHeart);
             RotateTransition rightBrokenHeartRotation = new RotateTransition(Duration.millis(500), rightBrokenHeart);
-            leftBrokenHeartRotation.setByAngle(-10);
-            rightBrokenHeartRotation.setByAngle(10);
+            leftBrokenHeartRotation.setByAngle(-20);
+            rightBrokenHeartRotation.setByAngle(20);
 
             ParallelTransition parallelTransition = new ParallelTransition(
                     leftBrokenHeartTranslation,
                     rightBrokenHeartTranslation,
-                    leftBrokenHeartFading,
-                    rightBrokenHeartFading,
+                    recipeFading,
                     leftBrokenHeartRotation,
                     rightBrokenHeartRotation);
 
@@ -226,11 +174,11 @@ public class FavoriteController implements Initializable {
         };
     }
 
-    public EventHandler<MouseEvent> getRecipeDetails(Recipe recipe) {
+    public EventHandler<MouseEvent> getRecipeDetails(final Recipe recipe) {
         return event -> goToRecipeDetails(event, recipe);
     }
 
-    public void goToRecipeDetails(MouseEvent event, Recipe recipe) {
+    public void goToRecipeDetails(final MouseEvent event, final Recipe recipe) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
             Parent root = loader.load();
@@ -246,7 +194,7 @@ public class FavoriteController implements Initializable {
         }
     }
 
-    public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(HBox recipeBoxDisplay) {
+    public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(final HBox recipeBoxDisplay) {
         return event -> {
             Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
             Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
@@ -259,7 +207,7 @@ public class FavoriteController implements Initializable {
         };
     }
 
-    public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(HBox recipeBoxDisplay) {
+    public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(final HBox recipeBoxDisplay) {
         return event -> {
             Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
             Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
@@ -272,7 +220,7 @@ public class FavoriteController implements Initializable {
         };
     }
 
-    public EventHandler<ActionEvent> goToPage(int pageIndex) {
+    public EventHandler<ActionEvent> goToPage(final int pageIndex) {
         return event -> pageDisplay(pageIndex);
     }
 
@@ -283,15 +231,15 @@ public class FavoriteController implements Initializable {
         recipeDisplay.getChildren().add(message);
     }
 
-    public void pageNavigationButtonDisplay(int nbOfElement, HBox lastBox) {
+    public void pageNavigationButtonDisplay(final int nbOfElement, final HBox lastBox) {
         if (this.pageIndex > 1) {
             ImageView knifeImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
             knifeImage.setPreserveRatio(true);
             knifeImage.setFitWidth(100);
 
             Button previousPage = new Button("", knifeImage);
-            previousPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setKnifeWithSauceImage(knifeImage));
-            previousPage.addEventFilter(MouseEvent.MOUSE_EXITED, setKnifeWithoutSauceImage(knifeImage));
+            previousPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(knifeImage, new Image("/app/foodapp/view/images/picturesForFavorites/knifeWithSauce.png")));
+            previousPage.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(knifeImage, new Image("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
             previousPage.getStyleClass().add("button-pagination");
 
             lastBox.getChildren().add(previousPage);
@@ -304,8 +252,8 @@ public class FavoriteController implements Initializable {
             forkImage.setFitWidth(100);
 
             Button nextPage = new Button("", forkImage);
-            nextPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setForkWithSauceImage(forkImage));
-            nextPage.addEventFilter(MouseEvent.MOUSE_EXITED, setForkWithoutSauceImage(forkImage));
+            nextPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(forkImage, new Image("/app/foodapp/view/images/picturesForFavorites/forkWithSauce.png")));
+            nextPage.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(forkImage, new Image("/app/foodapp/view/images/picturesForFavorites/forkWithoutSauce.png")));
             nextPage.getStyleClass().add("button-pagination");
 
             lastBox.getChildren().add(nextPage);
@@ -313,13 +261,15 @@ public class FavoriteController implements Initializable {
         }
     }
 
-    public void pageDisplay(int pageIndex) {
+    public void pageDisplay(final int pageIndex) {
         this.pageIndex = pageIndex;
         this.recipeDisplay.getChildren().clear();
+
         ArrayList<Recipe> favoritesRecipes = favoriteNode.getFavorites();
         for (int recipeIndex = (this.pageIndex-1)*10; recipeIndex < favoritesRecipes.size() && recipeIndex < pageIndex*10; recipeIndex++) {
             recipeDisplay.getChildren().add(recipeBoxDisplayList.get(recipeIndex));
         }
+
         HBox lastBox = new HBox();
         lastBox.getStyleClass().add("box-pagination");
         this.recipeDisplay.getChildren().add(lastBox);
