@@ -19,6 +19,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -34,6 +35,8 @@ public class FavoriteController implements Initializable {
 
     @FXML private VBox recipeDisplay;
     @FXML private ImageView leftCornerLogo;
+    @FXML private StackPane rootPane;
+    @FXML private AnchorPane globalPane;
 
 
     private final FavoriteStamp favoriteNode = new FavoriteStamp();
@@ -147,21 +150,21 @@ public class FavoriteController implements Initializable {
             leftBrokenHeartTranslation.setByY(15);
             rightBrokenHeartTranslation.setByY(15);
 
-            FadeTransition recipeFading = new FadeTransition(Duration.millis(500), box);
-            recipeFading.setFromValue(1);
-            recipeFading.setToValue(0);
-
             RotateTransition leftBrokenHeartRotation = new RotateTransition(Duration.millis(500), leftBrokenHeart);
             RotateTransition rightBrokenHeartRotation = new RotateTransition(Duration.millis(500), rightBrokenHeart);
             leftBrokenHeartRotation.setByAngle(-20);
             rightBrokenHeartRotation.setByAngle(20);
 
+            FadeTransition recipeFading = new FadeTransition(Duration.millis(500), box);
+            recipeFading.setFromValue(1);
+            recipeFading.setToValue(0);
+
             ParallelTransition parallelTransition = new ParallelTransition(
                     leftBrokenHeartTranslation,
                     rightBrokenHeartTranslation,
-                    recipeFading,
                     leftBrokenHeartRotation,
-                    rightBrokenHeartRotation);
+                    rightBrokenHeartRotation,
+                    recipeFading);
 
             parallelTransition.setOnFinished(event1 -> {
                 int index = removeFromFavoriteButtonList.indexOf(removeFromFavoriteButton);
@@ -175,7 +178,9 @@ public class FavoriteController implements Initializable {
     }
 
     public EventHandler<MouseEvent> getRecipeDetails(final Recipe recipe) {
-        return event -> goToRecipeDetails(event, recipe);
+        return event -> {
+            goToRecipeDetails(event, recipe);
+        };
     }
 
     public void goToRecipeDetails(final MouseEvent event, final Recipe recipe) {
@@ -185,9 +190,9 @@ public class FavoriteController implements Initializable {
             DetailsController detailsController = loader.getController();
             detailsController.showDetails(recipe);
 
+            Scene detailedRecipe = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(detailedRecipe);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

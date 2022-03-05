@@ -7,7 +7,8 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.FavoriteController">
+
+<AnchorPane fx:id="globalPane" prefHeight="720.0" prefWidth="1270.0" style="-fx-background-color: #4a4b4b;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.foodapp.controller.FavoriteController">
    <children>
       <ScrollPane id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="88.0" layoutY="87.0" prefHeight="633.0" prefWidth="1193.0" style="-fx-background-color: #4a4b4b;">
          <content>
@@ -30,14 +31,16 @@
       <Button fx:id="buttonFavorite" layoutX="12.0" layoutY="245.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #4a4b4b;" text="Favorites" textFill="#ebebeb">
          <font>
             <Font name="Tw Cen MT" size="15.0" />
-         </font></Button>
-      <Button fx:id="buttonProfile" layoutX="12.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToProfile" prefHeight="75.0" prefWidth="75.0" text="Profile">
+         </font>
+      </Button>
+      <Button fx:id="buttonProfile" layoutX="13.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToProfile" prefHeight="75.0" prefWidth="75.0" text="Profile">
          <font>
             <Font name="Tw Cen MT" size="15.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+      </Button>
       <Rectangle fill="#1aa63d" height="92.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1282.0" />
       <Text fill="#0f3a19" layoutX="113.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COOKING APP" wrappingWidth="266.6666259765624">
          <font>
