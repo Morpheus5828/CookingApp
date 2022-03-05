@@ -42,7 +42,6 @@ public class FavoriteController implements Initializable {
     private final FavoriteStamp favoriteNode = new FavoriteStamp();
     private final ArrayList<Button> removeFromFavoriteButtonList = new ArrayList<>();
     private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
-    private Scene scene = null;
     private int pageIndex = 1;
 
     @Override
@@ -77,8 +76,7 @@ public class FavoriteController implements Initializable {
         }
     }
 
-    public void getFavoritesRecipes(final Scene scene) {
-        this.scene = scene;
+    public void getFavoritesRecipes() {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
         Image logo = new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/test3.png"));
         leftCornerLogo.setImage(logo);
@@ -208,7 +206,7 @@ public class FavoriteController implements Initializable {
             cookingTime.getStyleClass().add("recipe-information-hover");
             servings.getStyleClass().add("recipe-information-hover");
 
-            this.scene.setCursor(Cursor.HAND);
+            recipeBoxDisplay.getScene().setCursor(Cursor.HAND);
         };
     }
 
@@ -221,7 +219,7 @@ public class FavoriteController implements Initializable {
             cookingTime.getStyleClass().remove("recipe-information-hover");
             servings.getStyleClass().remove("recipe-information-hover");
 
-            this.scene.setCursor(Cursor.DEFAULT);
+            recipeBoxDisplay.getScene().setCursor(Cursor.DEFAULT);
         };
     }
 

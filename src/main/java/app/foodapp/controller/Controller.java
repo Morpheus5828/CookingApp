@@ -47,12 +47,12 @@ public class Controller implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
         Parent root = loader.load();
         FavoriteController favoriteController = loader.getController();
+        favoriteController.getFavoritesRecipes();
 
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("/app/foodapp/view/globalStylesheet.css").toExternalForm();
 
-        favoriteController.getFavoritesRecipes(scene);
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
