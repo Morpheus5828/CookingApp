@@ -31,13 +31,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FavoriteController implements Initializable {
+public class FavoritesController implements Initializable {
 
     @FXML private VBox recipeDisplay;
     @FXML private ImageView leftCornerLogo;
-    @FXML private StackPane rootPane;
-    @FXML private AnchorPane globalPane;
-
 
     private final FavoriteStamp favoriteNode = new FavoriteStamp();
     private final ArrayList<Button> removeFromFavoriteButtonList = new ArrayList<>();
