@@ -4,6 +4,7 @@ import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.alert.AlertFound;
 
 
+import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +31,6 @@ public class Favorite {
 
 
     }
-
-    /*public boolean addToFavorite(Recipe recipe) throws InstanceAlreadyExistsException {
-        if(recipeIsInFavoriteList(recipe))
-            throw new InstanceAlreadyExistsException("Recipe already in Favorites");
-        else{
-            this.listOfRecipe.add(recipe);
-            saveFavorites();
-            return true;
-        }
-    }*/
 
     public String askToNextNode() {
         return "What do you want to do ?" + "\n" +
