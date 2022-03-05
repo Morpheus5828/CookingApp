@@ -1,24 +1,27 @@
 package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
+import javafx.animation.ParallelTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class DetailsController {
+public class DetailsController extends Controller {
     @FXML private Text detailsDisplay;
 
     public void showDetails(Recipe recipe) {
         String steps = recipe.getSteps();
-        System.out.println(recipe.getTitle());
-        System.out.println(steps);
         display(recipe);
     }
 
@@ -26,47 +29,13 @@ public class DetailsController {
         detailsDisplay.setText(recipe.displayDetailsCharacteristicsGUI());
     }
 
-    public void goToMenu(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            String css = this.getClass().getResource("/app/foodapp/view/stylesheet.css").toExternalForm();
-
-            scene.getStylesheets().add(css);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public EventHandler<ActionEvent> removeRecipeFromFavorites(Button button, Recipe recipe, StackPane stackPane, HBox box) {
+        return null;
     }
 
-    public void goToProfile(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void goToFavorites(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
-        Parent root = loader.load();
-        FavoritesController favoriteController = loader.getController();
-        favoriteController.getFavoritesRecipes();
-
-        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("/app/foodapp/view/globalStylesheet.css").toExternalForm();
-
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
+    @Override
+    public EventHandler<ActionEvent> addRecipeToFavorites(Button button, Recipe recipe, StackPane stackPane, HBox box) {
+        return null;
     }
 }

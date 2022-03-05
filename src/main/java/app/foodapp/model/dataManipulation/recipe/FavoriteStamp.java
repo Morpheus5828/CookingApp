@@ -36,6 +36,10 @@ public class FavoriteStamp {
         favorites.remove(recipe);
     }
 
+    public void addToFavorite(Recipe recipe) {
+        favorites.add(recipe);
+    }
+
     public ArrayList<Recipe> getFavorites() {
         return favorites;
     }

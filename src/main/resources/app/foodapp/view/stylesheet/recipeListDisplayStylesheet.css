@@ -1,14 +1,3 @@
-#buttonMenu, #buttonProfile {
-    -fx-background-color: #bababa;
-    -fx-text-fill:  #4a4b4b;
-}
-
-
-#buttonMenu:hover, #buttonProfile:hover {
-    -fx-background-color: #949494;
-    -fx-text-fill:  #323333;
-}
-
 .recipe-content {
     -fx-spacing: 30;
     -fx-padding: 22 15 15 15;
@@ -80,4 +69,17 @@
     -fx-font-size: 30;
     -fx-font-family: "Tw Cen MT";
     -fx-font-style: italic;
+}
+
+#text-welcome {
+    -fx-text-fill: #ebebeb;
+    -fx-font-size: 60;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-padding: 40 0 0 0;
+}
+
+#text-message {
+    -fx-text-fill: #ebebeb;
+    -fx-font-size: 40;
+    -fx-font-family: "Tw Cen MT Condensed";
 }

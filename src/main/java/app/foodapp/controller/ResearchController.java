@@ -3,14 +3,11 @@ package app.foodapp.controller;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import app.foodapp.model.node.Favorite;
+import javafx.animation.ParallelTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,27 +18,43 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ResearchController extends Controller implements Initializable {
+public class ResearchController extends recipeListController {
 
     @FXML private TextField searchByIngredient;
     @FXML private AnchorPane ingredientsAnchorPane;
     @FXML private VBox recipeDisplay;
+    @FXML private ImageView leftCornerLogo;
 
     private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
     private ArrayList<String> stringsListOfRecipes = new ArrayList<String>();
     private RecipeInformation recipeInformation;
     private Favorite favorites = new Favorite();
-    private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
+
+    public void welcomePage() {
+        Label title = new Label("Welcome to CookingApp !\n");
+        title.setId("text-welcome");
+        Label message = new Label("Let's start and search a recipe by using the text field in the top right corner !");
+        message.setId("text-message");
+        ImageView image = new ImageView(new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
+        image.setPreserveRatio(true);
+        image.setFitWidth(400);
+
+        recipeDisplay.setSpacing(40);
+        recipeDisplay.setAlignment(Pos.TOP_CENTER);
+        recipeDisplay.getChildren().add(title);
+        recipeDisplay.getChildren().add(image);
+        recipeDisplay.getChildren().add(message);
+    }
 
     public void addIngredientToSearch(KeyEvent keyEvent) {
         searchByIngredient.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -56,62 +69,33 @@ public class ResearchController extends Controller implements Initializable {
         });
     }
 
-    private final ArrayList<Button> addToFavoritesButtonsList = new ArrayList<>();
     private boolean isSearchLunched = false;
 
     public void displayApiInformation(ActionEvent actionEvent) {
+        setImage(leftCornerLogo, new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
+
         recipeDisplay.getChildren().clear();
         recipeBoxDisplayList.clear();
-        addToFavoritesButtonsList.clear();
+        favoritesButtonList.clear();
 
         recipeInformation = new RecipeInformation(stringsListOfRecipes);
+        List<Recipe> recipeList = recipeInformation.listOfRecipe;
+        setRecipeList(recipeList);
 
-        for (Recipe recipe : recipeInformation.listOfRecipe) {
-            HBox recipeBoxDisplay = new HBox();
-            recipeBoxDisplay.getStyleClass().add("recipe-content");
-            recipeBoxDisplayList.add(recipeBoxDisplay);
-
-            Label title = createLabel(recipe.getTitle(), "recipe-title");
-            Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
-            Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
-
-            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/broken-heart.png")));
-            removeFromFavoriteImage.setPreserveRatio(true);
-            removeFromFavoriteImage.setFitWidth(30);
-
-            Button addToFavoritesButton = new Button("", removeFromFavoriteImage);
-            addToFavoritesButton.getStyleClass().add("button-favorite");
-            addToFavoritesButtonsList.add(addToFavoritesButton);
-
-            addToFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setFullHeartImage(removeFromFavoriteImage));
-            addToFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setBrokenHeartImage(removeFromFavoriteImage));
-            addToFavoritesButton.setOnAction(addToFavorites(addToFavoritesButton));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
-
-            recipeBoxDisplay.getChildren().add(title);
-            recipeBoxDisplay.getChildren().add(cookingTime);
-            recipeBoxDisplay.getChildren().add(servings);
-            recipeBoxDisplay.getChildren().add(addToFavoritesButton);
-            recipeDisplay.getChildren().add(recipeBoxDisplay);
-        }
         isSearchLunched = true;
+        pageDisplay(1, this.recipeDisplay, recipeList);
     }
 
-    private EventHandler<ActionEvent> addToFavorites(Button addToFavoritesButton) {
-        return new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                favorites.addToFavorite(recipeInformation.listOfRecipe.get(addToFavoritesButtonsList.indexOf(addToFavoritesButton)));
-            }
+    @Override
+    public EventHandler<ActionEvent> removeRecipeFromFavorites(final Button button, final Recipe recipe, final StackPane stackPane, final HBox box) {
+        return event -> {
+            ParallelTransition animation = removeRecipeFromFavoritesAnimation(button, recipe, stackPane, box);
+            animation.setOnFinished(event1 -> {
+                favoriteNode.removeFromFavorite(recipe);
+                manageFavoriteButton(button, recipe, stackPane, box);
+            });
+            animation.play();
         };
-    }
-
-    public Label createLabel(String content, String styleClass) {
-        Label label = new Label(content);
-        label.getStyleClass().add(styleClass);
-        return label;
     }
 
     public EventHandler<MouseEvent> setBrokenHeartImage(ImageView imageView) {
@@ -128,64 +112,6 @@ public class ResearchController extends Controller implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> getRecipeDetails(Recipe recipe) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                goToRecipeDetails(event, recipe);
-            }
-        };
-    }
-
-    public void goToRecipeDetails(MouseEvent event, Recipe recipe) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
-            Parent root = loader.load();
-            DetailsController detailsController = loader.getController();
-            detailsController.showDetails(recipe);
-
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            String css = this.getClass().getResource("/app/foodapp/view/details.css").toExternalForm();
-
-            scene.getStylesheets().add(css);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(HBox recipeBoxDisplay) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Label title = (Label) recipeBoxDisplay.getChildren().get(0);
-                Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
-                Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
-
-                recipeBoxDisplay.getStyleClass().add("recipe-content-hover");
-                cookingTime.getStyleClass().add("recipe-information-hover");
-                servings.getStyleClass().add("recipe-information-hover");
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(HBox recipeBoxDisplay) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Label title = (Label) recipeBoxDisplay.getChildren().get(0);
-                Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
-                Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
-
-                recipeBoxDisplay.getStyleClass().remove("recipe-content-hover");
-                cookingTime.getStyleClass().remove("recipe-information-hover");
-                servings.getStyleClass().remove("recipe-information-hover");
             }
         };
     }
@@ -223,30 +149,4 @@ public class ResearchController extends Controller implements Initializable {
             throw new ArrayIndexOutOfBoundsException("Can't add more ingredients");
         }
     }
-
-    /*private void createDetailsButtons(){
-        int positionY = 20;
-        for(int index = 0 ; index != recipeInformation.listOfRecipe.size() ; index++){
-            Button newDetailsButton = new Button();
-            newDetailsButton.setPrefSize(50, 50);
-            newDetailsButton.setText("Details");
-            newDetailsButton.setLayoutX(80);
-            newDetailsButton.setLayoutY(positionY);
-            //buttonsAnchorPane.getChildren().add(newDetailsButton);
-            detailsButtons.add(newDetailsButton);
-            newDetailsButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    recipeSelectedForDetails = recipeInformation.listOfRecipe.get(detailsButtons.indexOf(newDetailsButton));
-                    try {
-                        goToDetails(event);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            positionY += 175;
-        }
-
-    }*/
 }
