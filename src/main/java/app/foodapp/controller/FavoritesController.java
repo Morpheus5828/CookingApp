@@ -19,7 +19,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -31,7 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FavoritesController implements Initializable {
+public class FavoritesController extends Controller implements Initializable {
 
     @FXML private VBox recipeDisplay;
     @FXML private ImageView leftCornerLogo;
@@ -44,39 +43,9 @@ public class FavoritesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
-    public void goToMenu(final ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            String css = this.getClass().getResource("/app/foodapp/view/stylesheet.css").toExternalForm();
-
-            scene.getStylesheets().add(css);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void goToProfile(final ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/profile.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void getFavoritesRecipes() {
         ArrayList<Recipe> favorites = favoriteNode.getFavorites();
-        Image logo = new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/test3.png"));
-        leftCornerLogo.setImage(logo);
+
         for (Recipe recipe : favorites) {
             HBox recipeBoxDisplay = new HBox();
             recipeBoxDisplay.getStyleClass().add("recipe-content");
@@ -86,7 +55,7 @@ public class FavoritesController implements Initializable {
             Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
             Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
 
-            ImageView removeFromFavoritesImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
+            ImageView removeFromFavoritesImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
             removeFromFavoritesImage.setPreserveRatio(true);
             removeFromFavoritesImage.setFitWidth(40);
 
@@ -98,8 +67,8 @@ public class FavoritesController implements Initializable {
             Tooltip.install(removeFromFavoritesButton, new Tooltip("Remove from favorites"));
             removeFromFavoriteButtonList.add(removeFromFavoritesButton);
 
-            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(removeFromFavoritesImage, new Image("/app/foodapp/view/images/picturesForFavorites/broken-heart.png")));
-            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(removeFromFavoritesImage, new Image("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
+            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(removeFromFavoritesImage, new Image("/app/foodapp/view/pictures/heartPictures/broken-heart.png")));
+            removeFromFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(removeFromFavoritesImage, new Image("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
             removeFromFavoritesButton.setOnAction(removeRecipeFromFavorite(removeFromFavoritesButton, removeFromFavoritesStackPane, recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
@@ -129,8 +98,8 @@ public class FavoritesController implements Initializable {
         return event -> {
             stackPane.getChildren().clear();
 
-            ImageView leftBrokenHeart = new ImageView(new Image("/app/foodapp/view/images/picturesForFavorites/broken-heart-left.png"));
-            ImageView rightBrokenHeart = new ImageView(new Image("/app/foodapp/view/images/picturesForFavorites/broken-heart-right.png"));
+            ImageView leftBrokenHeart = new ImageView(new Image("/app/foodapp/view/pictures/heartPictures/broken-heart-left.png"));
+            ImageView rightBrokenHeart = new ImageView(new Image("/app/foodapp/view/pictures/heartPictures/broken-heart-right.png"));
             leftBrokenHeart.setPreserveRatio(true);
             rightBrokenHeart.setPreserveRatio(true);
             leftBrokenHeart.setFitWidth(40);
@@ -233,13 +202,13 @@ public class FavoritesController implements Initializable {
 
     public void pageNavigationButtonDisplay(final int nbOfElement, final HBox lastBox) {
         if (this.pageIndex > 1) {
-            ImageView knifeImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
+            ImageView knifeImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/pagination/knifeWithoutSauce.png")));
             knifeImage.setPreserveRatio(true);
             knifeImage.setFitWidth(100);
 
             Button previousPage = new Button("", knifeImage);
-            previousPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(knifeImage, new Image("/app/foodapp/view/images/picturesForFavorites/knifeWithSauce.png")));
-            previousPage.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(knifeImage, new Image("/app/foodapp/view/images/picturesForFavorites/knifeWithoutSauce.png")));
+            previousPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(knifeImage, new Image("/app/foodapp/view/pictures/pagination/knifeWithSauce.png")));
+            previousPage.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(knifeImage, new Image("/app/foodapp/view/pictures/pagination/knifeWithoutSauce.png")));
             previousPage.getStyleClass().add("button-pagination");
 
             lastBox.getChildren().add(previousPage);
@@ -247,13 +216,13 @@ public class FavoritesController implements Initializable {
         }
 
         if (nbOfElement > this.pageIndex * 10) {
-            ImageView forkImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/forkWithoutSauce.png")));
+            ImageView forkImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/pagination/forkWithoutSauce.png")));
             forkImage.setPreserveRatio(true);
             forkImage.setFitWidth(100);
 
             Button nextPage = new Button("", forkImage);
-            nextPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(forkImage, new Image("/app/foodapp/view/images/picturesForFavorites/forkWithSauce.png")));
-            nextPage.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(forkImage, new Image("/app/foodapp/view/images/picturesForFavorites/forkWithoutSauce.png")));
+            nextPage.addEventFilter(MouseEvent.MOUSE_ENTERED, setImage(forkImage, new Image("/app/foodapp/view/pictures/pagination/forkWithSauce.png")));
+            nextPage.addEventFilter(MouseEvent.MOUSE_EXITED, setImage(forkImage, new Image("/app/foodapp/view/pictures/pagination/forkWithoutSauce.png")));
             nextPage.getStyleClass().add("button-pagination");
 
             lastBox.getChildren().add(nextPage);
