@@ -3,7 +3,6 @@ package app.foodapp.model.alert;
 import javafx.scene.control.Alert;
 
 public class AlertFound {
-    //private static final Alert alert = new Alert(Alert.AlertType.INFORMATION);;
 
     public static void connexionFailed() {
         System.out.println("\n" + "⚠ Check your internet connection and please try again" + "\n");

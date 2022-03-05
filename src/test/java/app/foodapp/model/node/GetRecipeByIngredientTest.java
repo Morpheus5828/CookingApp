@@ -41,10 +41,8 @@ public class GetRecipeByIngredientTest {
         ArrayList<String> list = new ArrayList<>();
         list.add("apple");
         recipeInformation = new RecipeInformation(list);
-        String result = recipe.sendRequest();
+        recipe.sendRequest();
         assertEquals(recipeInformation.display(), recipe.sendRequest().toString());
     }
-
-
 
 }

@@ -40,10 +40,8 @@ public final class LoginPage {
                 }
             }
 
-            if(!isTheSameUsername) {
+            if(!isTheSameUsername)
                 AlertFound.usernameNotExist();
-            }
-
             if(!isTheSamePassword)
                 AlertFound.passwordNotExist();
             if(isTheSamePassword && isTheSameUsername)

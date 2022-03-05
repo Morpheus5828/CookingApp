@@ -20,7 +20,7 @@ public class GetRecipeByIngredient {
     public void launch() {
         System.out.println(askToEnterIngredients());
         enterIngredient();
-        sendRequest();
+        System.out.println(sendRequest());
         askToChangeCurrentNode();
     }
 
@@ -44,7 +44,7 @@ public class GetRecipeByIngredient {
 
     public String sendRequest() {
         recipeInformation = new RecipeInformation(this.listOfIngredient);
-        return  recipeInformation.display();
+        return recipeInformation.display();
     }
 
     public void askToChangeCurrentNode() {
