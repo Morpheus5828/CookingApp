@@ -93,6 +93,8 @@ public final class SignUp {
         loginStage.show();
     }
 
+
+    // method just for Cli run
     public void launch() throws IOException {
         System.out.println(displayWelcomeText());
         setUserNameForCli();
@@ -135,13 +137,7 @@ public final class SignUp {
                 setRegime();
             }
         }
-
-        this.passwordForCli = sc.next();
     }
-
-
-
-
 
     public void userRegister(String user, String userPassword, String userRegime) throws IOException {
         if(userAlreadyExist(user + "," + userPassword + "," + userRegime + ",\n"))
@@ -156,7 +152,7 @@ public final class SignUp {
                 file.createNewFile();
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             fw.append(user + "," + userPassword + "," + userRegime + ",\n");
-            System.out.println("User has been add successfully");
+            System.out.println("\nUser has been add successfully\n");
             fw.close();
         }
 

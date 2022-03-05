@@ -22,6 +22,7 @@ public final class LoginPage {
 
     public LoginPage() {}
 
+    @FXML
     public void checkUserLogin(ActionEvent actionEvent) throws IOException {
         try {
             reader = new BufferedReader(new FileReader("userInformation.txt"));
@@ -74,8 +75,17 @@ public final class LoginPage {
         loginStage.show();
     }
 
+
+    // method just for CLI
+    public void launch() throws IOException {
+        System.out.println(displayWelcomeText());
+        setUserNameForCli();
+        setPasswordForCli();
+        checkUserLogin(userNameForCli, passwordForCli);
+    }
+
     public String displayWelcomeText() {
-        return "\t-> Please enter information to LoginIn:\n";
+        return "\n\t-> Please enter information to LoginIn:\n";
     }
 
     public void setUserNameForCli() {
@@ -90,11 +100,8 @@ public final class LoginPage {
         this.passwordForCli = sc.next();
     }
 
-    public void checkUserLogin() {
+    public boolean checkUserLogin() {
         try {
-            displayWelcomeText();
-            setUserNameForCli();
-            setPasswordForCli();
             reader = new BufferedReader(new FileReader("userInformation.txt"));
             boolean isTheSameUsername = false;
             boolean isTheSamePassword = false;
@@ -114,18 +121,29 @@ public final class LoginPage {
                 }
             }
 
-            if(!isTheSameUsername)
+            if(!isTheSameUsername) {
                 System.out.println("Username not exist, please create an account\n");
-            if(!isTheSamePassword)
+                return false;
+            }
+
+            if(!isTheSamePassword) {
                 System.out.println("Password doesn't match, please try again\n");
-            if(isTheSamePassword && isTheSameUsername)
+                return false;
+            }
+
+            if(isTheSamePassword && isTheSameUsername) {
                 System.out.println("Login validated\n");
+                return true;
+            }
+
         }
 
         catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
 
     // this one is just for unit test

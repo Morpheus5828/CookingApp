@@ -32,7 +32,6 @@ public class Pane {
     }
 
     public void choice() throws IOException {
-        signUp.launch();
         while(checkStatusCode) {
             switch (currentNode) {
                 case "MAIN_MENU" -> mainMenu.launch();
@@ -46,16 +45,19 @@ public class Pane {
     }
 
     public void launch() throws IOException {
-        System.out.println(displayWelcomeText());
+        System.out.print(displayWelcomeText());
         scanUserChoice();
         userChoiceTreatment();
     }
 
     public String displayWelcomeText() {
-        return "Hey welcome to CookingAppCli ! \n " +
-                " Did you have an account ? \n" +
+        return  " --------------------------------\n" +
+                "\tHey welcome to CookingAppCli !\n " +
+                "---------------------------------\n" +
+                "\nDid you have an account ? \n" +
                 "\t1. Yes \n" +
-                "\t2. No \n";
+                "\t2. No \n" +
+                "\tPlease type your choice: ";
     }
 
     public void scanUserChoice() {
@@ -65,7 +67,12 @@ public class Pane {
 
     public void userChoiceTreatment() throws IOException {
         switch (userChoice) {
-            case 1 -> login.checkUserLogin();
+            case 1 -> {
+                login.launch();
+                if (login.checkUserLogin()) choice();
+                else //TODO a finir
+
+            }
             case 2 -> signUp.launch();
             default -> {
                 AlertFound.invalidNode();
