@@ -37,7 +37,7 @@ public class Controller implements Initializable {
     private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
     private ArrayList<String> stringsListOfRecipes = new ArrayList<String>();
     private RecipeInformation recipeInformation;
-    protected Favorite favorites = new Favorite();
+    private Favorite favorites = new Favorite();
     private final ArrayList<HBox> recipeBoxDisplayList = new ArrayList<>();
 
     @Override
@@ -71,11 +71,13 @@ public class Controller implements Initializable {
         });
     }
 
+    private final ArrayList<Button> addToFavoritesButtonsList = new ArrayList<>();
     private boolean isSearchLunched = false;
 
     public void displayApiInformations(ActionEvent actionEvent) {
         recipeDisplay.getChildren().clear();
         recipeBoxDisplayList.clear();
+        addToFavoritesButtonsList.clear();
         recipeInformation = new RecipeInformation(stringsListOfRecipes);
 
         for (Recipe recipe : recipeInformation.listOfRecipe) {
@@ -87,16 +89,17 @@ public class Controller implements Initializable {
             Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
             Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
 
-            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/full-heart.png")));
+            ImageView removeFromFavoriteImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/images/picturesForFavorites/broken-heart.png")));
             removeFromFavoriteImage.setPreserveRatio(true);
             removeFromFavoriteImage.setFitWidth(30);
 
-            Button removeFromFavoriteButton = new Button("", removeFromFavoriteImage);
-            removeFromFavoriteButton.getStyleClass().add("button-favorite");
+            Button addToFavoritesButton = new Button("", removeFromFavoriteImage);
+            addToFavoritesButton.getStyleClass().add("button-favorite");
+            addToFavoritesButtonsList.add(addToFavoritesButton);
 
-
-            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setBrokenHeartImage(removeFromFavoriteImage));
-            removeFromFavoriteButton.addEventFilter(MouseEvent.MOUSE_EXITED, setFullHeartImage(removeFromFavoriteImage));
+            addToFavoritesButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setFullHeartImage(removeFromFavoriteImage));
+            addToFavoritesButton.addEventFilter(MouseEvent.MOUSE_EXITED, setBrokenHeartImage(removeFromFavoriteImage));
+            addToFavoritesButton.setOnAction(addToFavorites(addToFavoritesButton));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
@@ -104,10 +107,19 @@ public class Controller implements Initializable {
             recipeBoxDisplay.getChildren().add(title);
             recipeBoxDisplay.getChildren().add(cookingTime);
             recipeBoxDisplay.getChildren().add(servings);
-            recipeBoxDisplay.getChildren().add(removeFromFavoriteButton);
+            recipeBoxDisplay.getChildren().add(addToFavoritesButton);
             recipeDisplay.getChildren().add(recipeBoxDisplay);
         }
         isSearchLunched = true;
+    }
+
+    private EventHandler<ActionEvent> addToFavorites(Button addToFavoritesButton) {
+        return new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                favorites.addToFavorite(recipeInformation.listOfRecipe.get(addToFavoritesButtonsList.indexOf(addToFavoritesButton)));
+            }
+        };
     }
 
     public Label createLabel(String content, String styleClass) {
