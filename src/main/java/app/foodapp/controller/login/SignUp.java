@@ -46,7 +46,7 @@ public final class SignUp {
     }
 
     public void userRegister() throws IOException {
-        String content = username.getText() + "," + password.getText() + "," + regime + ",\n";
+        String content = username.getText() + "," + password.getText() + "," + regime + "," + "favorite=null" + ",\n";
         if(userAlreadyExist(content))
             AlertFound.usernameAlreadyExist();
         if(username.getText().isEmpty())
