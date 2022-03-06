@@ -50,8 +50,9 @@
          </children></AnchorPane>
       <AnchorPane fx:id="ingredientsAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1270.0" style="-fx-background-color: #1aa63d;">
          <children>
+            <Button fx:id="addIngredientButton" layoutX="1092.0" layoutY="52.0" mnemonicParsing="false" onAction="#addIngredientToSearch" text="AddIngredient" />
             <Button fx:id="submitButton" layoutX="1203.0" layoutY="52.0" mnemonicParsing="false" onAction="#displayApiInformation" text="Search" />
-            <TextField fx:id="searchByIngredient" layoutX="1001.0" layoutY="14.0" onKeyReleased="#addIngredientToSearch" prefHeight="20.0" prefWidth="254.0" promptText="Add an ingredient" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="14.0">
+            <TextField fx:id="searchByIngredient" layoutX="1001.0" layoutY="14.0" prefHeight="20.0" prefWidth="254.0" promptText="Add an ingredient" style="-fx-background-radius: 15; -fx-background-color: lightgray;" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="Tw Cen MT Italic" size="12.0" />
                </font></TextField>

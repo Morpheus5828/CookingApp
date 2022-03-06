@@ -55,17 +55,10 @@ public class ResearchController extends recipeListController {
         recipeDisplay.getChildren().add(message);
     }
 
-    public void addIngredientToSearch(KeyEvent keyEvent) {
-        searchByIngredient.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.ENTER){
-                    createIngredientsButtons();
-                    isSearchLunched = false;
-                    searchByIngredient.clear();
-                }
-            }
-        });
+    public void addIngredientToSearch() {
+        createIngredientsButtons();
+        this.isSearchLunched = false;
+        this.searchByIngredient.clear();
     }
 
     private boolean isSearchLunched = false;
