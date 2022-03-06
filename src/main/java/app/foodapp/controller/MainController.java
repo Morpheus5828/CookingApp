@@ -108,7 +108,7 @@ public abstract class MainController implements Initializable {
 
         stackPane.getChildren().clear();
         stackPane.getChildren().add(favoritesImage);
-
+        System.out.println(favoriteRecipes.contains(recipe));
         if (favoriteRecipes.contains(recipe)) {
             favoritesImage.setImage(new Image("/app/foodapp/view/pictures/heartPictures/full-heart.png"));
             Tooltip.install(button, new Tooltip("Remove from favorites"));
@@ -169,5 +169,11 @@ public abstract class MainController implements Initializable {
     }
 
     public abstract EventHandler<ActionEvent> removeRecipeFromFavorites(final Button button, final Recipe recipe, final StackPane stackPane, final HBox box);
-    public abstract EventHandler<ActionEvent> addRecipeToFavorites(final Button button, final Recipe  recipe, final StackPane stackPane, final HBox box);
+
+    public EventHandler<ActionEvent> addRecipeToFavorites(final Button button, final Recipe  recipe, final StackPane stackPane, final HBox box) {
+        return event -> {
+            favoriteNode.addToFavorite(recipe);
+            manageFavoriteButton(button, recipe, stackPane, box);
+        };
+    }
 }
