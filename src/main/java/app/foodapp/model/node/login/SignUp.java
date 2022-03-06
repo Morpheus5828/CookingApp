@@ -1,13 +1,13 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.node.Pane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,11 +23,13 @@ public final class SignUp {
     private String userNameForCli;
     private String passwordForCli;
     private String recipeId = null;
+    private BufferedReader reader;
+    private final int USERNAME = 0;
     private String regime = "None";
 
     public SignUp() {}
 
-    public void isCheck(javafx.event.ActionEvent actionEvent) {
+    public void regimeComboboxDesign(javafx.event.ActionEvent actionEvent) {
         if(regimeChoice.isDisable()) {
             regimeChoice.setDisable(false);
             regimeChoice.setOpacity(1);
@@ -47,12 +49,12 @@ public final class SignUp {
         regimeChoice.setItems(list);
     }
 
-    public void regimeSelected(javafx.event.ActionEvent actionEvent) {
+    public void userRegister(javafx.event.ActionEvent actionEvent) {
         String regimeChoice = this.regimeChoice.getSelectionModel().getSelectedItem().toString();
         this.regime = regimeChoice;
     }
 
-    public void userRegister() throws IOException {
+    public void regimeComboboxDesign() throws IOException {
         String content = username.getText() + "," + password.getText() + "," + regime + "favorite=" + recipeId + ",\n";
         if(userAlreadyExist(content))
             AlertFound.usernameAlreadyExist();
@@ -72,18 +74,19 @@ public final class SignUp {
     }
 
     public Boolean userAlreadyExist(String content) throws IOException {
-        Boolean usernameAlreadyExist = false;
-        File userInformation = new File("userInformation.txt");
-        BufferedReader obj = new BufferedReader(new FileReader(userInformation));
-        String strng;
-        while ((strng = obj.readLine()) != null) {
-            strng = strng + "\n";
-            if (strng.equals(content)) {
-                usernameAlreadyExist = true;
-            }
+        try {
+            reader = new BufferedReader(new FileReader("userInformation.txt"));
+            String line;
+            String[] tabOfRow = new String[0];
+            while((line = reader.readLine()) != null)
+                tabOfRow = line.split(",");
+            if (tabOfRow[USERNAME].equals(userNameForCli))
+                return true;
         }
-
-        return usernameAlreadyExist;
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void loginAccepted() throws IOException {
@@ -140,23 +143,29 @@ public final class SignUp {
         }
     }
 
-    public void userRegister(String user, String userPassword, String userRegime) throws IOException {
-        if(userAlreadyExist(user + "," + userPassword + "," + userRegime + ",\n"))
-            System.out.println("Username already exist, please try again");
-        if(userPassword.isEmpty())
-            System.out.println("You forget to enter password, please try again");
-        if(user.isEmpty())
-            System.out.println("You forget to enter username, please try again");
-        if(!userAlreadyExist(user + "," + userPassword + "," + userRegime + ",\n") && !userPassword.isEmpty() && !user.isEmpty()) {
-            File file = new File("userInformation.txt");
-            if(!file.exists())
-                file.createNewFile();
-            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-            fw.append(user + "," + userPassword + "," + userRegime + ",\n");
-            System.out.println("\nUser has been add successfully\n");
-            fw.close();
+    public void userRegister(String userNameForCli, String passwordForCLi, String userRegime) throws IOException {
+        try {
+            String content = userNameForCli + "," + passwordForCLi + "," + userRegime + ",favorite=" + recipeId + ",\n";
+            if (userAlreadyExist(content)) {
+                System.out.println("\n\t⚠ User already exist please choose an other one\n");
+                this.launch();
+            }
+
+            else {
+                File file = new File("userInformation.txt");
+                if(!file.exists())
+                    file.createNewFile();
+                FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+                fw.append(content);
+                System.out.println("\nUser has been add successfully\n");
+                fw.close();
+            }
+
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
 
-    }
 
+    }
 }
