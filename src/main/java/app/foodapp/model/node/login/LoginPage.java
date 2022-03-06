@@ -66,19 +66,19 @@ public final class LoginPage {
 
     @FXML
     private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
-        Stage loginStage = new Stage();
+        Stage sgnUpStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
-        loginStage.setTitle("Cooking App");
-        loginStage.setScene(new Scene(root));
-        loginStage.show();
+        sgnUpStage.setTitle("Cooking App");
+        sgnUpStage.setScene(new Scene(root));
+        sgnUpStage.show();
     }
 
     private void loginAccepted() throws IOException {
-        Stage loginStage = new Stage();
+        Stage cookingAppStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-        loginStage.setTitle("Cooking App");
-        loginStage.setScene(new Scene(root));
-        loginStage.show();
+        cookingAppStage.setTitle("Cooking App");
+        cookingAppStage.setScene(new Scene(root));
+        cookingAppStage.show();
     }
 
     // method just for CLI

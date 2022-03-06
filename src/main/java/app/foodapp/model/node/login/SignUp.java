@@ -1,7 +1,6 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
-import app.foodapp.model.node.Pane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -78,7 +77,7 @@ public final class SignUp {
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             fw.append(content);
             fw.close();
-            loginAccepted();
+            launchCookingApp();
             return true;
         }
     }
@@ -99,7 +98,7 @@ public final class SignUp {
         return false;
     }
 
-    private void loginAccepted() throws IOException {
+    private void launchCookingApp() throws IOException {
         Stage loginStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
         loginStage.setTitle("Cooking App");
