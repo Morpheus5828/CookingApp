@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -32,6 +34,8 @@ public class ResearchController extends recipeListController {
     private RecipeInformation recipeInformation;
     private VBox ingredientsAddedDisplay = new VBox();
     private boolean isSearchLunched = false;
+    private TextField searchByIngredient = null;
+    private ImageView pop = new ImageView();
     private double mouseXPosition = 0;
     private double mouseYPosition = 0;
 
@@ -73,6 +77,7 @@ public class ResearchController extends recipeListController {
         displayIngredientsAddedButton.setOnAction(manageButtonDisplayIngredientsAdded());
 
         TextField searchByIngredient = new TextField();
+        this.searchByIngredient = searchByIngredient;
         searchByIngredient.setPromptText("Add an ingredient");
         searchByIngredient.setId("textField");
 
@@ -84,7 +89,7 @@ public class ResearchController extends recipeListController {
         addIngredientButton.setCursor(Cursor.HAND);
         Tooltip.install(addIngredientButton, new Tooltip("Add ingredient to research"));
         addIngredientButton.getStyleClass().add("button-research");
-        addIngredientButton.setOnAction(addIngredientToSearch(searchByIngredient));
+        addIngredientButton.setOnAction(addIngredientToSearch());
         addIngredientButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setMousePosition());
 
         ImageView searchImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/researchButton.png"));
@@ -107,19 +112,25 @@ public class ResearchController extends recipeListController {
         this.recipeResearch.getChildren().add(new StackPane(searchButton));
     }
 
-    public EventHandler<ActionEvent> addIngredientToSearch(final TextField searchByIngredient) {
+    public EventHandler<ActionEvent> addIngredientToSearch() {
         return event -> {
             if (this.ingredients.size() < 10) {
-                this.isSearchLunched = false;
-                this.ingredients.add(searchByIngredient.getText());
-                searchByIngredient.clear();
+                String ingredient = this.searchByIngredient.getText();
+                if (!this.ingredients.contains(ingredient)) {
+                    this.isSearchLunched = false;
+                    this.ingredients.add(ingredient);
+                    popNumberOFIngredientsAdded(this.ingredients.size());
+                    clearSearchByIngredient();
 
-                if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
-                    removeDisplayIngredientsAdded();
-                    displayIngredientsAdded();
+                    if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
+                        removeDisplayIngredientsAdded();
+                        displayIngredientsAdded();
+                    }
+                } else {
+                    displayError("You can't add twice the same element",1000, 30, 1);
                 }
             } else {
-                displayError("You can't add more ingredients because you have reach the maximum of ten element",850, 30, 2);
+                displayError("You can't add more ingredients because you have reach the maximum of ten elements",800, 30, 2);
             }
         };
     }
@@ -176,6 +187,7 @@ public class ResearchController extends recipeListController {
     public EventHandler<MouseEvent> removeIngredientAdded(String ingredient) {
         return event -> {
             this.ingredients.remove(ingredient);
+            popNumberOFIngredientsAdded(this.ingredients.size());
             removeDisplayIngredientsAdded();
             if (this.ingredients.size() != 0) displayIngredientsAdded();
             if (this.isSearchLunched) displayApiInformation();
@@ -217,6 +229,10 @@ public class ResearchController extends recipeListController {
         };
     }
 
+    public void clearSearchByIngredient() {
+        this.searchByIngredient.clear();
+    }
+
     public void displayError(final String message, final double xRelativePosition,  final double yRelativePosition, final int duration) {
         Label error = new Label(message);
         error.getStyleClass().add("errorMessage");
@@ -228,11 +244,41 @@ public class ResearchController extends recipeListController {
         FadeTransition fading = new FadeTransition(Duration.millis(1000), error);
         fading.setFromValue(1);
         fading.setToValue(0);
-        fading.setOnFinished(event1 -> this.rootPane.getChildren().remove(error));
+        fading.setOnFinished(event1 -> {
+            this.rootPane.getChildren().remove(error);
+            clearSearchByIngredient();
+        });
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0), event2 -> fading.pause()),
                 new KeyFrame(Duration.seconds(duration), event2 -> fading.play()));
         timeline.play();
+    }
+
+    public void popNumberOFIngredientsAdded(final int nbOfElement) {
+        if (this.rootPane.getChildren().contains(pop)) {
+            this.rootPane.getChildren().remove(pop);
+        }
+
+        if (nbOfElement != 0) {
+            Image image = new Image("/app/foodapp/view/pictures/nbOfElements/oneElement.png");
+            switch (nbOfElement) {
+                case 2: image = new Image("/app/foodapp/view/pictures/nbOfElements/twoElements.png"); break;
+                case 3: image = new Image("/app/foodapp/view/pictures/nbOfElements/threeElements.png"); break;
+                case 4: image = new Image("/app/foodapp/view/pictures/nbOfElements/fourElements.png"); break;
+                case 5: image = new Image("/app/foodapp/view/pictures/nbOfElements/fiveElements.png"); break;
+                case 6: image = new Image("/app/foodapp/view/pictures/nbOfElements/sixElements.png"); break;
+                case 7: image = new Image("/app/foodapp/view/pictures/nbOfElements/sevenElements.png"); break;
+                case 8: image = new Image("/app/foodapp/view/pictures/nbOfElements/eightElements.png"); break;
+                case 9: image = new Image("/app/foodapp/view/pictures/nbOfElements/nineElements.png"); break;
+                case 10: image = new Image("/app/foodapp/view/pictures/nbOfElements/maxElements.png"); break;
+            }
+            pop.setImage(image);
+            pop.setPreserveRatio(true);
+            pop.setFitWidth(15);
+            pop.setLayoutX(1095);
+            pop.setLayoutY(60);
+            this.rootPane.getChildren().add(pop);
+        }
     }
 }
