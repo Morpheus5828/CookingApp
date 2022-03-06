@@ -108,7 +108,6 @@ public abstract class MainController implements Initializable {
 
         stackPane.getChildren().clear();
         stackPane.getChildren().add(favoritesImage);
-        System.out.println(favoriteRecipes.contains(recipe));
         if (favoriteRecipes.contains(recipe)) {
             favoritesImage.setImage(new Image("/app/foodapp/view/pictures/heartPictures/full-heart.png"));
             Tooltip.install(button, new Tooltip("Remove from favorites"));
