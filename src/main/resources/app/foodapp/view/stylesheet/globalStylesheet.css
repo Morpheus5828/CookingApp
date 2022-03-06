@@ -7,3 +7,8 @@
     -fx-background-color: #949494;
     -fx-text-fill:  #323333;
 }
+
+.button-selected {
+    -fx-background-color:  #4a4b4b;
+    -fx-text-fill:   #ebebeb;
+}

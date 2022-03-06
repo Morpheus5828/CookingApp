@@ -33,8 +33,8 @@ public class DetailsController extends MainController {
         favoritesButton.getStyleClass().add("button-favorite");
 
         rootPane.getChildren().add(favoritesButton);
-        favoritesButton.setLayoutX(1220);
-        favoritesButton.setLayoutY(100);
+        favoritesButton.setLayoutX(1200);
+        favoritesButton.setLayoutY(110);
 
         HBox titleBox = new HBox();
         Label title = new Label(recipe.getTitle());
