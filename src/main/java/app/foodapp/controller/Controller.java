@@ -41,6 +41,7 @@ public abstract class Controller implements Initializable {
             Parent root = loader.load();
             ResearchController researchController = loader.getController();
             researchController.welcomePage();
+            researchController.setRecipeResearch();
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

@@ -85,6 +85,7 @@ public class ResearchController extends recipeListController {
         Tooltip.install(addIngredientButton, new Tooltip("Add ingredient to research"));
         addIngredientButton.getStyleClass().add("button-research");
         addIngredientButton.setOnAction(addIngredientToSearch(searchByIngredient));
+        addIngredientButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setMousePosition());
 
         ImageView searchImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/researchButton.png"));
         searchImage.setPreserveRatio(true);
@@ -108,13 +109,17 @@ public class ResearchController extends recipeListController {
 
     public EventHandler<ActionEvent> addIngredientToSearch(final TextField searchByIngredient) {
         return event -> {
-            this.isSearchLunched = false;
-            this.ingredients.add(searchByIngredient.getText());
-            searchByIngredient.clear();
+            if (this.ingredients.size() < 10) {
+                this.isSearchLunched = false;
+                this.ingredients.add(searchByIngredient.getText());
+                searchByIngredient.clear();
 
-            if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
-                removeDisplayIngredientsAdded();
-                displayIngredientsAdded();
+                if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
+                    removeDisplayIngredientsAdded();
+                    displayIngredientsAdded();
+                }
+            } else {
+                displayError("You can't add more ingredients because you have reach the maximum of ten element",850, 30, 2);
             }
         };
     }
@@ -128,7 +133,7 @@ public class ResearchController extends recipeListController {
                     removeDisplayIngredientsAdded();
                 }
             } else {
-                displayError("There is no ingredient added", 1070, 60);
+                displayError("There is no ingredient added", 1070, 60, 1);
             }
         };
     }
@@ -192,7 +197,7 @@ public class ResearchController extends recipeListController {
             isSearchLunched = true;
             pageDisplay(1, this.recipeDisplay, recipeList);
         } else {
-            displayError("You should add an ingredient before making a research", 950, 30);
+            displayError("You should add an ingredient before making a research", 950, 30, 1);
         }
     }
 
@@ -212,7 +217,7 @@ public class ResearchController extends recipeListController {
         };
     }
 
-    public void displayError(final String message, final double xRelativePosition,  final double yRelativePosition) {
+    public void displayError(final String message, final double xRelativePosition,  final double yRelativePosition, final int duration) {
         Label error = new Label(message);
         error.getStyleClass().add("errorMessage");
 
@@ -227,7 +232,7 @@ public class ResearchController extends recipeListController {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0), event2 -> fading.pause()),
-                new KeyFrame(Duration.seconds(1), event2 -> fading.play()));
+                new KeyFrame(Duration.seconds(duration), event2 -> fading.play()));
         timeline.play();
     }
 }
