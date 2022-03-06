@@ -29,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public abstract class Controller implements Initializable {
+public abstract class MainController implements Initializable {
     protected final FavoriteStamp favoriteNode = new FavoriteStamp();
 
     @Override

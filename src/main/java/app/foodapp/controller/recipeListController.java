@@ -1,13 +1,6 @@
 package app.foodapp.controller;
 
-import app.foodapp.controller.Controller;
-import app.foodapp.controller.DetailsController;
-import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,13 +17,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class recipeListController extends Controller {
+public abstract class recipeListController extends MainController {
     protected List<Button> favoritesButtonList = new ArrayList<>();
     protected List<HBox> recipeBoxDisplayList = new ArrayList<>();
 
