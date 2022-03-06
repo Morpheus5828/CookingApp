@@ -75,11 +75,12 @@
     -fx-text-fill: #ebebeb;
     -fx-font-size: 60;
     -fx-font-family: "Tw Cen MT Condensed";
-    -fx-padding: 40 0 0 0;
+    -fx-padding: 0 0 40 0;
 }
 
 #text-message {
     -fx-text-fill: #ebebeb;
     -fx-font-size: 40;
     -fx-font-family: "Tw Cen MT Condensed";
+    -fx-padding: 40 0 0 0;
 }
