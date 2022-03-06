@@ -1,6 +1,6 @@
 package app.foodapp.view;
 
-import app.foodapp.view.alert.AlertFound;
+import app.foodapp.model.alert.AlertFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

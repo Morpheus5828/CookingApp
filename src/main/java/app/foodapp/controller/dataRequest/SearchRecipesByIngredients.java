@@ -13,17 +13,15 @@ import java.util.ArrayList;
 public class SearchRecipesByIngredients extends ApiDataRequest {
     private ArrayList<String> listOfIngredient;
     private String ingredient = "";
-    private String responseFromApi;
 
     public SearchRecipesByIngredients(ArrayList<String> listOfIngredient) {
+        super();
         this.listOfIngredient = listOfIngredient;
-        this.client = HttpClient.newHttpClient();
         conversion();
-        // We launch data request to receive recipe information
         this.request = HttpRequest.newBuilder().uri(URI.create(
                 "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
-                + "&number=12&apiKey="
+                + "&number=3&apiKey="
                 + this.API_KEY
         )).build();
 
@@ -33,25 +31,6 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
     private void conversion() {
         for(String element : this.listOfIngredient) {
             this.ingredient += element + ",+";
-        }
-    }
-
-    private void checkForDataExtraction(HttpClient client, HttpRequest request) {
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            statusCode = response.statusCode();
-
-            if(response.statusCode() == REQUEST_SUCCESSFUL)
-                //We can begin data extraction
-                this.responseFromApi = response.body();
-            else
-                AlertFound.connexionFailed();
-
-        }
-
-        catch (IOException | InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

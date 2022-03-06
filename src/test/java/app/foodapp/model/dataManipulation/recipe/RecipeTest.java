@@ -1,5 +1,6 @@
 package app.foodapp.model.dataManipulation.recipe;
 
+import app.foodapp.controller.dataRequest.ApiDataRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,17 +37,17 @@ public final class RecipeTest {
 
     @Test
     public void getStepsTest() {
-        String espectedSteps =
+        String expectedSteps =
             "\t• 0 Preheat your oven to 350 degrees.First chop the fresh spinach, dice the onion, and mince the garlic.Then in a skillet, saute the spinach, onion and garlic in a little bit of olive oil, or use about 2 tsp of the bacon grease from your cooked bacon. Salt & pepper to taste.\n" +
             "\t• 1 Remove from the heat.Stir in the goat cheese, sour cream, chopped artichoke and bacon.\n" +
             "\t• 2 Add the mixture to an oven proof dish and bake for 25 - 30 minutes or until the mixture is bubbling.\n" +
             "\t• 3 Serve with baguette slices or crackers.\n";
-        assertEquals(recipe.getSteps(), espectedSteps);
+        assertEquals(recipe.getSteps(), expectedSteps);
     }
 
     @Test
     public void getIngredientTest() {
-        String espectedIngredients = "8.0  cooked bacon\n" +
+        String expectedIngredients = "8.0  cooked bacon\n" +
                 "8.0  crackers\n" +
                 "2.0  garlic\n" +
                 "140.0  goat cheese\n" +
@@ -55,7 +56,7 @@ public final class RecipeTest {
                 "8.0  Salt & Pepper\n" +
                 "0.75  sour cream\n" +
                 "225.0  spinach" + "\n";
-        assertEquals(recipe.getIngredients(), espectedIngredients);
+        assertEquals(recipe.getIngredients(), expectedIngredients);
     }
 
     @Test

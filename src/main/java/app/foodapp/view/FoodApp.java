@@ -1,6 +1,6 @@
 package app.foodapp.view;
 
-import app.foodapp.controller.ResearchController;
+import app.foodapp.controller.login.SignUp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,20 +11,13 @@ import javafx.stage.Stage;
 public class FoodApp extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage loginStage) throws Exception {
        try {
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-           Parent root = loader.load();
-           ResearchController researchController = loader.getController();
-           researchController.welcomePage();
+           Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/login.fxml"));
+           loginStage.setTitle("Cooking App");
+           loginStage.setScene(new Scene(root));
+           //loginStage.show();
 
-           stage.setTitle("Cooking App");
-           Scene scene = new Scene(root);
-
-           scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
-           scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
-           stage.setScene(scene);
-           stage.show();
        } catch (Exception e) {
            e.printStackTrace();
        }
