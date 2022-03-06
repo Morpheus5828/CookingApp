@@ -51,7 +51,8 @@ public final class LoginPage {
             while((line = reader.readLine()) != null)
                 tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli))
-                new Pane();
+                Pane.loginSuccessfull = true;
+
             else {
                 System.out.println("\n\t⚠ Username or password doesn't exist\n");
                 this.launch();
@@ -61,8 +62,6 @@ public final class LoginPage {
             e.printStackTrace();
         }
     }
-
-
 
 
     @FXML
@@ -105,7 +104,4 @@ public final class LoginPage {
         Scanner sc = new Scanner(System.in);
         this.passwordForCli = sc.next();
     }
-
-
-
 }

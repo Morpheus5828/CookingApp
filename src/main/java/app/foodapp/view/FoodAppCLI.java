@@ -9,9 +9,7 @@ import java.io.IOException;
 public class FoodAppCLI {
 
     public static void main(String[] args) throws IOException {
-        /*if (InternetConnexion.checkStatus())
-            new Pane();*/
-        LoginPage test = new LoginPage();
-        test.launch();
+        if (InternetConnexion.checkStatus())
+            new Pane();
     }
 }

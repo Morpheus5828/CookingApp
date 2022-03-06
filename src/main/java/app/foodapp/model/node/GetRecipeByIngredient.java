@@ -25,7 +25,7 @@ public class GetRecipeByIngredient {
     }
 
     public String askToEnterIngredients() {
-        return "\n Please enter ingredient(s) and type 'end' when you're finished \n\n" +
+        return "\n Please enter ingredient(s) and type 'end' when you're finished \n" +
                "\t Type ingredient(s) : \n";
     }
 
@@ -49,7 +49,7 @@ public class GetRecipeByIngredient {
 
     public void askToChangeCurrentNode() {
         try {
-            System.out.println(askToNextNodePossibility());
+            System.out.print(askToNextNodePossibility());
             choiceNumberRecovered();
             changeCurrentNode();
         } catch (InputMismatchException e) {
@@ -60,10 +60,10 @@ public class GetRecipeByIngredient {
     }
 
     public String askToNextNodePossibility() {
-        return "1. Do you wish to add a recipe to your favorite ? " + "\n" +
-               "2. Get a recipe details ? " + "\n" +
-               "3. BACK" + "\n\n\t" +
-               "-> Please type choice number: ";
+        return "\t1. Do you wish to add a recipe to your favorite ? " + "\n" +
+               "\t2. Get a recipe details ? " + "\n" +
+               "\t3. BACK" + "\n\n\t" +
+               "\t--> Please type choice number: ";
     }
 
     public void choiceNumberRecovered() {
@@ -97,9 +97,5 @@ public class GetRecipeByIngredient {
                 askToChangeCurrentNode();
             }
         }
-    }
-
-    public void setChoiceNumber(int choice) {
-        this.choiceNumber = choice;
     }
 }

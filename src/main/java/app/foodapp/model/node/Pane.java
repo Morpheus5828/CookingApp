@@ -11,7 +11,8 @@ import java.util.Scanner;
 public class Pane {
     private MainMenu mainMenu;
     private GetRecipeByIngredient getRecipeByIngredient;
-    private static Favorite favorite = new Favorite();
+    public static Favorite favorite = new Favorite();
+    public static boolean loginSuccessfull = false;
     private MeasureSystem measureSystem;
     private RecipeDetails recipeDetails;
     public static boolean checkStatusCode = true;
@@ -28,26 +29,17 @@ public class Pane {
         this.getRecipeByIngredient = new GetRecipeByIngredient();
         this.measureSystem = new MeasureSystem();
         this.recipeDetails = new RecipeDetails();
-        launch();
+        launchFirstDisplay();
     }
 
-    public void choice() throws IOException {
-        while(checkStatusCode) {
-            switch (currentNode) {
-                case "MAIN_MENU" -> mainMenu.launch();
-                case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
-                case "FAVORITE" -> favorite.launch();
-                case "RECIPE_DETAILS" -> recipeDetails.launch();
-                case "MEASURE_SYSTEM" -> measureSystem.launch();
-                case "CLOSE_APP" -> Pane.checkStatusCode = false;
-            }
-        }
-    }
-
-    public void launch() throws IOException {
+    public void launchFirstDisplay() throws IOException {
         System.out.print(displayWelcomeText());
         scanUserChoice();
         userChoiceTreatment();
+        if (loginSuccessfull) {
+            System.out.println("\nWelcome back !");
+            this.launchApp();
+        }
     }
 
     public String displayWelcomeText() {
@@ -76,6 +68,19 @@ public class Pane {
         }
     }
 
+    public void launchApp() throws IOException {
+        while(checkStatusCode) {
+            switch (currentNode) {
+                case "MAIN_MENU" -> mainMenu.launch();
+                case "GET_RECIPE_BY_INGREDIENT" -> getRecipeByIngredient.launch();
+                case "FAVORITE" -> favorite.launch();
+                case "RECIPE_DETAILS" -> recipeDetails.launch();
+                case "MEASURE_SYSTEM" -> measureSystem.launch();
+                case "CLOSE_APP" -> Pane.checkStatusCode = false;
+            }
+        }
+    }
+
     public static void addRecipeToFavoriteList(Recipe recipe) {
         favorite.addToFavorite(recipe);
     }
@@ -88,5 +93,4 @@ public class Pane {
     public static void back() {
         currentNode = backNode;
     }
-
 }
