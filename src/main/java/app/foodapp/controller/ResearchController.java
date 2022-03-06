@@ -15,12 +15,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.*;
@@ -32,8 +30,8 @@ public class ResearchController extends recipeListController {
     @FXML private VBox recipeDisplay;
     @FXML private ImageView leftCornerLogo;
 
-    private ArrayList<Button> ingredientButtons = new ArrayList<Button>();
-    private ArrayList<String> stringsListOfRecipes = new ArrayList<String>();
+    private ArrayList<Button> ingredientButtons = new ArrayList<>();
+    private ArrayList<String> stringsListOfRecipes = new ArrayList<>();
     private RecipeInformation recipeInformation;
     private Favorite favorites = new Favorite();
 
@@ -41,7 +39,9 @@ public class ResearchController extends recipeListController {
     public void initialize(URL location, ResourceBundle resources) {}
 
     public void welcomePage() {
-        Label title = new Label("Welcome to CookingApp !\n");
+        setImage(leftCornerLogo, new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
+
+        Label title = new Label("Welcome to COOKING APP !\n");
         title.setId("text-welcome");
         Label message = new Label("Let's start and search a recipe by using the text field in the top right corner !");
         message.setId("text-message");
@@ -49,7 +49,6 @@ public class ResearchController extends recipeListController {
         image.setPreserveRatio(true);
         image.setFitWidth(400);
 
-        recipeDisplay.setSpacing(40);
         recipeDisplay.setAlignment(Pos.TOP_CENTER);
         recipeDisplay.getChildren().add(title);
         recipeDisplay.getChildren().add(image);
@@ -72,8 +71,6 @@ public class ResearchController extends recipeListController {
     private boolean isSearchLunched = false;
 
     public void displayApiInformation(ActionEvent actionEvent) {
-        setImage(leftCornerLogo, new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
-
         recipeDisplay.getChildren().clear();
         recipeBoxDisplayList.clear();
         favoritesButtonList.clear();
@@ -95,24 +92,6 @@ public class ResearchController extends recipeListController {
                 manageFavoriteButton(button, recipe, stackPane, box);
             });
             animation.play();
-        };
-    }
-
-    public EventHandler<MouseEvent> setBrokenHeartImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/broken-heart.png")));
-            }
-        };
-    }
-
-    public EventHandler<MouseEvent> setFullHeartImage(ImageView imageView) {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
-            }
         };
     }
 
