@@ -156,13 +156,5 @@ public abstract class recipeListController extends MainController {
         }
     }
 
-    @Override
-    public EventHandler<ActionEvent> addRecipeToFavorites(final Button button, final Recipe  recipe, final StackPane stackPane, final HBox box) {
-        return event -> {
-            favoriteNode.addToFavorite(recipe);
-            manageFavoriteButton(button, recipe, stackPane, box);
-        };
-    }
-
     public abstract EventHandler<ActionEvent> removeRecipeFromFavorites(final Button button, final Recipe recipe, final StackPane stackPane, final HBox box);
 }

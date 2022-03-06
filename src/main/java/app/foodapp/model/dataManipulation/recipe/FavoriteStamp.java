@@ -3,6 +3,7 @@ package app.foodapp.model.dataManipulation.recipe;
 import app.foodapp.model.node.Favorite;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FavoriteStamp {
     ArrayList<Recipe> favorites = new ArrayList<>();

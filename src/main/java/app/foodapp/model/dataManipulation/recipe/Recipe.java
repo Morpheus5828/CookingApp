@@ -1,6 +1,7 @@
 package app.foodapp.model.dataManipulation.recipe;
 
 import java.util.Map;
+import java.util.Objects;
 
 //TODO problem with test because I add a new property in constructor
 public class Recipe {
@@ -88,5 +89,13 @@ public class Recipe {
             "Step(s) instruction(s): " + "\n" +
              getSteps() + "\n"
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(id, recipe.id);
     }
 }
