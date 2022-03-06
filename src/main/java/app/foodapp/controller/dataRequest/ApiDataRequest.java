@@ -10,23 +10,21 @@ import java.net.http.HttpResponse;
 import java.net.URI;
 
 public abstract class ApiDataRequest {
-    protected String API_KEY = KeyManagement.getCurrentKey();
-    protected final int REQUEST_SUCCESSFUL = 200;
-    protected final int INVALID_KEY = 402;
+    protected String apiKey;
+    protected static final int REQUEST_SUCCESSFUL = 200;
+    protected static final int INVALID_KEY = 402;
     protected int statusCode = 0;
     protected HttpClient client;
     protected String responseFromApi;
 
     protected ApiDataRequest() {
         this.client = HttpClient.newHttpClient();
+        this.apiKey = KeyManagement.getCurrentKey();
     }
 
     protected void checkForDataExtraction(String rawRequest) {
         try {
-            HttpResponse<String> response = this.client.send(
-                    createRequest(rawRequest),
-                    HttpResponse.BodyHandlers.ofString()
-            );
+            HttpResponse<String> response = sendRequest(rawRequest);
             this.statusCode = response.statusCode();
             boolean findInvalidKey = false;
 
@@ -36,42 +34,45 @@ public abstract class ApiDataRequest {
                     KeyManagement.setKeyIndexLoopStart();
                 }
 
-                this.API_KEY = KeyManagement.getNextKey();
-                response = this.client.send(
-                        createRequest(rawRequest),
-                        HttpResponse.BodyHandlers.ofString()
-                );
+                this.apiKey = KeyManagement.getNextKey();
+                response = sendRequest(rawRequest);
+                this.statusCode = response.statusCode();
             }
-            System.out.println(this.API_KEY);
+
             if (this.statusCode == REQUEST_SUCCESSFUL) {
                 this.responseFromApi = response.body();
                 if (findInvalidKey) KeyManagement.resetKeyIndexLoopStart();
             }
-
             else AlertFound.connexionFailed();
 
         }
         catch (InvalidKeyException e) {
             AlertFound.invalidKey();
         }
-        catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private HttpRequest createRequest(String rawRequest) {
-        return HttpRequest.newBuilder().uri(URI.create(rawRequest + this.API_KEY)).build();
+        return HttpRequest.newBuilder().uri(URI.create(rawRequest + this.apiKey)).build();
+    }
+
+    private HttpResponse<String> sendRequest(String rawRequest) {
+        HttpResponse<String> response = null;
+        try {
+            response = this.client.send(
+                    createRequest(rawRequest),
+                    HttpResponse.BodyHandlers.ofString()
+            );
+        } catch (IOException | InterruptedException e) {e.printStackTrace();}
+        return response;
+    }
+
+    public int getStatusCode() {
+        return this.statusCode;
+    }
+
+    public String getResponseFromApi() {
+        return this.responseFromApi;
     }
 }
 // https://api.spoonacular.com/recipes/324694/analyzedInstructions&apiKey=dfe74a73708e4afe81611ce3c399fc31
 // https://api.spoonacular.com/recipes/633547/information?includeNutrition=false&apiKey=165550d477004117b084d6a175685e39
-
-//Test unitaire use this one : 165550d477004117b084d6a175685e39
-
-// b6d3a80d82844526b6808686b17c0b63 done
-//dfe74a73708e4afe81611ce3c399fc31 done
-// d1ae0a965e2b4588b474f670ef3ca9ab done
-// cf77a65bfa1f44559362ef7b150e0700 done
-// 9df62fafe6774b74b1f820202c05975b
-// 612714f9a4f449b98d81bb8e5c95a835
-// 4ba4d2774096480aa78d008736b5f79c done
