@@ -84,3 +84,44 @@
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-padding: 40 0 0 0;
 }
+
+#textField {
+    -fx-background-color: #d9d9d9;
+    -fx-text-fill: #4a4b4b;
+    -fx-font-family: "Tw Cen MT";
+    -fx-font-style: italic;
+}
+
+.button-research {
+    -fx-background-color: none;
+}
+
+#button-ingredientsAdded {
+    -fx-background-color: none;
+}
+
+#vbox-ingredientsAdded {
+    -fx-background-color: #2e2e2e;
+    -fx-opacity: 0.8;
+}
+
+.label-ingredientAdded {
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-font-size: 20;
+}
+
+.box-ingredientAdded {
+    -fx-padding: 5 10 5 10;
+}
+
+.box-ingredientAdded:hover {
+    -fx-background-color: #212121;
+}
+
+.errorMessage {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT";
+    -fx-padding: 5 5 5 5;
+}

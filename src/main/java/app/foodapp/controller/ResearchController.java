@@ -2,38 +2,38 @@ package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
-import app.foodapp.model.node.Favorite;
-import javafx.animation.ParallelTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.*;
 
 public class ResearchController extends recipeListController {
 
-    @FXML private TextField searchByIngredient;
-    @FXML private AnchorPane ingredientsAnchorPane;
+    @FXML private HBox recipeResearch;
     @FXML private VBox recipeDisplay;
     @FXML private ImageView leftCornerLogo;
+    @FXML private AnchorPane rootPane;
 
-    private ArrayList<Button> ingredientButtons = new ArrayList<>();
-    private ArrayList<String> stringsListOfRecipes = new ArrayList<>();
+    private ArrayList<String> ingredients = new ArrayList<>();
     private RecipeInformation recipeInformation;
-    private Favorite favorites = new Favorite();
+    private VBox ingredientsAddedDisplay = new VBox();
+    private boolean isSearchLunched = false;
+    private double mouseXPosition = 0;
+    private double mouseYPosition = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -55,25 +55,149 @@ public class ResearchController extends recipeListController {
         recipeDisplay.getChildren().add(message);
     }
 
-    public void addIngredientToSearch() {
-        createIngredientsButtons();
-        this.isSearchLunched = false;
-        this.searchByIngredient.clear();
+    public void setRecipeResearch() {
+        ingredientsAddedDisplay.setId("vbox-ingredientsAdded");
+        recipeResearch.setAlignment(Pos.BOTTOM_CENTER);
+        ImageView ingredientsAddedImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/ingredientsAddedButton.png"));
+        ingredientsAddedImage.setPreserveRatio(true);
+        ingredientsAddedImage.setFitWidth(25);
+
+        Button displayIngredientsAddedButton = new Button("", ingredientsAddedImage);
+        displayIngredientsAddedButton.setCursor(Cursor.HAND);
+        Tooltip.install(displayIngredientsAddedButton, new Tooltip("Display ingredients added"));
+        displayIngredientsAddedButton.setId("button-ingredientsAdded");
+
+        VBox ingredientsAdded = new VBox();
+        ingredientsAdded.setId("vbox-ingredientsAdded");
+        displayIngredientsAddedButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setMousePosition());
+        displayIngredientsAddedButton.setOnAction(manageButtonDisplayIngredientsAdded());
+
+        TextField searchByIngredient = new TextField();
+        searchByIngredient.setPromptText("Add an ingredient");
+        searchByIngredient.setId("textField");
+
+        ImageView addIngredientImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/plusButton.png"));
+        addIngredientImage.setPreserveRatio(true);
+        addIngredientImage.setFitWidth(25);
+
+        Button addIngredientButton = new Button("", addIngredientImage);
+        addIngredientButton.setCursor(Cursor.HAND);
+        Tooltip.install(addIngredientButton, new Tooltip("Add ingredient to research"));
+        addIngredientButton.getStyleClass().add("button-research");
+        addIngredientButton.setOnAction(addIngredientToSearch(searchByIngredient));
+
+        ImageView searchImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/researchButton.png"));
+        searchImage.setPreserveRatio(true);
+        searchImage.setFitWidth(25);
+
+        Button searchButton = new Button("", searchImage);
+        searchButton.setCursor(Cursor.HAND);
+        Tooltip.install(searchButton, new Tooltip("Make a research"));
+        searchButton.getStyleClass().add("button-research");
+        searchButton.setOnAction(getApiInformation());
+        searchButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setMousePosition());
+
+        StackPane stackpane = new StackPane(searchByIngredient);
+        displayIngredientsAddedButton.setLayoutX(1070);
+        displayIngredientsAddedButton.setLayoutY(60);
+        rootPane.getChildren().add(displayIngredientsAddedButton);
+        this.recipeResearch.getChildren().add(stackpane);
+        this.recipeResearch.getChildren().add(new StackPane(addIngredientButton));
+        this.recipeResearch.getChildren().add(new StackPane(searchButton));
     }
 
-    private boolean isSearchLunched = false;
+    public EventHandler<ActionEvent> addIngredientToSearch(final TextField searchByIngredient) {
+        return event -> {
+            this.isSearchLunched = false;
+            this.ingredients.add(searchByIngredient.getText());
+            searchByIngredient.clear();
 
-    public void displayApiInformation(ActionEvent actionEvent) {
-        recipeDisplay.getChildren().clear();
-        recipeBoxDisplayList.clear();
-        favoritesButtonList.clear();
+            if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
+                removeDisplayIngredientsAdded();
+                displayIngredientsAdded();
+            }
+        };
+    }
 
-        recipeInformation = new RecipeInformation(stringsListOfRecipes);
-        List<Recipe> recipeList = recipeInformation.listOfRecipe;
-        setRecipeList(recipeList);
+    public EventHandler<ActionEvent> manageButtonDisplayIngredientsAdded() {
+        return event -> {
+            if (this.ingredients.size() != 0) {
+                if (!this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
+                    displayIngredientsAdded();
+                } else {
+                    removeDisplayIngredientsAdded();
+                }
+            } else {
+                displayError("There is no ingredient added", 1070, 60);
+            }
+        };
+    }
 
-        isSearchLunched = true;
-        pageDisplay(1, this.recipeDisplay, recipeList);
+    public EventHandler<MouseEvent> setMousePosition() {
+        return event -> {
+            updateMousePosition(event.getX(), event.getY());
+        };
+    }
+
+    public void updateMousePosition(final double mouseXPosition,final double mouseYPosition) {
+        this.mouseXPosition = mouseXPosition;
+        this.mouseYPosition = mouseYPosition;
+    }
+
+    public void displayIngredientsAdded() {
+        ingredientsAddedDisplay.getChildren().clear();
+        for (String ingredient : this.ingredients) {
+            Label ingredientAdded = new Label(ingredient);
+            ingredientAdded.getStyleClass().add("label-ingredientAdded");
+
+            HBox ingredientAddedBox = new HBox();
+            ingredientAddedBox.addEventFilter(MouseEvent.MOUSE_CLICKED, removeIngredientAdded(ingredient));
+            ingredientAddedBox.setCursor(Cursor.HAND);
+            ingredientAddedBox.getChildren().add(ingredientAdded);
+            Tooltip.install(ingredientAddedBox, new Tooltip("Remove ingredient from research"));
+            ingredientAddedBox.getStyleClass().add("box-ingredientAdded");
+
+            ingredientsAddedDisplay.setLayoutX(1070);
+            ingredientsAddedDisplay.setLayoutY(86);
+            ingredientsAddedDisplay.getChildren().add(ingredientAddedBox);
+        }
+        rootPane.getChildren().add(ingredientsAddedDisplay);
+    }
+
+    public void removeDisplayIngredientsAdded() {
+        rootPane.getChildren().remove(ingredientsAddedDisplay);
+    }
+
+    public EventHandler<MouseEvent> removeIngredientAdded(String ingredient) {
+        return event -> {
+            this.ingredients.remove(ingredient);
+            removeDisplayIngredientsAdded();
+            if (this.ingredients.size() != 0) displayIngredientsAdded();
+            if (this.isSearchLunched) displayApiInformation();
+        };
+    }
+
+    public void displayApiInformation() {
+        if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) removeDisplayIngredientsAdded();
+
+        if (this.ingredients.size() != 0) {
+            recipeDisplay.getChildren().clear();
+            recipeBoxDisplayList.clear();
+            favoritesButtonList.clear();
+
+            recipeInformation = new RecipeInformation(this.ingredients);
+            List<Recipe> recipeList = recipeInformation.listOfRecipe;
+            setRecipeList(recipeList);
+
+            isSearchLunched = true;
+            pageDisplay(1, this.recipeDisplay, recipeList);
+        } else {
+            displayError("You should add an ingredient before making a research", 950, 30);
+        }
+    }
+
+    public EventHandler<ActionEvent> getApiInformation() {
+        return event -> displayApiInformation();
     }
 
     @Override
@@ -88,37 +212,22 @@ public class ResearchController extends recipeListController {
         };
     }
 
-    private int positionX = 898;
-    private int positionY = 59;
+    public void displayError(final String message, final double xRelativePosition,  final double yRelativePosition) {
+        Label error = new Label(message);
+        error.getStyleClass().add("errorMessage");
 
-    private void createIngredientsButtons(){
-        if(ingredientButtons.size() < 10) {
-            Button newIngredientButton = new Button();
-            newIngredientButton.setText(searchByIngredient.getText() + " x");
-            newIngredientButton.setPrefSize(75, 25);
-            if (ingredientButtons.size() == 5) {
-                positionX = 898;
-                positionY -= (10 + newIngredientButton.getPrefHeight());
-            }
-            ingredientButtons.add(newIngredientButton);
-            newIngredientButton.setLayoutX(positionX);
-            newIngredientButton.setLayoutY(positionY);
-            ingredientsAnchorPane.getChildren().add(newIngredientButton);
-            stringsListOfRecipes.add(ingredientButtons.indexOf(newIngredientButton), searchByIngredient.getText());
-            newIngredientButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    stringsListOfRecipes.remove(ingredientButtons.indexOf(newIngredientButton));
-                    ingredientButtons.remove(ingredientButtons.indexOf(newIngredientButton));
-                    ingredientsAnchorPane.getChildren().remove(newIngredientButton);
-                    positionX += (20 + newIngredientButton.getPrefWidth());
-                    if(isSearchLunched) displayApiInformation(event);
-                }
-            });
-            positionX -= (20 + newIngredientButton.getPrefWidth());
-        }
-        else{
-            throw new ArrayIndexOutOfBoundsException("Can't add more ingredients");
-        }
+        this.rootPane.getChildren().add(error);
+        error.setLayoutX(this.mouseXPosition+xRelativePosition+2);
+        error.setLayoutY(this.mouseYPosition+yRelativePosition-2);
+
+        FadeTransition fading = new FadeTransition(Duration.millis(1000), error);
+        fading.setFromValue(1);
+        fading.setToValue(0);
+        fading.setOnFinished(event1 -> this.rootPane.getChildren().remove(error));
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0), event2 -> fading.pause()),
+                new KeyFrame(Duration.seconds(1), event2 -> fading.play()));
+        timeline.play();
     }
 }
