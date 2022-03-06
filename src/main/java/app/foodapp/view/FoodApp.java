@@ -1,5 +1,6 @@
 package app.foodapp.view;
 
+import app.foodapp.controller.ResearchController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,11 +13,16 @@ public class FoodApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        try {
-           Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+           Parent root = loader.load();
+           ResearchController researchController = loader.getController();
+           researchController.welcomePage();
+
            stage.setTitle("Cooking App");
            Scene scene = new Scene(root);
-           String css = this.getClass().getResource("/app/foodapp/view/globalStylesheet.css").toExternalForm();
-           scene.getStylesheets().add(css);
+
+           scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
+           scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
            stage.setScene(scene);
            stage.show();
        } catch (Exception e) {

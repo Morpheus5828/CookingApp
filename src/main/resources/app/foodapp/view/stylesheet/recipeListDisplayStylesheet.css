@@ -1,20 +1,19 @@
-#buttonMenu, #buttonProfile {
-    -fx-background-color: #bababa;
-    -fx-text-fill:  #4a4b4b;
-}
-
-
-#buttonMenu:hover, #buttonProfile:hover {
-    -fx-background-color: #949494;
-    -fx-text-fill:  #323333;
-}
-
 .recipe-content {
     -fx-spacing: 30;
     -fx-padding: 22 15 15 15;
     -fx-border-width: 0 0 1 0;
     -fx-border-style: solid;
     -fx-border-color: #2e2e2e;
+    -fx-background-color: none;
+}
+
+.box-pagination {
+    -fx-alignment: center;
+    -fx-spacing: 30;
+    -fx-padding: 22 15 15 50;
+}
+
+.button-pagination {
     -fx-background-color: none;
 }
 
@@ -62,7 +61,7 @@
 
 .button-favorite {
     -fx-background-color: none;
-    -fx-padding: 10;
+    -fx-padding: 5;
 }
 
 #text-empty-favorites {
@@ -70,4 +69,18 @@
     -fx-font-size: 30;
     -fx-font-family: "Tw Cen MT";
     -fx-font-style: italic;
+}
+
+#text-welcome {
+    -fx-text-fill: #ebebeb;
+    -fx-font-size: 60;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-padding: 0 0 40 0;
+}
+
+#text-message {
+    -fx-text-fill: #ebebeb;
+    -fx-font-size: 40;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-padding: 40 0 0 0;
 }

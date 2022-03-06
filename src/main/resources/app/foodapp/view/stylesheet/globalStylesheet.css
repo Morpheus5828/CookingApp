@@ -1,0 +1,9 @@
+.button-unselected {
+    -fx-background-color: #bababa;
+    -fx-text-fill:  #4a4b4b;
+}
+
+.button-unselected:hover {
+    -fx-background-color: #949494;
+    -fx-text-fill:  #323333;
+}
