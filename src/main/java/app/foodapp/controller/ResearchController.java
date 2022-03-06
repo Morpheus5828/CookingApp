@@ -36,6 +36,7 @@ public class ResearchController extends recipeListController {
     private boolean isSearchLunched = false;
     private TextField searchByIngredient = null;
     private ImageView pop = new ImageView();
+    private Button displayIngredientsAddedButton = null;
     private double mouseXPosition = 0;
     private double mouseYPosition = 0;
 
@@ -66,8 +67,7 @@ public class ResearchController extends recipeListController {
         ingredientsAddedImage.setPreserveRatio(true);
         ingredientsAddedImage.setFitWidth(25);
 
-        Button displayIngredientsAddedButton = new Button("", ingredientsAddedImage);
-        displayIngredientsAddedButton.setCursor(Cursor.HAND);
+        displayIngredientsAddedButton = new Button("", ingredientsAddedImage);
         Tooltip.install(displayIngredientsAddedButton, new Tooltip("Display ingredients added"));
         displayIngredientsAddedButton.setId("button-ingredientsAdded");
 
@@ -118,6 +118,8 @@ public class ResearchController extends recipeListController {
                 String ingredient = this.searchByIngredient.getText();
                 if (!this.ingredients.contains(ingredient)) {
                     if (ingredient != "") {
+                        if (this.ingredients.size() == 0) displayIngredientsAddedButton.setCursor(Cursor.HAND);
+
                         this.isSearchLunched = false;
                         this.ingredients.add(ingredient);
                         popNumberOFIngredientsAdded(this.ingredients.size());
@@ -147,8 +149,6 @@ public class ResearchController extends recipeListController {
                 } else {
                     removeDisplayIngredientsAdded();
                 }
-            } else {
-                displayError("Add an ingredient", 1070, 60, 1);
             }
         };
     }
@@ -194,6 +194,8 @@ public class ResearchController extends recipeListController {
             popNumberOFIngredientsAdded(this.ingredients.size());
             removeDisplayIngredientsAdded();
             if (this.ingredients.size() != 0) displayIngredientsAdded();
+            else displayIngredientsAddedButton.setCursor(Cursor.DEFAULT);
+
             if (this.isSearchLunched) displayApiInformation();
         };
     }
