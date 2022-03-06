@@ -27,20 +27,6 @@ public class AlertFound {
         alert.showAndWait();
     }
 
-    public static void usernameNotWrite() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
-        alert.setContentText("You forget to enter username, please try again");
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
-
-    public static void passwordNotWrite() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
-        alert.setContentText("You forget to enter password, please try again");
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
-
     public static void loginFieldNotExist() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("Username or password not exist, please try again or create an account");

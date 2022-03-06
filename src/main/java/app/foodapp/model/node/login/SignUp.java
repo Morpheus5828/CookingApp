@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -56,9 +57,9 @@ public final class SignUp {
         if(userAlreadyExist(content))
             AlertFound.usernameAlreadyExist();
         if(username.getText().isEmpty())
-            AlertFound.usernameNotWrite();
+            AlertFound.loginFieldNotExist();
         if(password.getText().isEmpty())
-            AlertFound.passwordNotWrite();
+            AlertFound.loginFieldNotExist();
         else {
             File file = new File("userInformation.txt");
             if(!file.exists())

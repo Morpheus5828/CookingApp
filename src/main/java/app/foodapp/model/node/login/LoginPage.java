@@ -1,6 +1,7 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +39,6 @@ public final class LoginPage {
         }
 
         catch (NullPointerException e) {
-            System.out.println("Username or password can not be empty");
             AlertFound.loginFieldNotExist();
         }
     }
@@ -50,13 +50,15 @@ public final class LoginPage {
             String[] tabOfRow = new String[0];
             while((line = reader.readLine()) != null)
                 tabOfRow = line.split(",");
-            if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText()))
-                loginAccepted();
-            else System.out.println("Username or password ");
+            if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli))
+                new Pane();
+            else {
+                System.out.println("\n\t⚠ Username or password doesn't exist\n");
+                this.launch();
+            }
         }
-
-        catch (NullPointerException e) {
-            System.out.println("Username or password can not be empty");
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -85,7 +87,7 @@ public final class LoginPage {
         System.out.println(displayWelcomeText());
         setUserNameForCli();
         setPasswordForCli();
-        //checkUserLogin(userNameForCli, passwordForCli);
+        checkUserLoginForCli();
     }
 
     public String displayWelcomeText() {
