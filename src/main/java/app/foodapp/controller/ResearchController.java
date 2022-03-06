@@ -117,14 +117,18 @@ public class ResearchController extends recipeListController {
             if (this.ingredients.size() < 10) {
                 String ingredient = this.searchByIngredient.getText();
                 if (!this.ingredients.contains(ingredient)) {
-                    this.isSearchLunched = false;
-                    this.ingredients.add(ingredient);
-                    popNumberOFIngredientsAdded(this.ingredients.size());
-                    clearSearchByIngredient();
+                    if (ingredient != "") {
+                        this.isSearchLunched = false;
+                        this.ingredients.add(ingredient);
+                        popNumberOFIngredientsAdded(this.ingredients.size());
+                        clearSearchByIngredient();
 
-                    if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
-                        removeDisplayIngredientsAdded();
-                        displayIngredientsAdded();
+                        if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
+                            removeDisplayIngredientsAdded();
+                            displayIngredientsAdded();
+                        }
+                    } else {
+                        displayError("You should write an ingredient before adding it", 1000, 30, 1);
                     }
                 } else {
                     displayError("You can't add twice the same element",1000, 30, 1);
@@ -144,7 +148,7 @@ public class ResearchController extends recipeListController {
                     removeDisplayIngredientsAdded();
                 }
             } else {
-                displayError("There is no ingredient added", 1070, 60, 1);
+                displayError("Add an ingredient", 1070, 60, 1);
             }
         };
     }

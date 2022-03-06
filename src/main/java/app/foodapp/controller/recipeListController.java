@@ -54,10 +54,7 @@ public abstract class recipeListController extends MainController {
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
 
-            recipeBoxDisplay.getChildren().add(title);
-            recipeBoxDisplay.getChildren().add(cookingTime);
-            recipeBoxDisplay.getChildren().add(servings);
-            recipeBoxDisplay.getChildren().add(favoritesButton);
+            recipeBoxDisplay.getChildren().addAll(title, cookingTime, servings, favoritesButton);
         }
     }
 
@@ -67,12 +64,15 @@ public abstract class recipeListController extends MainController {
 
     public void goToRecipeDetails(final MouseEvent event, final Recipe recipe) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/details.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/recipeDetails.fxml"));
             Parent root = loader.load();
             DetailsController detailsController = loader.getController();
-            detailsController.showDetails(recipe);
+            detailsController.getDetails(recipe);
 
             Scene detailedRecipe = new Scene(root);
+            detailedRecipe.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
+            detailedRecipe.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/details.css").toExternalForm());
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(detailedRecipe);
             stage.show();

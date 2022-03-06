@@ -1,0 +1,23 @@
+.recipeTitleBox {
+    -fx-border-color: #ebebeb;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 0 10 0;
+}
+
+.recipeTitle  {
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-font-size: 50;
+}
+
+.recipe-informationBox {
+    -fx-padding: 10 0 10 0;
+}
+
+.information {
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT";
+    -fx-font-size: 20;
+    -fx-padding: 10 0 10 0;
+}
