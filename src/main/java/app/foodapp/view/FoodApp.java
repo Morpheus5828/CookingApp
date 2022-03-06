@@ -17,6 +17,7 @@ public class FoodApp extends Application {
            Parent root = loader.load();
            ResearchController researchController = loader.getController();
            researchController.welcomePage();
+           researchController.setRecipeResearch();
 
            stage.setTitle("Cooking App");
            Scene scene = new Scene(root);

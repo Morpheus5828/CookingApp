@@ -4,7 +4,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 
 public abstract class ApiDataRequest {
-    protected final String API_KEY = "b6d3a80d82844526b6808686b17c0b63";
+    protected final String API_KEY = "dfe74a73708e4afe81611ce3c399fc31";
     protected final int REQUEST_SUCCESSFUL = 200;
     protected int statusCode = 0;
     protected HttpClient client;
