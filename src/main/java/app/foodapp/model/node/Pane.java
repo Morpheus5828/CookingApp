@@ -67,12 +67,7 @@ public class Pane {
 
     public void userChoiceTreatment() throws IOException {
         switch (userChoice) {
-            case 1 -> {
-                login.launch();
-                if (login.checkUserLogin()) choice();
-                else //TODO a finir
-
-            }
+            case 1 -> login.launch();
             case 2 -> signUp.launch();
             default -> {
                 AlertFound.invalidNode();

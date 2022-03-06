@@ -41,18 +41,13 @@ public class AlertFound {
         alert.showAndWait();
     }
 
-    public static void usernameNotExist() {
+    public static void loginFieldNotExist() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);;
-        alert.setContentText("Username not exist, please try again or create an account");
+        alert.setContentText("Username or password not exist, please try again or create an account");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
 
-    public static void passwordNotExist() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
-        alert.setContentText("Password doesn't match, please try again");
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
+
 
 }

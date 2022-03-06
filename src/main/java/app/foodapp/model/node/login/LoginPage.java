@@ -19,6 +19,8 @@ public final class LoginPage {
     private BufferedReader reader;
     private String userNameForCli;
     private String passwordForCli;
+    private final int USERNAME = 0;
+    private final int PASSWORD = 1;
 
     public LoginPage() {}
 
@@ -26,37 +28,40 @@ public final class LoginPage {
     public void checkUserLogin(ActionEvent actionEvent) throws IOException {
         try {
             reader = new BufferedReader(new FileReader("userInformation.txt"));
-            boolean isTheSameUsername = false;
-            boolean isTheSamePassword = false;
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                int counter = 0;
-                String[] tabOfRow = line.split(",");
-
-                for (String index : tabOfRow) {
-                    if (counter != 2) {
-                        if (index.equals(usernameEntered.getText()))
-                            isTheSameUsername = true;
-                        if (index.equals(passwordEntered.getText()))
-                            isTheSamePassword = true;
-                    }
-                    counter += 1;
-                }
-            }
-
-            if(!isTheSameUsername)
-                AlertFound.usernameNotExist();
-            if(!isTheSamePassword)
-                AlertFound.passwordNotExist();
-            if(isTheSamePassword && isTheSameUsername)
-                // Open next stage
+            String line;
+            String[] tabOfRow = new String[0];
+            while((line = reader.readLine()) != null)
+                 tabOfRow = line.split(",");
+            if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText()))
                 loginAccepted();
+            else AlertFound.loginFieldNotExist();
         }
 
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (NullPointerException e) {
+            System.out.println("Username or password can not be empty");
+            AlertFound.loginFieldNotExist();
         }
     }
+
+    public void checkUserLoginForCli() throws IOException {
+        try {
+            reader = new BufferedReader(new FileReader("userInformation.txt"));
+            String line;
+            String[] tabOfRow = new String[0];
+            while((line = reader.readLine()) != null)
+                tabOfRow = line.split(",");
+            if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText()))
+                loginAccepted();
+            else System.out.println("Username or password ");
+        }
+
+        catch (NullPointerException e) {
+            System.out.println("Username or password can not be empty");
+        }
+    }
+
+
+
 
     @FXML
     private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -75,13 +80,12 @@ public final class LoginPage {
         loginStage.show();
     }
 
-
     // method just for CLI
     public void launch() throws IOException {
         System.out.println(displayWelcomeText());
         setUserNameForCli();
         setPasswordForCli();
-        checkUserLogin(userNameForCli, passwordForCli);
+        //checkUserLogin(userNameForCli, passwordForCli);
     }
 
     public String displayWelcomeText() {
@@ -100,85 +104,6 @@ public final class LoginPage {
         this.passwordForCli = sc.next();
     }
 
-    public boolean checkUserLogin() {
-        try {
-            reader = new BufferedReader(new FileReader("userInformation.txt"));
-            boolean isTheSameUsername = false;
-            boolean isTheSamePassword = false;
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                int counter = 0;
-                String[] tabOfRow = line.split(",");
 
-                for (String index : tabOfRow) {
-                    if (counter != 2) {
-                        if (index.equals(userNameForCli))
-                            isTheSameUsername = true;
-                        if (index.equals(passwordForCli))
-                            isTheSamePassword = true;
-                    }
-                    counter += 1;
-                }
-            }
-
-            if(!isTheSameUsername) {
-                System.out.println("Username not exist, please create an account\n");
-                return false;
-            }
-
-            if(!isTheSamePassword) {
-                System.out.println("Password doesn't match, please try again\n");
-                return false;
-            }
-
-            if(isTheSamePassword && isTheSameUsername) {
-                System.out.println("Login validated\n");
-                return true;
-            }
-
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-    // this one is just for unit test
-    public void checkUserLogin(String username, String password) throws IOException {
-        try {
-            reader = new BufferedReader(new FileReader("userInformation.txt"));
-            boolean isTheSameUsername = false;
-            boolean isTheSamePassword = false;
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                int counter = 0;
-                String[] tabOfRow = line.split(",");
-
-                for (String index : tabOfRow) {
-                    if (counter != 2) {
-                        if (index.equals(username))
-                            isTheSameUsername = true;
-                        if (index.equals(password))
-                            isTheSamePassword = true;
-                    }
-                    counter += 1;
-                }
-            }
-
-            if(!isTheSameUsername)
-                System.out.println("Username not exist, please create an account");
-            if(!isTheSamePassword)
-                System.out.println("Password doesn't match, please try again");
-            if(isTheSamePassword && isTheSameUsername)
-                System.out.println("Login validated");
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 }
