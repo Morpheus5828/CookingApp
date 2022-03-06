@@ -18,7 +18,7 @@
          <children>
             <TextField fx:id="username" layoutX="235.0" layoutY="104.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #20b345; -fx-border-width: 0px 0px 2px;" />
             <PasswordField fx:id="password" layoutX="235.0" layoutY="150.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #20b345; -fx-border-width: 0px 0px 2px;" />
-            <Button fx:id="login" layoutX="251.0" layoutY="274.0" mnemonicParsing="false" onAction="#regimeComboboxDesign" prefHeight="31.0" prefWidth="69.0" style="-fx-background-color: #20b345;" text="SIGN UP" textFill="WHITE">
+            <Button layoutX="251.0" layoutY="274.0" mnemonicParsing="false" onAction="#createAnAccount" prefHeight="31.0" prefWidth="69.0" style="-fx-background-color: #20b345;" text="SIGN UP" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
@@ -43,8 +43,8 @@
                   <Image url="@../../../../../../../../../Downloads/lockicon_120641(1).png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="regimeChoice" disable="true" layoutX="310.0" layoutY="200.0" onAction="#regimeComboboxDesign" opacity="0.25" prefWidth="150.0" />
-            <CheckBox layoutX="208.0" layoutY="203.0" mnemonicParsing="false" onAction="#regimeComboboxDesign" prefHeight="18.0" prefWidth="87.0" style="-fx-background-color: transparent;" text="Regime" />
+            <ComboBox fx:id="regimeChoice" disable="true" layoutX="310.0" layoutY="200.0" onAction="#regimeSelected" opacity="0.25" prefWidth="150.0" />
+            <CheckBox layoutX="208.0" layoutY="203.0" mnemonicParsing="false" onAction="#isCheck" prefHeight="18.0" prefWidth="87.0" style="-fx-background-color: transparent;" text="Regime" />
          </children>
       </AnchorPane>
    </left>

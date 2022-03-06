@@ -34,6 +34,20 @@ public class AlertFound {
         alert.showAndWait();
     }
 
+    public static void passwordFieldEmpty() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
+        alert.setContentText("Please enter password");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    public static void usernameFieldEmpty() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);;
+        alert.setContentText("Please enter username");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
 
 
 }

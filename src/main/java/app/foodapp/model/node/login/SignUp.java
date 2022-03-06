@@ -29,7 +29,7 @@ public final class SignUp {
 
     public SignUp() {}
 
-    public void regimeComboboxDesign(javafx.event.ActionEvent actionEvent) {
+    public void isCheck(javafx.event.ActionEvent actionEvent) {
         if(regimeChoice.isDisable()) {
             regimeChoice.setDisable(false);
             regimeChoice.setOpacity(1);
@@ -49,19 +49,28 @@ public final class SignUp {
         regimeChoice.setItems(list);
     }
 
-    public void userRegister(javafx.event.ActionEvent actionEvent) {
+    public void regimeSelected(javafx.event.ActionEvent actionEvent) {
         String regimeChoice = this.regimeChoice.getSelectionModel().getSelectedItem().toString();
         this.regime = regimeChoice;
     }
 
-    public void regimeComboboxDesign() throws IOException {
-        String content = username.getText() + "," + password.getText() + "," + regime + "favorite=" + recipeId + ",\n";
-        if(userAlreadyExist(content))
+    public boolean createAnAccount() throws IOException {
+        String content = username.getText() + "," + password.getText() + "," + regime + ",favorite=" + recipeId + ",\n";
+        if(userAlreadyExist(content)) {
             AlertFound.usernameAlreadyExist();
-        if(username.getText().isEmpty())
-            AlertFound.loginFieldNotExist();
-        if(password.getText().isEmpty())
-            AlertFound.loginFieldNotExist();
+            return false;
+        }
+
+        if(username.getText().isEmpty()) {
+            AlertFound.usernameFieldEmpty();
+            return false;
+        }
+
+        if(password.getText().isEmpty()) {
+            AlertFound.passwordFieldEmpty();
+            return false;
+        }
+
         else {
             File file = new File("userInformation.txt");
             if(!file.exists())
@@ -70,6 +79,7 @@ public final class SignUp {
             fw.append(content);
             fw.close();
             loginAccepted();
+            return true;
         }
     }
 
@@ -96,7 +106,6 @@ public final class SignUp {
         loginStage.setScene(new Scene(root));
         loginStage.show();
     }
-
 
     // method just for Cli run
     public void launch() throws IOException {
