@@ -81,7 +81,7 @@ public class Pane {
         }
     }
 
-    public static void addRecipeToFavoriteList(Recipe recipe) {
+    public static void addRecipeToFavoriteList(Recipe recipe) throws IOException {
         favorite.addToFavorite(recipe);
     }
 

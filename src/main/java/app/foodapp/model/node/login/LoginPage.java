@@ -1,6 +1,7 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.node.Favorite;
 import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,33 +34,16 @@ public final class LoginPage {
             String[] tabOfRow = new String[0];
             while((line = reader.readLine()) != null)
                  tabOfRow = line.split(",");
-            if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText()))
+            if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText())) {
                 loginAccepted();
+                Favorite.username = usernameEntered.getText();
+            }
+
             else AlertFound.loginFieldNotExist();
         }
 
         catch (NullPointerException e) {
             AlertFound.loginFieldNotExist();
-        }
-    }
-
-    public void checkUserLoginForCli() throws IOException {
-        try {
-            reader = new BufferedReader(new FileReader("userInformation.txt"));
-            String line;
-            String[] tabOfRow = new String[0];
-            while((line = reader.readLine()) != null)
-                tabOfRow = line.split(",");
-            if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli))
-                Pane.loginSuccessfull = true;
-
-            else {
-                System.out.println("\n\t⚠ Username or password doesn't exist\n");
-                this.launch();
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -103,5 +87,28 @@ public final class LoginPage {
         System.out.print("Password: ");
         Scanner sc = new Scanner(System.in);
         this.passwordForCli = sc.next();
+    }
+
+    public void checkUserLoginForCli() throws IOException {
+        try {
+            reader = new BufferedReader(new FileReader("userInformation.txt"));
+            String line;
+            String[] tabOfRow = new String[0];
+            while((line = reader.readLine()) != null)
+                tabOfRow = line.split(",");
+            if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli)) {
+                Pane.loginSuccessfull = true;
+                Favorite.username = userNameForCli;
+            }
+
+
+            else {
+                System.out.println("\n\t⚠ Username or password doesn't exist\n");
+                this.launch();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

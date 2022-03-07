@@ -1,6 +1,8 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.node.Favorite;
+import app.foodapp.model.node.Pane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -80,6 +82,7 @@ public final class SignUp {
             fw.append(content);
             fw.close();
             launchCookingApp();
+            Favorite.username = username.getText();
             return true;
         }
     }
@@ -170,6 +173,8 @@ public final class SignUp {
                 createFavoriteFile(userNameForCli);
                 System.out.println("\nUser has been add successfully\n");
                 fw.close();
+                Favorite.username = userNameForCli;
+                Pane.loginSuccessfull = true;
             }
 
 

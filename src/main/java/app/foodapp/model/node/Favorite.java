@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.*;
 
 public class Favorite {
+    public static String username;
     private List<Recipe> listOfRecipe;
     private int choice;
     private BufferedReader reader;
@@ -60,7 +61,6 @@ public class Favorite {
                     tab = result.split(",");
                 }
             }
-            //System.out.println(tab[0]);
 
             for(String s: tab) {
                 System.out.println(s);
@@ -119,9 +119,6 @@ public class Favorite {
     }
 
 
-
-
-
     public void readSavedFavorites(){
         try {
             FileInputStream favoritesSaved = new FileInputStream("save/favoritesSaved");
@@ -135,26 +132,21 @@ public class Favorite {
     }
 
 
-
-
-
-    public boolean favoriteListIsSaved(){
+    /*public boolean favoriteListIsSaved(){
         File favoritesSaved = new File("save/favoritesSaved");
         if(favoritesSaved.exists())
             return true;
         return false;
-    }
+    }*/
 
 
-
-
-
-    public boolean addToFavorite(Recipe recipe) {
-        if(recipeIsInFavoriteList(recipe)) {
-            System.out.println("Recipe already in Favorites");
-            return false;
-        }
-        listOfRecipe.add(recipe);
+    public boolean addToFavorite(Recipe recipe) throws IOException {
+        //TODO already in the favorite
+        File file = new File("favorite.txt");
+        if(!file.exists())
+            file.createNewFile();
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+        fw.append(recipe.getId());
         System.out.println("Recipe has been add successfully =)" + "\n");
         //saveFavorites();
         return true;
@@ -164,18 +156,18 @@ public class Favorite {
 
 
 
-    public Recipe getRecipe(int index) throws ArrayIndexOutOfBoundsException{
+    /*public Recipe getRecipe(int index) throws ArrayIndexOutOfBoundsException{
         if(index < 0)
             throw new ArrayIndexOutOfBoundsException("Index can't be under 0");
         else if(index > listOfRecipe.size()-1)
             throw new ArrayIndexOutOfBoundsException("Index not in list size");
         else
             return listOfRecipe.get(index);
-    }
+    }*/
 
-    public List<Recipe> getFavoriteList(){
+   /*public List<Recipe> getFavoriteList(){
         return this.listOfRecipe;
-    }
+    }*/
 
 
     }
