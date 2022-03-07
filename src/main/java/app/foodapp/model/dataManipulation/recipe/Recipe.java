@@ -1,5 +1,6 @@
 package app.foodapp.model.dataManipulation.recipe;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -62,6 +63,19 @@ public class Recipe {
             result = "Steps unavailable";
         }
         return result;
+    }
+
+    public ArrayList<String> getStepsGUI() throws NullPointerException{
+        ArrayList<String> steps = new ArrayList<>();
+        try {
+            RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+            for(int i = 0; i < recipeInfo.getStepRecipeInformation().keySet().size(); i++) {
+                steps.add(recipeInfo.getStepRecipeInformation().get(i));
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
+        return steps;
     }
 
     public String getIngredients() {

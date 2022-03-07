@@ -14,7 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 public class DetailsController extends MainController {
     @FXML private VBox detailsDisplay;
@@ -45,9 +48,10 @@ public class DetailsController extends MainController {
 
         HBox titleBox = new HBox();
         Label title = new Label(recipe.getTitle());
-        title.getStyleClass().add("recipeTitle");
+        title.setWrapText(true);
+        title.getStyleClass().add("recipe-title");
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.getStyleClass().add("recipeTitleBox");
+        titleBox.getStyleClass().add("recipe-titleBox");
         titleBox.getChildren().addAll(title);
 
         HBox informationBox = new HBox();
@@ -58,7 +62,19 @@ public class DetailsController extends MainController {
         informationBox.setAlignment(Pos.CENTER);
         informationBox.getStyleClass().add("recipe-informationBox");
 
-        this.detailsDisplay.getChildren().addAll(titleBox, informationBox);
+        Label stepsTitle = createLabel("Steps", "recipe-stepsTitle");
+
+        HBox stepsBox = new HBox();
+        AnchorPane anchorPane = new AnchorPane();
+        stepsBox.getStyleClass().add("recipe-stepsBox");
+
+        ArrayList<String> steps = recipe.getStepsGUI();
+        System.out.println(steps);
+
+
+        stepsBox.getChildren().add(anchorPane);
+
+        this.detailsDisplay.getChildren().addAll(titleBox, informationBox, stepsTitle, stepsBox);
     }
 
     @Override
