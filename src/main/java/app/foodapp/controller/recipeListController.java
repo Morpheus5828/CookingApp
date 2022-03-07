@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,26 @@ public abstract class recipeListController extends MainController {
             recipeBoxDisplayList.add(recipeBoxDisplay);
 
             Label title = createLabel(recipe.getTitle(), "recipe-title");
+            title.setWrapText(true);
+            title.setMinWidth(700);
+            title.setMaxWidth(700);
+
+            if (recipe.getImage() != null && recipe.getImage() != "") {
+                try {
+                    URLConnection connection = new URL(recipe.getImage()).openConnection();
+
+                    ImageView imageRecipe = new ImageView(new Image(connection.getInputStream()));
+                    imageRecipe.setPreserveRatio(true);
+                    imageRecipe.setFitWidth(50);
+                    recipeBoxDisplay.getChildren().add(imageRecipe);
+
+                    title.setMinWidth(590);
+                    title.setMaxWidth(590);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
             Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
 

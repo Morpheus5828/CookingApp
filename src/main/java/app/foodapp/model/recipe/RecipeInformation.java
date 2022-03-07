@@ -40,7 +40,7 @@ public class RecipeInformation {
             this.image = jsonFile.get("image").toString();
             this.cookingTime = (double) jsonFile.get("readyInMinutes");
             this.serving = (double) jsonFile.get("servings");
-            this.recipeForFavorite = new Recipe(this.id, this.title, this.serving, this.cookingTime);
+            this.recipeForFavorite = new Recipe(this.id, this.image,this.title, this.serving, this.cookingTime);
 
         } catch (Exception e) {
             // Sometimes value's properties are null
@@ -61,7 +61,7 @@ public class RecipeInformation {
                 this.image = jsonObject.get("image").toString();
                 getCookingTime(this.id);
                 getServingValue(this.id);
-                listOfRecipe.add(new Recipe(this.id, this.title, this.serving, this.cookingTime));
+                listOfRecipe.add(new Recipe(this.id, this.image, this.title, this.serving, this.cookingTime));
             }
 
 

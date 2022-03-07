@@ -17,6 +17,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class DetailsController extends MainController {
@@ -50,6 +53,20 @@ public class DetailsController extends MainController {
         backButton.setLayoutX(120);
         backButton.setLayoutY(110);
         backButton.setOnAction(goBack());
+
+        if (recipe.getImage() != null && recipe.getImage() != "") {
+            try {
+                URLConnection connection = new URL(recipe.getImage()).openConnection();
+
+                HBox imageBox = new HBox();
+                imageBox.getStyleClass().add("recipe-imageBox");
+                ImageView image = new ImageView(new Image(connection.getInputStream()));
+                imageBox.getChildren().add(image);
+                this.detailsDisplay.getChildren().add(imageBox);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         Text title = new Text(recipe.getTitle());
         title.setWrappingWidth(1100);

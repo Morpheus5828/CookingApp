@@ -1,3 +1,8 @@
+.recipe-imageBox {
+    -fx-padding: 10 0 10 0;
+    -fx-alignment: center;
+}
+
 .recipe-titleBox {
     -fx-border-color: #ebebeb;
     -fx-border-style: solid;

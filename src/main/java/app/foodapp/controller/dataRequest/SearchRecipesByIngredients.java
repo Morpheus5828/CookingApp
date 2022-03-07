@@ -12,7 +12,7 @@ public class SearchRecipesByIngredients extends ApiDataRequest {
         conversion();
         String rawRequest = "https://api.spoonacular.com/recipes/findByIngredients?ingredients="
                 + this.ingredient
-                + "&number=4&apiKey=";
+                + "&number=20&apiKey=";
 
         checkForDataExtraction(rawRequest);
     }
