@@ -3,6 +3,7 @@ package app.foodapp.model.node;
 import app.foodapp.model.recipe.RecipeInformation;
 import app.foodapp.model.alert.AlertFound;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -52,7 +53,7 @@ public class GetRecipeByIngredient {
             System.out.print(askToNextNodePossibility());
             choiceNumberRecovered();
             changeCurrentNode();
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | IOException e) {
             AlertFound.invalidCharacter();
             askToChangeCurrentNode();
         }
@@ -71,7 +72,7 @@ public class GetRecipeByIngredient {
         choiceNumber =  sc.nextInt();
     }
 
-    public void changeCurrentNode() {
+    public void changeCurrentNode() throws IOException {
         switch (choiceNumber) {
             case 1 -> {
                 System.out.print("Enter menu number : ");

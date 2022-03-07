@@ -13,6 +13,7 @@ public class Favorite {
     public static String username;
     private List<Recipe> listOfRecipe;
     private int choice;
+    private final int USERNAME = 0;
     private BufferedReader reader;
 
     public void launch() {
@@ -83,14 +84,14 @@ public class Favorite {
 
 
 
-    public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
+   /* public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
         if(!recipeIsInFavoriteList(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             listOfRecipe.remove(recipe);
         saveListOfFavorite();
         return true;
-    }
+    }*/
 
 
 
@@ -141,13 +142,43 @@ public class Favorite {
 
 
     public boolean addToFavorite(Recipe recipe) throws IOException {
-        //TODO already in the favorite
-        File file = new File("favorite.txt");
+        reader = new BufferedReader(new FileReader("favorite.txt"));
+        String line;
+        String[] tabOfRow = new String[0];
+        String[] tab = new String[0];
+        while ((line = reader.readLine()) != null) {
+            tabOfRow = line.split("=");
+            if(tabOfRow[USERNAME].equals(username)){  //TODO already in the favorite
+                tabOfRow[1] += recipe.getId() + ",";
+            }
+        }
+
+
+
+        /*reader = new BufferedReader(new FileReader("favorite.txt"));
+        String line;
+        String[] tabOfRow = new String[0];
+        String[] tab = new String[0];
+        while ((line = reader.readLine()) != null) {
+            tabOfRow = line.split("=");
+            if(tabOfRow[USERNAME].equals(username)) {
+                String idFavorites = tabOfRow[1];
+                tab = idFavorites.split(",");
+                for(String s : tab) {
+                    System.out.println(s);
+                }
+            }
+        }*/
+
+
+       /* File file = new File("favorite.txt");
         if(!file.exists())
             file.createNewFile();
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-        fw.append(recipe.getId());
-        System.out.println("Recipe has been add successfully =)" + "\n");
+        System.out.println();
+        fw.append(recipe.getId());*/
+
+        //System.out.println("Recipe has been add successfully =)" + "\n");
         //saveFavorites();
         return true;
 
