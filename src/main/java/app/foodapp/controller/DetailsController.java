@@ -78,6 +78,12 @@ public class DetailsController extends MainController {
                 stepText.setFill(Color.color(0.765, 0.765, 0.765));
                 stepsDisplay.getChildren().add(stepText);
             }
+        } else {
+            Text errorText = new Text("We are sorry but the steps are unavailable.");
+            errorText.getStyleClass().add("recipe-step");
+            errorText.setWrappingWidth(1050);
+            errorText.setFill(Color.color(0.765, 0.765, 0.765));
+            stepsDisplay.getChildren().add(errorText);
         }
         stepsBox.getChildren().add(stepsDisplay);
 
