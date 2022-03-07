@@ -1,11 +1,11 @@
-.recipeTitleBox {
+.recipe-titleBox {
     -fx-border-color: #ebebeb;
     -fx-border-style: solid;
     -fx-border-width: 0 0 1 0;
     -fx-padding: 10 0 10 0;
 }
 
-.recipeTitle  {
+.recipe-title  {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-size: 60;
@@ -32,4 +32,16 @@
 .button-favorite {
     -fx-background-color: none;
     -fx-padding: 5;
+}
+
+.recipe-stepsTitle {
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-font-size: 40;
+}
+
+.recipe-steps {
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT";
+    -fx-font-size: 15;
 }
