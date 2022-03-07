@@ -40,6 +40,16 @@ public enum MeasureSystem {
         }
     }
 
+    public MeasureSystem reverseMeasureSystem(MeasureSystem measureSystem) {
+        switch (measureSystem) {
+            case US:
+                return METRIC;
+            case METRIC:
+                return US;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         switch (this) {
