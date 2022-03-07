@@ -1,7 +1,7 @@
 package app.foodapp.controller;
 
 import app.foodapp.controller.backController.BackController;
-import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.model.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;

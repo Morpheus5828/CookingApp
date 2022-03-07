@@ -1,6 +1,6 @@
 package app.foodapp.model.dataManipulation.recipe;
 
-import app.foodapp.model.node.Favorite;
+import app.foodapp.model.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.Objects;

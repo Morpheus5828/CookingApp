@@ -1,7 +1,6 @@
 package app.foodapp.controller.backController;
 
 import app.foodapp.controller.FavoritesController;
-import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class BackToFavorites implements BackController {
     private int pageIndex;

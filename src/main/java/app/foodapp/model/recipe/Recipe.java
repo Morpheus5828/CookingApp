@@ -1,6 +1,7 @@
-package app.foodapp.model.dataManipulation.recipe;
+package app.foodapp.model.recipe;
 
 import app.foodapp.model.dataManipulation.MeasureSystem;
+import app.foodapp.model.recipe.RecipeInformation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,12 +115,10 @@ public class Recipe {
         return ingredientsList;
     }
 
-    public void displaySimpleCharacteristics() {
-        System.out.println(
-            "Recipe :" + getTitle() + "\n" +
-            "Cooking Time: " + getCookingTime() + "\n" +
-            "Serving: " + getServings() + " people(s)" + "\n"
-        );
+    public String displaySimpleCharacteristics() {
+        return "Recipe :" + getTitle() + "\n" +
+                "Cooking Time: " + getCookingTime() + "\n" +
+                "Serving: " + getServings() + " people(s)" + "\n";
     }
 
     public void displayDetailsCharacteristics() {

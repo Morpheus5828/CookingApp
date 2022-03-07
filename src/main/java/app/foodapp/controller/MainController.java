@@ -1,7 +1,7 @@
 package app.foodapp.controller;
 
 import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
-import app.foodapp.model.dataManipulation.recipe.Recipe;
+import app.foodapp.model.recipe.Recipe;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -80,9 +80,14 @@ public abstract class MainController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/profile.fxml"));
             Parent root = loader.load();
+            ProfileController profileController = loader.getController();
+            profileController.setProfile();
 
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+
+            stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,8 +2,8 @@ package app.foodapp.controller;
 
 import app.foodapp.controller.backController.BackController;
 import app.foodapp.controller.backController.BackToMenu;
-import app.foodapp.model.dataManipulation.recipe.Recipe;
-import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
+import app.foodapp.model.recipe.Recipe;
+import app.foodapp.model.recipe.RecipeInformation;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

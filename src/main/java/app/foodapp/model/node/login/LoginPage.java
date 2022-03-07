@@ -1,7 +1,8 @@
 package app.foodapp.model.node.login;
 
+import app.foodapp.controller.ProfileController;
+import app.foodapp.controller.ResearchController;
 import app.foodapp.model.alert.AlertFound;
-import app.foodapp.model.node.Favorite;
 import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +37,9 @@ public final class LoginPage {
                  tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText())) {
                 loginAccepted();
-                Favorite.username = usernameEntered.getText();
+                ProfileController.USERNAME = usernameEntered.getText();
+                ProfileController.PASSWORD = passwordEntered.getText();
+                //Favorite.username = usernameEntered.getText();
             }
 
             else AlertFound.loginFieldNotExist();
@@ -58,10 +61,20 @@ public final class LoginPage {
     }
 
     private void loginAccepted() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+        Parent root = loader.load();
+        ResearchController researchController = loader.getController();
+        researchController.welcomePage();
+        researchController.setRecipeResearch();
+
         Stage cookingAppStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+        Scene scene = new Scene(root);
+
+        scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
+        scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
+
         cookingAppStage.setTitle("Cooking App");
-        cookingAppStage.setScene(new Scene(root));
+        cookingAppStage.setScene(scene);
         cookingAppStage.show();
     }
 
@@ -98,9 +111,8 @@ public final class LoginPage {
                 tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli)) {
                 Pane.loginSuccessfull = true;
-                Favorite.username = userNameForCli;
+                //Favorite.username = userNameForCli;
             }
-
 
             else {
                 System.out.println("\n\t⚠ Username or password doesn't exist\n");
