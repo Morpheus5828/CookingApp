@@ -1,5 +1,6 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.backController.BackController;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +26,7 @@ import java.util.List;
 public abstract class recipeListController extends MainController {
     protected List<Button> favoritesButtonList = new ArrayList<>();
     protected List<HBox> recipeBoxDisplayList = new ArrayList<>();
+    protected BackController backController;
 
     protected int pageIndex = 1;
 
@@ -57,8 +59,10 @@ public abstract class recipeListController extends MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/recipeDetails.fxml"));
             Parent root = loader.load();
+
             DetailsController detailsController = loader.getController();
             detailsController.getDetails(recipe, currentButtonId, subTitle);
+            detailsController.setBackController(this.backController);
 
             Scene detailedRecipe = new Scene(root);
             detailedRecipe.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
@@ -104,6 +108,7 @@ public abstract class recipeListController extends MainController {
 
     public void pageDisplay(final int pageIndex, final VBox recipeDisplay, final List<Recipe> recipeList) {
         this.pageIndex = pageIndex;
+        this.backController.setPageIndex(pageIndex);
         recipeDisplay.getChildren().clear();
 
         for (int recipeIndex = (this.pageIndex-1)*10; recipeIndex < recipeList.size() && recipeIndex < pageIndex*10; recipeIndex++) {

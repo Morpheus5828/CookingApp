@@ -35,6 +35,15 @@
     -fx-padding: 5;
 }
 
+.button-back {
+    -fx-background-color: none;
+    -fx-padding: 5;
+}
+
+.button-back:hover {
+    -fx-background-color: #2e2e2e;
+}
+
 .recipe-subTitle {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT Condensed";
