@@ -210,7 +210,7 @@ public class ResearchController extends recipeListController {
 
             recipeInformation = new RecipeInformation(this.ingredients);
             List<Recipe> recipeList = recipeInformation.listOfRecipe;
-            setRecipeList(recipeList);
+            setRecipeList(recipeList, "#buttonMenu", "Research");
 
             isSearchLunched = true;
             pageDisplay(1, this.recipeDisplay, recipeList);

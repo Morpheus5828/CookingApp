@@ -20,7 +20,14 @@ public class DetailsController extends MainController {
     @FXML private VBox detailsDisplay;
     @FXML private AnchorPane rootPane;
 
-    public void getDetails(Recipe recipe) {
+    public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
+        Button currentButton = (Button) this.rootPane.lookup(currentButtonId);
+        currentButton.getStyleClass().remove("button-unselected");
+        currentButton.getStyleClass().add("button-selected");
+
+        Text subTitleText = (Text) this.rootPane.lookup("#subTitle");
+        subTitleText.setText(subTitle);
+
         ImageView favoritesButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
         favoritesButtonImage.setPreserveRatio(true);
         favoritesButtonImage.setFitWidth(40);
