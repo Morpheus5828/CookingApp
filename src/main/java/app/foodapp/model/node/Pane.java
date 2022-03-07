@@ -28,7 +28,7 @@ public class Pane {
         this.login = new LoginPage();
         this.getRecipeByIngredient = new GetRecipeByIngredient();
         this.measureSystem = new MeasureSystem();
-        this.recipeDetails = new RecipeDetails();
+        //this.recipeDetails = new RecipeDetails();
         launchFirstDisplay();
     }
 
