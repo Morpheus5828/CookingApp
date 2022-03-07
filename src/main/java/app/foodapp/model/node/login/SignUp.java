@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public final class SignUp {
@@ -54,7 +56,7 @@ public final class SignUp {
     }
 
     public boolean createAnAccount() throws IOException {
-        String content = username.getText() + "," + password.getText() + "," + regime + ",favorite=" + recipeId + ",\n";
+        String content = username.getText() + "," + password.getText() + "," + regime +",\n";
         if(userAlreadyExist(content)) {
             AlertFound.usernameAlreadyExist();
             return false;
@@ -137,7 +139,7 @@ public final class SignUp {
                 "\t1. Vegan \n" +
                 "\t2. Vegetarian \n" +
                 "\t3. No regime \n" +
-                "\t -> Your choice :"
+                "\t -> Your choice: "
         );
         Scanner sc = new Scanner(System.in);
         switch (sc.nextInt()) {
@@ -153,7 +155,7 @@ public final class SignUp {
 
     public void userRegister(String userNameForCli, String passwordForCLi, String userRegime) throws IOException {
         try {
-            String content = userNameForCli + "," + passwordForCLi + "," + userRegime + ",favorite=" + recipeId + ",\n";
+            String content = userNameForCli + "," + passwordForCLi + "," + userRegime + ",\n";
             if (userAlreadyExist(content)) {
                 System.out.println("\n\t⚠ User already exist please choose an other one\n");
                 this.launch();
@@ -165,6 +167,7 @@ public final class SignUp {
                     file.createNewFile();
                 FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
                 fw.append(content);
+                createFavoriteFile(userNameForCli);
                 System.out.println("\nUser has been add successfully\n");
                 fw.close();
             }
@@ -174,6 +177,16 @@ public final class SignUp {
             e.printStackTrace();
         }
 
+    }
 
+    public void createFavoriteFile(String username) throws IOException {
+        File file = new File("favorite.txt");
+        if(!file.exists())
+            file.createNewFile();
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+        Map<String, String> favorite = new HashMap<>();
+        favorite.put(username, "");
+        fw.append(favorite.toString() + ",\n");
+        fw.close();
     }
 }

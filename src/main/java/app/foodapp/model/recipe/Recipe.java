@@ -66,12 +66,10 @@ public class Recipe {
         return recipeInfo.getIngredients();
     }
 
-    public void displaySimpleCharacteristics() {
-        System.out.println(
-            "Recipe :" + getTitle() + "\n" +
-            "Cooking Time: " + getCookingTime() + "\n" +
-            "Serving: " + getServings() + " people(s)" + "\n"
-        );
+    public String displaySimpleCharacteristics() {
+        return "Recipe :" + getTitle() + "\n" +
+                "Cooking Time: " + getCookingTime() + "\n" +
+                "Serving: " + getServings() + " people(s)" + "\n";
     }
 
     public void displayDetailsCharacteristics() {

@@ -2,23 +2,20 @@ package app.foodapp.model.node;
 
 import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.recipe.RecipeInformation;
 
 
 import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Favorite {
     private List<Recipe> listOfRecipe;
     private int choice;
-
-    public Favorite() {}
+    private BufferedReader reader;
 
     public void launch() {
-        if (this.isEmpty()) {
+       /* if (this.isEmpty()) {
             System.out.println("\n" + "⚠ Sorry favorite list is empty" + "\n");
             Pane.setNextNodeNumber("WELCOME"); // If is empty user cannot go to the other node because it has no sense
         }
@@ -27,9 +24,7 @@ public class Favorite {
             askToNextNode();
             choiceNumberRecovered();
             changeCurrentNode();
-        }
-
-
+        }*/
     }
 
     public String askToNextNode() {
@@ -52,19 +47,54 @@ public class Favorite {
         }
     }
 
+    public void displayFavoriteList() {
+        try {
+            reader = new BufferedReader(new FileReader("favorite.txt"));
+            String line;
+            String[] tabOfRow;
+            String[] tab = new String[0];
+            while ((line = reader.readLine()) != null) {
+                tabOfRow = line.split("=");
+                String result = tabOfRow[1];
+                for(int i = 0; i < result.length(); i++) {
+                    tab = result.split(",");
+                }
+            }
+            //System.out.println(tab[0]);
+
+            for(String s: tab) {
+                System.out.println(s);
+                RecipeInformation test = new RecipeInformation(s);
+                System.out.println(test.displaySimple());
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public boolean recipeIsInFavoriteList(Recipe recipe){
         return listOfRecipe.contains(recipe);
     }
+
+
+
 
     public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
         if(!recipeIsInFavoriteList(recipe))
             throw new NoSuchElementException("Not in favorites list");
         else
             listOfRecipe.remove(recipe);
-            saveListOfFavorite();
-            return true;
+        saveListOfFavorite();
+        return true;
     }
+
+
+
+
 
     public void saveListOfFavorite(){
         try {
@@ -78,11 +108,19 @@ public class Favorite {
         }
     }
 
+
+
+
+
     private boolean isEmpty() {
         if (this.listOfRecipe.isEmpty())
             return true;
         return false;
     }
+
+
+
+
 
     public void readSavedFavorites(){
         try {
@@ -96,12 +134,20 @@ public class Favorite {
         }
     }
 
+
+
+
+
     public boolean favoriteListIsSaved(){
         File favoritesSaved = new File("save/favoritesSaved");
         if(favoritesSaved.exists())
             return true;
         return false;
     }
+
+
+
+
 
     public boolean addToFavorite(Recipe recipe) {
         if(recipeIsInFavoriteList(recipe)) {
@@ -114,6 +160,9 @@ public class Favorite {
         return true;
 
     }
+
+
+
 
     public Recipe getRecipe(int index) throws ArrayIndexOutOfBoundsException{
         if(index < 0)
@@ -129,9 +178,4 @@ public class Favorite {
     }
 
 
-    public void displayFavoriteList() {
-        for(Recipe recipe : this.listOfRecipe) {
-            recipe.displaySimpleCharacteristics();
-        }
     }
-}
