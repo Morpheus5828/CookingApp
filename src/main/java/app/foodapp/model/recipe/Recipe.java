@@ -1,4 +1,11 @@
-package app.foodapp.model.recipe;
+package app.foodapp.model.dataManipulation.recipe;
+
+import app.foodapp.model.dataManipulation.MeasureSystem;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 
 //TODO problem with test because I add a new property in constructor
 public class Recipe {
@@ -61,15 +68,58 @@ public class Recipe {
         return result;
     }
 
+    public ArrayList<String> getStepsGUI() throws NullPointerException{
+        ArrayList<String> steps = new ArrayList<>();
+        try {
+            RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
+            for(int i = 0; i < recipeInfo.getStepRecipeInformation().keySet().size(); i++) {
+                steps.add(recipeInfo.getStepRecipeInformation().get(i));
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
+        return steps;
+    }
+
     public String getIngredients() {
         RecipeInformation recipeInfo = new RecipeInformation(String.valueOf(getId()));
         return recipeInfo.getIngredients();
     }
 
-    public String displaySimpleCharacteristics() {
-        return "Recipe :" + getTitle() + "\n" +
-                "Cooking Time: " + getCookingTime() + "\n" +
-                "Serving: " + getServings() + " people(s)" + "\n";
+    public ArrayList<String> getIngredientsList() {
+        ArrayList<String> ingredientsList = new ArrayList<>();
+        RecipeInformation recipeInformation = new RecipeInformation(String.valueOf(this.id));
+        ArrayList<Map<String, String>> ingredientsInformation = recipeInformation.getIngredientsInformation();
+
+        for (int index = 0; index < ingredientsInformation.size(); index++) {
+            Map<String, String> information = ingredientsInformation.get(index);
+            String unit = information.get("unit");
+
+            if (unit.equals("pinch") || unit.equals("pinches") || unit.equals("serving") || unit.equals("servings") || unit.equals("")) {
+                ingredientsList.add(information.get("fullDescription"));
+            } else {
+                try {
+                    String measureSystem = MeasureSystem.getMeasureSystem().toString();
+                    String ingredient = information.get(measureSystem + "Amount")
+                            + " "
+                            + information.get(measureSystem + "Unit")
+                            + " "
+                            + information.get("description");
+                    ingredientsList.add(ingredient);
+                } catch (IOException exception) {
+                    ingredientsList.add(information.get("fullDescription"));
+                }
+            }
+        }
+        return ingredientsList;
+    }
+
+    public void displaySimpleCharacteristics() {
+        System.out.println(
+            "Recipe :" + getTitle() + "\n" +
+            "Cooking Time: " + getCookingTime() + "\n" +
+            "Serving: " + getServings() + " people(s)" + "\n"
+        );
     }
 
     public void displayDetailsCharacteristics() {
@@ -84,5 +134,13 @@ public class Recipe {
             "• Step(s) instruction(s): " + "\n" +
              getSteps() + "\n"
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(id, recipe.id);
     }
 }

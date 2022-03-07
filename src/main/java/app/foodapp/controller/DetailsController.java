@@ -47,7 +47,7 @@ public class DetailsController extends MainController {
         HBox titleBox = new HBox();
         Text title = new Text(recipe.getTitle());
         title.setWrappingWidth(1100);
-        title.setFill(Color.color(0.765, 0.765, 0.765));
+        title.setFill(Color.color(0.9, 0.9, 0.9));
         title.getStyleClass().add("recipe-title");
         titleBox.getStyleClass().add("recipe-titleBox");
         titleBox.getChildren().addAll(title);
@@ -60,12 +60,31 @@ public class DetailsController extends MainController {
         informationBox.setAlignment(Pos.CENTER);
         informationBox.getStyleClass().add("recipe-informationBox");
 
-        Label stepsTitle = createLabel("Steps", "recipe-stepsTitle");
+        Label ingredientsTitle = createLabel("Ingredients", "recipe-subTitle");
+
+        HBox ingredientsBox = new HBox();
+        VBox ingredientsDisplay = new VBox();
+        ingredientsDisplay.getStyleClass().add("recipe-dataDisplay");
+        ingredientsBox.getStyleClass().add("recipe-dataBox");
+
+        ArrayList<String> ingredients = recipe.getIngredientsList();
+        if (ingredients != null) {
+            for (String ingredient : ingredients) {
+                Text ingredientText = new Text(ingredient);
+                ingredientText.getStyleClass().add("recipe-step");
+                ingredientText.setWrappingWidth(1050);
+                ingredientText.setFill(Color.color(0.765, 0.765, 0.765));
+                ingredientsDisplay.getChildren().add(ingredientText);
+            }
+        }
+        ingredientsBox.getChildren().add(ingredientsDisplay);
+
+        Label stepsTitle = createLabel("Steps", "recipe-subTitle");
 
         HBox stepsBox = new HBox();
         VBox stepsDisplay = new VBox();
-        stepsDisplay.getStyleClass().add("recipe-stepsDisplay");
-        stepsBox.getStyleClass().add("recipe-stepsBox");
+        stepsDisplay.getStyleClass().add("recipe-dataDisplay");
+        stepsBox.getStyleClass().add("recipe-dataBox");
 
         ArrayList<String> steps = recipe.getStepsGUI();
         if (steps != null) {
@@ -85,11 +104,7 @@ public class DetailsController extends MainController {
         }
         stepsBox.getChildren().add(stepsDisplay);
 
-        this.detailsDisplay.getChildren().addAll(titleBox, informationBox, stepsTitle, stepsBox);
-
-        HBox lastBox = new HBox();
-        lastBox.getStyleClass().add("box-pagination");
-        detailsDisplay.getChildren().add(lastBox);
+        this.detailsDisplay.getChildren().addAll(titleBox, informationBox, ingredientsTitle, ingredientsBox, stepsTitle, stepsBox);
     }
 
     @Override
