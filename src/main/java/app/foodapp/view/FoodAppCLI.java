@@ -16,9 +16,9 @@ public class FoodAppCLI {
         /*if (InternetConnexion.checkStatus())
             new Pane();*/
         Favorite test = new Favorite();
-        Favorite.username = "ztertg";
-        test.addToFavorite(new Recipe("416429", "", "te", 15, 25));
-
+        Favorite.username = "morpheus5828";
+        //test.addToFavorite(new Recipe("416429", "", "te", 15, 25));
+        System.out.println(test.isEmpty());
 
 
     }

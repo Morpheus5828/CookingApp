@@ -113,9 +113,16 @@ public class Favorite {
 
 
 
-    private boolean isEmpty() {
-        if (this.listOfRecipe.isEmpty())
-            return true;
+    public boolean isEmpty() throws IOException {
+        reader = new BufferedReader(new FileReader("favorite.txt"));
+        String line;
+        String[] tabOfRow;
+        while ((line = reader.readLine()) != null) {
+            tabOfRow = line.split("=");
+            if(tabOfRow[USERNAME].equals(username) && tabOfRow[1].equals(" ,")){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -133,72 +140,21 @@ public class Favorite {
     }
 
 
-    /*public boolean favoriteListIsSaved(){
-        File favoritesSaved = new File("save/favoritesSaved");
-        if(favoritesSaved.exists())
-            return true;
-        return false;
-    }*/
-
-
     public boolean addToFavorite(Recipe recipe) throws IOException {
         reader = new BufferedReader(new FileReader("favorite.txt"));
         String line;
-        String[] tabOfRow = new String[0];
-        String[] tab = new String[0];
+        String[] tabOfRow;
         while ((line = reader.readLine()) != null) {
             tabOfRow = line.split("=");
             if(tabOfRow[USERNAME].equals(username)){  //TODO already in the favorite
                 tabOfRow[1] += recipe.getId() + ",";
+                return true;
             }
         }
-
-
-
-        /*reader = new BufferedReader(new FileReader("favorite.txt"));
-        String line;
-        String[] tabOfRow = new String[0];
-        String[] tab = new String[0];
-        while ((line = reader.readLine()) != null) {
-            tabOfRow = line.split("=");
-            if(tabOfRow[USERNAME].equals(username)) {
-                String idFavorites = tabOfRow[1];
-                tab = idFavorites.split(",");
-                for(String s : tab) {
-                    System.out.println(s);
-                }
-            }
-        }*/
-
-
-       /* File file = new File("favorite.txt");
-        if(!file.exists())
-            file.createNewFile();
-        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-        System.out.println();
-        fw.append(recipe.getId());*/
-
-        //System.out.println("Recipe has been add successfully =)" + "\n");
-        //saveFavorites();
-        return true;
-
+        return false;
     }
 
 
 
 
-    /*public Recipe getRecipe(int index) throws ArrayIndexOutOfBoundsException{
-        if(index < 0)
-            throw new ArrayIndexOutOfBoundsException("Index can't be under 0");
-        else if(index > listOfRecipe.size()-1)
-            throw new ArrayIndexOutOfBoundsException("Index not in list size");
-        else
-            return listOfRecipe.get(index);
-    }*/
-
-   /*public List<Recipe> getFavoriteList(){
-        return this.listOfRecipe;
-    }*/
-
-
-    }
+}
