@@ -11,13 +11,13 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -80,6 +80,7 @@ public class ResearchController extends recipeListController {
         this.searchByIngredient = searchByIngredient;
         searchByIngredient.setPromptText("Add an ingredient");
         searchByIngredient.setId("textField");
+        searchByIngredient.setOnKeyPressed(addIngredientToSearchTextField());
 
         ImageView addIngredientImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/plusButton.png"));
         addIngredientImage.setPreserveRatio(true);
@@ -89,7 +90,7 @@ public class ResearchController extends recipeListController {
         addIngredientButton.setCursor(Cursor.HAND);
         Tooltip.install(addIngredientButton, new Tooltip("Add ingredient to research"));
         addIngredientButton.getStyleClass().add("button-research");
-        addIngredientButton.setOnAction(addIngredientToSearch());
+        addIngredientButton.setOnAction(addIngredientToSearchButton());
         addIngredientButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setMousePosition());
 
         ImageView searchImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/researchButton.png"));
@@ -112,33 +113,45 @@ public class ResearchController extends recipeListController {
         this.recipeResearch.getChildren().add(new StackPane(searchButton));
     }
 
-    public EventHandler<ActionEvent> addIngredientToSearch() {
+    public EventHandler<ActionEvent> addIngredientToSearchButton() {
+        return event -> addIngredient();
+    }
+
+    public EventHandler<KeyEvent> addIngredientToSearchTextField () {
         return event -> {
-            if (this.ingredients.size() < 10) {
-                String ingredient = this.searchByIngredient.getText();
-                if (!this.ingredients.contains(ingredient)) {
-                    if (ingredient != "") {
-                        if (this.ingredients.size() == 0) displayIngredientsAddedButton.setCursor(Cursor.HAND);
+                if(event.getCode() == KeyCode.ENTER){
+                    addIngredient();
+                    searchByIngredient.clear();
+                }
+        };
+    }
 
-                        this.isSearchLunched = false;
-                        this.ingredients.add(ingredient);
-                        popNumberOFIngredientsAdded(this.ingredients.size());
-                        clearSearchByIngredient();
+    public void addIngredient() {
+        if (this.ingredients.size() < 10) {
+            String ingredient = this.searchByIngredient.getText();
+            if (!this.ingredients.contains(ingredient)) {
+                if (ingredient != "") {
+                    if (this.ingredients.size() == 0) displayIngredientsAddedButton.setCursor(Cursor.HAND);
 
-                        if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
-                            removeDisplayIngredientsAdded();
-                            displayIngredientsAdded();
-                        }
-                    } else {
-                        displayError("You should write an ingredient before adding it", 1000, 30, 1);
+                    ingredientsAddedDisplay.getChildren().clear();
+                    this.isSearchLunched = false;
+                    this.ingredients.add(ingredient);
+                    popNumberOFIngredientsAdded(this.ingredients.size());
+                    clearSearchByIngredient();
+
+                    if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) {
+                        removeDisplayIngredientsAdded();
+                        displayIngredientsAdded();
                     }
                 } else {
-                    displayError("You can't add twice the same element",1000, 30, 1);
+                    displayError("You should write an ingredient before adding it", 1000, 30, 1);
                 }
             } else {
-                displayError("You can't add more ingredients because you have reach the maximum of ten elements",800, 30, 2);
+                displayError("You can't add twice the same element",1000, 30, 1);
             }
-        };
+        } else {
+            displayError("You can't add more ingredients because you have reach the maximum of ten elements",800, 30, 2);
+        }
     }
 
     public EventHandler<ActionEvent> manageButtonDisplayIngredientsAdded() {
@@ -165,7 +178,6 @@ public class ResearchController extends recipeListController {
     }
 
     public void displayIngredientsAdded() {
-        ingredientsAddedDisplay.getChildren().clear();
         for (String ingredient : this.ingredients) {
             Label ingredientAdded = new Label(ingredient);
             ingredientAdded.getStyleClass().add("label-ingredientAdded");
