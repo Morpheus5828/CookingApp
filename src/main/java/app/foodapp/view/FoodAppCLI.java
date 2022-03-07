@@ -18,7 +18,7 @@ public class FoodAppCLI {
         Favorite test = new Favorite();
         Favorite.username = "morpheus5828";
         //test.addToFavorite(new Recipe("416429", "", "te", 15, 25));
-        System.out.println(test.isEmpty());
+        System.out.println(test.addToFavorite(new Recipe("416429", "", "te", 15, 25)));
 
 
     }

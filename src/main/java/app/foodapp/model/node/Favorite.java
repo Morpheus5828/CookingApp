@@ -7,6 +7,7 @@ import app.foodapp.model.recipe.RecipeInformation;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Favorite {
@@ -84,33 +85,23 @@ public class Favorite {
 
 
 
-   /* public boolean removeFromFavorite(Recipe recipe) throws NoSuchElementException{
-        if(!recipeIsInFavoriteList(recipe))
-            throw new NoSuchElementException("Not in favorites list");
-        else
-            listOfRecipe.remove(recipe);
-        saveListOfFavorite();
-        return true;
-    }*/
-
-
-
-
-
-    public void saveListOfFavorite(){
-        try {
-            FileOutputStream favoritesSaved = new FileOutputStream("save/favoritesSaved");
-            ObjectOutputStream objectOutput = new ObjectOutputStream(favoritesSaved);
-            objectOutput.writeObject(listOfRecipe);
-            objectOutput.close();
-            favoritesSaved.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+   public boolean removeFromFavorite(Recipe recipe) throws IOException {
+       reader = new BufferedReader(new FileReader("favorite.txt"));
+       String line;
+       String[] tabOfRow;
+       String[] tab;
+       while ((line = reader.readLine()) != null) {
+           tabOfRow = line.split("=");
+           if(tabOfRow[USERNAME].equals(username)){
+               tab = tabOfRow[1].split(",");
+               for(String s : tab) {
+                   if(s.equals(recipe.getId())) s = "";
+               }
+               return true;
+           }
+       }
+       return false;
     }
-
-
-
 
 
     public boolean isEmpty() throws IOException {
@@ -141,7 +132,38 @@ public class Favorite {
 
 
     public boolean addToFavorite(Recipe recipe) throws IOException {
+        File file = new File("favorite.txt");
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+        String value = "";
+
         reader = new BufferedReader(new FileReader("favorite.txt"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            List<String> myList = new ArrayList<String>(Arrays.asList(line.split(",")));
+            if(myList.get(USERNAME).equals(username)) {
+                for(String m : myList) {
+                    if (recipe.getId().equals(m)) {
+                        System.out.println("Recipe already in the favorite\n");
+                        return false;
+                    }
+                }
+                myList.add(recipe.getId() + "\n");
+            }
+            value += myList;
+        }
+
+        value = value.replace(" ", "");
+        value = value.replace("[", "");
+        value = value.replace("]", "");
+        file.delete();
+        FileWriter fw2 = new FileWriter(file.getAbsoluteFile(), true);
+        fw2.append(value);
+        fw2.close();
+        return true;
+    }
+
+    /*
+    reader = new BufferedReader(new FileReader("favorite.txt"));
         String line;
         String[] tabOfRow;
         while ((line = reader.readLine()) != null) {
@@ -151,8 +173,9 @@ public class Favorite {
                 return true;
             }
         }
+        fw.close();
         return false;
-    }
+     */
 
 
 
