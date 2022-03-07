@@ -1,5 +1,6 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.backController.BackToFavorites;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
@@ -22,14 +23,15 @@ public class FavoritesController extends recipeListController {
     @FXML private VBox recipeDisplay;
     @FXML private ImageView leftCornerLogo;
 
-    public void getFavoritesRecipes() {
+    public void getFavoritesRecipes(final int pageIndex) {
         setImage(leftCornerLogo, new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
 
         List<Recipe> favoriteRecipes = favoriteNode.getFavorites();
+        this.backController = new BackToFavorites(this.pageIndex);
         setRecipeList(favoriteRecipes, "#buttonFavorites", "Favorites");
 
         if (favoriteRecipes.isEmpty()) emptyFavoriteDisplay();
-        else pageDisplay(1, this.recipeDisplay, favoriteRecipes);
+        else pageDisplay(pageIndex, this.recipeDisplay, favoriteRecipes);
     }
 
     @Override

@@ -1,25 +1,40 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.backController.BackController;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.animation.ParallelTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DetailsController extends MainController {
     @FXML private VBox detailsDisplay;
     @FXML private AnchorPane rootPane;
     @FXML private Text subTitleText;
+
+    private BackController backController;
+
+    public void setBackController(final BackController backController) {
+        this.backController = backController;
+    }
 
     public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
         initDetailsPage(currentButtonId, subTitle);
@@ -28,6 +43,19 @@ public class DetailsController extends MainController {
         rootPane.getChildren().add(favoritesButton);
         favoritesButton.setLayoutX(1200);
         favoritesButton.setLayoutY(110);
+
+        ImageView backButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/researchRecipe/backButton.png")));
+        backButtonImage.setPreserveRatio(true);
+        backButtonImage.setFitWidth(40);
+
+        Button backButton = new Button("", backButtonImage);
+        backButton.getStyleClass().add("button-back");
+        Tooltip.install(backButton, new Tooltip("Go back"));
+        backButton.setCursor(Cursor.HAND);
+        rootPane.getChildren().add(backButton);
+        backButton.setLayoutX(120);
+        backButton.setLayoutY(110);
+        backButton.setOnAction(goBack());
 
         Text title = new Text(recipe.getTitle());
         title.setWrappingWidth(1100);
@@ -98,5 +126,9 @@ public class DetailsController extends MainController {
         dataText.setWrappingWidth(1050);
         dataText.setFill(Color.color(0.765, 0.765, 0.765));
         dataDisplay.getChildren().add(dataText);
+    }
+
+    public EventHandler<ActionEvent> goBack() {
+        return event -> this.backController.goBack(event);
     }
 }

@@ -1,5 +1,7 @@
 package app.foodapp.controller;
 
+import app.foodapp.controller.backController.BackController;
+import app.foodapp.controller.backController.BackToMenu;
 import app.foodapp.model.dataManipulation.recipe.Recipe;
 import app.foodapp.model.dataManipulation.recipe.RecipeInformation;
 import javafx.animation.*;
@@ -114,21 +116,20 @@ public class ResearchController extends recipeListController {
     }
 
     public EventHandler<ActionEvent> addIngredientToSearchButton() {
-        return event -> addIngredient();
+        return event -> addIngredient(this.searchByIngredient.getText());
     }
 
     public EventHandler<KeyEvent> addIngredientToSearchTextField () {
         return event -> {
                 if(event.getCode() == KeyCode.ENTER){
-                    addIngredient();
-                    searchByIngredient.clear();
+                    addIngredient(this.searchByIngredient.getText());
+                    this.searchByIngredient.clear();
                 }
         };
     }
 
-    public void addIngredient() {
+    public void addIngredient(final String ingredient) {
         if (this.ingredients.size() < 10) {
-            String ingredient = this.searchByIngredient.getText();
             if (!this.ingredients.contains(ingredient)) {
                 if (ingredient != "") {
                     if (this.ingredients.size() == 0) displayIngredientsAddedButton.setCursor(Cursor.HAND);
@@ -208,31 +209,44 @@ public class ResearchController extends recipeListController {
             if (this.ingredients.size() != 0) displayIngredientsAdded();
             else displayIngredientsAddedButton.setCursor(Cursor.DEFAULT);
 
-            if (this.isSearchLunched) displayApiInformation();
+            if (this.isSearchLunched) displayRecipes();
         };
     }
 
-    public void displayApiInformation() {
+    public void displayRecipes() {
         if (this.rootPane.getChildren().contains(this.ingredientsAddedDisplay)) removeDisplayIngredientsAdded();
 
         if (this.ingredients.size() != 0) {
             recipeDisplay.getChildren().clear();
             recipeBoxDisplayList.clear();
             favoritesButtonList.clear();
+            isSearchLunched = true;
 
             recipeInformation = new RecipeInformation(this.ingredients);
             List<Recipe> recipeList = recipeInformation.listOfRecipe;
+            this.backController = new BackToMenu((ArrayList<Recipe>) recipeList, this.ingredients, this.pageIndex);
             setRecipeList(recipeList, "#buttonMenu", "Research");
+            pageDisplay(pageIndex, this.recipeDisplay, recipeList);
 
-            isSearchLunched = true;
-            pageDisplay(1, this.recipeDisplay, recipeList);
         } else {
+            this.searchByIngredient.clear();
             displayError("You should add an ingredient before making a research", 950, 30, 1);
         }
     }
 
+    public void makeResearch(final ArrayList<Recipe> recipeList, final int pageIndex, final ArrayList<String> ingredients, final BackController backController) {
+        isSearchLunched = true;
+
+        for (String ingredient : ingredients) {
+            addIngredient(ingredient);
+        }
+        this.backController = backController;
+        setRecipeList(recipeList, "#buttonMenu", "Research");
+        pageDisplay(pageIndex, this.recipeDisplay, recipeList);
+    }
+
     public EventHandler<ActionEvent> getApiInformation() {
-        return event -> displayApiInformation();
+        return event -> displayRecipes();
     }
 
     @Override

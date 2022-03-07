@@ -61,7 +61,7 @@ public abstract class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/favorites.fxml"));
             Parent root = loader.load();
             FavoritesController favoriteController = loader.getController();
-            favoriteController.getFavoritesRecipes();
+            favoriteController.getFavoritesRecipes(1);
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
