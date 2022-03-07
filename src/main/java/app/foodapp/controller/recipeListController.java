@@ -66,8 +66,8 @@ public abstract class recipeListController extends MainController {
             favoritesButtonList.add(favoritesButton);
 
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe, currentButtonId, subTitle));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay, cookingTime, servings));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay, cookingTime, servings));
 
             recipeBoxDisplay.getChildren().addAll(title, cookingTime, servings, favoritesButton);
         }
@@ -98,11 +98,8 @@ public abstract class recipeListController extends MainController {
         }
     }
 
-    public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(final HBox recipeBoxDisplay) {
+    public EventHandler<MouseEvent> mouseEnteredRecipeBoxDisplay(final HBox recipeBoxDisplay, final Label cookingTime, final Label servings) {
         return event -> {
-            Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
-            Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
-
             recipeBoxDisplay.getStyleClass().add("recipe-content-hover");
             cookingTime.getStyleClass().add("recipe-information-hover");
             servings.getStyleClass().add("recipe-information-hover");
@@ -111,11 +108,8 @@ public abstract class recipeListController extends MainController {
         };
     }
 
-    public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(final HBox recipeBoxDisplay) {
+    public EventHandler<MouseEvent> mouseExitedRecipeBoxDisplay(final HBox recipeBoxDisplay, final Label cookingTime, final Label servings) {
         return event -> {
-            Label cookingTime = (Label) recipeBoxDisplay.getChildren().get(1);
-            Label servings = (Label) recipeBoxDisplay.getChildren().get(2);
-
             recipeBoxDisplay.getStyleClass().remove("recipe-content-hover");
             cookingTime.getStyleClass().remove("recipe-information-hover");
             servings.getStyleClass().remove("recipe-information-hover");

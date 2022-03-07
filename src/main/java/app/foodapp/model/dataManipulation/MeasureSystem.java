@@ -40,8 +40,8 @@ public enum MeasureSystem {
         }
     }
 
-    public MeasureSystem reverseMeasureSystem(MeasureSystem measureSystem) {
-        switch (measureSystem) {
+    public MeasureSystem reverseMeasureSystem() {
+        switch (this) {
             case US:
                 return METRIC;
             case METRIC:

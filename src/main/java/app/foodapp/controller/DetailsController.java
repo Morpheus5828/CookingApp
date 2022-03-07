@@ -1,6 +1,7 @@
 package app.foodapp.controller;
 
 import app.foodapp.controller.backController.BackController;
+import app.foodapp.model.dataManipulation.MeasureSystem;
 import app.foodapp.model.recipe.Recipe;
 import javafx.animation.ParallelTransition;
 import javafx.event.ActionEvent;
@@ -28,6 +29,7 @@ public class DetailsController extends MainController {
     @FXML private Text subTitleText;
 
     private BackController backController;
+    private Recipe recipe;
 
     public void setBackController(final BackController backController) {
         this.backController = backController;
@@ -35,18 +37,19 @@ public class DetailsController extends MainController {
 
     public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
         initDetailsPage(currentButtonId, subTitle);
+        this.recipe = recipe;
 
         Button favoritesButton = createFavoritesButton(recipe, new HBox());
         rootPane.getChildren().add(favoritesButton);
         favoritesButton.setLayoutX(1200);
         favoritesButton.setLayoutY(110);
 
-        ImageView backButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/researchRecipe/backButton.png")));
+        ImageView backButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/icons/backButton.png")));
         backButtonImage.setPreserveRatio(true);
         backButtonImage.setFitWidth(40);
 
         Button backButton = new Button("", backButtonImage);
-        backButton.getStyleClass().add("button-back");
+        backButton.getStyleClass().add("button-details");
         Tooltip.install(backButton, new Tooltip("Go back"));
         backButton.setCursor(Cursor.HAND);
         rootPane.getChildren().add(backButton);
@@ -87,8 +90,27 @@ public class DetailsController extends MainController {
 
         this.detailsDisplay.getChildren().addAll(titleBox, informationBox);
 
-        displayData(recipe.getIngredientsList(), "Ingredients","We are sorry but ingredients are unavailable.");
-        displayData(recipe.getStepsGUI(), "Steps", "We are sorry but steps are unavailable.");
+        Label recipeIngredients = createLabel("Ingredients", "recipe-ingredients");
+
+        ImageView reverseButtonImage = new ImageView(new Image("/app/foodapp/view/pictures/icons/reverseButton.png"));
+        reverseButtonImage.setPreserveRatio(true);
+        reverseButtonImage.setFitWidth(30);
+
+        Button reverseButton = new Button("", reverseButtonImage);
+        reverseButton.getStyleClass().add("button-details");
+        Tooltip.install(reverseButton, new Tooltip("Change measure system"));
+        reverseButton.setCursor(Cursor.HAND);
+        reverseButton.setOnAction(reverseMeasureSystem());
+
+        HBox ingredientsLabelBox = new HBox(recipeIngredients, reverseButton);
+        ingredientsLabelBox.getStyleClass().add("recipe-ingredientsLabelBox");
+        ingredientsLabelBox.setAlignment(Pos.BOTTOM_LEFT);
+        this.detailsDisplay.getChildren().add(ingredientsLabelBox);
+        displayData(recipe.getIngredientsList(),"We are sorry but ingredients are unavailable.", this.detailsDisplay.getChildren().size());
+
+        Label recipeSteps = createLabel("Steps", "recipe-steps");
+        this.detailsDisplay.getChildren().add(recipeSteps);
+        displayData(recipe.getStepsGUI(),  "We are sorry but steps are unavailable.", this.detailsDisplay.getChildren().size());
     }
 
     @Override
@@ -111,16 +133,17 @@ public class DetailsController extends MainController {
         subTitleText.setText(subTitle);
     }
 
-    public void displayData(final ArrayList<String> dataList, final String subTitle,final String errorMessage) {
-        Label dataSubTitle = createLabel(subTitle, "recipe-subTitle");
-
+    public void displayData(final ArrayList<String> dataList, final String errorMessage, final int index) {
         VBox dataDisplay = new VBox();
         dataDisplay.getStyleClass().add("recipe-dataDisplay");
 
         HBox dataBox = new HBox(dataDisplay);
         dataBox.getStyleClass().add("recipe-dataBox");
 
-        this.detailsDisplay.getChildren().addAll(dataSubTitle, dataBox);
+        if (index == this.detailsDisplay.getChildren().size())
+            this.detailsDisplay.getChildren().add(dataBox);
+        else
+            this.detailsDisplay.getChildren().add(index, dataBox);
 
         if (dataList != null) {
             for (String data : dataList) {
@@ -141,5 +164,18 @@ public class DetailsController extends MainController {
 
     public EventHandler<ActionEvent> goBack() {
         return event -> this.backController.goBack(event);
+    }
+
+    public EventHandler<ActionEvent> reverseMeasureSystem() {
+        return event -> {
+            try {
+                int size = this.detailsDisplay.getChildren().size();
+                MeasureSystem.setMeasureSystem(MeasureSystem.getMeasureSystem().reverseMeasureSystem());
+                this.detailsDisplay.getChildren().remove(size-3);
+                displayData(this.recipe.getIngredientsList(), "We are sorry but ingredients are unavailable.", size-3);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
     }
 }

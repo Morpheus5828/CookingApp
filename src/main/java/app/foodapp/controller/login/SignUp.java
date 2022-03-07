@@ -50,9 +50,9 @@ public final class SignUp {
         if(userAlreadyExist(content))
             AlertFound.usernameAlreadyExist();
         if(username.getText().isEmpty())
-            AlertFound.usernameNotWrite();
+            AlertFound.usernameFieldEmpty();
         if(password.getText().isEmpty())
-            AlertFound.passwordNotWrite();
+            AlertFound.passwordFieldEmpty();
         else {
             File file = new File("userInformation.txt");
             if(!file.exists())

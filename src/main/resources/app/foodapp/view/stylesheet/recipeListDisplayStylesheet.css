@@ -30,7 +30,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 30;
     -fx-border-color: none;
-    -fx-border-width: 0 0 1 0;
+    -fx-border-width: 0 0 0 0;
 }
 
 .recipe-cookingTime, .recipe-servings {

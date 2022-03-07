@@ -11,7 +11,8 @@
 }
 
 .recipe-title  {
-    -fx-text-fill: #ebebeb;
+    -fx-text-fill: #a6a6a6;
+    -fx-font-weight: bold;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-size: 60;
     -fx-text-alignment: center;
@@ -40,16 +41,23 @@
     -fx-padding: 5;
 }
 
-.button-back {
+.button-details {
     -fx-background-color: none;
     -fx-padding: 5;
 }
 
-.button-back:hover {
+.button-details:hover {
     -fx-background-color: #2e2e2e;
 }
 
-.recipe-subTitle {
+.recipe-ingredients {
+    -fx-text-fill: #ebebeb;
+    -fx-font-family: "Tw Cen MT Condensed";
+    -fx-font-size: 40;
+    -fx-padding: 10 0 0 0;
+}
+
+.recipe-steps {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-size: 40;
@@ -68,5 +76,10 @@
 .recipe-data {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT";
-    -fx-font-size: 15;
+    -fx-font-size: 20;
+}
+
+.recipe-ingredientsLabelBox {
+    -fx-spacing: 50;
+    -fx-padding: 0 0 10 0;
 }

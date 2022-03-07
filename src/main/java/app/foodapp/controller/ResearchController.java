@@ -65,7 +65,7 @@ public class ResearchController extends recipeListController {
     public void setRecipeResearch() {
         ingredientsAddedDisplay.setId("vbox-ingredientsAdded");
         recipeResearch.setAlignment(Pos.BOTTOM_CENTER);
-        ImageView ingredientsAddedImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/ingredientsAddedButton.png"));
+        ImageView ingredientsAddedImage = new ImageView(new Image("/app/foodapp/view/pictures/icons/ingredientsAddedButton.png"));
         ingredientsAddedImage.setPreserveRatio(true);
         ingredientsAddedImage.setFitWidth(25);
 
@@ -84,7 +84,7 @@ public class ResearchController extends recipeListController {
         searchByIngredient.setId("textField");
         searchByIngredient.setOnKeyPressed(addIngredientToSearchTextField());
 
-        ImageView addIngredientImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/plusButton.png"));
+        ImageView addIngredientImage = new ImageView(new Image("/app/foodapp/view/pictures/icons/plusButton.png"));
         addIngredientImage.setPreserveRatio(true);
         addIngredientImage.setFitWidth(25);
 
@@ -95,7 +95,7 @@ public class ResearchController extends recipeListController {
         addIngredientButton.setOnAction(addIngredientToSearchButton());
         addIngredientButton.addEventFilter(MouseEvent.MOUSE_ENTERED, setMousePosition());
 
-        ImageView searchImage = new ImageView(new Image("/app/foodapp/view/pictures/researchRecipe/researchButton.png"));
+        ImageView searchImage = new ImageView(new Image("/app/foodapp/view/pictures/icons/researchButton.png"));
         searchImage.setPreserveRatio(true);
         searchImage.setFitWidth(25);
 
