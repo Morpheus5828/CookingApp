@@ -1,13 +1,8 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.recipe.Recipe;
-import app.foodapp.model.alert.AlertFound;
 import app.foodapp.model.recipe.RecipeInformation;
-
-
-import javax.management.InstanceAlreadyExistsException;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Favorite {
@@ -17,17 +12,18 @@ public class Favorite {
     private final int USERNAME = 0;
     private BufferedReader reader;
 
-    public void launch() {
-       /* if (this.isEmpty()) {
+    public void launch() throws IOException {
+       System.out.println("hello");
+       if (this.isEmpty()) {
             System.out.println("\n" + "⚠ Sorry favorite list is empty" + "\n");
             Pane.setNextNodeNumber("WELCOME"); // If is empty user cannot go to the other node because it has no sense
         }
-        else {
+       else {
             this.displayFavoriteList();
             askToNextNode();
             choiceNumberRecovered();
             changeCurrentNode();
-        }*/
+       }
     }
 
     public String askToNextNode() {
@@ -83,24 +79,35 @@ public class Favorite {
     }
 
 
-
-
    public boolean removeFromFavorite(Recipe recipe) throws IOException {
+       File file = new File("favorite.txt");
+       FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+       String value = "";
+
        reader = new BufferedReader(new FileReader("favorite.txt"));
        String line;
-       String[] tabOfRow;
-       String[] tab;
        while ((line = reader.readLine()) != null) {
-           tabOfRow = line.split("=");
-           if(tabOfRow[USERNAME].equals(username)){
-               tab = tabOfRow[1].split(",");
-               for(String s : tab) {
-                   if(s.equals(recipe.getId())) s = "";
+           List<String> myList = new ArrayList<String>(Arrays.asList(line.split(",")));
+           if(myList.get(USERNAME).equals(username)) {
+               for(String m : myList) {
+                   if (recipe.getId().equals(m)) {
+                       System.out.println("Recipe isn't in favorite\n");
+                       return false;
+                   }
                }
-               return true;
            }
+           System.out.println(value);
+           value += myList;
        }
-       return false;
+
+       value = value.replace(" ", "");
+       value = value.replace("[", "");
+       value = value.replace("]", "");
+       file.delete();
+       FileWriter fw2 = new FileWriter(file.getAbsoluteFile(), true);
+       fw2.append(value);
+       fw2.close();
+       return true;
     }
 
 
@@ -160,24 +167,7 @@ public class Favorite {
         fw2.append(value);
         fw2.close();
         return true;
-    }
-
-    /*
-    reader = new BufferedReader(new FileReader("favorite.txt"));
-        String line;
-        String[] tabOfRow;
-        while ((line = reader.readLine()) != null) {
-            tabOfRow = line.split("=");
-            if(tabOfRow[USERNAME].equals(username)){  //TODO already in the favorite
-                tabOfRow[1] += recipe.getId() + ",";
-                return true;
-            }
-        }
-        fw.close();
-        return false;
-     */
-
-
+   }
 
 
 }

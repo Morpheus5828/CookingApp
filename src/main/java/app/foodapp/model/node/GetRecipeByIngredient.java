@@ -44,6 +44,7 @@ public class GetRecipeByIngredient {
     }
 
     public String sendRequest() {
+        System.out.println("\t\n Please hold on ...");
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         return recipeInformation.display();
     }
@@ -80,6 +81,7 @@ public class GetRecipeByIngredient {
                 int choiceNumber = numberRecover.nextInt();
                 Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
                 Pane.setNextNodeNumber("FAVORITE");
+
             }
             case 2 -> {
                 System.out.print("Enter menu number : ");
