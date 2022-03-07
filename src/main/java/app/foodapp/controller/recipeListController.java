@@ -38,16 +38,7 @@ public abstract class recipeListController extends MainController {
             Label cookingTime = createLabel((int) Math.round(recipe.getCookingTime()) + " min", "recipe-cookingTime");
             Label servings = createLabel((int) Math.round(recipe.getServings()) + " servings", "recipe-servings");
 
-            ImageView favoriteButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
-            favoriteButtonImage.setPreserveRatio(true);
-            favoriteButtonImage.setFitWidth(40);
-
-            StackPane favoriteButtonStackPane = new StackPane();
-            favoriteButtonStackPane.getChildren().add(favoriteButtonImage);
-
-            Button favoritesButton = new Button("", favoriteButtonStackPane);
-            manageFavoriteButton(favoritesButton, recipe, favoriteButtonStackPane, recipeBoxDisplay);
-            favoritesButton.getStyleClass().add("button-favorite");
+            Button favoritesButton = createFavoritesButton(recipe, recipeBoxDisplay);
             favoritesButtonList.add(favoritesButton);
 
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe, currentButtonId, subTitle));

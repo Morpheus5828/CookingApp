@@ -95,6 +95,21 @@ public abstract class MainController implements Initializable {
         return label;
     }
 
+    public Button createFavoritesButton (final Recipe recipe, final HBox recipeBoxDisplay) {
+        ImageView favoriteButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
+        favoriteButtonImage.setPreserveRatio(true);
+        favoriteButtonImage.setFitWidth(40);
+
+        StackPane favoriteButtonStackPane = new StackPane();
+        favoriteButtonStackPane.getChildren().add(favoriteButtonImage);
+
+        Button favoritesButton = new Button("", favoriteButtonStackPane);
+        manageFavoriteButton(favoritesButton, recipe, favoriteButtonStackPane, recipeBoxDisplay);
+        favoritesButton.getStyleClass().add("button-favorite");
+
+        return favoritesButton;
+    }
+
     public EventHandler<MouseEvent> setImage(final ImageView imageView, final Image image) {
         return event ->
                 imageView.setImage(image);
