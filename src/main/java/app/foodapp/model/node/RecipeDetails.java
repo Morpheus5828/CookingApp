@@ -5,24 +5,14 @@ import app.foodapp.model.alert.AlertFound;
 
 import java.util.Scanner;
 
-public class RecipeDetails extends Node {
+public class RecipeDetails {
     public static Recipe recipe;
     public RecipeDetails() {
-        super();
     }
 
     public void launch() {
         recipe.displayDetailsCharacteristics();
         askToAddRecipeFavorite();
-    }
-
-    private void addNodes() {
-        // Creation of link with Welcome class
-        this.neighborsList.put(0, NodeName.WELCOME);
-        this.neighborsList.put(1, NodeName.GET_RECIPE_BY_INGREDIENT);
-        this.neighborsList.put(2, NodeName.FAVORITE);
-        this.neighborsList.put(3, NodeName.MEASURE_SYSTEM);
-        this.neighborsList.put(5, NodeName.CLOSE_APP);
     }
 
     public void askToAddRecipeFavorite() {
