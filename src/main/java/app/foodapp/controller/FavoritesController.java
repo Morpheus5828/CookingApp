@@ -26,7 +26,7 @@ public class FavoritesController extends recipeListController {
         setImage(leftCornerLogo, new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
 
         List<Recipe> favoriteRecipes = favoriteNode.getFavorites();
-        setRecipeList(favoriteRecipes);
+        setRecipeList(favoriteRecipes, "#buttonFavorites", "Favorites");
 
         if (favoriteRecipes.isEmpty()) emptyFavoriteDisplay();
         else pageDisplay(1, this.recipeDisplay, favoriteRecipes);

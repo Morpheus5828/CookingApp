@@ -28,7 +28,7 @@ public abstract class recipeListController extends MainController {
 
     protected int pageIndex = 1;
 
-    public void setRecipeList(List<Recipe> recipeList) {
+    public void setRecipeList(final List<Recipe> recipeList, final String currentButtonId, final String subTitle) {
         for (Recipe recipe : recipeList) {
             HBox recipeBoxDisplay = new HBox();
             recipeBoxDisplay.getStyleClass().add("recipe-content");
@@ -50,7 +50,7 @@ public abstract class recipeListController extends MainController {
             favoritesButton.getStyleClass().add("button-favorite");
             favoritesButtonList.add(favoritesButton);
 
-            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe));
+            recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_CLICKED, getRecipeDetails(recipe, currentButtonId, subTitle));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEnteredRecipeBoxDisplay(recipeBoxDisplay));
             recipeBoxDisplay.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExitedRecipeBoxDisplay(recipeBoxDisplay));
 
@@ -58,16 +58,16 @@ public abstract class recipeListController extends MainController {
         }
     }
 
-    public EventHandler<MouseEvent> getRecipeDetails(final Recipe recipe) {
-        return event -> goToRecipeDetails(event, recipe);
+    public EventHandler<MouseEvent> getRecipeDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
+        return event -> goToRecipeDetails(event, recipe, currentButtonId, subTitle);
     }
 
-    public void goToRecipeDetails(final MouseEvent event, final Recipe recipe) {
+    public void goToRecipeDetails(final MouseEvent event, final Recipe recipe, final String currentButtonId, final String subTitle) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/recipeDetails.fxml"));
             Parent root = loader.load();
             DetailsController detailsController = loader.getController();
-            detailsController.getDetails(recipe);
+            detailsController.getDetails(recipe, currentButtonId, subTitle);
 
             Scene detailedRecipe = new Scene(root);
             detailedRecipe.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
