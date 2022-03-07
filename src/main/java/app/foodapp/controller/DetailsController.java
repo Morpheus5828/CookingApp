@@ -47,10 +47,10 @@ public class DetailsController extends MainController {
         favoritesButton.setLayoutY(110);
 
         HBox titleBox = new HBox();
-        Label title = new Label(recipe.getTitle());
-        title.setWrapText(true);
+        Text title = new Text(recipe.getTitle());
+        title.setWrappingWidth(1100);
+        title.setFill(Color.color(0.765, 0.765, 0.765));
         title.getStyleClass().add("recipe-title");
-        titleBox.setAlignment(Pos.CENTER);
         titleBox.getStyleClass().add("recipe-titleBox");
         titleBox.getChildren().addAll(title);
 
@@ -65,14 +65,21 @@ public class DetailsController extends MainController {
         Label stepsTitle = createLabel("Steps", "recipe-stepsTitle");
 
         HBox stepsBox = new HBox();
-        AnchorPane anchorPane = new AnchorPane();
+        VBox stepsDisplay = new VBox();
+        stepsDisplay.getStyleClass().add("recipe-stepsDisplay");
         stepsBox.getStyleClass().add("recipe-stepsBox");
 
         ArrayList<String> steps = recipe.getStepsGUI();
-        System.out.println(steps);
-
-
-        stepsBox.getChildren().add(anchorPane);
+        if (steps != null) {
+            for (String step : steps) {
+                Text stepText = new Text(step);
+                stepText.getStyleClass().add("recipe-step");
+                stepText.setWrappingWidth(1050);
+                stepText.setFill(Color.color(0.765, 0.765, 0.765));
+                stepsDisplay.getChildren().add(stepText);
+            }
+        }
+        stepsBox.getChildren().add(stepsDisplay);
 
         this.detailsDisplay.getChildren().addAll(titleBox, informationBox, stepsTitle, stepsBox);
     }
