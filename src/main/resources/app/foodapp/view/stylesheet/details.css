@@ -9,6 +9,7 @@
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-size: 60;
+    -fx-text-alignment: center;
 }
 
 .recipe-informationBox {
@@ -38,9 +39,15 @@
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-size: 40;
+    -fx-padding: 10 0 10 0;
 }
 
-.recipe-steps {
+.recipe-stepsDisplay {
+    -fx-spacing: 10;
+    -fx-padding: 0 10 0 40;
+}
+
+.recipe-step {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT";
     -fx-font-size: 15;
