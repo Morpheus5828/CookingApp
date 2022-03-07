@@ -231,8 +231,7 @@ public class ResearchController extends recipeListController {
 
         } else {
             this.searchByIngredient.clear();
-            if (!this.isSearchLunched) displayError("You should add an ingredient before making a research", 950, 30, 1);
-
+            displayError("You should add an ingredient before making a research", 950, 30, 1);
         }
     }
 
