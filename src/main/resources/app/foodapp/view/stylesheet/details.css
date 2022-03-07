@@ -51,14 +51,8 @@
     -fx-padding: 0 10 0 40;
 }
 
-.recipe-step {
+.recipe-data {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT";
     -fx-font-size: 15;
-}
-
-.box-pagination {
-    -fx-alignment: center;
-    -fx-spacing: 30;
-    -fx-padding: 22 15 15 50;
 }

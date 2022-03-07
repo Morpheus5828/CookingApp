@@ -70,11 +70,17 @@ public class DetailsController extends MainController {
         if (ingredients != null) {
             for (String ingredient : ingredients) {
                 Text ingredientText = new Text(ingredient);
-                ingredientText.getStyleClass().add("recipe-step");
+                ingredientText.getStyleClass().add("recipe-data");
                 ingredientText.setWrappingWidth(1050);
                 ingredientText.setFill(Color.color(0.765, 0.765, 0.765));
                 ingredientsDisplay.getChildren().add(ingredientText);
             }
+        } else {
+            Text errorText = new Text("We are sorry but the ingredients are unavailable.");
+            errorText.getStyleClass().add("recipe-data");
+            errorText.setWrappingWidth(1050);
+            errorText.setFill(Color.color(0.765, 0.765, 0.765));
+            ingredientsDisplay.getChildren().add(errorText);
         }
         ingredientsBox.getChildren().add(ingredientsDisplay);
 
@@ -89,14 +95,14 @@ public class DetailsController extends MainController {
         if (steps != null) {
             for (String step : steps) {
                 Text stepText = new Text(step);
-                stepText.getStyleClass().add("recipe-step");
+                stepText.getStyleClass().add("recipe-data");
                 stepText.setWrappingWidth(1050);
                 stepText.setFill(Color.color(0.765, 0.765, 0.765));
                 stepsDisplay.getChildren().add(stepText);
             }
         } else {
             Text errorText = new Text("We are sorry but the steps are unavailable.");
-            errorText.getStyleClass().add("recipe-step");
+            errorText.getStyleClass().add("recipe-data");
             errorText.setWrappingWidth(1050);
             errorText.setFill(Color.color(0.765, 0.765, 0.765));
             stepsDisplay.getChildren().add(errorText);
