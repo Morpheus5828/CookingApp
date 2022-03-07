@@ -16,7 +16,7 @@ public class FoodApp extends Application {
            Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/login.fxml"));
            loginStage.setTitle("Cooking App");
            loginStage.setScene(new Scene(root));
-           //loginStage.show();
+           loginStage.show();
 
        } catch (Exception e) {
            e.printStackTrace();

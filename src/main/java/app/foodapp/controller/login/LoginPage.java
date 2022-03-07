@@ -1,13 +1,21 @@
 package app.foodapp.controller.login;
 
+import app.foodapp.controller.MainController;
+import app.foodapp.controller.ResearchController;
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.dataManipulation.recipe.Recipe;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.io.*;
 
@@ -42,7 +50,7 @@ public class LoginPage {
             checkAttributionProperties();
             if(isTheSamePassword && isTheSameUsername)
                 // Open next stage
-                loginAccepted();
+                loginAccepted(actionEvent);
         }
 
         catch (Exception e) {
@@ -50,6 +58,7 @@ public class LoginPage {
         }
     }
 
+    @FXML
     private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
         Stage loginStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
@@ -58,12 +67,27 @@ public class LoginPage {
         loginStage.show();
     }
 
-    private void loginAccepted() throws IOException {
-        Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/favorites.fxml"));
+    private void loginAccepted(ActionEvent event) throws IOException {
+        /*Stage loginStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
         loginStage.setTitle("Cooking App");
         loginStage.setScene(new Scene(root));
-        loginStage.show();
+        loginStage.show();*/
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+        Parent root = loader.load();
+        ResearchController researchController = loader.getController();
+        researchController.welcomePage();
+        researchController.setRecipeResearch();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+
+        scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
+        scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void checkAttributionProperties() throws IOException {
@@ -72,5 +96,4 @@ public class LoginPage {
         if(!isTheSamePassword)
             AlertFound.passwordNotExist();
     }
-
 }
