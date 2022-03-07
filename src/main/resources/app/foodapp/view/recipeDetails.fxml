@@ -56,7 +56,7 @@
                   <Font name="Tw Cen MT Condensed" size="56.0" />
                </font>
             </Text>
-            <Text fx:id="subTitle" fill="#105722" layoutX="380.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="209.99993896484375">
+            <Text fx:id="subTitleText" fill="#105722" layoutX="380.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="209.99993896484375">
                <font>
                   <Font name="Tw Cen MT Italic" size="30.0" />
                </font>
