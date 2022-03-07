@@ -52,3 +52,13 @@
     -fx-font-family: "Tw Cen MT";
     -fx-font-size: 15;
 }
+
+.pane {
+    -fx-background-color: #4a4b4b;
+}
+
+.box-pagination {
+    -fx-alignment: center;
+    -fx-spacing: 30;
+    -fx-padding: 22 15 15 50;
+}

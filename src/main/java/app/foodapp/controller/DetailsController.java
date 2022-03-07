@@ -8,12 +8,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -22,13 +20,13 @@ import java.util.ArrayList;
 public class DetailsController extends MainController {
     @FXML private VBox detailsDisplay;
     @FXML private AnchorPane rootPane;
+    @FXML private Text subTitleText;
 
     public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
         Button currentButton = (Button) this.rootPane.lookup(currentButtonId);
         currentButton.getStyleClass().remove("button-unselected");
         currentButton.getStyleClass().add("button-selected");
 
-        Text subTitleText = (Text) this.rootPane.lookup("#subTitle");
         subTitleText.setText(subTitle);
 
         ImageView favoritesButtonImage = new ImageView(new Image(getClass().getResourceAsStream("/app/foodapp/view/pictures/heartPictures/full-heart.png")));
@@ -88,6 +86,10 @@ public class DetailsController extends MainController {
         stepsBox.getChildren().add(stepsDisplay);
 
         this.detailsDisplay.getChildren().addAll(titleBox, informationBox, stepsTitle, stepsBox);
+
+        HBox lastBox = new HBox();
+        lastBox.getStyleClass().add("box-pagination");
+        detailsDisplay.getChildren().add(lastBox);
     }
 
     @Override
