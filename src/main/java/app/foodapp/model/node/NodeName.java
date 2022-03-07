@@ -6,8 +6,8 @@ public enum NodeName {
     FAVORITE(2),
     MEASURE_SYSTEM(3),
     RECIPE_DETAILS(4),
-    CLOSE_APP(5);
-
+    CLOSE_APP(5),
+    DISCONNECT(6);
 
      NodeName(final int index) {}
 

@@ -3,6 +3,7 @@ package app.foodapp.model.node;
 import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.alert.AlertFound;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class RecipeDetails {
@@ -36,7 +37,7 @@ public class RecipeDetails {
         choiceNumber =  sc.nextInt();
     }
 
-    public void changeCurrentNode() {
+    public void changeCurrentNode() throws IOException {
         switch (choiceNumber) {
             case 1 -> {
                 GetRecipeByIngredient.addIngredient = true;

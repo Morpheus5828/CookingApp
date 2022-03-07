@@ -1,26 +1,74 @@
 package app.foodapp.model.node;
 
+import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.node.login.LoginPage;
+import app.foodapp.model.node.login.SignUp;
 import app.foodapp.model.recipe.Recipe;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Pane {
     private MainMenu mainMenu;
     private GetRecipeByIngredient getRecipeByIngredient;
-    private static Favorite favorite = new Favorite();
+    public static Favorite favorite = new Favorite();
+    public static boolean loginSuccessfull = false;
     private MeasureSystem measureSystem;
     private RecipeDetails recipeDetails;
     public static boolean checkStatusCode = true;
     public static String currentNode = NodeName.MAIN_MENU.name();
     private static String backNode = null;
+    private SignUp signUp;
+    private LoginPage login;
+    private int userChoice;
 
-    public Pane() {
+    public Pane() throws IOException {
         this.mainMenu = new MainMenu();
+        this.signUp = new SignUp();
+        this.login = new LoginPage();
         this.getRecipeByIngredient = new GetRecipeByIngredient();
         this.measureSystem = new MeasureSystem();
         this.recipeDetails = new RecipeDetails();
-        choice();
+        launchFirstDisplay();
     }
 
-    public void choice() {
+    public void launchFirstDisplay() throws IOException {
+        System.out.print(displayWelcomeText());
+        scanUserChoice();
+        userChoiceTreatment();
+        if (loginSuccessfull) {
+            System.out.println("\nWelcome back !");
+            this.launchApp();
+        }
+    }
+
+    public String displayWelcomeText() {
+        return  " --------------------------------\n" +
+                "\tHey welcome to CookingAppCli !\n " +
+                "---------------------------------\n" +
+                "\nDid you have an account ? \n" +
+                "\t1. Yes \n" +
+                "\t2. No \n" +
+                "\tPlease type your choice: ";
+    }
+
+    public void scanUserChoice() {
+        Scanner sc = new Scanner(System.in);
+        userChoice = sc.nextInt();
+    }
+
+    public void userChoiceTreatment() throws IOException {
+        switch (userChoice) {
+            case 1 -> login.launch();
+            case 2 -> signUp.launch();
+            default -> {
+                AlertFound.invalidNode();
+                displayWelcomeText();
+            }
+        }
+    }
+
+    public void launchApp() throws IOException {
         while(checkStatusCode) {
             switch (currentNode) {
                 case "MAIN_MENU" -> mainMenu.launch();
@@ -33,7 +81,7 @@ public class Pane {
         }
     }
 
-    public static void addRecipeToFavoriteList(Recipe recipe) {
+    public static void addRecipeToFavoriteList(Recipe recipe) throws IOException {
         favorite.addToFavorite(recipe);
     }
 
@@ -45,5 +93,4 @@ public class Pane {
     public static void back() {
         currentNode = backNode;
     }
-
 }

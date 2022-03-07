@@ -1,7 +1,6 @@
 package app.foodapp.controller.login;
 
-import app.foodapp.controller.login.LoginPage;
-import app.foodapp.controller.login.SignUp;
+import app.foodapp.model.node.login.SignUp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

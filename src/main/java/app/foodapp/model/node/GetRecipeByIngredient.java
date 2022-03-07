@@ -3,6 +3,7 @@ package app.foodapp.model.node;
 import app.foodapp.model.recipe.RecipeInformation;
 import app.foodapp.model.alert.AlertFound;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class GetRecipeByIngredient {
     }
 
     public String askToEnterIngredients() {
-        return "\n Please enter ingredient(s) and type 'end' when you're finished \n\n" +
+        return "\n Please enter ingredient(s) and type 'end' when you're finished \n" +
                "\t Type ingredient(s) : \n";
     }
 
@@ -43,16 +44,17 @@ public class GetRecipeByIngredient {
     }
 
     public String sendRequest() {
+        System.out.println("\t\n Please hold on ...");
         recipeInformation = new RecipeInformation(this.listOfIngredient);
         return recipeInformation.display();
     }
 
     public void askToChangeCurrentNode() {
         try {
-            System.out.println(askToNextNodePossibility());
+            System.out.print(askToNextNodePossibility());
             choiceNumberRecovered();
             changeCurrentNode();
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | IOException e) {
             AlertFound.invalidCharacter();
             askToChangeCurrentNode();
         }
@@ -60,10 +62,10 @@ public class GetRecipeByIngredient {
     }
 
     public String askToNextNodePossibility() {
-        return "1. Do you wish to add a recipe to your favorite ? " + "\n" +
-               "2. Get a recipe details ? " + "\n" +
-               "3. BACK" + "\n\n\t" +
-               "-> Please type choice number: ";
+        return "\t1. Do you wish to add a recipe to your favorite ? " + "\n" +
+               "\t2. Get a recipe details ? " + "\n" +
+               "\t3. BACK" + "\n\n\t" +
+               "\t--> Please type choice number: ";
     }
 
     public void choiceNumberRecovered() {
@@ -71,7 +73,7 @@ public class GetRecipeByIngredient {
         choiceNumber =  sc.nextInt();
     }
 
-    public void changeCurrentNode() {
+    public void changeCurrentNode() throws IOException {
         switch (choiceNumber) {
             case 1 -> {
                 System.out.print("Enter menu number : ");
@@ -79,6 +81,7 @@ public class GetRecipeByIngredient {
                 int choiceNumber = numberRecover.nextInt();
                 Pane.addRecipeToFavoriteList(RecipeInformation.listOfRecipe.get(choiceNumber));
                 Pane.setNextNodeNumber("FAVORITE");
+
             }
             case 2 -> {
                 System.out.print("Enter menu number : ");
@@ -97,9 +100,5 @@ public class GetRecipeByIngredient {
                 askToChangeCurrentNode();
             }
         }
-    }
-
-    public void setChoiceNumber(int choice) {
-        this.choiceNumber = choice;
     }
 }

@@ -26,6 +26,7 @@ public class RecipeInformation {
     private double amountValue;
     private Gson gsonInstance;
     private Map jsonFile;
+    private Recipe recipeForFavorite;
 
 
     public RecipeInformation(String id) {
@@ -34,11 +35,12 @@ public class RecipeInformation {
             // Conversion: JSONObject to Map
             gsonInstance = new Gson();
             this.jsonFile = gsonInstance.fromJson(request.getResponseFromApi(), Map.class);
+            this.id = jsonFile.get("id").toString();
             this.title = jsonFile.get("title").toString();
             this.image = jsonFile.get("image").toString();
             this.cookingTime = (double) jsonFile.get("readyInMinutes");
             this.serving = (double) jsonFile.get("servings");
-
+            this.recipeForFavorite = new Recipe(this.id, this.title, this.serving, this.cookingTime);
 
         } catch (Exception e) {
             // Sometimes value's properties are null
@@ -144,6 +146,10 @@ public class RecipeInformation {
         return this.gsonInstance.fromJson(String.valueOf(jsonObject), Map.class);
     }
 
+    public String displaySimple() {
+        return this.recipeForFavorite.displaySimpleCharacteristics();
+    }
+
     public String display() {
         String result = "";
         for(int i = 0; i < listOfRecipe.size(); i++) {
@@ -154,7 +160,6 @@ public class RecipeInformation {
                 "id: (information for programmer) " + listOfRecipe.get(i).getId() + "\n" +
                 "-----------------------------------------------" + "\n";
         }
-
         return result;
     }
 }
