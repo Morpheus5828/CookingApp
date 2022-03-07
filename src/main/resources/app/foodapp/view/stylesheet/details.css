@@ -35,14 +35,18 @@
     -fx-padding: 5;
 }
 
-.recipe-stepsTitle {
+.recipe-subTitle {
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT Condensed";
     -fx-font-size: 40;
     -fx-padding: 10 0 10 0;
 }
 
-.recipe-stepsDisplay {
+.recipe-dataBox {
+    -fx-padding: 0 0 40 0;
+}
+
+.recipe-dataDisplay {
     -fx-spacing: 10;
     -fx-padding: 0 10 0 40;
 }
@@ -51,10 +55,6 @@
     -fx-text-fill: #ebebeb;
     -fx-font-family: "Tw Cen MT";
     -fx-font-size: 15;
-}
-
-.pane {
-    -fx-background-color: #4a4b4b;
 }
 
 .box-pagination {

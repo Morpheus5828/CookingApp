@@ -169,6 +169,40 @@ public class RecipeInformation {
         }
         return recipe;
     }
+
+    public ArrayList<Map<String, String>> getIngredientsInformation() {
+        ArrayList<Map<String, String>> ingredientsListInformation = new ArrayList<>();
+        try {
+            List listOfIngredients = (List) this.jsonFile.get("extendedIngredients");
+            JSONArray ingredients = new JSONArray(listOfIngredients);
+
+            for (int index = 0; index < ingredients.length(); index++) {
+                Map<String, String> ingredientsInformation = new HashMap<>();
+                Map information = gsonInstance.fromJson(String.valueOf(ingredients.getJSONObject(index)), Map.class);
+                ingredientsInformation.put("fullDescription", (String) information.get("original"));
+                ingredientsInformation.put("description", (String) information.get("originalName"));
+                ingredientsInformation.put("unit", (String) information.get("unit"));
+
+                Map measure = (Map) information.get("measures");
+                Map usMeasure = (Map) measure.get("us");
+                Map metricMeasure = (Map) measure.get("metric");
+
+                double usAmount = (Math.round((double) usMeasure.get("amount") *  10.0)) / 10.0;
+                double metricAmount = (Math.round((double) metricMeasure.get("amount") *  10.0)) / 10.0;
+
+                ingredientsInformation.put("usAmount", String.valueOf(usAmount));
+                ingredientsInformation.put("metricAmount", String.valueOf(metricAmount));
+
+                ingredientsInformation.put("usUnit", (String) usMeasure.get("unitShort"));
+                ingredientsInformation.put("metricUnit", (String) metricMeasure.get("unitShort"));
+
+                ingredientsListInformation.add(ingredientsInformation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ingredientsListInformation;
+    }
 }
 
 
