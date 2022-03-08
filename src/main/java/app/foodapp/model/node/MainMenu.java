@@ -22,10 +22,11 @@ public class MainMenu {
     }
 
     public String askFirstChoices() {
-        return "\n\t 1. Get recipe by ingredients \n" +
-               "\t 2. Favorite list \n" +
-               "\t 3. System Measure \n" +
-               "\t 4. Close CookingApp \n";
+        return "\nWhat do you want to do ?\n" +
+                "\n\t 1. Get recipe by ingredients \n" +
+                "\t 2. Favorite list \n" +
+                "\t 3. System Measure \n" +
+                "\t 4. Close CookingApp \n";
     }
 
     public String askChoiceNumber() {
