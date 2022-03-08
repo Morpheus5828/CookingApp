@@ -27,7 +27,7 @@ public class GetRecipeByIngredient {
 
     public String askToEnterIngredients() {
         return "\n Please enter ingredient(s) and type 'end' when you're finished \n" +
-               "\t Type ingredient(s) : \n";
+                "\t Type ingredient(s) : \n";
     }
 
     public void enterIngredient() {
@@ -63,9 +63,9 @@ public class GetRecipeByIngredient {
 
     public String askToNextNodePossibility() {
         return "\t1. Do you wish to add a recipe to your favorite ? " + "\n" +
-               "\t2. Get a recipe details ? " + "\n" +
-               "\t3. BACK" + "\n\n\t" +
-               "\t--> Please type choice number: ";
+                "\t2. Get a recipe details ? " + "\n" +
+                "\t3. BACK" + "\n\n\t" +
+                "\t--> Please type choice number: ";
     }
 
     public void choiceNumberRecovered() {
@@ -87,8 +87,8 @@ public class GetRecipeByIngredient {
                 System.out.print("Enter menu number : ");
                 Scanner numberRecover2 = new Scanner(System.in);
                 int choiceNumber2 = numberRecover2.nextInt();
-                System.out.println("\n" + "you choose : " + recipeInformation.listOfRecipe.get(choiceNumber2).getId());
-                RecipeInformation.listOfRecipe.get(choiceNumber2).displayDetailsCharacteristics();
+                System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber2).getId());
+                RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber2);
                 Pane.setNextNodeNumber("RECIPE_DETAILS");
             }
             case 3 -> {
