@@ -1,4 +1,4 @@
-package app.foodapp.model.node;
+/*package app.foodapp.model.node;
 
 import app.foodapp.model.recipe.Recipe;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FavoriteTest {
 
-    Favorite testFavorite = new Favorite();
+   /* Favorite testFavorite = new Favorite();
     Recipe testRecipe1 = new Recipe("1620", null, null,8,30);
     Recipe testRecipe2 = new Recipe("1400", null, null, 9, 45);
 
@@ -77,10 +77,10 @@ public class FavoriteTest {
         Favorite testFavorite2 = new Favorite();
         testFavorite2.readSavedFavorites();
         assertEquals(testRecipe1.equals(testFavorite2.getRecipe(0)), true);
-    }
+    }*/
 
-    @Test
+    /*@Test
     void testIsFavoritesSavedExists(){
         assertEquals(testFavorite.favoriteListIsSaved(), true);
     }
-}
+}*/
