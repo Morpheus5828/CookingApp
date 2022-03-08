@@ -1,6 +1,6 @@
 package app.foodapp.model.node;
 
-import app.foodapp.model.dataManipulation.MeasureSystem;
+import app.foodapp.model.dataManipulation.MeasureSystemName;
 import org.junit.jupiter.api.Test;
 
 
@@ -12,19 +12,19 @@ public class MeasureSystemTest {
 
     @Test
     public void testSetMeasureSystem() throws IOException {
-        MeasureSystem currentMeasureSystem = MeasureSystem.getMeasureSystem();
+        MeasureSystemName currentMeasureSystem = MeasureSystemName.getMeasureSystem();
 
-        MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
-        assertEquals(MeasureSystem.METRIC, MeasureSystem.getMeasureSystem());
-        MeasureSystem.setMeasureSystem(MeasureSystem.US);
-        assertEquals(MeasureSystem.US, MeasureSystem.getMeasureSystem());
+        MeasureSystemName.setMeasureSystem(MeasureSystemName.METRIC);
+        assertEquals(MeasureSystemName.METRIC, MeasureSystemName.getMeasureSystem());
+        MeasureSystemName.setMeasureSystem(MeasureSystemName.US);
+        assertEquals(MeasureSystemName.US, MeasureSystemName.getMeasureSystem());
 
-        MeasureSystem.setMeasureSystem(currentMeasureSystem);
+        MeasureSystemName.setMeasureSystem(currentMeasureSystem);
     }
 
     @Test
     public void testToString() {
-        assertEquals("us", MeasureSystem.US.toString());
-        assertEquals("metric", MeasureSystem.METRIC.toString());
+        assertEquals("us", MeasureSystemName.US.toString());
+        assertEquals("metric", MeasureSystemName.METRIC.toString());
     }
 }

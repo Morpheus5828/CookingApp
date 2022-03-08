@@ -20,6 +20,10 @@ public class AlertFound {
         System.out.println("\n" + "⚠ You have reach the limit of possible research for a day. Please try later." + "\n");
     }
 
+    public static void openMeasureSystemFileError() {
+        System.out.println("\n" + "⚠ File content doesn't match any measure system." + "\n");
+    }
+
     public static void usernameAlreadyExist() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);;
         alert.setContentText("Username already exist, please try again");

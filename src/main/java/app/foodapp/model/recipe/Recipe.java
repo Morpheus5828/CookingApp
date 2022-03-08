@@ -1,7 +1,6 @@
 package app.foodapp.model.recipe;
 
-import app.foodapp.model.dataManipulation.MeasureSystem;
-import app.foodapp.model.recipe.RecipeInformation;
+import app.foodapp.model.dataManipulation.MeasureSystemName;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,7 +99,7 @@ public class Recipe {
                 ingredientsList.add(information.get("fullDescription"));
             } else {
                 try {
-                    String measureSystem = MeasureSystem.getMeasureSystem().toString();
+                    String measureSystem = MeasureSystemName.getMeasureSystem().toString();
                     String ingredient = information.get(measureSystem + "Amount")
                             + " "
                             + information.get(measureSystem + "Unit")

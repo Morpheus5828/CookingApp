@@ -2,14 +2,14 @@ package app.foodapp.model.dataManipulation;
 
 import java.io.*;
 
-public enum MeasureSystem {
+public enum MeasureSystemName {
     US(0),
     METRIC(1);
 
-    MeasureSystem(final int index) {
+    MeasureSystemName(final int index) {
     }
 
-    public static MeasureSystem getMeasureSystem() throws IOException {
+    public static MeasureSystemName getMeasureSystem() throws IOException {
         FileReader fileReader = new FileReader("save/MeasureSystem.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String content = bufferedReader.readLine();
@@ -21,7 +21,7 @@ public enum MeasureSystem {
         }
     }
 
-    public static void setMeasureSystem (final MeasureSystem measureSystem) {
+    public static void setMeasureSystem (final MeasureSystemName measureSystem) {
         try {
             FileWriter fileWriter = new FileWriter("save/MeasureSystem.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -40,7 +40,7 @@ public enum MeasureSystem {
         }
     }
 
-    public MeasureSystem reverseMeasureSystem() {
+    public MeasureSystemName reverseMeasureSystem() {
         switch (this) {
             case US:
                 return METRIC;
@@ -53,8 +53,8 @@ public enum MeasureSystem {
     @Override
     public String toString() {
         switch (this) {
-            case US: return "us";
-            case METRIC: return "metric";
+            case US: return "US";
+            case METRIC: return "METRIC";
         }
         return "";
     }

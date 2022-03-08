@@ -1,7 +1,7 @@
 package app.foodapp.controller;
 
 import app.foodapp.controller.backController.BackController;
-import app.foodapp.model.dataManipulation.MeasureSystem;
+import app.foodapp.model.dataManipulation.MeasureSystemName;
 import app.foodapp.model.recipe.Recipe;
 import javafx.animation.ParallelTransition;
 import javafx.event.ActionEvent;
@@ -170,7 +170,7 @@ public class DetailsController extends MainController {
         return event -> {
             try {
                 int size = this.detailsDisplay.getChildren().size();
-                MeasureSystem.setMeasureSystem(MeasureSystem.getMeasureSystem().reverseMeasureSystem());
+                MeasureSystemName.setMeasureSystem(MeasureSystemName.getMeasureSystem().reverseMeasureSystem());
                 this.detailsDisplay.getChildren().remove(size-3);
                 displayData(this.recipe.getIngredientsList(), "We are sorry but ingredients are unavailable.", size-3);
             } catch (IOException e) {

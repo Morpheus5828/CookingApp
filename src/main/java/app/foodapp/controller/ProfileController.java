@@ -1,6 +1,6 @@
 package app.foodapp.controller;
 
-import app.foodapp.model.dataManipulation.MeasureSystem;
+import app.foodapp.model.dataManipulation.MeasureSystemName;
 import app.foodapp.model.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,8 +22,8 @@ public class ProfileController extends MainController {
 
     public void setProfile() {
         try {
-            MeasureSystem measureSystem = MeasureSystem.getMeasureSystem();
-            if (measureSystem == MeasureSystem.US)
+            MeasureSystemName measureSystem = MeasureSystemName.getMeasureSystem();
+            if (measureSystem == MeasureSystemName.US)
                 measureSystemLabel.setText("US");
             else
                 measureSystemLabel.setText("METRIC");
@@ -37,12 +37,12 @@ public class ProfileController extends MainController {
     }
 
     public void setMeasureSystemToUs() {
-        MeasureSystem.setMeasureSystem(MeasureSystem.US);
+        MeasureSystemName.setMeasureSystem(MeasureSystemName.US);
         measureSystemLabel.setText("US");
     }
 
     public void setMeasureSystemToMetric() {
-        MeasureSystem.setMeasureSystem(MeasureSystem.METRIC);
+        MeasureSystemName.setMeasureSystem(MeasureSystemName.METRIC);
         measureSystemLabel.setText("METRIC");
     }
 
