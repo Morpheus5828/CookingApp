@@ -28,12 +28,7 @@ public class DetailsController extends MainController {
     @FXML private AnchorPane rootPane;
     @FXML private Text subTitleText;
 
-    private BackController backController;
     private Recipe recipe;
-
-    public void setBackController(final BackController backController) {
-        this.backController = backController;
-    }
 
     public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
         initDetailsPage(currentButtonId, subTitle);
