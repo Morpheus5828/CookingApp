@@ -118,7 +118,11 @@ public class DetailsController extends MainController {
         return event -> {
             ParallelTransition animation = removeRecipeFromFavoritesAnimation(button, recipe, stackPane, box);
             animation.setOnFinished(event1 -> {
-                favoriteNode.removeFromFavorite(recipe);
+                try {
+                    favoriteNode.removeFromFavorite(recipe);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 manageFavoriteButton(button, recipe, stackPane, box);
             });
             animation.play();

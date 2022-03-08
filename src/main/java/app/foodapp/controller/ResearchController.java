@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -265,7 +266,11 @@ public class ResearchController extends recipeListController {
         return event -> {
             ParallelTransition animation = removeRecipeFromFavoritesAnimation(button, recipe, stackPane, box);
             animation.setOnFinished(event1 -> {
-                favoriteNode.removeFromFavorite(recipe);
+                try {
+                    favoriteNode.removeFromFavorite(recipe);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 manageFavoriteButton(button, recipe, stackPane, box);
             });
             animation.play();

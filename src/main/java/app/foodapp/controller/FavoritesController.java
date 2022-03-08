@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.List;
 
 public class FavoritesController extends recipeListController {
@@ -26,7 +27,7 @@ public class FavoritesController extends recipeListController {
     public void getFavoritesRecipes(final int pageIndex) {
         setImage(leftCornerLogo, new Image("/app/foodapp/view/pictures/logo/logoApp.png"));
 
-        List<Recipe> favoriteRecipes = favoriteNode.getFavorites();
+        List<Recipe> favoriteRecipes = favoriteNode.displayFavoriteListGui();
         this.backController = new BackToFavorites(this.pageIndex);
         setRecipeList(favoriteRecipes, "#buttonFavorites", "Favorites");
 
@@ -45,7 +46,11 @@ public class FavoritesController extends recipeListController {
             recipeFading.play();
 
             animation.setOnFinished(event1 -> {
-                favoriteNode.removeFromFavorite(recipe);
+                try {
+                    favoriteNode.removeFromFavorite(recipe);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 favoritesButtonList.remove(button);
                 recipeBoxDisplayList.remove(box);
                 update();
@@ -62,7 +67,7 @@ public class FavoritesController extends recipeListController {
     }
 
     public void update() {
-        List<Recipe> favoriteRecipes = favoriteNode.getFavorites();
+        List<Recipe> favoriteRecipes = favoriteNode.displayFavoriteListGui();
         int nbOfFavoriteRecipe = favoriteRecipes.size();
         int maxPageIndex = (int) Math.ceil(nbOfFavoriteRecipe / 10.0);
 

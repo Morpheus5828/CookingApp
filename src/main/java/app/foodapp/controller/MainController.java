@@ -1,6 +1,6 @@
 package app.foodapp.controller;
 
-import app.foodapp.model.dataManipulation.recipe.FavoriteStamp;
+import app.foodapp.model.node.login.Favorite;
 import app.foodapp.model.recipe.Recipe;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public abstract class MainController implements Initializable {
-    protected final FavoriteStamp favoriteNode = new FavoriteStamp();
+    protected final Favorite favoriteNode = new Favorite();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -121,7 +121,7 @@ public abstract class MainController implements Initializable {
     }
 
     public void manageFavoriteButton(Button button, Recipe recipe, StackPane stackPane, HBox box) {
-        ArrayList<Recipe> favoriteRecipes = favoriteNode.getFavorites();
+        ArrayList<Recipe> favoriteRecipes = favoriteNode.displayFavoriteListGui();
         ImageView favoritesImage = new ImageView();
         favoritesImage.setPreserveRatio(true);
         favoritesImage.setFitWidth(40);
@@ -191,7 +191,11 @@ public abstract class MainController implements Initializable {
 
     public EventHandler<ActionEvent> addRecipeToFavorites(final Button button, final Recipe  recipe, final StackPane stackPane, final HBox box) {
         return event -> {
-            favoriteNode.addToFavorite(recipe);
+            try {
+                favoriteNode.addToFavorite(recipe);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             manageFavoriteButton(button, recipe, stackPane, box);
         };
     }

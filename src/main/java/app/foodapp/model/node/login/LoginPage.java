@@ -1,10 +1,12 @@
 package app.foodapp.model.node.login;
 
+import app.foodapp.controller.ProfileController;
 import app.foodapp.model.alert.AlertFound;
 import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -49,11 +51,20 @@ public final class LoginPage {
 
     @FXML
     private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
-        Stage sgnUpStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
-        sgnUpStage.setTitle("Cooking App");
-        sgnUpStage.setScene(new Scene(root));
-        sgnUpStage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
+            Parent root = loader.load();
+            ProfileController profileController = loader.getController();
+            profileController.setProfile();
+
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loginAccepted() throws IOException {

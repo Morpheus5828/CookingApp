@@ -78,6 +78,30 @@ public class Favorite {
         }
     }
 
+    public ArrayList<Recipe> displayFavoriteListGui() {
+        ArrayList<Recipe> list = new ArrayList<>();
+        try {
+            reader = new BufferedReader(new FileReader("favorite.txt"));
+            String line;
+            String[] tabOfRow;
+            String[] tab = new String[0];
+            while ((line = reader.readLine()) != null) {
+                tabOfRow = line.split("=");
+                String result = tabOfRow[0];
+                for (int i = 0; i < result.length(); i++) {
+                    tab = result.split(",");
+                }
+            }
+            for (int i = 1; i < tab.length; i++) {
+                RecipeInformation test = new RecipeInformation(tab[i]);
+                list.add(test.displayRecipe());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public boolean removeFromFavorite(Recipe recipe) throws IOException {
         File file = new File("favorite.txt");
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
