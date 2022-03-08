@@ -1,9 +1,12 @@
 package app.foodapp.model.node;
 
 import app.foodapp.model.alert.AlertFound;
+import app.foodapp.model.node.login.Favorite;
 import app.foodapp.model.node.login.LoginPage;
+import app.foodapp.model.node.login.RecipeDetails;
 import app.foodapp.model.node.login.SignUp;
 import app.foodapp.model.recipe.Recipe;
+
 
 import java.io.IOException;
 import java.util.Scanner;

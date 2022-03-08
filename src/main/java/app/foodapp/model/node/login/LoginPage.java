@@ -1,7 +1,6 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
-import app.foodapp.model.node.Favorite;
 import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

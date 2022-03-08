@@ -1,7 +1,6 @@
 package app.foodapp.model.node.login;
 
 import app.foodapp.model.alert.AlertFound;
-import app.foodapp.model.node.Favorite;
 import app.foodapp.model.node.Pane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,8 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public final class SignUp {
