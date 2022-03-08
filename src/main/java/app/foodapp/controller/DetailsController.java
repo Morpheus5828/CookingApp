@@ -66,7 +66,7 @@ public class DetailsController extends MainController {
             }
         }
 
-        Text title = new Text(setFirstLetterToUpperCase(recipe.getTitle()));
+        Text title = new Text(recipe.getTitle());
         title.setWrappingWidth(1100);
         title.setFill(Color.color(0.9, 0.9, 0.9));
         title.getStyleClass().add("recipe-title");

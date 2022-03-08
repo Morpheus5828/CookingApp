@@ -195,8 +195,4 @@ public abstract class MainController implements Initializable {
             manageFavoriteButton(button, recipe, stackPane, box);
         };
     }
-
-    public String setFirstLetterToUpperCase(String string) {
-        return string.substring(0, 1).toUpperCase() + string.substring(1);
-    }
 }

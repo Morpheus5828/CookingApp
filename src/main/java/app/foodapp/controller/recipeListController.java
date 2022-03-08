@@ -38,7 +38,7 @@ public abstract class recipeListController extends MainController {
             recipeBoxDisplay.getStyleClass().add("recipe-content");
             recipeBoxDisplayList.add(recipeBoxDisplay);
 
-            Label title = createLabel(setFirstLetterToUpperCase(recipe.getTitle()), "recipe-title");
+            Label title = createLabel(recipe.getTitle(), "recipe-title");
             title.setWrapText(true);
             title.setMinWidth(700);
             title.setMaxWidth(700);
