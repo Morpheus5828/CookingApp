@@ -226,8 +226,13 @@ public class ResearchController extends recipeListController {
             recipeInformation = new RecipeInformation(this.ingredients);
             List<Recipe> recipeList = recipeInformation.listOfRecipe;
             this.backController = new BackToMenu((ArrayList<Recipe>) recipeList, this.ingredients, this.pageIndex);
-            setRecipeList(recipeList, "#buttonMenu", "Research");
-            pageDisplay(pageIndex, this.recipeDisplay, recipeList);
+
+            if (recipeList != null) {
+                 setRecipeList(recipeList, "#buttonMenu", "Research");
+                pageDisplay(pageIndex, this.recipeDisplay, recipeList);
+            } else {
+                emptyResearchDisplay();
+            }
 
         } else {
             this.searchByIngredient.clear();
@@ -243,8 +248,12 @@ public class ResearchController extends recipeListController {
             addIngredient(ingredient);
         }
         this.backController = backController;
-        setRecipeList(recipeList, "#buttonMenu", "Research");
-        pageDisplay(pageIndex, this.recipeDisplay, recipeList);
+        if (recipeList != null) {
+            setRecipeList(recipeList, "#buttonMenu", "Research");
+            pageDisplay(pageIndex, this.recipeDisplay, recipeList);
+        } else {
+            emptyResearchDisplay();
+        }
     }
 
     public EventHandler<ActionEvent> getApiInformation() {
@@ -314,5 +323,12 @@ public class ResearchController extends recipeListController {
             pop.setLayoutY(60);
             this.rootPane.getChildren().add(pop);
         }
+    }
+
+    public void emptyResearchDisplay() {
+        Label message = new Label("Please, check your ingredients.");
+        message.setId("text-empty");
+        this.recipeDisplay.setAlignment(Pos.TOP_CENTER);
+        this.recipeDisplay.getChildren().add(message);
     }
 }

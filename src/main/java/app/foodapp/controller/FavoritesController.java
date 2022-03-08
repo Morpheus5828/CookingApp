@@ -56,7 +56,7 @@ public class FavoritesController extends recipeListController {
 
     public void emptyFavoriteDisplay() {
         Label message = new Label("It seems like you don't have any favorite recipe...");
-        message.setId("text-empty-favorites");
+        message.setId("text-empty");
         recipeDisplay.setAlignment(Pos.TOP_CENTER);
         recipeDisplay.getChildren().add(message);
     }

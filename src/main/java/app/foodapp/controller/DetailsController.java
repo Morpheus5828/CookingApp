@@ -28,8 +28,12 @@ public class DetailsController extends MainController {
     @FXML private AnchorPane rootPane;
     @FXML private Text subTitleText;
 
-    private Recipe recipe;
     private BackController backController;
+    private Recipe recipe;
+
+    public void setBackController(final BackController backController) {
+        this.backController = backController;
+    }
 
     public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
         initDetailsPage(currentButtonId, subTitle);
@@ -67,7 +71,7 @@ public class DetailsController extends MainController {
             }
         }
 
-        Text title = new Text(recipe.getTitle());
+        Text title = new Text(setFirstLetterToUpperCase(recipe.getTitle()));
         title.setWrappingWidth(1100);
         title.setFill(Color.color(0.9, 0.9, 0.9));
         title.getStyleClass().add("recipe-title");
