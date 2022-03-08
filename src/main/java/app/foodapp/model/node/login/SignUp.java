@@ -139,10 +139,10 @@ public final class SignUp {
     public void setRegime() {
         System.out.print(
                 "Regime:\n" +
-                "\t1. Vegan \n" +
-                "\t2. Vegetarian \n" +
-                "\t3. No regime \n" +
-                "\t -> Your choice: "
+                        "\t1. Vegan \n" +
+                        "\t2. Vegetarian \n" +
+                        "\t3. No regime \n" +
+                        "\t -> Your choice: "
         );
         Scanner sc = new Scanner(System.in);
         switch (sc.nextInt()) {
@@ -158,7 +158,7 @@ public final class SignUp {
 
     public void userRegister(String userNameForCli, String passwordForCLi, String userRegime) throws IOException {
         try {
-            String content = userNameForCli + "," + passwordForCLi + "," + userRegime + ",\n";
+            String content = userNameForCli + "," + passwordForCLi + "," + userRegime + ",";
             if (userAlreadyExist(content)) {
                 System.out.println("\n\t⚠ User already exist please choose an other one\n");
                 this.launch();
@@ -169,7 +169,7 @@ public final class SignUp {
                 if(!file.exists())
                     file.createNewFile();
                 FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-                fw.append(content);
+                fw.append("\n" + content);
                 createFavoriteFile(userNameForCli);
                 System.out.println("\nUser has been add successfully\n");
                 fw.close();
@@ -189,9 +189,7 @@ public final class SignUp {
         if(!file.exists())
             file.createNewFile();
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-        Map<String, String> favorite = new HashMap<>();
-        favorite.put(username, "");
-        fw.append(favorite.toString() + ",\n");
+        fw.append("\n" + username + ",none,");
         fw.close();
     }
 }
