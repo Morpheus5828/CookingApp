@@ -7,6 +7,7 @@ import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -34,9 +35,9 @@ public final class LoginPage {
             String line;
             String[] tabOfRow = new String[0];
             while((line = reader.readLine()) != null)
-                 tabOfRow = line.split(",");
+                tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText())) {
-                loginAccepted();
+                loginAccepted(actionEvent);
                 ProfileController.USERNAME = usernameEntered.getText();
                 ProfileController.PASSWORD = passwordEntered.getText();
                 //Favorite.username = usernameEntered.getText();
@@ -52,30 +53,36 @@ public final class LoginPage {
 
 
     @FXML
-    private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
-        Stage sgnUpStage = new Stage();
+    private void creationOfAnAccount(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
-        sgnUpStage.setTitle("Cooking App");
-        sgnUpStage.setScene(new Scene(root));
+        Stage sgnUpStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        sgnUpStage.setScene(scene);
         sgnUpStage.show();
+
     }
 
-    private void loginAccepted() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-        Parent root = loader.load();
-        ResearchController researchController = loader.getController();
-        researchController.welcomePage();
-        researchController.setRecipeResearch();
+    private void loginAccepted(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+            Parent root = loader.load();
+            ResearchController researchController = loader.getController();
+            researchController.welcomePage();
+            researchController.setRecipeResearch();
 
-        Stage cookingAppStage = new Stage();
-        Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
 
-        scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
-        scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
 
-        cookingAppStage.setTitle("Cooking App");
-        cookingAppStage.setScene(scene);
-        cookingAppStage.show();
+            stage.setScene(scene);
+            stage.setX(0);
+            stage.setY(0);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // method just for CLI

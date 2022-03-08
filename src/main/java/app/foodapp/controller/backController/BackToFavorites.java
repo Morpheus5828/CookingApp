@@ -29,6 +29,7 @@ public class BackToFavorites implements BackController {
             Parent root = loader.load();
             FavoritesController favoriteController = loader.getController();
             favoriteController.getFavoritesRecipes(this.pageIndex);
+            favoriteController.update();
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

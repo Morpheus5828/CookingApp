@@ -1,12 +1,15 @@
 package app.foodapp.model.node.login;
 
+import app.foodapp.controller.ProfileController;
+import app.foodapp.controller.ResearchController;
 import app.foodapp.model.alert.AlertFound;
-import app.foodapp.model.node.Favorite;
 import app.foodapp.model.node.Pane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -57,7 +60,7 @@ public final class SignUp {
         this.regime = regimeChoice;
     }
 
-    public boolean createAnAccount() throws IOException {
+    public boolean createAnAccount(ActionEvent actionEvent) throws IOException {
         String content = username.getText() + "," + password.getText() + "," + regime +",\n";
         if(userAlreadyExist(content)) {
             AlertFound.usernameAlreadyExist();
@@ -81,8 +84,10 @@ public final class SignUp {
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             fw.append(content);
             fw.close();
-            launchCookingApp();
-            Favorite.username = username.getText();
+            launchCookingApp(actionEvent);
+            ProfileController.USERNAME = this.username.getText();
+            ProfileController.PASSWORD = this.password.getText();
+            //Favorite.username = username.getText();
             return true;
         }
     }
@@ -103,12 +108,27 @@ public final class SignUp {
         return false;
     }
 
-    private void launchCookingApp() throws IOException {
-        Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-        loginStage.setTitle("Cooking App");
-        loginStage.setScene(new Scene(root));
-        loginStage.show();
+    private void launchCookingApp(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+            Parent root = loader.load();
+            ResearchController researchController = loader.getController();
+            researchController.welcomePage();
+            researchController.setRecipeResearch();
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.setX(0);
+            stage.setY(0);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // method just for Cli run
@@ -173,7 +193,7 @@ public final class SignUp {
                 createFavoriteFile(userNameForCli);
                 System.out.println("\nUser has been add successfully\n");
                 fw.close();
-                Favorite.username = userNameForCli;
+                //Favorite.username = userNameForCli;
                 Pane.loginSuccessfull = true;
             }
 
