@@ -9,5 +9,5 @@ Projet H member:
 
 Marius THORRE
 Chloe BUTTIGIEG
-Hadrien STOPOLANNI
+Hadrien STOPPOLANI
 
