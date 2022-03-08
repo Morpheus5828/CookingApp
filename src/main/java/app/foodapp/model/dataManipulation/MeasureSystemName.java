@@ -53,8 +53,8 @@ public enum MeasureSystemName {
     @Override
     public String toString() {
         switch (this) {
-            case US: return "US";
-            case METRIC: return "METRIC";
+            case US: return "us";
+            case METRIC: return "metric";
         }
         return "";
     }

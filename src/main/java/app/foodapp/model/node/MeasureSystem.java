@@ -70,7 +70,7 @@ public class MeasureSystem {
     }
 
     public void setMeasureSystemSuccess() {
-        System.out.println("\nThe measure system has been changed to : " + measureSystem.toString());
+        System.out.println("\nThe measure system has been changed to : " + measureSystem.toString().toUpperCase());
     }
 
     public void setMeasureSystemFailure() {
