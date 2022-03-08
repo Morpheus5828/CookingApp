@@ -1,7 +1,10 @@
 package app.foodapp.model.node;
 
+import app.foodapp.model.alert.AlertFound;
 import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.recipe.RecipeInformation;
+import com.google.gson.internal.bind.util.ISO8601Utils;
+
 import java.io.*;
 import java.util.*;
 
@@ -12,25 +15,29 @@ public class Favorite {
     private final int USERNAME = 0;
     private BufferedReader reader;
 
+    public Favorite() {
+        listOfRecipe = new ArrayList<>();
+    }
+
+
     public void launch() throws IOException {
-       System.out.println("hello");
-       if (this.isEmpty()) {
+        if (this.isEmpty()) {
             System.out.println("\n" + "⚠ Sorry favorite list is empty" + "\n");
-            Pane.setNextNodeNumber("WELCOME"); // If is empty user cannot go to the other node because it has no sense
+            Pane.setNextNodeNumber("MAIN_MENU"); // If is empty user cannot go to the other node because it has no sense
         }
-       else {
-            this.displayFavoriteList();
-            askToNextNode();
+        else {
+            displayFavoriteList();
+            System.out.println(askToNextNode());
             choiceNumberRecovered();
             changeCurrentNode();
-       }
+        }
     }
 
     public String askToNextNode() {
         return "What do you want to do ?" + "\n" +
-                "1. Menu" + "\n" +
-                "2. Get a recipe details" + "\n" +
-                "3. BACK";
+                "\t1. Menu" + "\n" +
+                "\t2. Get a recipe details" + "\n" +
+                "\t3. BACK";
     }
 
     public void choiceNumberRecovered() {
@@ -40,7 +47,7 @@ public class Favorite {
 
     public void changeCurrentNode() {
         switch (choice) {
-            case 1 -> Pane.setNextNodeNumber("WELCOME");
+            case 1 -> Pane.setNextNodeNumber("MAIN_MENU");
             case 2 -> Pane.setNextNodeNumber("RECIPE_DETAILS");
             case 3 -> Pane.back();
         }
@@ -54,15 +61,13 @@ public class Favorite {
             String[] tab = new String[0];
             while ((line = reader.readLine()) != null) {
                 tabOfRow = line.split("=");
-                String result = tabOfRow[1];
+                String result = tabOfRow[0];
                 for(int i = 0; i < result.length(); i++) {
                     tab = result.split(",");
                 }
             }
-
-            for(String s: tab) {
-                System.out.println(s);
-                RecipeInformation test = new RecipeInformation(s);
+            for(int i = 1; i < tab.length; i++) {
+                RecipeInformation test = new RecipeInformation(tab[i]);
                 System.out.println(test.displaySimple());
             }
 
@@ -79,35 +84,35 @@ public class Favorite {
     }
 
 
-   public boolean removeFromFavorite(Recipe recipe) throws IOException {
-       File file = new File("favorite.txt");
-       FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-       String value = "";
+    public boolean removeFromFavorite(Recipe recipe) throws IOException {
+        File file = new File("favorite.txt");
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+        String value = "";
 
-       reader = new BufferedReader(new FileReader("favorite.txt"));
-       String line;
-       while ((line = reader.readLine()) != null) {
-           List<String> myList = new ArrayList<String>(Arrays.asList(line.split(",")));
-           if(myList.get(USERNAME).equals(username)) {
-               for(String m : myList) {
-                   if (recipe.getId().equals(m)) {
-                       System.out.println("Recipe isn't in favorite\n");
-                       return false;
-                   }
-               }
-           }
-           System.out.println(value);
-           value += myList;
-       }
+        reader = new BufferedReader(new FileReader("favorite.txt"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            List<String> myList = new ArrayList<String>(Arrays.asList(line.split(",")));
+            if(myList.get(USERNAME).equals(username)) {
+                for(String m : myList) {
+                    if (recipe.getId().equals(m)) {
+                        System.out.println("Recipe isn't in favorite\n");
+                        return false;
+                    }
+                }
+            }
+            System.out.println(value);
+            value += myList;
+        }
 
-       value = value.replace(" ", "");
-       value = value.replace("[", "");
-       value = value.replace("]", "");
-       file.delete();
-       FileWriter fw2 = new FileWriter(file.getAbsoluteFile(), true);
-       fw2.append(value);
-       fw2.close();
-       return true;
+        value = value.replace(" ", "");
+        value = value.replace("[", "");
+        value = value.replace("]", "");
+        file.delete();
+        FileWriter fw2 = new FileWriter(file.getAbsoluteFile(), true);
+        fw2.append(value);
+        fw2.close();
+        return true;
     }
 
 
@@ -115,9 +120,12 @@ public class Favorite {
         reader = new BufferedReader(new FileReader("favorite.txt"));
         String line;
         String[] tabOfRow;
+        String[] tab;
         while ((line = reader.readLine()) != null) {
-            tabOfRow = line.split("=");
-            if(tabOfRow[USERNAME].equals(username) && tabOfRow[1].equals(" ,")){
+            tabOfRow = line.split(";");
+            String s = tabOfRow[0];
+            tab = s.split(",");
+            if(tab[USERNAME].equals(username) && tab[1].equals("none")) {
                 return true;
             }
         }
@@ -142,11 +150,12 @@ public class Favorite {
         File file = new File("favorite.txt");
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
         String value = "";
-
         reader = new BufferedReader(new FileReader("favorite.txt"));
         String line;
         while ((line = reader.readLine()) != null) {
             List<String> myList = new ArrayList<String>(Arrays.asList(line.split(",")));
+            if(myList.get(1).equals("none"))
+                myList.remove("none");
             if(myList.get(USERNAME).equals(username)) {
                 for(String m : myList) {
                     if (recipe.getId().equals(m)) {
@@ -154,7 +163,8 @@ public class Favorite {
                         return false;
                     }
                 }
-                myList.add(recipe.getId() + "\n");
+
+                myList.add(recipe.getId() + ",\n");
             }
             value += myList;
         }
@@ -167,7 +177,5 @@ public class Favorite {
         fw2.append(value);
         fw2.close();
         return true;
-   }
-
-
+    }
 }
