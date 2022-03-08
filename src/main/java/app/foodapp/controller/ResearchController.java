@@ -181,7 +181,7 @@ public class ResearchController extends recipeListController {
     public void displayIngredientsAdded() {
         this.ingredientsAddedDisplay.getChildren().clear();
         for (String ingredient : this.ingredients) {
-            Label ingredientAdded = new Label(ingredient);
+            Label ingredientAdded = new Label(setFirstLetterToUpperCase(ingredient));
             ingredientAdded.getStyleClass().add("label-ingredientAdded");
 
             HBox ingredientAddedBox = new HBox();
