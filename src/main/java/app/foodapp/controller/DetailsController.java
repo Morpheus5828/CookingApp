@@ -29,6 +29,7 @@ public class DetailsController extends MainController {
     @FXML private Text subTitleText;
 
     private Recipe recipe;
+    private BackController backController;
 
     public void getDetails(final Recipe recipe, final String currentButtonId, final String subTitle) {
         initDetailsPage(currentButtonId, subTitle);
