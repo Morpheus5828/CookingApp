@@ -6,13 +6,11 @@ public enum NodeName {
     FAVORITE(2),
     MEASURE_SYSTEM(3),
     RECIPE_DETAILS(4),
-    CLOSE_APP(5),
-    DISCONNECT(6);
-
-     NodeName(final int index) {}
+    CLOSE_APP(5);
+    NodeName(final int index) {}
 
     public static String getNode(int index) {
-         return NodeName.values()[index].name();
+        return NodeName.values()[index].name();
     }
 
     public static NodeName getNodeName(int index) {
