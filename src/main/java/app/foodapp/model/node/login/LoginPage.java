@@ -33,7 +33,7 @@ public final class LoginPage {
             String line;
             String[] tabOfRow = new String[0];
             while((line = reader.readLine()) != null)
-                 tabOfRow = line.split(",");
+                tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText())) {
                 loginAccepted();
                 Favorite.username = usernameEntered.getText();
@@ -97,11 +97,10 @@ public final class LoginPage {
             while((line = reader.readLine()) != null)
                 tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli)) {
-                Pane.loginSuccessfull = true;
+                System.out.println(userNameForCli.length());
                 Favorite.username = userNameForCli;
+                Pane.loginSuccessfull = true;
             }
-
-
             else {
                 System.out.println("\n\t⚠ Username or password doesn't exist\n");
                 this.launch();
