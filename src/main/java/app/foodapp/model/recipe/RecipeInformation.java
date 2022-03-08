@@ -150,6 +150,10 @@ public class RecipeInformation {
         return this.recipeForFavorite.displaySimpleCharacteristics();
     }
 
+    public Recipe displayRecipe() {
+        return this.recipeForFavorite;
+    }
+
     public String display() {
         String result = "";
         for(int i = 0; i < listOfRecipe.size(); i++) {

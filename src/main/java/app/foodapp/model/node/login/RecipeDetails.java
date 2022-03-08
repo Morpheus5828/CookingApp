@@ -1,5 +1,7 @@
-package app.foodapp.model.node;
+package app.foodapp.model.node.login;
 
+import app.foodapp.model.node.GetRecipeByIngredient;
+import app.foodapp.model.node.Pane;
 import app.foodapp.model.recipe.Recipe;
 import app.foodapp.model.alert.AlertFound;
 

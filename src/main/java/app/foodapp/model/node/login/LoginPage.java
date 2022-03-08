@@ -1,13 +1,10 @@
 package app.foodapp.model.node.login;
 
-import app.foodapp.controller.ProfileController;
-import app.foodapp.controller.ResearchController;
 import app.foodapp.model.alert.AlertFound;
 import app.foodapp.model.node.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -37,10 +34,8 @@ public final class LoginPage {
             while((line = reader.readLine()) != null)
                 tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(usernameEntered.getText()) && tabOfRow[PASSWORD].equals(passwordEntered.getText())) {
-                loginAccepted(actionEvent);
-                ProfileController.USERNAME = usernameEntered.getText();
-                ProfileController.PASSWORD = passwordEntered.getText();
-                //Favorite.username = usernameEntered.getText();
+                loginAccepted();
+                Favorite.username = usernameEntered.getText();
             }
 
             else AlertFound.loginFieldNotExist();
@@ -53,36 +48,20 @@ public final class LoginPage {
 
 
     @FXML
-    private void creationOfAnAccount(ActionEvent actionEvent) throws IOException {
+    private void creationOfAnAccount(javafx.event.ActionEvent actionEvent) throws IOException {
+        Stage sgnUpStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/register/sign_up.fxml"));
-        Stage sgnUpStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        sgnUpStage.setScene(scene);
+        sgnUpStage.setTitle("Cooking App");
+        sgnUpStage.setScene(new Scene(root));
         sgnUpStage.show();
-
     }
 
-    private void loginAccepted(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
-            Parent root = loader.load();
-            ResearchController researchController = loader.getController();
-            researchController.welcomePage();
-            researchController.setRecipeResearch();
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/globalStylesheet.css").toExternalForm());
-            scene.getStylesheets().add(this.getClass().getResource("/app/foodapp/view/stylesheet/recipeListDisplayStylesheet.css").toExternalForm());
-
-            stage.setScene(scene);
-            stage.setX(0);
-            stage.setY(0);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loginAccepted() throws IOException {
+        Stage cookingAppStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/app/foodapp/view/foodapp.fxml"));
+        cookingAppStage.setTitle("Cooking App");
+        cookingAppStage.setScene(new Scene(root));
+        cookingAppStage.show();
     }
 
     // method just for CLI
@@ -117,10 +96,10 @@ public final class LoginPage {
             while((line = reader.readLine()) != null)
                 tabOfRow = line.split(",");
             if (tabOfRow[USERNAME].equals(userNameForCli) && tabOfRow[PASSWORD].equals(passwordForCli)) {
+                System.out.println(userNameForCli.length());
+                Favorite.username = userNameForCli;
                 Pane.loginSuccessfull = true;
-                //Favorite.username = userNameForCli;
             }
-
             else {
                 System.out.println("\n\t⚠ Username or password doesn't exist\n");
                 this.launch();
