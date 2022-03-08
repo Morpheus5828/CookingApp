@@ -13,7 +13,7 @@ public class RecipeDetails {
 
     public void launch() {
         try {
-            askNextCurrentNode();
+            System.out.print(askNextCurrentNode());
             choiceNumber();
             changeCurrentNode();
         } catch (Exception e) {

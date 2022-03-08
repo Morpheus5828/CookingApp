@@ -87,8 +87,8 @@ public class GetRecipeByIngredient {
                 System.out.print("Enter menu number : ");
                 Scanner numberRecover2 = new Scanner(System.in);
                 int choiceNumber2 = numberRecover2.nextInt();
-                System.out.println("\n" + "you choose : " + RecipeInformation.listOfRecipe.get(choiceNumber2).getId());
-                RecipeDetails.recipe = RecipeInformation.listOfRecipe.get(choiceNumber2);
+                System.out.println("\n" + "you choose : " + recipeInformation.listOfRecipe.get(choiceNumber2).getId());
+                RecipeInformation.listOfRecipe.get(choiceNumber2).displayDetailsCharacteristics();
                 Pane.setNextNodeNumber("RECIPE_DETAILS");
             }
             case 3 -> {
